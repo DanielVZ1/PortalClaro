@@ -47,5 +47,6 @@
             </div>
         </div>
     </div>
+    <script src="<?php echo base_url; ?>Assets/js/respaldar.js"></script>
 </div>
 <?php include_once 'views/templates/footer.php'; ?>

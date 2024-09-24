@@ -69,29 +69,6 @@ function confirmarEliminarRespaldo(archivo) {
                 success: function (response) {
                     if (response.success) {
                         mostrarAviso('success', 'Respaldo eliminado exitosamente');
-
-                        let data = {
-                            idUser: idUsuario,
-                            idObjeto: 8,
-                            accion: "ELIMINACION",
-                            descripcion: `SE ELIMINÓ EL RESPALDO: ${nombreArchivo}`,
-                        };
-
-                        let url = base_url + "Bitacora/CrearEvento";
-                        axios.post(url, data).then((res) => {
-                            console.log(res);
-                            // Lógica adicional si es necesario
-                            // actualizarListaRespaldo();
-                            setTimeout(function () {
-                                location.reload();
-                            }, 2000);
-                        }).catch((error) => {
-                            mostrarAviso('error', 'Error al realizar la solicitud a la bitácora');
-                            console.error(error);
-                            setTimeout(function () {
-                                location.reload();
-                            }, 2000);
-                        });
                     } else {
                         mostrarAviso('error', `Error al eliminar el respaldo. Respuesta del servidor: ${JSON.stringify(response)}`);
                         setTimeout(function () {
