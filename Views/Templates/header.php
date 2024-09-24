@@ -65,13 +65,13 @@
             border-color: #D70B0B; /* Cambia el color del borde al pasar el mouse */
         }
         .circle img {
-            width: 60%; /* Ajusta el tamaño de la imagen */
+            width: 70%; /* Ajusta el tamaño de la imagen */
             height: auto;
         }
     </style>
 </head>
 <body class="sb-nav-fixed">
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: gris !important; height: 123px;">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: white !important; height: 123px;">
     <a href="<?php echo base_url; ?>Principal" style="display: inline-block; cursor: pointer; margin-left: 60px;">
         <img src="Assets/img/Claro03.png" alt="Logo" style="width: 90px; border-radius: 50%;">
     </a>
@@ -94,7 +94,7 @@
 
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
-        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="background-color: gris !important;">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="background-color: white !important;">
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading"></div>
@@ -104,7 +104,7 @@
                             <img src="Assets/img/Usuario.png" alt="Logo">
                         </div>
                     </a>
-                    <div class="menu-container" style="margin: auto; padding: 10px; position: relative; top: 5px;">
+                    <div class="menu-container" style="margin: auto; padding: 10px; position: relative; top: -10px;">
                         <div class="circle">
                             <img src="Assets/img/ClaroConfig2.png" alt="Logo">
                         </div>
@@ -114,9 +114,9 @@
                             <li><a href="<?php echo base_url;?>Respaldar">Restauración de BD</a></li>
                         </div>
                     </div>
-                    <div class="menu-container" style="margin: auto; padding: 10px; position: relative; top: 15px;">
+                    <div class="menu-container" style="margin: auto; padding: 10px; position: relative; top: -10px;">
                         <div class="circle">
-                            <img src="Assets/img/Comunidad.png" alt="Logo">
+                            <img src="Assets/img/Comunidad.png" alt="Logo" style="width: 85px">
                         </div>
                         <div class="menu-content">
                             <li><a href="<?php echo base_url;?>Promotores">Registro de Promotores</a></li>
@@ -125,9 +125,9 @@
                         </div>
                     </div>
 
-                    <a href="Views/Geolocation/index.html" class="nav-link active" aria-current="page" style="margin: auto; padding: 10px; position: relative; top: 0px;">
+                    <a href="Views/Geolocation/index.html" class="nav-link active" aria-current="page" style="margin: auto; padding: 10px; position: relative; top: -20px;">
                         <div class="circle">
-                            <img src="Assets/img/Localización.png" alt="Logo">
+                            <img src="Assets/img/Localización.png" alt="Logo" style="width: 83px">
                         </div>
                     </a>
 

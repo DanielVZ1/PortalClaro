@@ -11,7 +11,10 @@
         <!-- Sección de Respaldos -->
         <div class="col-md-6">
             <div class="mb-4">
-                <h2>Respaldos de Base de Datos</h2>
+                <h2 style="font-size: 24px;">Respaldos de Base de Datos</h2>
+                <div class="mb-4">
+                    <button class="btn btn-success" id="btnCrearRespaldo">Crear Nuevo Respaldo</button>
+                </div>
                 <ul class="list-group" id="respaldoList">
                     <?php
                     $archivos_sql = glob('backups/*.sql');
@@ -21,16 +24,13 @@
                     ?>
                 </ul>
             </div>
-            <div class="mb-4">
-                <button class="btn btn-success" id="btnCrearRespaldo">Crear Nuevo Respaldo</button>
-            </div>
         </div>
 
         <!-- Sección de Restauración de Base de Datos -->
         <div class="col-md-6">
             <div>
-                <h2>Restauración de Base de Datos</h2>
-                <form method="post" action="restaurar.php">
+                <h2 style="font-size: 24px;">Restauración de Base de Datos</h2>
+                <form method="post" action="restaurar.php" id="restaurarForm">
                     <div class="mb-3">
                         <label for="archivoRespaldo" class="form-label">Selecciona el archivo de respaldo:</label>
                         <select class="form-select" id="archivoRespaldo" name="archivoRespaldo" required>
@@ -48,5 +48,4 @@
         </div>
     </div>
 </div>
-
 <?php include_once 'views/templates/footer.php'; ?>

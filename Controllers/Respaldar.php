@@ -1,16 +1,15 @@
 <?php
    class Respaldar extends Controller{
     public function __construct(){
+      parent::__construct();  
         session_start();
-        parent::__construct();      
+            
       }
-    public function index()
-    {
-      if (empty($_SESSION['activo'])){
-        header("location:".base_url);
+      public function index()
+      {
+        $data['title'] = 'DATOS DE LOS RESPALDOS';
+        $data['script'] = 'respaldar.js';
+        $this->views->getView1('Respaldar', 'respaldar', $data);
       }
-      $this->views->getView($this,"respaldar");
-      
-    } 
    }
 ?>

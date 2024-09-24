@@ -51,9 +51,7 @@
         <script src="<?php echo base_url; ?>Assets/js/chart.min.js"></script>
   
         <script src="<?php echo base_url; ?>Assets/js/funciones.js"></script>
-        <script>
-            let idUsuario = <?php echo json_encode($_SESSION['id']); ?>;
-        </script>
+
  
     </body>
 </html>
