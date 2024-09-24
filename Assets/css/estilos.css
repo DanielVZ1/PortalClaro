@@ -1,0 +1,50 @@
+.container {
+    background: white;
+    width: 350px;
+    height: 500px;
+    position: sticky;
+    left: 800px;
+    top: 20px;
+}
+
+.background-sesion{
+   background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: red;
+}
+
+.container-fluid {
+    margin: auto;
+    border: black;
+    padding-block: 50px;
+    padding-inline: 100px;
+}
+
+#sesion {
+    margin-left: 10px;
+    margin-bottom: 2px;
+    text-align: end;
+    text-emphasis-style: revert;
+}
+
+.inputs {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+}
+
+.btn-sesion {
+    margin-top: 20px;
+    margin-left: -50px;
+    padding: 4px;
+    text-decoration-color: gold;
+    background-color: red;
+    color: aliceblue;
+    border-color: chocolate;
+    border-radius: 20%;
+}
+
+

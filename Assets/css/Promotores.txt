@@ -1,0 +1,75 @@
+public function registrar()
+{
+    $codigo = $_POST['codigo'];
+    $dni = $_POST['dni'];
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $telefono = $_POST['telefono'];
+    $profesion = $_POST['profesion'];
+    $estado_civil = $_POST['estado_civil'];
+    $genero = $_POST['genero'];
+    $direccion = $_POST['direccion'];
+    $zona = $_POST['zona'];
+    $departamento = $_POST['departamento'];
+    $municipio = $_POST['municipio'];
+    $gerencia = $_POST['gerencia'];
+    $canal = $_POST['canal'];
+    $proyecto = $_POST['proyecto'];
+    $cargo = $_POST['cargo'];
+    $id = $_POST['id'];
+    $img = $_FILES['imagen'];
+    $name = $img['name'];
+    $tmpname = $img['tmp_name'];
+    $fecha = date("YmdHis");
+
+    if (empty($codigo) || empty($dni) || empty($nombre) || empty($apellido) || empty($telefono) || empty($profesion) || empty($direccion)) {
+        $msg = "Todos los campos son obligatorios";
+    } else {
+        // Determinar el nombre de la imagen
+        if (!empty($name)) {
+            $imgNombre = $fecha . ".png";
+            $destino = "Assets/imgBD/" . $imgNombre;
+        } else if (!empty($_POST['foto_actual'])) {
+            // Mantener la foto actual si no hay una nueva imagen
+            $imgNombre = $_POST['foto_actual'];
+        } else {
+            // Usar imagen por defecto si no hay imagen
+            $imgNombre = "default.png";
+        }
+
+        if ($id == "") {
+            // Registro de nuevo promotor
+            $data = $this->model->registrarPromotor($codigo, $dni, $nombre, $apellido, $telefono, $profesion, $estado_civil, $genero, $direccion, $zona, $departamento, $municipio, $gerencia, $canal, $proyecto, $cargo, $imgNombre);
+            if ($data == "ok") {
+                if (!empty($name)) {
+                    move_uploaded_file($tmpname, $destino); // Para la foto
+                }
+                $msg = "si";
+            } else if ($data == "existe") {
+                $msg = "El Promotor ya existe";
+            } else {
+                $msg = "Error al registrar el Promotor";
+            }
+        } else {
+            // Actualización de promotor existente
+            $imgDelete = $this->model->editarPromotor($id);
+            // Eliminar foto anterior solo si hay una nueva imagen
+            if (!empty($name)) {
+                if ($imgDelete['foto'] != 'default.png' && file_exists("Assets/imgBD/" . $imgDelete['foto'])) {
+                    unlink("Assets/imgBD/" . $imgDelete['foto']);
+                }
+                // Mover la nueva imagen
+                move_uploaded_file($tmpname, $destino);
+            }
+
+            $data = $this->model->modificarPromotor($codigo, $dni, $nombre, $apellido, $telefono, $profesion, $estado_civil, $genero, $direccion, $zona, $departamento, $municipio, $gerencia, $canal, $proyecto, $cargo, $imgNombre, $id);
+            if ($data == "modificado") {
+                $msg = "modificado";
+            } else {
+                $msg = "Error al modificar el Promotor";
+            }
+        }
+    }
+    echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+    die();
+}

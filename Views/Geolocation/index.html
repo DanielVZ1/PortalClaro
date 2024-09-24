@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<!--
+		Tomar una fotografía y guardarla en un archivo v3
+	-->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="Assets/css/estilos.css">
+  <title>Geolocation </title>
+
+</head>
+
+<body style="background-color: #D70B0B !important;">
+	  <button id="getLocation">Obtener ubicación</button>
+     <br>
+      <a id="locationResult" target="_blank"></a>
+
+    <script>
+      const locationResult = document.querySelector('#locationResult');
+      document.querySelector('#getLocation').addEventListener('click', () => {
+      locationResult.textContent = 'Recuperando la Ubicacion del Usuario...'
+  
+      function success(position) {
+        let { coords } = position;
+        locationResult.textContent = 'Vea mi ubicacion en un mapa';
+        locationResult.href = `https://www.openstreetmap.org?mlat=${coords.latitude}&mlon=${coords.longitude}`;
+      }
+  
+      navigator.geolocation.getCurrentPosition(success);
+    });
+  </script>
+
+</body>
+<script src="Views/Geolocation/Geolocation.js"></script>
+
+</html>

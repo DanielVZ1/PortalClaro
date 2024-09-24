@@ -1,0 +1,108 @@
+.container {
+    background: white;
+    width: 200px;
+    height: 600px;
+    position: left;
+    left: 1000px;
+    top: 10px;
+}
+
+.background-sesion{
+   background-repeat: no-repeat;
+    background-position: right 08px;
+    background-size: small;
+    background-color: red;
+    background-image: url(../img/Claro01.jpg)
+}
+
+.container-fluid {
+    margin: auto;
+    border: black;
+    padding-block: 80px;
+    padding-inline: 120px;
+}
+
+#sesion {
+margin-left: 60px;
+    margin-bottom: 40px;
+    text-align: center;
+    text-emphasis-style: revert;
+}
+
+.inputs {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.btn-sesion {
+margin-top: 20px;
+    margin-left: 60px;
+    padding: 4px;
+    text-decoration-color: gold;
+    background-color: red;
+    color: aliceblue;
+    border-color: chocolate;
+    border-radius: 20%;
+}
+
+.container-1 {
+    background: white;
+    width: 1015px;
+    height: 150px;
+    position: absolute;
+    right: 10px;
+    top: 08px;
+}
+
+
+
+/* Estilos generales para el cuerpo de la página */
+.body {
+    display: flex; /* Usa Flexbox para el diseño, permitiendo centrar el contenido fácilmente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    height: 100vh; /* Ajusta la altura del cuerpo a todo el viewport */
+    background-color: #333; /* Establece un color de fondo oscuro para el cuerpo de la página */
+    color: #fff; /* Establece el color del texto a blanco */
+    font-family: 'Arial', sans-serif; /* Usa Arial como la fuente principal, con una alternativa sans-serif */
+    font-size: 60px; /* Ajusta el tamaño del texto a 60px para hacerlo grande y legible */
+}
+
+/* Estilos específicos para el elemento que tiene la clase 'reloj' */
+.reloj {
+    padding: 0px; /* Añade un relleno alrededor del contenido para separarlo del borde */
+    border: opx; /* Establece un borde sólido blanco alrededor del elemento */
+    border-radius: px; /* Redondea las esquinas del borde para suavizar el diseño */
+}
+input[type = "checkbox"]{
+    position: relative;
+    width: 60px;
+    height: 30px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: rgb(168, 168, 168);
+    outline: none;
+    border-radius: 15px;
+    box-shadow: inset 0 0 5px rgb(0, 0, .5);
+
+}
+input:checked[type = "checkbox"]{
+    background: rgb(0, 123, 255);
+}
+input[type = "checkbox"]:before{
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 20x;
+    top: 0;
+    left: 0;
+    background: white;
+    transition: 0.5s;
+
+}
+input:checked[type = "checkbox"]:before{
+    left: 30px;
+}
