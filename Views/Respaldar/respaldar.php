@@ -2,7 +2,7 @@
 
 <ol class="breadcrumb mb-4 bg-primary">
     <li class="breadcrumb-item active text-white">
-        <h4 style="color:red">Gestión de Respaldos</h4>
+        <h4 style="color:red">Gestión se modifica de Respaldos</h4>
     </li>
 </ol>
 
