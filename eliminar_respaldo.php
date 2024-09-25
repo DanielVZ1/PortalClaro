@@ -36,5 +36,3 @@ http_response_code(400); // Establecer código de error 400 (Solicitud incorrect
 echo json_encode(['success' => false, 'error' => 'Error al procesar la solicitud']);
 exit; // Finalizar la ejecución después de enviar la respuesta de error
 ?>
-
-//

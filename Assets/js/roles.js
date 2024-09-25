@@ -1,7 +1,7 @@
-let rol;
+let tblRoles;
 const btnAccion = document.querySelector('#btnAccion');
 const btnNuevo = document.querySelector('#btnNuevo');
-const formulario = document.querySelector('#frmRoles');
+const formulario = document.querySelector('#formulario');
 
 const roles = document.querySelector("#roles");
 const numeros = document.querySelector("#numeros");
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ///🌟🌟🌟🌟🌟🌟🌟🌟🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰
 
     //cargar datos con el plugin datatables
-    rol = $('rol').DataTable({
+    tblRoles = $('#tblRoles').DataTable({
         ajax: {
             url: base_url + 'roles/listar',
             dataSrc: ''
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         responsive: true,
         order: [[0, 'desc']],
     });
-    console.log(rol);
+    console.log(tblRoles);
     let data = {
         idUser: idUsuario,
         idObjeto: 1,

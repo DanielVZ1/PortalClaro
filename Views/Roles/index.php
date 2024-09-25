@@ -1,10 +1,4 @@
-<?php include "Views/Templates/header.php"; ?>
-
-<ol class="breadcrumb mb-4 bg-primary">
-    <li class="breadcrumb-item active text-white">
-        <h4 style="color:red">ROLES</h4>
-    </li>
-</ol>
+<?php include_once 'views/templates/header.php'; ?>
 
 <div class="card">
     <div class="card-body">
@@ -18,7 +12,7 @@
 
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active mt-2" id="nav-roles" role="tabpanel" aria-labelledby="nav-roles-tab" tabindex="0">
-            <h5 class="card-title text-center" style="color: red;"><i class="fas fa-list"></i> Listado de Roles</h5>
+                <h5 class="card-title text-center"><i class="fas fa-list"></i> Listado de Roles</h5>
                 <hr>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover nowrap" id="tblRoles" style="width: 100%;">
@@ -27,6 +21,10 @@
                                 <th>Estado</th>
                                 <th>Nombre Rol</th>
                                 <th></th>
+                                <!--<th>Leer</th>
+                                <th>Escribir</th>
+                                <th>Actualizar</th>
+                                <th>Eliminar</th>-->
                             </tr>
                         </thead>
 
