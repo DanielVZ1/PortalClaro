@@ -69,6 +69,9 @@ function confirmarEliminarRespaldo(archivo) {
                 success: function (response) {
                     if (response.success) {
                         mostrarAviso('success', 'Respaldo eliminado exitosamente');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
                     } else {
                         mostrarAviso('error', `Error al eliminar el respaldo. Respuesta del servidor: ${JSON.stringify(response)}`);
                         setTimeout(function () {
