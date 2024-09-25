@@ -30,6 +30,18 @@ class Query extends Conexion {
         $data = $insert->execute($this->datos);
         return $data ? 1 : 0;
     }
+    
+    public function insertar($sql, $array)
+    {
+        $result = $this->con->prepare($sql);
+        $data = $result->execute($array);
+        if ($data){
+            $res = $this->con->lastInsertId();
+        }else {
+            $res = 0;
+        }
+        return $res;
+    }
 
     public function selectWithParams(string $sql, array $params) {
         $this->sql = $sql;
