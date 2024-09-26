@@ -5,7 +5,7 @@ $usuario = 'root';
 $contraseña = '';
 $base_de_datos = 'sistema';
 
-// Ruta donde se guardarán los archivos de respaldo (en la carpeta 'backup' dentro del directorio actual)
+// Ruta donde se guardarán los archivos de respaldo (en la carpeta 'Backups' dentro del directorio actual)
 $ruta_respaldos = __DIR__ . '/Backups';
 
 
