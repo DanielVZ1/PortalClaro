@@ -20,7 +20,6 @@
           if ($data[$i]['estado'] == 1) {
             $data[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
             $data[$i]['acciones'] = '<div>
-              <a class="btn btn-dark" href="'.base_url.'Usuarios/Permisos/' .$data[$i]['id']. '"><i class="fas fa-key"></i></a>
               <button class="btn btn-primary" type="button" onclick="btnEditarUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
               <button class="btn btn-danger" type="button" onclick="btnEliminarUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
             <div/>';
@@ -135,23 +134,13 @@
         echo json_encode($msg, JSON_UNESCAPED_UNICODE);
         die();
       }
-      public function permisos($id)
+      
+      public function getRoles($id)
       {
-        if (empty($_SESSION['activo'])){
-          header("location:" . base_url);
-        }
-        $data['datos']= $this->model->getPermisos();
-        $data['id_usuario']= $id;
-        $this->views->getView($this,"permisos",$data);
-      }
-      public function registrarPermisos()
-      {
-        $id_user = $_POST['id_usuario'];
-        $eliminar = $this->model->eliminarPermisos($id_user);
-        foreach($_POST['permisos'] as $id_permiso){
-          $this->model->registrarPermisos($id_user, $id_permiso);
-
-        }
+          $data = $this->model->getRoles($id);
+          $res = array('roles' => $data, 'type' => 'success');
+          echo json_encode($res, JSON_UNESCAPED_UNICODE);
+          die();
       }
       public function salir()
       {

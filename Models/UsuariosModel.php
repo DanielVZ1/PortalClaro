@@ -7,10 +7,14 @@
         }
 
         public function getUsuario(string $usuario) {
-            $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
+            $sql = "SELECT u.id, u.usuario, u.nombre, u.email, u.clave, u.id_caja, u.estado, r.ROL AS rol 
+                    FROM usuarios u 
+                    JOIN roles r ON u.id = r.id 
+                    WHERE u.usuario = '$usuario'";
             $data = $this->select($sql);
             return $data;
         }
+        
         
 
         public function getCajas()
@@ -111,29 +115,11 @@
             $params = [':codigo' => $codigo, ':email' => $email];
             return $this->save($sql, $params);
         }
-        public function getPermisos()
+
+        public function getRoles($rol)
         {
-            $sql = "SELECT * FROM permisos";
-            $data = $this->selectAll($sql);
-            return $data;
-        }
-
-
-        public function registrarPermisos(int $id_user, int $id_permiso)
-        {
-            $sql = "INSERT INTO detalle_permisos(id_usuario, id_permiso) VALUES (?,?) ";
-            $datos = array($id_user, $id_permiso);
-            $data = $this->save($sql, $datos);
-            return $data;
-
-        }
-        public function eliminarPermisos(int $id_user)
-        {
-            $sql = "DELETE FROM detalle_permisos WHERE id_usuario = ?";
-            $datos = array($id_user);
-            $data = $this->save($sql, $datos);
-            return $data;
-
+            $sql = "SELECT id, ROL, DESCRIPCION, ROL_EST, FECHA_CREACION FROM roles WHERE ROL_EST != $rol";
+            return $this->selectAll($sql);
         }
     } 
     
