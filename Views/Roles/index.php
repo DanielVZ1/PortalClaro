@@ -11,6 +11,7 @@
         </nav>
 
         <div class="tab-content" id="nav-tabContent">
+            <!-- Listado de Roles -->
             <div class="tab-pane fade show active mt-2" id="nav-roles" role="tabpanel" aria-labelledby="nav-roles-tab" tabindex="0">
                 <h5 class="card-title text-center"><i class="fas fa-list"></i> Listado de Roles</h5>
                 <hr>
@@ -21,20 +22,15 @@
                                 <th>Estado</th>
                                 <th>Nombre Rol</th>
                                 <th></th>
-                                <!--<th>Leer</th>
-                                <th>Escribir</th>
-                                <th>Actualizar</th>
-                                <th>Eliminar</th>-->
                             </tr>
                         </thead>
-
                         <tbody>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-
+            <!-- Formulario de Nuevo Rol -->
             <div class="tab-pane fade" id="nav-nuevo" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <form class="p-4" id="formulario" autocomplete="off">
                     <input type="hidden" id="id" name="id">
@@ -43,7 +39,7 @@
                             <label>Rol</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="fas fa-list"></i></span>
-                                <input type="text" id="roles" maxlength="25" onkeyup="javascript:this.value=this.value.toUpperCase();" oninput="this.value = this.value.replace(/\s{2,}/g, ' ').replace(/[^a-zA-ZñÑ\s]/g, '');" name="roles" class="form-control" placeholder="Nobre del Rol">
+                                <input type="text" id="roles" maxlength="25" onkeyup="javascript:this.value=this.value.toUpperCase();" oninput="this.value = this.value.replace(/\s{2,}/g, ' ').replace(/[^a-zA-ZñÑ\s]/g, '');" name="roles" class="form-control" placeholder="Nombre del Rol">
                             </div>
                             <span id="errorRoles" class="text-danger"></span>
                         </div>
@@ -51,12 +47,10 @@
                             <label>Descripción</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="fas fa-list-alt"></i></span>
-                                <input type="text" id="numeros" maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();" oninput="this.value = this.value.replace(/\s{2,}/g, ' ').replace(/[^a-zA-ZñÑ\s]/g, '');" name="numeros" class="form-control" placeholder="Descripcion">
+                                <input type="text" id="numeros" maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();" oninput="this.value = this.value.replace(/\s{2,}/g, ' ').replace(/[^a-zA-ZñÑ\s]/g, '');" name="numeros" class="form-control" placeholder="Descripción">
                             </div>
                             <span id="errorNumeros" class="text-danger"></span>
                         </div>
-
-
                     </div>
                     <div class="text-end">
                         <button class="btn btn-danger" type="button" id="btnNuevo">Cancelar</button>
@@ -64,10 +58,6 @@
                     </div>
                 </form>
             </div>
-
-            
-
-            
         </div>  
     </div>
 </div>
