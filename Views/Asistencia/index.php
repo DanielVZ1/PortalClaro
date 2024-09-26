@@ -7,21 +7,23 @@
         <h4 style="color:red">Asistencia</h4>
     </li>
 </ol>
-<button class="btn btn-primary mb-2" type="button" onclick="frmAsistencia();">Nuevo<i class="fas fa-plus"></i></button>
+<button class="btn btn-primary mb-2" type="button" onclick="frmAsistencia();"><i class="fas fa-plus"></i></button>
 <table class="table table-light" id="tblAsistencia">
     <thead class="thead-dark">
         <tr>
             <th>Id</th>
+            <th>Código Maestro</th>
             <th>DNI</th>
             <th>Nombre Completo</th>
             <th>Puesto de trabajo</th>
             <th>Proveedor</th>
             <th>Zona</th>
             <th>Supervisor</th>
-            <th>Asistencia</th>
             <th>Coordinador de proyecto</th>
-            <th>Latitud</th>
-            <th>Longitud</th>
+            <th>Hora Entrada</th>
+            <th>Hora Salida</th>
+            <th>Foto<th>
+            <th>Geolocalización</th>
             <th>Estado</th>
             <th></th>
         </tr>
