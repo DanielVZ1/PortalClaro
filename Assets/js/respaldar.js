@@ -104,55 +104,18 @@ document.getElementById('btnCrearRespaldo').addEventListener('click', function (
 // restaurar.js
 
 document.addEventListener('DOMContentLoaded', function () {
-   
     var btnRestaurar = document.getElementById('btnRestaurarBaseDatos');
     var archivoRespaldo = document.getElementById('archivoRespaldo');
 
     btnRestaurar.addEventListener('click', function (event) {
-        event.preventDefault();
-     
-        if (archivoRespaldo.files.length > 0) {
-            var selectedFile = archivoRespaldo.files[0];
-
-            if (esExtensionSQL(selectedFile.name)) {
-                if (selectedFile.size > 0) {
-                    var loadingMessage = mostrarAviso1('info', 'Restaurando Base de Datos, Espere...', true);
-                    var formData = new FormData();
-                    formData.append('archivoRespaldo', selectedFile);
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'http://localhost/PortalClaro/Backups/restore.php', true);
-                    xhr.onload = function () {
-                        loadingMessage.close();
-
-                        if (xhr.status === 200) {
-                            var response = JSON.parse(xhr.responseText);
-                            if (response && response.message) {
-                                mostrarAviso2('success', response.message,);
-                            } else if (response && response.error) {
-                                mostrarAviso('error', response.error);
-                            } else {
-                                mostrarAviso('error', 'Error inesperado en la respuesta del servidor.');
-                            }
-                        } else {
-                            mostrarAviso('error', 'Error en la solicitud al servidor. Código de estado: ' + xhr.status);
-                        }
-                    };
-                    xhr.send(formData);
-                } else {
-                    mostrarAviso('error', 'El archivo seleccionado está vacío. Por favor, seleccione un archivo con contenido.');
-                }
-            } else {
-                mostrarAviso('error', 'Por favor, seleccione un archivo con extensión .sql');
-            }
+        // Comprobamos si se seleccionó un archivo
+        if (archivoRespaldo.value) {
+            var loadingMessage = mostrarAviso1('info', 'Restaurando Base de Datos, Espere...', true);
         } else {
             mostrarAviso('error', 'Por favor, seleccione un archivo antes de intentar restaurar.');
+            event.preventDefault(); // Prevenir el envío si no hay selección
         }
     });
-
-    function esExtensionSQL(nombreArchivo) {
-        return nombreArchivo.toLowerCase().endsWith('.sql');
-    }
 
     function mostrarAviso(icon, mensaje) {
         Swal.fire({

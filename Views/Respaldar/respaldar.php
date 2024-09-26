@@ -28,24 +28,26 @@
 
         <!-- Sección de Restauración de Base de Datos -->
         <div class="col-md-6">
-            <div>
-                <h2 style="font-size: 24px;">Restauración de Base de Datos</h2>
-                <form method="post" action="restaurar.php" id="restaurarForm">
-                    <div class="mb-3">
-                        <label for="archivoRespaldo" class="form-label">Selecciona el archivo de respaldo:</label>
-                        <select class="form-select" id="archivoRespaldo" name="archivoRespaldo" required>
-                            <option value="">Seleccione un archivo</option>
-                            <?php
-                            foreach ($archivos_sql as $archivo_sql) {
-                                echo '<option value="' . $archivo_sql . '">' . basename($archivo_sql) . '</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <button type="submit" id="btnRestaurarBaseDatos" class="btn btn-primary">Restaurar Base de Datos</button>
-                </form>
+    <div>
+        <h2 style="font-size: 24px;">Restauración de Base de Datos</h2>
+        <form method="post" id="restaurarForm">
+            <div class="mb-3">
+                <label for="archivoRespaldo" class="form-label">Selecciona el archivo de respaldo:</label>
+                <select class="form-select" id="archivoRespaldo" name="archivoRespaldo" required>
+                    <option value="">Seleccione un archivo</option>
+                    <?php
+                    // Suponiendo que $archivos_sql es un array de nombres de archivos .sql
+                    foreach ($archivos_sql as $archivo_sql) {
+                        echo '<option value="' . $archivo_sql . '">' . basename($archivo_sql) . '</option>';
+                    }
+                    ?>
+                </select>
             </div>
-        </div>
+            <button type="submit" id="btnRestaurarBaseDatos" class="btn btn-primary">Restaurar Base de Datos</button>
+        </form>
+    </div>
+</div>
+
     </div>
     <script src="<?php echo base_url; ?>Assets/js/respaldar.js"></script>
 </div>
