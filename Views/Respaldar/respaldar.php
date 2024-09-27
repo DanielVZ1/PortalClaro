@@ -17,7 +17,7 @@
                 </div>
                 <ul class="list-group" id="respaldoList">
                     <?php
-                    $archivos_sql = glob('Backups/Backups/*.sql');
+                    $archivos_sql = glob('Backups/*.sql');
                     foreach ($archivos_sql as $archivo_sql) {
                         echo '<li class="list-group-item d-flex justify-content-between align-items-center">' . basename($archivo_sql) . ' <button class="btn btn-danger btnEliminar ml-auto" data-archivo="' . $archivo_sql . '" onclick="confirmarEliminarRespaldo(\'' . $archivo_sql . '\')">Eliminar</button></li>';
                     }
