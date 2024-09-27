@@ -5,13 +5,9 @@ $usuario = 'root';
 $contraseña = '';
 $base_de_datos = 'sistema';
 
-// Ruta donde se guardarán los archivos de respaldo
+// Ruta donde se guardarán los archivos de respaldo (en la carpeta 'Backups' dentro del directorio actual)
 $ruta_respaldos = __DIR__ . '/Backups';
 
-// Crear la carpeta de respaldos si no existe
-if (!is_dir($ruta_respaldos)) {
-    mkdir($ruta_respaldos, 0777, true);
-}
 
 // Intentar establecer la conexión a la base de datos
 try {
@@ -25,20 +21,20 @@ try {
     date_default_timezone_set('America/Tegucigalpa');
     $fecha_hora = date('Y-m-d_H.i.s');
 
-    // Nombre del archivo de respaldo
-    $archivo_respaldar = "$base_de_datos" . "_$fecha_hora.sql";
+    // Nombre del archivo de respaldo con nombre de la base de datos y fecha y hora
+    $archivo_respaldar = str_replace('Backups', '', "$base_de_datos" . "_$fecha_hora.sql");
 
-    // Comando para hacer el respaldo usando la ruta completa a mysqldump
-    $comando = "C:\\xampp\\mysql\\bin\\mysqldump.exe --host=$host --user=$usuario --password=$contraseña --databases $base_de_datos > $ruta_respaldos\\$archivo_respaldar 2>&1";
+    // Comando para hacer el respaldo usando mysqldump con la ruta y nombre de archivo personalizados
+    $comando = "mysqldump --host=$host --user=$usuario --password=$contraseña --databases $base_de_datos > $ruta_respaldos$archivo_respaldar";
 
     // Ejecutar el comando para hacer el respaldo
     exec($comando);
 
     // Verificar si el respaldo se ha creado correctamente
-    if (file_exists($ruta_respaldos . '\\' . $archivo_respaldar)) {
-        echo json_encode(array("message" => "¡Respaldo creado correctamente en la carpeta 'Backups'!"));
+    if (file_exists($ruta_respaldos . $archivo_respaldar)) {
+        echo json_encode(array("message" => "¡Respaldo creado correctamente en la carpeta 'backup'!"));
     } else {
-        echo json_encode(array("error" => "Error al crear el respaldo en la carpeta 'Backups'."));
+        echo json_encode(array("error" => "Error al crear el respaldo en la carpeta 'backup'."));
     }
 } catch (Exception $e) {
     // Manejar el error de conexión a la base de datos

@@ -16,10 +16,7 @@ function realizarRespaldo() {
                             location.reload();
                         }, 2000);
                     } else {
-                        mostrarAviso('success', 'Base de datos respaldada correctamente');
-                        setTimeout(function () {
-                            location.reload();
-                        }, 2000);
+                        mostrarAviso('error', 'Error al respaldar la base de datos');
                     }
                 } catch (error) {
                     mostrarAviso('error', 'Error al procesar la respuesta del servidor');
@@ -104,6 +101,7 @@ document.getElementById('btnCrearRespaldo').addEventListener('click', function (
     realizarRespaldo(); // Llamar a la función realizarRespaldo() cuando se hace clic en el botón
 });
 
+
 // restaurar.js
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -124,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     formData.append('archivoRespaldo', selectedFile);
 
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'http://localhost/PortalClaro/Backups/restore.php', true);
+                    xhr.open('POST', 'http://localhost/proyectoRRHH/backups/restore.php', true);
                     xhr.onload = function () {
                         loadingMessage.close();
 
@@ -214,7 +212,5 @@ function mostrarAviso2(icon, mensaje) {
         location.reload();
     });
 }
-
-
 
 
