@@ -142,18 +142,18 @@
                         <input class="form-control" id="coordinador" name="coordinador" type="text" required>
                     </div>
                     <div class="col">
-                        <label for="horaEntrada" class="form-label">Hora de Entrada:</label>
-                        <input class="form-control" id="horaEntrada" name="horaEntrada" type="time" required>
+                        <label for="foto" class="form-label">Foto:</label>
+                        <input class="form-control" id="foto" name="foto" type="file" accept="image/*" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="horaSalida" class="form-label">Hora de Salida:</label>
-                        <input class="form-control" id="horaSalida" name="horaSalida" type="time" required>
+                        <label for="horaEntrada" class="form-label">Hora de Entrada:</label>
+                        <input class="form-control" id="horaEntrada" name="horaEntrada" type="time" required>
                     </div>
                     <div class="col">
-                        <label for="foto" class="form-label">Foto:</label>
-                        <input class="form-control" id="foto" name="foto" type="file" accept="image/*" required>
+                        <label for="horaSalida" class="form-label">Hora de Salida:</label>
+                        <input class="form-control" id="horaSalida" name="horaSalida" type="time" required>
                     </div>
                 </div>
                 <div class="row mb-3">
