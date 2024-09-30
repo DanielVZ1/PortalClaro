@@ -9,7 +9,7 @@
       }
         public function index()
         {
-          $this->views->getView($this,"index",$data);
+          $this->views->getView($this,"index");
           
         } 
 

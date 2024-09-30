@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="<?php echo base_url; ?>Assets/img/Claro01.png" type="image/png">
-    <title>Login</title>
+    <title>Asistencia de Promotor</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="<?php echo base_url; ?>Assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url; ?>Assets/css/estilo.css">
     <link rel="stylesheet" href="<?php echo base_url; ?>Assets/css/sweetalert2.min.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>Assets/css/material-design-iconic-font.min.css">
-    <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?php echo base_url; ?>Assets/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="<?php echo base_url; ?>Assets/css/styles.css">
 
     <!-- JS -->
     <script src="<?php echo base_url; ?>Assets/js/jquery-3.3.1.min.js"></script>
@@ -29,8 +29,8 @@
 
     <style>
         body {
-            background-color: transparent; /* Fondo transparente para que el fondo animado sea visible */
-            overflow: hidden; /* Evita el desplazamiento */
+            background-color: transparent;
+            overflow: hidden;
             margin: 0;
             padding: 0;
             position: relative;
@@ -42,50 +42,36 @@
             height: 100%;
             top: 0;
             left: 0;
-            z-index: -1; /* Asegúrate de que el fondo esté detrás del contenido */
+            z-index: -1;
         }
 
-        .sample-div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .wrap-login {
-            width: 100%;
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente para la forma */
-            padding: 20px;
+        .form-container {
+            color: #000;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative; /* Para asegurarse de que el contenido esté encima del fondo animado */
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            position: relative;
             z-index: 1;
+            background-color: rgba(255, 255, 255, 0.8);
         }
 
-        .wrap-login img {
-            width: 120px;
-        }
-
-        .login-form-title {
-            display: block;
-            text-align: center;
-            margin-bottom: 20px;
+        .form-container h2 {
             color: #000;
         }
 
-        .form-group label {
+        .form-container .form-label {
             color: #000;
         }
 
-        .form-control {
+        .form-container .form-control {
             background-color: #ffffff;
             border: 1px solid #ced4da;
             color: #000;
         }
 
-        .btn-primary,
-        .btn-light {
+        .form-container .btn-primary,
+        .form-container .btn-light {
             background-color: #ffffff;
             border: 1px solid #ced4da;
             color: #000;
@@ -95,63 +81,64 @@
             border-radius: 4px;
         }
 
-        .btn-primary:hover,
-        .btn-light:hover {
+        .form-container .btn-primary:hover,
+        .form-container .btn-light:hover {
             background-color: #ff0000;
             border-color: #cc0000;
             color: #ffffff;
         }
 
-        .btn-primary:active,
-        .btn-light:active {
+        .form-container .btn-primary:active,
+        .form-container .btn-light:active {
             transform: scale(0.95);
             background-color: #cc0000;
             border-color: #990000;
             color: #ffffff;
+        }
+
+        #dateTime {
+            color: #000;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            z-index: 2; /* Asegura que esté encima del fondo */
+            position: relative; /* Asegura que mantenga su posición relativa al resto del contenido */
         }
     </style>
 </head>
 
 <body>
     <div id="particles-js"></div>
-    <div class="sample-div">
-        <div class="wrap-login">
-            <form id="frmLogin">
-                <div style="margin: 01px; padding: 20px;">
-                    <center><img src="<?php echo base_url; ?>Assets/img/Claro03.png" alt="Logo" style="width: 110px"></center>
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
+        <div class="form-container card p-4">
+            <div class="text-center mb-4">
+                <img src="<?php echo base_url; ?>Assets/img/Claro03.png" alt="Logo" style="width: 120px;">
+            </div>
+            <div id="dateTime" class="text-center"></div>
+            <h2 class="text-center mb-4">Asistencia Promotores</h2>
+            <form id="frmRecuperar" action="#" method="post">
+                <div class="form-group mb-3">
+                    <label for="correo" class="form-label"><i class="fas fa-user"></i> Codigo Maestro:</label>
+                    <input class="form-control" id="correo" name="EmailRecuperar" type="code" placeholder="Codigo Maestro" autocomplete="off" required>
                 </div>
-                <span class="login-form-title">DISTRIBUCIÓN GESTOR DE PROMOTORES</span>
-                <div class="form-group">
-                    <label class="small mb-1" for="usuario"><i class="fas fa-user"></i> Usuario</label>
-                    <input class="form-control py-4" id="usuario" name="usuario" type="text" placeholder="Ingresar Usuario" />
-                </div>
-                <div class="form-group">
-                    <label class="small mb-1" for="clave"><i class="fas fa-key"></i> Contraseña</label>
-                    <div class="input-group">
-                        <input class="form-control py-4" id="clave" name="clave" type="password" placeholder="Ingrese Contraseña" />
-                    </div>
-                    </div>
-                        <div class="col-md-12 text-end"> <a href="<?php echo base_url . 'Recuperar/forgot' ?>">Olvidaste tu contraseña?</a>
-                    </div>
-                        <div class="col-md-3 text-end"> <a href="<?php echo base_url . 'AsistenciaPromotores/asistenciapromotores' ?>">Asistencia</a>
-                    </div>
-                    <label class="small mb-1" for="clave"></label>
-                    <div class="alert alert-danger text-center d-none" id="alerta" role="alert"></div>
-                    <div class="container-login-form-btn">
-                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                            <div class="wrap-login-form-btn">
-                                <div class="login-form-bgbtn"></div>
-                                <button class="login-form-btn" type="submit" onclick="frmLogin(event)">Iniciar Sesión</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="alert alert-danger text-center d-none" id="alerta" role="alert"></div>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-primary btn-lg" id="btnAccion">Entrar</button>
+                    <a href="<?php echo base_url; ?>" class="btn btn-light btn-lg"><i class="bx bx-arrow-back me-1"></i> Regresar</a>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Script JS adicional -->
     <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            document.getElementById('dateTime').innerText = now.toLocaleDateString('es-ES', options);
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime(); // Inicializa inmediatamente
+
         particlesJS('particles-js', {
             "particles": {
                 "number": {
@@ -230,7 +217,7 @@
             "retina_detect": true
         });
     </script>
-    <script src="<?php echo base_url; ?>Assets/js/login.js"></script>
+    <script src="<?php echo base_url; ?>Assets/js/Recuperar.js"></script>
 </body>
 
 </html>
