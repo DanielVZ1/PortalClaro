@@ -14,7 +14,8 @@
             <th>Id</th>
             <th>Código Maestro</th>
             <th>DNI</th>
-            <th>Nombre Completo</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
             <th>Puesto de trabajo</th>
             <th>Proveedor</th>
             <th>Zona</th>
