@@ -16,12 +16,29 @@ getModal('modalsRoles', $data)
            <li class="breadcrumb-item"><a href="<?php echo base_url;?>Roles"><?= $data['page_title'] ?></a></li>
         </ul>-->
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
-            <h5 class="card-title text-center"><i class="fas fa-list"></i>  LISTA DE ROLES</h5>
-        </div>
+                <div class="table-responsive">
+                    <table class="table table-light" id="tableRoles">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>NOMBRE</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>ESTADO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los datos serán cargados dinámicamente por DataTables -->
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
+        </div>       
     </div>
 </main>
+
 
 <?php include 'views/templates/footer.php'; ?>
