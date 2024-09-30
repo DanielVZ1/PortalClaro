@@ -117,8 +117,8 @@
             <h2 class="text-center mb-4">Asistencia Promotores</h2>
             <form id="frmRecuperar" action="#" method="post">
                 <div class="form-group mb-3">
-                    <label for="correo" class="form-label"><i class="fas fa-user"></i> Codigo Maestro:</label>
-                    <input class="form-control" id="correo" name="EmailRecuperar" type="code" placeholder="Codigo Maestro" autocomplete="off" required>
+                    <label for="correo" class="form-label"><i class="fas fa-user"></i> Codigo del Promotor:</label>
+                    <input class="form-control" id="codigo" name="CodigoMaestro" type="code" placeholder="Codigo Maestro" autocomplete="off" required>
                 </div>
                 <div class="alert alert-danger text-center d-none" id="alerta" role="alert"></div>
                 <div class="d-flex justify-content-between mt-4">
@@ -217,7 +217,7 @@
             "retina_detect": true
         });
     </script>
-    <script src="<?php echo base_url; ?>Assets/js/Recuperar.js"></script>
+    <script src="<?php echo base_url; ?>Assets/js/AsistenciaPromotores.js"></script>
 </body>
 
 </html>

@@ -133,7 +133,7 @@
                     </div>
                         <div class="col-md-12 text-end"> <a href="<?php echo base_url . 'Recuperar/forgot' ?>">Olvidaste tu contraseña?</a>
                     </div>
-                        <div class="col-md-3 text-end"> <a href="<?php echo base_url . 'AsistenciaPromotores/asistenciapromotores' ?>">Asistencia</a>
+                        <div class="col-md-12 text-end"> <a href="<?php echo base_url . 'AsistenciaPromotores/asistenciapromotores' ?>">Asistencia Promotor</a>
                     </div>
                     <label class="small mb-1" for="clave"></label>
                     <div class="alert alert-danger text-center d-none" id="alerta" role="alert"></div>
