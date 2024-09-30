@@ -51,6 +51,7 @@
         <script src="<?php echo base_url; ?>Assets/js/chart.min.js"></script>
   
         <script src="<?php echo base_url; ?>Assets/js/funciones.js"></script>
+        <script src="<?php echo base_url; ?>Assets/js/function_roles.js"></script>
 
  
     </body>

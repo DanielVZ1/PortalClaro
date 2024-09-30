@@ -1,4 +1,12 @@
 <?php
+
+function getModal(string $modalsRoles, $data)
+{
+    $view_modal = "Views/Templates/Modals/{$modalsRoles}.php";
+    require_once $view_modal;
+}
+
+
 function strClean($cadena)
 {
     $string = preg_replace(['/\s+/','/^\s|\s$/'],[' ',''], $cadena);
@@ -29,5 +37,7 @@ function strClean($cadena)
     $string = str_ireplace('==', '', $string);
     return $string;
 }
+
+
 
 ?>
