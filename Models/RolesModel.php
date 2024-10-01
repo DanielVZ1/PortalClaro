@@ -4,11 +4,17 @@ class RolesModel extends Query{
         parent::__construct();
     }
 
-    public function selectRoles() {
+
+    public function selectRoles()
+    {
         $sql = "SELECT * FROM rol WHERE estado != 0";
-        $request = $this->selectAll($sql);
-        return $request;
+        $data = $this->selectAll($sql);
+        return $data;
     }
-    
+
+
+
+
+
 }
 ?>
