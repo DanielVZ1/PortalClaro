@@ -148,12 +148,12 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="horaEntrada" class="form-label">Hora de Entrada:</label>
-                        <input class="form-control" id="horaEntrada" name="horaEntrada" type="time" required>
+                        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
+                        <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" required>
                     </div>
                     <div class="col">
-                        <label for="horaSalida" class="form-label">Hora de Salida:</label>
-                        <input class="form-control" id="horaSalida" name="horaSalida" type="time" required>
+                        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Salida:</label>
+                        <input class="form-control" id="fechaHoraSalida" name="fechaHora" type="datetime-local" required>
                     </div>
                 </div>
                 <div class="row mb-3">
