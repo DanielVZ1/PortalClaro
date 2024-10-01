@@ -20,7 +20,6 @@
           if ($data[$i]['estado'] == 1) {
             $data[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
             $data[$i]['acciones'] = '<div>
-              <a class="btn btn-dark" href="'.base_url.'Usuarios/Permisos/' .$data[$i]['id']. '"><i class="fas fa-key"></i></a>
               <button class="btn btn-primary" type="button" onclick="btnEditarUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
               <button class="btn btn-danger" type="button" onclick="btnEliminarUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
             <div/>';

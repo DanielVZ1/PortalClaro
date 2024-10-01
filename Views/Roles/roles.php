@@ -28,6 +28,7 @@ getModal('modalsRoles', $data)
                                 <th>NOMBRE</th>
                                 <th>DESCRIPCIÓN</th>
                                 <th>ESTADO</th>
+                                <th>ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
