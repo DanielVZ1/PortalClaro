@@ -15,6 +15,15 @@ class Query extends Conexion {
         return $data;
     }
 
+    public function select1(string $sql, array $params = []) {
+        $this->sql = $sql;
+        $resul = $this->con->prepare($this->sql);
+        $resul->execute($params); // Aquí pasamos los parámetros
+        $data = $resul->fetchAll(PDO::FETCH_ASSOC); // Cambia a fetchAll si esperas múltiples resultados
+        return $data;
+    }
+    
+
     public function selectAll(string $sql) {
         $this->sql = $sql;
         $resul = $this->con->prepare($this->sql);
