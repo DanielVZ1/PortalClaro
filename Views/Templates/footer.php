@@ -49,7 +49,9 @@
         <script src="<?php echo base_url;?>Assets/js/select2.min.js"></script>
         <script src="<?php echo base_url;?>Assets/js/sweetalert2.all.min.js"></script>
         <script src="<?php echo base_url; ?>Assets/js/chart.min.js"></script>
+        <script src="<?php echo base_url;?>Assets/js/sweetalert.min.js"></script>
    
+
     
 
         <script src="<?php echo base_url; ?>Assets/js/funciones.js"></script>

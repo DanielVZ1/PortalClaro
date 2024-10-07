@@ -20,10 +20,10 @@ class Roles extends Controller
     
         for($i = 0; $i < count($arrData); $i++){
     
-            if($arrData[$i]['estado'] == 1) {
-                $arrData[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
+            if($arrData[$i]['status'] == 1) {
+                $arrData[$i]['status'] = '<span class="badge badge-success" style="color: green">Activo</span>';
             } else {
-                $arrData[$i]['estado'] = '<span class="badge badge-danger" style="color:red">Inactivo</span>';
+                $arrData[$i]['status'] = '<span class="badge badge-danger" style="color:red">Inactivo</span>';
             }
 
             $arrData[$i]['options'] = '<div class="text-center">
@@ -35,9 +35,35 @@ class Roles extends Controller
     
 
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
-        die();  // Asegúrate de que 'die()' detenga el procesamiento adicional.
+        die();
+    }
+
+    public function setRol(){
+        // Validar y limpiar los datos del formulario
+        $strRol = isset($_POST['txtNombre']) ? strClean($_POST['txtNombre']) : '';
+        $strDescripcion = isset($_POST['txtDescripcion']) ? strClean($_POST['txtDescripcion']) : '';
+    
+        // Asegurarte de que si no se recibe un valor válido, se toma un valor predeterminado
+        $intStatus = isset($_POST['listStatus']) ? intval($_POST['listStatus']) : 1; // Por defecto 1 (Activo)
+        
+        // Insertar el rol en la base de datos
+        $request_rol = $this->model->insertRol($strRol, $strDescripcion, $intStatus);
+    
+        if($request_rol > 0) {
+            $arrResponse = array('status' => true, 'msg' => 'Rol creado correctamente.');
+        } else if($request_rol == 'exist') {
+            $arrResponse = array('status' => false, 'msg' => 'El rol ya existe.');
+        } else {
+            $arrResponse = array('status' => false, 'msg' => 'Error al crear el rol.');
+        }
+    
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        die();
     }
     
 
 }
+
+    
+
 ?>

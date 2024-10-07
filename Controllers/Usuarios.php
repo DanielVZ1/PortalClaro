@@ -134,24 +134,6 @@
         echo json_encode($msg, JSON_UNESCAPED_UNICODE);
         die();
       }
-      public function permisos($id)
-      {
-        if (empty($_SESSION['activo'])){
-          header("location:" . base_url);
-        }
-        $data['datos']= $this->model->getPermisos();
-        $data['id_usuario']= $id;
-        $this->views->getView($this,"permisos",$data);
-      }
-      public function registrarPermisos()
-      {
-        $id_user = $_POST['id_usuario'];
-        $eliminar = $this->model->eliminarPermisos($id_user);
-        foreach($_POST['permisos'] as $id_permiso){
-          $this->model->registrarPermisos($id_user, $id_permiso);
-
-        }
-      }
       public function salir()
       {
         session_destroy();
