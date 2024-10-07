@@ -152,16 +152,25 @@
                         <input class="form-control" id="coordinador" name="coordinador" type="text" required>
                     </div>
                     <div class="row mb-3">
-    <div class="col">
-        <label for="foto" class="form-label">Foto:</label>
-        <video id="video" class="form-control" autoplay></video>
-        <button type="button" id="btnCapture" class="btn btn-primary mt-2">Tomar Foto</button>
-        <canvas id="canvas" style="display:none;"></canvas>
-        <input type="hidden" name="foto" id="fotoInput">
-
-        <!-- Elemento para mostrar la imagen capturada -->
-        <img id="capturedImage" style="display:none; width: 100%; height: auto; border-radius: 8px; margin-top: 10px;" />
+                    <div class="col">
+    <label for="foto" class="form-label">Foto:</label>
+    
+    <div style="display: flex; align-items: center;">
+        <div style="position: relative; width: 50%; padding-top: 50%; overflow: hidden; margin-right: 10px;">
+            <video id="video" class="form-control" autoplay style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+        </div>
+        
+        <button type="button" id="btnCapture" class="btn btn-primary">Tomar Foto</button>
     </div>
+
+    <canvas id="canvas" style="display:none;"></canvas>
+    <input type="hidden" name="foto" id="fotoInput">
+
+    <!-- Elemento para mostrar la imagen capturada -->
+    <img id="capturedImage" style="display:none; width: 50%; height: auto; border-radius: 8px; margin-top: 10px;" />
+</div>
+
+
 </div>
 
                 </div>
