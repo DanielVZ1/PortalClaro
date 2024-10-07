@@ -60,8 +60,6 @@ class Roles extends Controller
         echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         die();
     }
-    
-
 }
 
     
