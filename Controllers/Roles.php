@@ -37,7 +37,5 @@ class Roles extends Controller
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         die();  // Asegúrate de que 'die()' detenga el procesamiento adicional.
     }
-    
-
 }
 ?>

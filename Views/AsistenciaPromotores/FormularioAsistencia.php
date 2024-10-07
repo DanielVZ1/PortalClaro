@@ -84,6 +84,16 @@
             border-color: #990000;
             color: #ffffff;
         }
+
+        #capturedImage {
+            object-fit: cover; /* Para que la imagen llene el cuadrado sin distorsionarse */
+            width: 100%; /* Ancho completo */
+            height: 200px; /* Altura fija para que sea un cuadrado */
+            border-radius: 8px; /* Bordes redondeados */
+            margin-top: 10px; /* Espacio superior */
+            border: 2px solid #ced4da; /* Bordes */
+        }
+
     </style>
 </head>
 
@@ -141,26 +151,41 @@
                         <label for="coordinador" class="form-label">Coordinador del Proyecto:</label>
                         <input class="form-control" id="coordinador" name="coordinador" type="text" required>
                     </div>
-                    <div class="col">
-                        <label for="foto" class="form-label">Foto:</label>
-                        <input class="form-control" id="foto" name="foto" type="file" accept="image/*" required>
-                    </div>
+                    <div class="row mb-3">
+    <div class="col">
+        <label for="foto" class="form-label">Foto:</label>
+        <video id="video" class="form-control" autoplay></video>
+        <button type="button" id="btnCapture" class="btn btn-primary mt-2">Tomar Foto</button>
+        <canvas id="canvas" style="display:none;"></canvas>
+        <input type="hidden" name="foto" id="fotoInput">
+
+        <!-- Elemento para mostrar la imagen capturada -->
+        <img id="capturedImage" style="display:none; width: 100%; height: auto; border-radius: 8px; margin-top: 10px;" />
+    </div>
+</div>
+
                 </div>
                 <div class="row mb-3">
-                    <div class="col">
-                        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
-                        <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" required>
-                    </div>
-                    <div class="col">
-                        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Salida:</label>
-                        <input class="form-control" id="fechaHoraSalida" name="fechaHora" type="datetime-local" required>
-                    </div>
-                </div>
+            <div class="col">
+        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
+        <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo isset($fechaHoraEntrada) ? $fechaHoraEntrada : ''; ?>" required>
+
+
+    </div>
+    <div class="col">
+        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Salida:</label>
+        <input class="form-control" id="fechaHoraSalida" name="fechaHora" type="datetime-local" required>
+    </div>
+</div>
+
                 <div class="row mb-3">
-                    <div class="col">
-                        <label for="ubicacion" class="form-label">Ubicación:</label>
-                        <input class="form-control" id="ubicacion" name="ubicacion" type="text" required>
-                    </div>
+                <div class="row mb-3">
+    <div class="col">
+        <label for="ubicacion" class="form-label">Ubicación:</label>
+        <input class="form-control" id="ubicacion" name="ubicacion" type="text" required>
+        <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
+    </div>
+</div>
                     <div class="col">
                         <label for="estado" class="form-label">Estado:</label>
                         <select class="form-control" id="estado" name="estado" required>
@@ -286,6 +311,74 @@
             "retina_detect": true
         });
     </script>
+
+        <script src="<?php echo base_url; ?>Assets/js/Asistenciaformulario.js"></script>
+
+        <script>
+const apiKey = 'AIzaSyDlsS7STy2SJxnn0cae18yufvdlLK0EFik'; // Reemplaza esto con tu API key
+
+document.getElementById('getLocation').addEventListener('click', function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            getAddress(lat, lon);
+        }, function() {
+            alert('No se pudo obtener la ubicación.');
+        });
+    } else {
+        alert('La geolocalización no es soportada por este navegador.');
+    }
+});
+
+function getAddress(lat, lon) {
+    const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${apiKey}`;
+
+    fetch(geocodingUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'OK') {
+                const address = data.results[0].formatted_address;
+                document.getElementById('ubicacion').value = address;
+            } else {
+                alert('No se pudo obtener la dirección.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al obtener la dirección.');
+        });
+}
+</script>
+
+function obtenerUbicacion() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            const apiKey = 'AIzaSyDlsS7STy2SJxnn0cae18yufvdlLK0EFik';
+            const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "OK") {
+                        const direccion = data.results[0].formatted_address;
+                        document.getElementById("ubicacion").value = direccion; // Asigna la dirección al campo
+                    } else {
+                        console.error("Error al obtener la dirección:", data.status);
+                    }
+                })
+                .catch(error => console.error("Error en la solicitud:", error));
+        }, function() {
+            console.error("Error al obtener la ubicación.");
+        });
+    } else {
+        console.error("La geolocalización no es soportada por este navegador.");
+    }
+}
+
 </body>
 
 </html>

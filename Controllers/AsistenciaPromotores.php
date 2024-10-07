@@ -41,10 +41,15 @@
     
     
     public function mostrarFormulario($codigo) {
-        $data['codigo'] = $codigo; // Puedes pasar el código si lo necesitas
+        $fechaHoraActual = date('Y-m-d\TH:i'); // Formato correcto
+        $data['fechaHoraEntrada'] = $fechaHoraActual;
+        $data['codigo'] = $codigo;
         $data['title'] = 'Registro de Asistencia';
         $this->views->getView1('AsistenciaPromotores', 'formularioAsistencia', $data);
     }
+    
+    
+    
     
 }
    
