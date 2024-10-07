@@ -175,17 +175,16 @@
 
                 </div>
                 <div class="row mb-3">
-            <div class="col">
+    <div class="col">
         <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
-        <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo isset($fechaHoraEntrada) ? $fechaHoraEntrada : ''; ?>" required>
-
-
+        <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo date('Y-m-d\TH:i'); ?>" readonly required>
     </div>
     <div class="col">
-        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Salida:</label>
+        <label for="fechaHoraSalida" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Salida:</label>
         <input class="form-control" id="fechaHoraSalida" name="fechaHora" type="datetime-local" required>
     </div>
 </div>
+
 
     <div class="row mb-3">
     <div class="row mb-3">

@@ -4,6 +4,7 @@
    public function __construct()
     {
         parent::__construct();
+        date_default_timezone_set('America/Tegucigalpa'); // Configurar la zona horaria
     }
     public function asistenciapromotores()
     {
