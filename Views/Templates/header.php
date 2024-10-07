@@ -9,7 +9,7 @@
     <link rel="icon" href="<?php echo base_url; ?>assets/img/Claro03.png" type="image/png" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Usuario</title> 
+    <title>Sistema Gestor de Promotores</title> 
     <link href="<?php echo base_url;?>/Assets/css/styles.css" rel="stylesheet" />
     <link href="<?php echo base_url;?>/Assets/css/estilosPrincipal.Css" rel="stylesheet">
     <link href="<?php echo base_url;?>/Assets/css/estiloscheck.Css" rel="stylesheet">

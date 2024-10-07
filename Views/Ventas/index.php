@@ -25,14 +25,17 @@
             <th>Ubicacion</th>
             <th>Promotor</th>
             <th>Punto De Venta</th>
-            <th>Zona Supervisor</th>
+            <th>Departamento</th>
+            <th>Zona</th>
             <th>Distribuidor</th>
+            <th>Proveedor</th>
             <th>Producto</th>
             <th>Perfil Plan</th>
             <th>Tecnologia</th>
             <th>Centro De Venta</th>
             <th>Canal-Rediac</th>
-            <th>Aliado</th>                                      
+            <th>Aliado</th>       
+            <th>Estado</th>                                
             <th></th>
         </tr>
     </thead>
@@ -58,7 +61,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="telefono" style="color: black;">Telefono</label>
+                                <label for="telefono" style="color: black;">Teléfono</label>
                                 <input id="telefono" class="form-control" type="text" name="telefono" placeholder="Ingrese el número de telefono">
                             </div>
                         </div>
@@ -98,7 +101,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="fecha" style="color: black;">Fecha</label>
-                                <input id="fecha" class="form-control" type="text" name="fecha" placeholder="Ingrese la fecha">
+                                <input id="fecha" class="form-control" type="date" name="fecha" placeholder="Ingrese la fecha">
                             </div>
                         </div>
                     </div>
@@ -138,15 +141,30 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="zona_supervisor" style="color: black;">Zona Supervisor</label>
-                                <input id="zona_supervisor" class="form-control" type="text" name="zona_supervisor" placeholder="Ingrese la zona del supervisor">
+                                <label for="departamento" style="color: black;">Departamento</label>
+                                <input id="departamento" class="form-control" type="text" name="departamento" placeholder="Ingrese el departamento">
                             </div>
                         </div>
-                    
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="zona" style="color: black;">Zona</label>
+                                <input id="zona" class="form-control" type="text" name="zona" placeholder="Ingrese la zona">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="distribuidor" style="color: black;">Distribuidor</label>
                                 <input id="distribuidor" class="form-control" type="text" name="distribuidor" placeholder="Ingrese nombre del distribuidor">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="proveedor" style="color: black;">Proveedor</label>
+                                <input id="proveedor" class="form-control" type="text" name="proveedor" placeholder="Ingrese nombre del proveedor">
                             </div>
                         </div>
                     </div>

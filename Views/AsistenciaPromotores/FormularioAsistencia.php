@@ -195,16 +195,6 @@
         <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
         <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
     </div>
-
-</div>
-        <div class="col">
-            <label for="estado" class="form-label">Estado:</label>
-            <select class="form-control" id="estado" name="estado" required>
-            <option value="activo">Activo</option>
-            <option value="inactivo">Inactivo</option>
-            </select>
-        </div>
-    </div>
         <div class="d-flex justify-content-between mt-4">
             <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
             <a href="<?php echo base_url; ?>" class="btn btn-light btn-lg"><i class="bx bx-arrow-back me-1"></i> Regresar</a>
@@ -219,7 +209,7 @@
     <script src="<?php echo base_url; ?>Assets/js/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        particlesJS('particles-js', {
+         particlesJS('particles-js', {
             "particles": {
                 "number": {
                     "value": 80,
@@ -259,7 +249,7 @@
                     }
                 },
                 "line_linked": {
-                    "enable": true,
+                    "enable": false,
                     "distance": 150,
                     "color": "#ffffff",
                     "opacity": 0.4,
@@ -267,7 +257,7 @@
                 },
                 "move": {
                     "enable": true,
-                    "speed": 6,
+                    "speed": 2,
                     "direction": "none",
                     "random": false,
                     "straight": false,
@@ -284,39 +274,14 @@
                 "detect_on": "canvas",
                 "events": {
                     "onhover": {
-                        "enable": true,
+                        "enable": false,
                         "mode": "repulse"
                     },
                     "onclick": {
-                        "enable": true,
+                        "enable": false,
                         "mode": "push"
                     },
                     "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
                 }
             },
             "retina_detect": true

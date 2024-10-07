@@ -47,8 +47,10 @@
           $ubicacion = $_POST['ubicacion'];
           $promotor = $_POST['promotor'];
           $punto_venta = $_POST['punto_venta'];
-          $zona_supervisor = $_POST['zona_supervisor'];
+          $departamento = $_POST['departamento'];
+          $zona = $_POST['zona'];
           $distribuidor = $_POST['distribuidor'];
+          $proveedor = $_POST['proveedor'];
           $producto = $_POST['producto'];
           $perfil_plan = $_POST['perfil_plan'];
           $tecnologia = $_POST['tecnologia'];
@@ -57,14 +59,14 @@
           $aliado = $_POST['aliado'];
           $id = $_POST['id'];
           if (empty($telefono) || empty($medio) || empty($subgerente) || empty($coordinador) || empty($supervisor) ||
-              empty($fecha) || empty($codigo) || empty($ubicacion) || empty($promotor) || empty($punto_venta) ||
-              empty($zona_supervisor) || empty($distribuidor) || empty($producto) || empty($perfil_plan) || empty($tecnologia) ||
+              empty($fecha) || empty($codigo) || empty($ubicacion) || empty($promotor) || empty($punto_venta) || empty($departamento) ||
+              empty($zona) || empty($distribuidor)|| empty($proveedor) || empty($producto) || empty($perfil_plan) || empty($tecnologia) ||
               empty($centro_venta) || empty($canal_rediac) || empty($aliado)) {
             $msg = "Todos los campos son obligatorios";
           }else{
               if($id == ""){ 
                  $data=  $this->model->registrarVentas($telefono,$medio,$subgerente,$coordinador,$supervisor,
-                 $fecha,$codigo,$ubicacion,$promotor,$punto_venta,$zona_supervisor,$distribuidor,$producto,$perfil_plan,
+                 $fecha,$codigo,$ubicacion,$promotor,$punto_venta,$departamento,$zona,$distribuidor,$proveedor,$producto,$perfil_plan,
                  $tecnologia,$centro_venta,$canal_rediac,$aliado);
                   if ($data == "ok") {
                     $msg = "si";
@@ -75,7 +77,7 @@
                   }
               }else{
                 $data=  $this->model->modificarVentas($telefono,$medio,$subgerente,$coordinador,$supervisor,
-                $fecha,$codigo,$ubicacion,$promotor,$punto_venta,$zona_supervisor,$distribuidor,$producto,$perfil_plan,
+                $fecha,$codigo,$ubicacion,$promotor,$punto_venta,$departamento,$zona,$distribuidor,$proveedor,$producto,$perfil_plan,
                 $tecnologia,$centro_venta,$canal_rediac,$aliado,$id);
                   if ($data == "modificado") {
                     $msg = "modificado";

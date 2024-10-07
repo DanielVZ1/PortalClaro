@@ -67,9 +67,10 @@ document.addEventListener("DOMContentLoaded", function() {
             { 'data': 'ubicacion' },
             { 'data': 'promotor' },
             { 'data': 'punto_venta' },
-            { 'data': 'zona_supervisor' },
+            { 'data': 'departamento' },
+            { 'data': 'zona' },
             { 'data': 'distribuidor' },
-            { 'data': 'supervisor' },
+            { 'data': 'proveedor' },
             { 'data': 'producto' },
             { 'data': 'perfil_plan' },
             { 'data': 'tecnologia' },
@@ -708,8 +709,10 @@ function registrarVentas(e){
     const ubicacion = document.getElementById("ubicacion");
     const promotor = document.getElementById("promotor");
     const punto_venta = document.getElementById("punto_venta");
-    const zona_supervisor = document.getElementById("zona_supervisor");
+    const departamento = document.getElementById("departamento");
+    const zona = document.getElementById("zona");
     const distribuidor = document.getElementById("distribuidor");
+    const proveedor = document.getElementById("proveedor");
     const producto = document.getElementById("producto");
     const perfil_plan = document.getElementById("perfil_plan");
     const tecnologia = document.getElementById("tecnologia");
@@ -719,7 +722,7 @@ function registrarVentas(e){
     
     if (telefono.value =="" || medio.value == "" || subgerente.value =="" || coordinador.value == "" ||  
         supervisor.value =="" || fecha.value == "" || codigo.value == "" || ubicacion.value == "" || promotor.value =="" || 
-        punto_venta.value == "" || zona_supervisor.value == "" || distribuidor.value =="" || producto.value == "" ||  
+        punto_venta.value == ""|| departamento.value == ""  || zona.value == "" || distribuidor.value =="" || proveedor.value == "" || producto.value == "" ||  
         perfil_plan.value == "" || tecnologia.value =="" || centro_venta.value == "" || canal_rediac.value == "" || aliado.value ==""){
         Swal.fire({
             position: 'top-end',
@@ -795,8 +798,10 @@ function btnEditarVentas(id) {
                 document.getElementById("ubicacion").value = res.ubicacion;
                 document.getElementById("promotor").value = res.promotor;
                 document.getElementById("punto_venta").value = res.punto_venta;
-                document.getElementById("zona_supervisor").value = res.zona_supervisor;
+                document.getElementById("departamento").value = res.departamento;
+                document.getElementById("zona").value = res.zona;
                 document.getElementById("distribuidor").value = res.distribuidor;
+                document.getElementById("proveedor").value = res.proveedor;
                 document.getElementById("producto").value = res.producto;
                 document.getElementById("perfil_plan").value = res.perfil_plan;
                 document.getElementById("tecnologia").value = res.tecnologia;
@@ -898,5 +903,4 @@ function registrarPermisos(e){
             console.log(this.responseText);
         }
     }
-
 }
