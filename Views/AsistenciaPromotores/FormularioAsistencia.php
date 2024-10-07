@@ -186,6 +186,7 @@
         <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
         <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
     </div>
+
 </div>
         <div class="col">
             <label for="estado" class="form-label">Estado:</label>
@@ -316,7 +317,7 @@
         <script src="<?php echo base_url; ?>Assets/js/Asistenciaformulario.js"></script>
 
         <script>
-    document.getElementById('getLocation').addEventListener('click', function() {
+     document.getElementById('getLocation').addEventListener('click', function() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 const latitude = position.coords.latitude;
@@ -326,9 +327,9 @@
                 const locationInput = document.getElementById('ubicacion');
                 locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
 
-                // Crea el enlace para Google Maps
+                // Crea el enlace para Google Maps con un marcador
                 const locationLink = document.getElementById('ubicacionLink');
-                locationLink.href = `https://www.google.com/maps/@${latitude},${longitude},15z`; // Puedes ajustar el zoom
+                locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`; // Usar `q=` para marcar la ubicación
                 locationLink.classList.remove('d-none'); // Muestra el enlace
                 locationLink.innerText = "Ver en el Mapa";
             }, function(error) {
