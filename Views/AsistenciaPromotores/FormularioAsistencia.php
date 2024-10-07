@@ -178,26 +178,27 @@
     </div>
 </div>
 
-                <div class="row mb-3">
-                <div class="row mb-3">
+    <div class="row mb-3">
+    <div class="row mb-3">
     <div class="col">
         <label for="ubicacion" class="form-label">Ubicación:</label>
         <input class="form-control" id="ubicacion" name="ubicacion" type="text" required>
+        <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
         <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
     </div>
 </div>
-                    <div class="col">
-                        <label for="estado" class="form-label">Estado:</label>
-                        <select class="form-control" id="estado" name="estado" required>
-                            <option value="activo">Activo</option>
-                            <option value="inactivo">Inactivo</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
-                    <a href="<?php echo base_url; ?>" class="btn btn-light btn-lg"><i class="bx bx-arrow-back me-1"></i> Regresar</a>
-                </div>
+        <div class="col">
+            <label for="estado" class="form-label">Estado:</label>
+            <select class="form-control" id="estado" name="estado" required>
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
+            </select>
+        </div>
+    </div>
+        <div class="d-flex justify-content-between mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+            <a href="<?php echo base_url; ?>" class="btn btn-light btn-lg"><i class="bx bx-arrow-back me-1"></i> Regresar</a>
+        </div>
             </form>
         </div>
     </div>
@@ -315,69 +316,30 @@
         <script src="<?php echo base_url; ?>Assets/js/Asistenciaformulario.js"></script>
 
         <script>
-const apiKey = 'AIzaSyDlsS7STy2SJxnn0cae18yufvdlLK0EFik'; // Reemplaza esto con tu API key
+    document.getElementById('getLocation').addEventListener('click', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
 
-document.getElementById('getLocation').addEventListener('click', function() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            getAddress(lat, lon);
-        }, function() {
-            alert('No se pudo obtener la ubicación.');
-        });
-    } else {
-        alert('La geolocalización no es soportada por este navegador.');
-    }
-});
+                // Muestra las coordenadas en el campo de texto
+                const locationInput = document.getElementById('ubicacion');
+                locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
 
-function getAddress(lat, lon) {
-    const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${apiKey}`;
-
-    fetch(geocodingUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'OK') {
-                const address = data.results[0].formatted_address;
-                document.getElementById('ubicacion').value = address;
-            } else {
-                alert('No se pudo obtener la dirección.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al obtener la dirección.');
-        });
-}
+                // Crea el enlace para Google Maps
+                const locationLink = document.getElementById('ubicacionLink');
+                locationLink.href = `https://www.google.com/maps/@${latitude},${longitude},15z`; // Puedes ajustar el zoom
+                locationLink.classList.remove('d-none'); // Muestra el enlace
+                locationLink.innerText = "Ver en el Mapa";
+            }, function(error) {
+                console.error("Error obteniendo la ubicación:", error);
+                alert("No se pudo obtener la ubicación.");
+            });
+        } else {
+            alert("La geolocalización no es soportada por este navegador.");
+        }
+    });
 </script>
-
-function obtenerUbicacion() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-
-            const apiKey = 'AIzaSyDlsS7STy2SJxnn0cae18yufvdlLK0EFik';
-            const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === "OK") {
-                        const direccion = data.results[0].formatted_address;
-                        document.getElementById("ubicacion").value = direccion; // Asigna la dirección al campo
-                    } else {
-                        console.error("Error al obtener la dirección:", data.status);
-                    }
-                })
-                .catch(error => console.error("Error en la solicitud:", error));
-        }, function() {
-            console.error("Error al obtener la ubicación.");
-        });
-    } else {
-        console.error("La geolocalización no es soportada por este navegador.");
-    }
-}
 
 </body>
 
