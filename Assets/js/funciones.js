@@ -786,6 +786,7 @@ function btnEditarVentas(id) {
     http.send();
     http.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                //console.log(this.responseText);
                 const res = JSON.parse(this.responseText);
                 document.getElementById("id").value = res.id;
                 document.getElementById("telefono").value = res.telefono;
@@ -795,7 +796,7 @@ function btnEditarVentas(id) {
                 document.getElementById("supervisor").value = res.supervisor;
                 document.getElementById("fecha").value = res.fecha;
                 document.getElementById("codigo").value = res.codigo;
-                document.getElementById("ubicacion").value = res.ubicacion;
+                document.getElementById("ubicacion").value = res.ubicacion;  
                 document.getElementById("promotor").value = res.promotor;
                 document.getElementById("punto_venta").value = res.punto_venta;
                 document.getElementById("departamento").value = res.departamento;
@@ -808,7 +809,7 @@ function btnEditarVentas(id) {
                 document.getElementById("centro_venta").value = res.centro_venta;
                 document.getElementById("canal_rediac").value = res.canal_rediac;
                 document.getElementById("aliado").value = res.aliado;
-                $("#nueva_venta").modal("show");
+                $("#nuevo_promotor").modal("show");
             }
     }
 

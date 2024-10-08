@@ -35,8 +35,7 @@
             <th>Centro De Venta</th>
             <th>Canal-Rediac</th>
             <th>Aliado</th>       
-            <th>Estado</th>                                
-            <th></th>
+            <th></th>                                
         </tr>
     </thead>
     <tbody>
@@ -62,14 +61,14 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="telefono" style="color: black;">Teléfono</label>
-                                <input id="telefono" class="form-control" type="text" name="telefono" placeholder="Ingrese el número de telefono">
+                                <input id="telefono" class="form-control" type="text" name="telefono" placeholder="Ingrese el número de telefono" maxlength="11" minlength="11" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" oncopy="return false" onpaste="return false">
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="medio" style="color: black;">Medio</label>
-                                <input id="medio" class="form-control" type="text" name="medio" placeholder="Ingrese el medio">
+                                <input id="medio" class="form-control" type="text" name="medio" placeholder="Ingrese el medio" maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)">
                             </div>
                         </div>
                     </div>
@@ -78,14 +77,14 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="subgerente" style="color: black;">Subgerente</label>
-                                <input id="subgerente" class="form-control" type="text" name="subgerente" placeholder="Ingrese nombre del subgerente">
+                                <input id="subgerente" class="form-control" type="text" name="subgerente" placeholder="Ingrese nombre del subgerente" maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)">
                             </div>
                         </div>
                         
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="coordinador" style="color: black;">Coordinador</label>
-                                <input id="coordinador" class="form-control" type="text" name="coordinador" placeholder="Ingrese nombre del coordinador">
+                                <input id="coordinador" class="form-control" type="text" name="coordinador" placeholder="Ingrese nombre del coordinador"maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)">
                             </div>
                         </div>
                     </div>
@@ -94,7 +93,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="supervisor" style="color: black;">Supervisor</label>
-                                <input id="supervisor" class="form-control" type="text" name="supervisor" placeholder="Ingrese nombre del supervisor">
+                                <input id="supervisor" class="form-control" type="text" name="supervisor" placeholder="Ingrese nombre del supervisor" maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)">
                             </div>
                         </div>
 
@@ -110,7 +109,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="codigo" style="color: black;">Código Maestro</label>
-                                <input id="codigo" class="form-control" type="text" name="codigo" placeholder="Ingrese el código maestro">
+                                <input id="codigo" class="form-control" type="text" name="codigo" placeholder="Ingrese el código maestro" maxlength="13" minlength="13" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" oncopy="return false" onpaste="return false">
                             </div>
                         </div>
                     
@@ -126,7 +125,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="promotor" style="color: black;">Promotor</label>
-                                <input id="promotor" class="form-control" type="text" name="promotor" placeholder="Ingrese el nombre del promotor">
+                                <input id="promotor" class="form-control" type="text" name="promotor" placeholder="Ingrese el nombre del promotor" maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)">
                             </div>
                         </div>
 
@@ -142,13 +141,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="departamento" style="color: black;">Departamento</label>
-                                <input id="departamento" class="form-control" type="text" name="departamento" placeholder="Ingrese el departamento">
+                                <input id="departamento" class="form-control" type="text" name="departamento" placeholder="Ingrese el departamento"maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="zona" style="color: black;">Zona</label>
-                                <input id="zona" class="form-control" type="text" name="zona" placeholder="Ingrese la zona">
+                                <input id="zona" class="form-control" type="text" name="zona" placeholder="Ingrese la zona"maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)">
                             </div>
                         </div>
                     </div>
@@ -225,5 +224,58 @@
         </div>
     </div>
 </div>
+
+<script>
+    function formatInput(input) {
+        // Obtener el valor actual del campo
+        let value = input.value;
+
+        // Eliminar caracteres no permitidos (números y caracteres especiales)
+        value = value.replace(/[^a-zA-Z\s]/g, '');
+
+        // Convertir el texto a minúsculas
+        value = value.toLowerCase();
+
+        // Capitalizar la primera letra de cada palabra
+        value = value.replace(/\b\w/g, function(match) {
+            return match.toUpperCase();
+        });
+
+        // Reemplazar secuencias de espacios múltiples con un solo espacio
+        value = value.replace(/\s{2,}/g, ' ');
+
+        // Establecer el valor formateado de nuevo en el campo
+        input.value = value;
+    }
+
+    function formatDNI(input) {
+        // Obtener el valor actual del campo
+        let value = input.value;
+
+        // Eliminar caracteres no numéricos
+        value = value.replace(/\D/g, '');
+
+        // Formatear el número en el formato XXXX-XXXX-XXXXX
+        if (value.length > 13) {
+            value = value.slice(0, 13);
+        }
+        if (value.length > 8) {
+            value = value.replace(/(\d{4})(\d{4})(\d{0,5})/, '$1-$2-$3');
+        } else if (value.length > 4) {
+            value = value.replace(/(\d{4})(\d{0,4})/, '$1-$2');
+        }
+
+        // Actualizar el valor del campo
+        input.value = value;
+    }
+
+    function isNumber(event) {
+        // Permitir solo números (0-9) y la tecla de retroceso (backspace)
+        const charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            event.preventDefault();
+        }
+    }
+    </script>
 
 <?php include "Views/Templates/footer.php"; ?>

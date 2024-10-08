@@ -59,7 +59,7 @@
             return $res;
         }
 
-     public function modificarUsuario(string $telefono, string $medio, string $subgerente, string $coordinador,string $supervisor,
+     public function modificarVentas(string $telefono, string $medio, string $subgerente, string $coordinador,string $supervisor,
      string $fecha,string $codigo,string $ubicacion,string $promotor,string $punto_venta,string $departamento ,string $zona,string $distribuidor,
      string $proveedor,string $producto,string $perfil_plan,string $tecnologia, string $centro_venta,string $canal_rediac,string $aliado, int $id)
     {

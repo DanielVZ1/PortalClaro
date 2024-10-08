@@ -17,22 +17,20 @@
 
         public function listar(){
           $data = $this->model->getVentas();
-          for ($i=0; $i <count($data); $i++) {  
+          for ($i = 0; $i < count($data); $i++) {  
             if ($data[$i]['estado'] == 1) {
-              $data[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
-              $data[$i]['acciones'] ='<div>
+              $data[$i]['acciones'] = '<div>
                 <button class="btn btn-primary" type="button" onclick="btnEditarVentas('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-danger" type="button" onclick="btnEliminarVentas('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
               <div/>';
-            }else{
-              $data[$i]['estado'] = '<span class="badge badge-danger" style="color:red">Inactivo</span>';
-              $data[$i]['acciones'] ='<div>
+            } else {
+              $data[$i]['acciones'] = '<div>
                 <button class="btn btn-success" type="button" onclick="btnReingresarVentas('.$data[$i]['id'].');"><i class="fas fa-sync-alt"></i></button>
               <div/>';
-          } 
-        } 
-            echo json_encode($data, JSON_UNESCAPED_UNICODE);
-            die();
+            }
+          }
+          echo json_encode($data, JSON_UNESCAPED_UNICODE);
+          die();
         }
 
         public function registrar()
