@@ -77,14 +77,6 @@
             color: #ffffff;
         }
 
-        .form-container .btn-primary:active,
-        .form-container .btn-light:active {
-            transform: scale(0.95);
-            background-color: #cc0000;
-            border-color: #990000;
-            color: #ffffff;
-        }
-
         #capturedImage {
             object-fit: cover; /* Para que la imagen llene el cuadrado sin distorsionarse */
             width: 100%; /* Ancho completo */
@@ -93,7 +85,6 @@
             margin-top: 10px; /* Espacio superior */
             border: 2px solid #ced4da; /* Bordes */
         }
-
     </style>
 </head>
 
@@ -105,31 +96,31 @@
                 <img src="<?php echo base_url; ?>Assets/img/Claro03.png" alt="Logo" style="width: 120px;">
             </div>
             <h2 class="text-center mb-4">Formulario de Asistencia</h2>
-            <form id="asistenciaForm" action="#" method="post">
+            <form id="asistenciaForm" action="<?php echo base_url; ?>AsistenciaPromotores/guardarAsistencia" method="post">
                 <div class="row mb-3">
                     <div class="col">
                         <label for="codigo" class="form-label">Código Maestro:</label>
-                        <input class="form-control" id="codigo" name="CodigoMaestro" type="text" required>
+                        <input class="form-control" id="codigo" name="CodigoMaestro" type="text" value="<?php echo ($codigo) ? $codigo : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="dni" class="form-label">DNI:</label>
-                        <input class="form-control" id="dni" name="dni" type="text" required>
+                        <input class="form-control" id="dni" name="dni" type="text" value="<?php echo ($dni) ? $dni : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="nombres" class="form-label">Nombres:</label>
-                        <input class="form-control" id="nombres" name="nombres" type="text" required>
+                        <input class="form-control" id="nombres" name="nombres" type="text" value="<?php echo ($nombres) ? $nombres : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="apellidos" class="form-label">Apellidos:</label>
-                        <input class="form-control" id="apellidos" name="apellidos" type="text" required>
+                        <input class="form-control" id="apellidos" name="apellidos" type="text" value="<?php echo ($apellidos) ? $apellidos : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="puesto" class="form-label">Puesto de Trabajo:</label>
-                        <input class="form-control" id="puesto" name="puesto" type="text" required>
+                        <input class="form-control" id="puesto" name="puesto" type="text" value="<?php echo ($puesto) ? $puesto : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="proveedor" class="form-label">Proveedor:</label>
@@ -139,7 +130,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="zona" class="form-label">Zona:</label>
-                        <input class="form-control" id="zona" name="zona" type="text" required>
+                        <input class="form-control" id="zona" name="zona" type="text" value="<?php echo ($zona) ? $zona : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="supervisor" class="form-label">Supervisor:</label>
@@ -151,64 +142,43 @@
                         <label for="coordinador" class="form-label">Coordinador del Proyecto:</label>
                         <input class="form-control" id="coordinador" name="coordinador" type="text" required>
                     </div>
-                    <div class="row mb-3">
-                    <div class="col">
-    <label for="foto" class="form-label">Foto:</label>
-    
-    <div style="display: flex; align-items: center;">
-        <div style="position: relative; width: 50%; padding-top: 50%; overflow: hidden; margin-right: 10px;">
-            <video id="video" class="form-control" autoplay style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
-        </div>
-        
-        <button type="button" id="btnCapture" class="btn btn-primary">Tomar Foto</button>
-    </div>
-
-    <canvas id="canvas" style="display:none;"></canvas>
-    <input type="hidden" name="foto" id="fotoInput">
-
-    <!-- Elemento para mostrar la imagen capturada -->
-    <img id="capturedImage" style="display:none; width: 50%; height: auto; border-radius: 8px; margin-top: 10px;" />
-</div>
-
-
-</div>
-
                 </div>
                 <div class="row mb-3">
-            <div class="col">
-        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
-        <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo isset($fechaHoraEntrada) ? $fechaHoraEntrada : ''; ?>" required>
-
-
-    </div>
-    <div class="col">
-        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Salida:</label>
-        <input class="form-control" id="fechaHoraSalida" name="fechaHora" type="datetime-local" required>
-    </div>
-</div>
-
-    <div class="row mb-3">
-    <div class="row mb-3">
-    <div class="col">
-        <label for="ubicacion" class="form-label">Ubicación:</label>
-        <input class="form-control" id="ubicacion" name="ubicacion" type="text" required>
-        <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
-        <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
-    </div>
-
-</div>
-        <div class="col">
-            <label for="estado" class="form-label">Estado:</label>
-            <select class="form-control" id="estado" name="estado" required>
-            <option value="activo">Activo</option>
-            <option value="inactivo">Inactivo</option>
-            </select>
-        </div>
-    </div>
-        <div class="d-flex justify-content-between mt-4">
-            <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
-            <a href="<?php echo base_url; ?>" class="btn btn-light btn-lg"><i class="bx bx-arrow-back me-1"></i> Regresar</a>
-        </div>
+                    <div class="col">
+                        <label for="foto" class="form-label">Foto:</label>
+                        <div style="display: flex; align-items: center;">
+                            <div style="position: relative; width: 50%; padding-top: 50%; overflow: hidden; margin-right: 10px;">
+                                <video id="video" class="form-control" autoplay style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+                            </div>
+                            <button type="button" id="btnCapture" class="btn btn-primary">Tomar Foto</button>
+                        </div>
+                        <canvas id="canvas" style="display:none;"></canvas>
+                        <input type="hidden" name="foto" id="fotoInput">
+                        <img id="capturedImage" style="display:none; width: 50%; height: auto; border-radius: 8px; margin-top: 10px;" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
+                        <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo date('Y-m-d\TH:i'); ?>" readonly required>
+                    </div>
+                    <div class="col">
+                        <label for="fechaHoraSalida" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Salida:</label>
+                        <input class="form-control" id="fechaHoraSalida" name="fechaHoraSalida" type="datetime-local" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="ubicacion" class="form-label">Ubicación:</label>
+                        <input class="form-control" id="ubicacion" name="ubicacion" type="text" required>
+                        <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
+                        <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+                    <a href="<?php echo base_url; ?>" class="btn btn-light btn-lg"><i class="bx bx-arrow-back me-1"></i> Regresar</a>
+                </div>
             </form>
         </div>
     </div>
@@ -219,7 +189,7 @@
     <script src="<?php echo base_url; ?>Assets/js/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        particlesJS('particles-js', {
+         particlesJS('particles-js', {
             "particles": {
                 "number": {
                     "value": 80,
@@ -259,7 +229,7 @@
                     }
                 },
                 "line_linked": {
-                    "enable": true,
+                    "enable": false,
                     "distance": 150,
                     "color": "#ffffff",
                     "opacity": 0.4,
@@ -267,7 +237,7 @@
                 },
                 "move": {
                     "enable": true,
-                    "speed": 6,
+                    "speed": 2,
                     "direction": "none",
                     "random": false,
                     "straight": false,
@@ -284,72 +254,47 @@
                 "detect_on": "canvas",
                 "events": {
                     "onhover": {
-                        "enable": true,
+                        "enable": false,
                         "mode": "repulse"
                     },
                     "onclick": {
-                        "enable": true,
+                        "enable": false,
                         "mode": "push"
                     },
                     "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
                 }
             },
             "retina_detect": true
         });
     </script>
 
-        <script src="<?php echo base_url; ?>Assets/js/Asistenciaformulario.js"></script>
+    <script src="<?php echo base_url; ?>Assets/js/Asistenciaformulario.js"></script>
 
-        <script>
-     document.getElementById('getLocation').addEventListener('click', function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
+    <script>
+        document.getElementById('getLocation').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
 
-                // Muestra las coordenadas en el campo de texto
-                const locationInput = document.getElementById('ubicacion');
-                locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
+                    // Muestra las coordenadas en el campo de texto
+                    const locationInput = document.getElementById('ubicacion');
+                    locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
 
-                // Crea el enlace para Google Maps con un marcador
-                const locationLink = document.getElementById('ubicacionLink');
-                locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`; // Usar `q=` para marcar la ubicación
-                locationLink.classList.remove('d-none'); // Muestra el enlace
-                locationLink.innerText = "Ver en el Mapa";
-            }, function(error) {
-                console.error("Error obteniendo la ubicación:", error);
-                alert("No se pudo obtener la ubicación.");
-            });
-        } else {
-            alert("La geolocalización no es soportada por este navegador.");
-        }
-    });
-</script>
+                    // Crea el enlace para Google Maps con un marcador
+                    const locationLink = document.getElementById('ubicacionLink');
+                    locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`; // Usar `q=` para marcar la ubicación
+                    locationLink.classList.remove('d-none'); // Muestra el enlace
+                    locationLink.innerText = "Ver en el Mapa";
+                }, function(error) {
+                    console.error("Error obteniendo la ubicación:", error);
+                    alert("No se pudo obtener la ubicación.");
+                });
+            } else {
+                alert("La geolocalización no es soportada por este navegador.");
+            }
+        });
+    </script>
 
 </body>
 

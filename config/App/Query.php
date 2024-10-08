@@ -18,10 +18,10 @@ class Query extends Conexion {
     public function select1(string $sql, array $params = []) {
         $this->sql = $sql;
         $resul = $this->con->prepare($this->sql);
-        $resul->execute($params); // Aquí pasamos los parámetros
-        $data = $resul->fetchAll(PDO::FETCH_ASSOC); // Cambia a fetchAll si esperas múltiples resultados
-        return $data;
+        $resul->execute($params); // Ejecuta la consulta con los parámetros
+        return $resul->fetch(PDO::FETCH_ASSOC); // Obtiene solo un resultado
     }
+    
     
 
     public function selectAll(string $sql) {
@@ -51,6 +51,13 @@ class Query extends Conexion {
         }
         return $res;
     }
+
+    public function insert(string $sql, array $params = []) {
+        $this->sql = $sql;
+        $stmt = $this->con->prepare($this->sql);
+        return $stmt->execute($params); // Devuelve true si la inserción fue exitosa
+    }
+    
 
     public function selectWithParams(string $sql, array $params) {
         $this->sql = $sql;
