@@ -11231,3 +11231,7 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+
+.tile-footer {
+  margin-top: 20px; /* O cualquier valor que necesites */
+}

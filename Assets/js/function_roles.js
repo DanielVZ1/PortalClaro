@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function(){
         "aProcessing": true,            // Corregido: de "aProcessing" a "processing".
         "aServerSide": true,            // Corregido: de "aServerSide" a "serverSide".
         "language": {                  // Corregido: de "lenguage" a "language".
-            "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
         "ajax": {
             "url": base_url + "/Roles/getRoles",  // Espacio corregido antes de `base_url`.
@@ -28,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function(){
     formRol.onsubmit = function(e) {
         e.preventDefault();
     
-        // Obtener valores del formulario
+        // Obtener los valores de los campos
         var strNombre = document.querySelector('#txtNombre').value;
         var strDescripcion = document.querySelector('#txtDescripcion').value;
         var intStatus = document.querySelector('#listStatus').value;
@@ -39,29 +38,29 @@ document.addEventListener('DOMContentLoaded', function(){
             return false; // Detener la ejecución si hay campos vacíos
         }
     
-        // Crear la solicitud
+        // Crear la solicitud XMLHttpRequest
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        var ajaxUrl = base_url + "/Roles/setRol";
-        var formData = new FormData(formRol);
+        var ajaxUrl = base_url + "/Roles/setRol"; // URL del controlador
+        var formData = new FormData(formRol); // Enviar los datos del formulario
     
         request.open("POST", ajaxUrl, true);
         request.send(formData);
     
-        // Procesar la respuesta
+        // Manejo de la respuesta
         request.onreadystatechange = function() {
             if (request.readyState == 4 && request.status == 200) {
                 var objData = JSON.parse(request.responseText);
     
-                // Si el registro es exitoso
                 if (objData.status) {
-                    $('#modalFormRol').modal("hide"); // ID corregido
+                    // Cerrar el modal y limpiar el formulario
+                    $('#modalFormRol').modal("hide"); // Corregido el ID del modal
                     formRol.reset();
     
                     // Mostrar mensaje de éxito
                     swal("Roles de usuario", objData.msg, "success");
     
                     // Recargar la tabla de roles
-                    tableRoles.ajax.reload(); // Corregido: Usar solo ajax.reload() sin api()
+                    tableRoles.ajax.reload(); // Corregido: ya no se usa `.api()`
                 } else {
                     // Mostrar mensaje de error
                     swal("Error", objData.msg, "error");
@@ -69,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         }
     }
-    
+ 
 
     
 });
@@ -79,4 +78,23 @@ $('#tableRoles').DataTable();
 // Función para abrir el modal
 function openModal() {
     $('#modalFormRol').modal('show');
+}
+
+window.addEventListener('load', function(){
+    fntEditRol();
+}, false);
+
+function fntEditRol(){
+    var btnEditRol = document.querySelectorAll(".btnEditRol");
+    btnEditRol.forEach(function(btnEditRol){
+        btnEditRol.addEventListener('click', function()
+        {
+            document.querySelector('#titleModal').innerHTML = "Actualizar Rol";
+            document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
+            document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+            document.querySelector('#btnText').innerHTML = "Actualizar";
+            
+            $('#modalFormRol').modal('show');
+        });
+    });
 }

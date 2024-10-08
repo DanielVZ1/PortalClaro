@@ -14,7 +14,6 @@
     <link href="<?php echo base_url;?>/Assets/css/estilosPrincipal.Css" rel="stylesheet">
     <link href="<?php echo base_url;?>/Assets/css/estiloscheck.Css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"/>
-
     <style>
         .menu-container {
             position: relative;

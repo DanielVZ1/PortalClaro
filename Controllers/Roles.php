@@ -39,27 +39,31 @@ class Roles extends Controller
     }
 
     public function setRol(){
-        // Validar y limpiar los datos del formulario
         $strRol = isset($_POST['txtNombre']) ? strClean($_POST['txtNombre']) : '';
         $strDescripcion = isset($_POST['txtDescripcion']) ? strClean($_POST['txtDescripcion']) : '';
-    
-        // Asegurarte de que si no se recibe un valor válido, se toma un valor predeterminado
-        $intStatus = isset($_POST['listStatus']) ? intval($_POST['listStatus']) : 1; // Por defecto 1 (Activo)
-        
-        // Insertar el rol en la base de datos
-        $request_rol = $this->model->insertRol($strRol, $strDescripcion, $intStatus);
-    
-        if($request_rol > 0) {
+        $intStatus = isset($_POST['listStatus']) ? intval($_POST['listStatus']) : 2;
+        $request_rol = $this ->model->insertRol($strRol, $strDescripcion, $intStatus);
+
+        if($request_rol > 0)
+        {
+
             $arrResponse = array('status' => true, 'msg' => 'Rol creado correctamente.');
-        } else if($request_rol == 'exist') {
+
+        }else if($request_rol == 'exist'){
+
             $arrResponse = array('status' => false, 'msg' => 'El rol ya existe.');
-        } else {
+
+        }else{
+
             $arrResponse = array('status' => false, 'msg' => 'Error al crear el rol.');
+
         }
-    
+
         echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        
         die();
     }
+
 }
 
     
