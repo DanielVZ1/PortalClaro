@@ -96,7 +96,7 @@
                 <img src="<?php echo base_url; ?>Assets/img/Claro03.png" alt="Logo" style="width: 120px;">
             </div>
             <h2 class="text-center mb-4">Formulario de Asistencia</h2>
-            <form id="asistenciaForm" action="#" method="post">
+            <form id="asistenciaForm" action="<?php echo base_url; ?>AsistenciaPromotores/guardarAsistencia" method="post">
                 <div class="row mb-3">
                     <div class="col">
                         <label for="codigo" class="form-label">Código Maestro:</label>

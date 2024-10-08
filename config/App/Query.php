@@ -52,6 +52,13 @@ class Query extends Conexion {
         return $res;
     }
 
+    public function insert(string $sql, array $params = []) {
+        $this->sql = $sql;
+        $stmt = $this->con->prepare($this->sql);
+        return $stmt->execute($params); // Devuelve true si la inserción fue exitosa
+    }
+    
+
     public function selectWithParams(string $sql, array $params) {
         $this->sql = $sql;
         $resul = $this->con->prepare($this->sql);

@@ -68,6 +68,38 @@
         $data['title'] = 'Registro de Asistencia';
         $this->views->getView1('AsistenciaPromotores', 'formularioAsistencia', $data);
     }
+
+    public function guardarAsistencia() {
+        // Asegúrate de que la solicitud sea POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $codigo = $_POST['CodigoMaestro'];
+            $nombre = $_POST['nombres'];
+            $apellido = $_POST['apellidos'];
+            $puesto = $_POST['puesto'];
+            $proveedor = $_POST['proveedor'];
+            $zona = $_POST['zona'];
+            $supervisor = $_POST['supervisor'];
+            $coordinador = $_POST['coordinador'];
+            $horaEntrada = $_POST['fechaHora'];
+            $horaSalida = $_POST['fechaHoraSalida'];
+            $foto = $_POST['foto']; // Asegúrate de que se envíe correctamente
+            $ubicacion = $_POST['ubicacion'];
+    
+            // Llama al método del modelo para guardar la asistencia
+            $resultado = $this->model->guardarAsistencia($codigo, $nombre, $apellido, $puesto, $proveedor, $zona, $supervisor, $coordinador, $horaEntrada, $horaSalida, $foto, $ubicacion);
+    
+            // Maneja la respuesta
+            if ($resultado) {
+                // Redirige o muestra un mensaje de éxito
+                header('Location: ' . base_url . 'AsistenciaPromotores/registroExitoso'); // Cambia la URL según necesites
+                exit();
+            } else {
+                // Manejo de error
+                echo "Error al guardar la asistencia.";
+            }
+        }
+    }
+    
     
     
     

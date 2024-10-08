@@ -27,10 +27,27 @@ class AsistenciaPromotoresModel extends Query {
         //var_dump($result); // Agrega esto para ver el resultado
         return $result;
     }
-    
-       
-    
-    
-    
+
+    public function guardarAsistencia($codigo, $nombre, $apellido, $puesto, $proveedor, $zona, $supervisor, $coordinador, $horaEntrada, $horaSalida, $foto, $ubicacion) {
+        $sql = "INSERT INTO asistencia (codigo, nombre, apellido, puesto, proveedor, zona, supervisor, coordinador, hora_entrada, hora_salida, foto, ubicacion, estado) 
+                VALUES (:codigo, :nombre, :apellido, :puesto, :proveedor, :zona, :supervisor, :coordinador, :horaEntrada, :horaSalida, :foto, :ubicacion, 1)";
+        
+        $params = [
+            ':codigo' => $codigo,
+            ':nombre' => $nombre,
+            ':apellido' => $apellido,
+            ':puesto' => $puesto,
+            ':proveedor' => $proveedor,
+            ':zona' => $zona,
+            ':supervisor' => $supervisor,
+            ':coordinador' => $coordinador,
+            ':horaEntrada' => $horaEntrada,
+            ':horaSalida' => $horaSalida,
+            ':foto' => $foto,
+            ':ubicacion' => $ubicacion
+        ];
+        
+        return $this->insert($sql, $params); // Asegúrate de que tienes un método insert en tu modelo
+    }
     
 }
