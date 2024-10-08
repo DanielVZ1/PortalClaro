@@ -12,14 +12,19 @@
             require $vista;
        }
 
-       public function getView1($ruta, $nombre, $data = "")
-  {
-    if ($ruta == 'principal') {
-        $vista = 'views/' . $nombre . '.php';
-    }else {
-        $vista = 'views/' . $ruta . '/' . $nombre . '.php';
-    }
-    require $vista;
-  }
+       public function getView1($ruta, $nombre, $data = [])
+       {
+           if ($ruta == 'principal') {
+               $vista = 'views/' . $nombre . '.php';
+           } else {
+               $vista = 'views/' . $ruta . '/' . $nombre . '.php';
+           }
+       
+           // Extrae las variables del array $data
+           extract($data);
+           
+           require $vista;
+       }
+       
     }
 ?>

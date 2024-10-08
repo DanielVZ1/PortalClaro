@@ -100,27 +100,27 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="codigo" class="form-label">Código Maestro:</label>
-                        <input class="form-control" id="codigo" name="CodigoMaestro" type="text" value="<?php echo isset($codigo) ? $codigo : ''; ?>" readonly required>
+                        <input class="form-control" id="codigo" name="CodigoMaestro" type="text" value="<?php echo ($codigo) ? $codigo : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="dni" class="form-label">DNI:</label>
-                        <input class="form-control" id="dni" name="dni" type="text" value="<?php echo isset($dni) ? $dni : ''; ?>" readonly required>
+                        <input class="form-control" id="dni" name="dni" type="text" value="<?php echo ($dni) ? $dni : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="nombres" class="form-label">Nombres:</label>
-                        <input class="form-control" id="nombres" name="nombres" type="text" value="<?php echo isset($nombres) ? $nombres : ''; ?>" readonly required>
+                        <input class="form-control" id="nombres" name="nombres" type="text" value="<?php echo ($nombres) ? $nombres : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="apellidos" class="form-label">Apellidos:</label>
-                        <input class="form-control" id="apellidos" name="apellidos" type="text" value="<?php echo isset($apellidos) ? $apellidos : ''; ?>" readonly required>
+                        <input class="form-control" id="apellidos" name="apellidos" type="text" value="<?php echo ($apellidos) ? $apellidos : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="puesto" class="form-label">Puesto de Trabajo:</label>
-                        <input class="form-control" id="puesto" name="puesto" type="text" value="<?php echo isset($puesto) ? $puesto : ''; ?>" readonly required>
+                        <input class="form-control" id="puesto" name="puesto" type="text" value="<?php echo ($puesto) ? $puesto : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="proveedor" class="form-label">Proveedor:</label>
@@ -130,7 +130,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="zona" class="form-label">Zona:</label>
-                        <input class="form-control" id="zona" name="zona" type="text" value="<?php echo isset($zona) ? $zona : ''; ?>" readonly required>
+                        <input class="form-control" id="zona" name="zona" type="text" value="<?php echo ($zona) ? $zona : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="supervisor" class="form-label">Supervisor:</label>

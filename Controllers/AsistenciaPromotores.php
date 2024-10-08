@@ -46,7 +46,6 @@
     
     
     
-    
     public function mostrarFormulario($codigo) {
         $fechaHoraActual = date('Y-m-d\TH:i');
         $data['fechaHoraEntrada'] = $fechaHoraActual;
@@ -59,17 +58,20 @@
             $data['dni'] = $datosPromotor['dni'];
             $data['nombres'] = $datosPromotor['nombre'];
             $data['apellidos'] = $datosPromotor['apellido'];
-            $data['puesto'] = $datosPromotor['id_cargo'];
-            $data['zona'] = $datosPromotor['id_zona'];
+            $data['puesto'] = $datosPromotor['nombre_cargo']; // Cambiar a nombre_cargo
+            $data['zona'] = $datosPromotor['nombre_zona']; // Cambiar a nombre_zona
         } else {
             // Manejo de error si no se encuentra el promotor
             $data['error'] = "Promotor no encontrado.";
-            // Aquí podrías redirigir o mostrar un mensaje en el formulario
         }
-    
+        
         $data['title'] = 'Registro de Asistencia';
         $this->views->getView1('AsistenciaPromotores', 'formularioAsistencia', $data);
     }
+    
+    
+    
+    
     
     
     
