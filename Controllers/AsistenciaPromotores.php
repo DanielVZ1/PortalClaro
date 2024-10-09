@@ -73,6 +73,7 @@
         // Asegúrate de que la solicitud sea POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $codigo = $_POST['CodigoMaestro'];
+            $dni  = $_POST['dni'];
             $nombre = $_POST['nombres'];
             $apellido = $_POST['apellidos'];
             $puesto = $_POST['puesto'];
@@ -86,7 +87,7 @@
             $ubicacion = $_POST['ubicacion'];
     
             // Llama al método del modelo para guardar la asistencia
-            $resultado = $this->model->guardarAsistencia($codigo, $nombre, $apellido, $puesto, $proveedor, $zona, $supervisor, $coordinador, $horaEntrada, $horaSalida, $foto, $ubicacion);
+            $resultado = $this->model->guardarAsistencia($codigo, $dni, $nombre, $apellido, $puesto, $proveedor, $zona, $supervisor, $coordinador, $horaEntrada, $horaSalida, $foto, $ubicacion);
     
             // Maneja la respuesta
             if ($resultado) {

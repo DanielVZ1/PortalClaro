@@ -28,12 +28,13 @@ class AsistenciaPromotoresModel extends Query {
         return $result;
     }
 
-    public function guardarAsistencia($codigo, $nombre, $apellido, $puesto, $proveedor, $zona, $supervisor, $coordinador, $horaEntrada, $horaSalida, $foto, $ubicacion) {
-        $sql = "INSERT INTO asistencia (codigo, nombre, apellido, puesto, proveedor, zona, supervisor, coordinador, hora_entrada, hora_salida, foto, ubicacion, estado) 
-                VALUES (:codigo, :nombre, :apellido, :puesto, :proveedor, :zona, :supervisor, :coordinador, :horaEntrada, :horaSalida, :foto, :ubicacion, 1)";
+    public function guardarAsistencia($codigo, $dni, $nombre, $apellido, $puesto, $proveedor, $zona, $supervisor, $coordinador, $horaEntrada, $horaSalida, $foto, $ubicacion) {
+        $sql = "INSERT INTO asistencia (codigo, dni, nombre, apellido, puesto, proveedor, zona, supervisor, coordinador, hora_entrada, hora_salida, foto, ubicacion, estado) 
+                VALUES (:codigo, :dni, :nombre, :apellido, :puesto, :proveedor, :zona, :supervisor, :coordinador, :horaEntrada, :horaSalida, :foto, :ubicacion, 1)";
         
         $params = [
             ':codigo' => $codigo,
+            ':dni' => $dni,
             ':nombre' => $nombre,
             ':apellido' => $apellido,
             ':puesto' => $puesto,

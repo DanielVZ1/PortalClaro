@@ -123,14 +123,14 @@
                         <input class="form-control" id="puesto" name="puesto" type="text" value="<?php echo ($puesto) ? $puesto : ''; ?>" readonly required>
                     </div>
                     <div class="col">
-                        <label for="proveedor" class="form-label">Proveedor:</label>
-                        <input class="form-control" id="proveedor" name="proveedor" type="text" required>
+                        <label for="zona" class="form-label">Zona:</label>
+                        <input class="form-control" id="zona" name="zona" type="text" value="<?php echo ($zona) ? $zona : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="zona" class="form-label">Zona:</label>
-                        <input class="form-control" id="zona" name="zona" type="text" value="<?php echo ($zona) ? $zona : ''; ?>" readonly required>
+                        <label for="proveedor" class="form-label">Proveedor:</label>
+                        <input class="form-control" id="proveedor" name="proveedor" type="text" required> 
                     </div>
                     <div class="col">
                         <label for="supervisor" class="form-label">Supervisor:</label>
