@@ -12,32 +12,57 @@
     <thead class="thead-dark">
         <tr>
             <th>Id</th>
-            <th>Código Maestro</th>
+            <th>Código</th>
             <th>DNI</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Puesto de trabajo</th>
-            <th>Proveedor</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Puesto</th>
             <th>Zona</th>
+            <th>Proveedor</th>
             <th>Supervisor</th>
-            <th>Coordinador de proyecto</th>
+            <th>Coordinador</th>
             <th>Hora Entrada</th>
             <th>Hora Salida</th>
-            <th>Foto<th>
-            <th>Geolocalización</th>
+            <th>Foto</th>
+            <th>Ubicación</th>
             <th>Estado</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
+        <?php if (!empty($data)): ?>
+            <?php foreach ($data as $item): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($item['id']); ?></td>
+                    <td><?php echo htmlspecialchars($item['codigo']); ?></td>
+                    <td><?php echo htmlspecialchars($item['dni']); ?></td>
+                    <td><?php echo htmlspecialchars($item['nombre']); ?></td>
+                    <td><?php echo htmlspecialchars($item['apellido']); ?></td>
+                    <td><?php echo htmlspecialchars($item['puesto']); ?></td>
+                    <td><?php echo htmlspecialchars($item['zona']); ?></td>
+                    <td><?php echo htmlspecialchars($item['proveedor']); ?></td>
+                    <td><?php echo htmlspecialchars($item['supervisor']); ?></td>
+                    <td><?php echo htmlspecialchars($item['coordinador']); ?></td>
+                    <td><?php echo htmlspecialchars($item['hora_entrada']); ?></td>
+                    <td><?php echo htmlspecialchars($item['hora_salida']); ?></td>
+                    <td><img src="<?php echo htmlspecialchars($item['foto']); ?>" alt="Foto" style="width:50px;height:50px;"/></td>
+                    <td><?php echo htmlspecialchars($item['ubicacion']); ?></td>
+                    <td><?php echo htmlspecialchars($item['estado']); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="15">No hay datos disponibles.</td>
+            </tr>
+        <?php endif; ?>
     </tbody>
 </table>
+
 
 <div id="nuevo_usuario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger">
-                <h5 class="modal-title text-white" id="title">Nuevo Usuario</h5>
+                <h5 class="modal-title text-white" id="title">Nueva Asistencia</h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -45,9 +70,9 @@
             <div class="modal-body">
                 <form method="post" id="frmUsuario">
                         <div class="form-group">
-                            <label for="usuario"style="color: black;">Usuario</label>
+                            <label for="usuario"style="color: black;">Codigo</label>
                             <input type="hidden" id="id" name="id">
-                            <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Usuario">
+                            <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Código Maestro">
                         </div>
                     
                         <div class="form-group">

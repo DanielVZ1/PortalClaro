@@ -22,8 +22,6 @@ class Query extends Conexion {
         return $resul->fetch(PDO::FETCH_ASSOC); // Obtiene solo un resultado
     }
     
-    
-
     public function selectAll(string $sql) {
         $this->sql = $sql;
         $resul = $this->con->prepare($this->sql);
