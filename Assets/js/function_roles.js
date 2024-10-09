@@ -81,12 +81,13 @@ function openModal() {
 }
 
 document.addEventListener('click', function(e) {
-    // Verifica si el clic se realizó en un botón con la clase btnEditRol
-    if (e.target && e.target.classList.contains('btnEditRol')) {
-        // Ejecuta la función fntEditRol
-        fntEditRol(e.target);
+    // Verifica si el elemento clicado o su padre tiene la clase btnEditRol
+    var button = e.target.closest('.btnEditRol');
+    if (button) {
+        fntEditRol(button);
     }
 });
+
 
 function fntEditRol(button) {
     var idRol = button.getAttribute("rl"); // Obtén el id del rol
