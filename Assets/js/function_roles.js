@@ -80,21 +80,24 @@ function openModal() {
     $('#modalFormRol').modal('show');
 }
 
-window.addEventListener('load', function(){
-    fntEditRol();
-}, false);
+document.addEventListener('click', function(e) {
+    // Verifica si el clic se realizó en un botón con la clase btnEditRol
+    if (e.target && e.target.classList.contains('btnEditRol')) {
+        // Ejecuta la función fntEditRol
+        fntEditRol(e.target);
+    }
+});
 
-function fntEditRol(){
-    var btnEditRol = document.querySelectorAll(".btnEditRol");
-    btnEditRol.forEach(function(btnEditRol){
-        btnEditRol.addEventListener('click', function()
-        {
-            document.querySelector('#titleModal').innerHTML = "Actualizar Rol";
-            document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
-            document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
-            document.querySelector('#btnText').innerHTML = "Actualizar";
-            
-            $('#modalFormRol').modal('show');
-        });
-    });
+function fntEditRol(button) {
+    var idRol = button.getAttribute("rl"); // Obtén el id del rol
+    
+    // Cambia la apariencia del modal
+    document.querySelector('#titleModal').innerHTML = "Actualizar Rol";
+    document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
+    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+    document.querySelector('#btnText').innerHTML = "Actualizar";
+
+    // Mostrar el modal
+    $('#modalFormRol').modal('show');
 }
+
