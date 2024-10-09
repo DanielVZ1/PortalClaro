@@ -1,118 +1,129 @@
 <?php 
-    //print_r($_SESSION)
     include "Views/Templates/header.php";
 ?>
+
 <ol class="breadcrumb mb-4 bg-primary">
     <li class="breadcrumb-item active text-white m">
         <h4 style="color:red">Asistencia</h4>
     </li>
 </ol>
+
+<!-- Formulario de Búsqueda -->
+<div class="mb-3">
+    <label for="fechaBusqueda" style="color: black;">Buscar por Fecha:</label>
+    <input type="date" id="fechaBusqueda" class="form-control" onchange="filtrarPorFecha()">
+    
+    <select id="rangoFechas" class="form-control mt-2" onchange="filtrarPorRango()">
+        <option value="todos">Todos</option>
+        <option value="hoy">Hoy</option>
+        <option value="semana">Esta Semana</option>
+        <option value="mes">Este Mes</option>
+    </select>
+</div>
+
 <button class="btn btn-primary mb-2" type="button" onclick="frmAsistencia();"><i class="fas fa-plus"></i></button>
+
 <table class="table table-light" id="tblAsistencia">
     <thead class="thead-dark">
         <tr>
             <th>Id</th>
-            <th>Código</th>
+            <th>Código Maestro</th>
             <th>DNI</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Puesto</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Puesto de trabajo</th>
             <th>Zona</th>
             <th>Proveedor</th>
             <th>Supervisor</th>
-            <th>Coordinador</th>
+            <th>Coordinador de proyecto</th>
             <th>Hora Entrada</th>
             <th>Hora Salida</th>
             <th>Foto</th>
             <th>Ubicación</th>
             <th>Estado</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        <?php if (!empty($data)): ?>
-            <?php foreach ($data as $item): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($item['id']); ?></td>
-                    <td><?php echo htmlspecialchars($item['codigo']); ?></td>
-                    <td><?php echo htmlspecialchars($item['dni']); ?></td>
-                    <td><?php echo htmlspecialchars($item['nombre']); ?></td>
-                    <td><?php echo htmlspecialchars($item['apellido']); ?></td>
-                    <td><?php echo htmlspecialchars($item['puesto']); ?></td>
-                    <td><?php echo htmlspecialchars($item['zona']); ?></td>
-                    <td><?php echo htmlspecialchars($item['proveedor']); ?></td>
-                    <td><?php echo htmlspecialchars($item['supervisor']); ?></td>
-                    <td><?php echo htmlspecialchars($item['coordinador']); ?></td>
-                    <td><?php echo htmlspecialchars($item['hora_entrada']); ?></td>
-                    <td><?php echo htmlspecialchars($item['hora_salida']); ?></td>
-                    <td><img src="<?php echo htmlspecialchars($item['foto']); ?>" alt="Foto" style="width:50px;height:50px;"/></td>
-                    <td><?php echo htmlspecialchars($item['ubicacion']); ?></td>
-                    <td><?php echo htmlspecialchars($item['estado']); ?></td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="15">No hay datos disponibles.</td>
-            </tr>
-        <?php endif; ?>
     </tbody>
 </table>
 
+<script>
+// Cargar todas las asistencias al iniciar la página
+document.addEventListener('DOMContentLoaded', function() {
+    cargarAsistencias({}); // Carga todas al inicio
+});
 
-<div id="nuevo_usuario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h5 class="modal-title text-white" id="title">Nueva Asistencia</h5>
-                <button class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" id="frmUsuario">
-                        <div class="form-group">
-                            <label for="usuario"style="color: black;">Codigo</label>
-                            <input type="hidden" id="id" name="id">
-                            <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Código Maestro">
-                        </div>
-                    
-                        <div class="form-group">
-                            <label for="nombre"style="color: black;">Nombre</label>
-                            <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre">
-                        </div>
-                   
-                <div class="row" id="claves">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="clave" style="color: black;">Contraseña</label>
-                                <input id="clave" class="form-control" type="password" name="clave"
-                                    placeholder="Contraseña">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="confirmar" style="color: black;">Confirmar Contraseña</label>
-                                <input id="confirmar" class="form-control" type="password" name="confirmar" placeholder="Confirmar Contraseña">
-                            </div>
-                        </div>
-                </div>
-               
-                        <div class="form-group">
-                            <label for="caja" style="color: black;">Caja</label>
-                            <select id="caja" class="form-control" name="caja"> 
-                                <?php foreach ($data['cajas'] as $row) { ?>
-                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['caja']; ?></option>
-                                <?php  }?>  
-                            </select>
-                        </div>
-                        <button class = "btn btn-primary" type="button" onclick="registrarUser(event)" id="btnAccion">Registrar</button>
-                        <button class = "btn bg-danger" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
-                    </form>
-            </div>
-        </div>
-    </div>
-</div>
+function filtrarPorFecha() {
+    const fecha = document.getElementById('fechaBusqueda').value;
+    cargarAsistencias({ fecha });
+}
+
+function filtrarPorRango() {
+    const rango = document.getElementById('rangoFechas').value;
+    let params = {};
+
+    if (rango === 'todos') {
+        params = {}; // Sin filtros
+    } else if (rango === 'hoy') {
+        params.fecha = 'hoy';
+    } else if (rango === 'semana') {
+        params.fecha = 'semana';
+    } else if (rango === 'mes') {
+        params.fecha = 'mes';
+    }
+
+    cargarAsistencias(params);
+}
+
+
+function cargarAsistencias(params) {
+    const url = base_url + "Asistencia/filtrar";
+    const http = new XMLHttpRequest();
+    http.open("POST", url, true);
+    http.setRequestHeader("Content-Type", "application/json");
+    http.send(JSON.stringify(params));
+    
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const datos = JSON.parse(this.responseText);
+            actualizarTabla(datos);
+        }
+    };
+}
+
+function actualizarTabla(datos) {
+    const tbody = document.querySelector('#tblAsistencia tbody');
+    tbody.innerHTML = ''; 
+
+    datos.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row.id}</td>
+            <td>${row.codigo}</td>
+            <td>${row.dni}</td>
+            <td>${row.nombre}</td>
+            <td>${row.apellido}</td>
+            <td>${row.puesto}</td>
+            <td>${row.zona}</td>
+            <td>${row.proveedor}</td>
+            <td>${row.supervisor}</td>
+            <td>${row.coordinador}</td>
+            <td>${row.hora_entrada}</td>
+            <td>${row.hora_salida}</td>
+            <td>${row.foto ? `<img src="${row.foto}" style="width: 50px; height: auto;">` : 'Sin foto'}</td>
+            <td>${row.ubicacion}</td>
+            <td>${row.estado === 1 ? '<span style="color: green;">Activo</span>' : '<span style="color: red;">Inactivo</span>'}</td>
+            <td>
+                <button class="btn btn-primary" type="button" onclick="btnEditarUser(${row.id});"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger" type="button" onclick="confirmarEliminacion(${row.id});"><i class="fas fa-trash-alt"></i></button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+</script>
+
 <?php 
-    //print_r($_SESSION)
     include "Views/Templates/footer.php";
-
 ?>
