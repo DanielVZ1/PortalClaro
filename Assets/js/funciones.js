@@ -937,7 +937,7 @@ function btnEliminarAsistencia(id) {
                             'Asistencia eliminada con éxito',
                             'success'
                         )
-                        tblUsuarios.ajax.reload();
+                        tblAsistencia.ajax.reload();
                     } else {
                         Swal.fire(
                             'Mensaje',
@@ -958,8 +958,8 @@ tblAsistencia = $('#tblAsistencia').DataTable({
     },
     columns: [
         { 'data': 'id' },
-        { 'data': 'dni' },
         { 'data': 'codigo' },
+        { 'data': 'dni' },
         { 'data': 'nombre' },
         { 'data': 'apellido' },
         { 'data': 'puesto' },
@@ -976,4 +976,40 @@ tblAsistencia = $('#tblAsistencia').DataTable({
 
     ]
 });
+
+function btnVerAsistencia(id) {
+    document.getElementById("title").innerHTML = "Ficha asistencia"; // Asegúrate de que este elemento existe
+    const url = base_url + "Asistencia/ver/" + id;
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const res = JSON.parse(this.responseText);
+            
+            // Asegúrate de que los IDs de los elementos en el HTML existen
+            document.getElementById("id").value = res.id || '';
+            document.getElementById("codigo").value = res.codigo_maestro || ''; // Cambié 'codigo' a 'codigo_maestro'
+            document.getElementById("dni").value = res.dni || '';
+            document.getElementById("nombre").value = res.nombre || '';
+            document.getElementById("apellido").value = res.apellido || '';
+            document.getElementById("puesto").value = res.puesto || '';
+            document.getElementById("zona").value = res.zona || ''; // Asegúrate de que 'zona' está en los datos
+            document.getElementById("proveedor").value = res.proveedor || '';
+            document.getElementById("supervisor").value = res.supervisor || '';
+            document.getElementById("coordinador").value = res.coordinador || ''; // Corrige 'corrdinador' a 'coordinador'
+            document.getElementById("hora_entrada").value = res.hora_entrada || ''; // Corrige el ID si es necesario
+            document.getElementById("hora_salida").value = res.hora_salida || '';
+            //document.getElementById("img-preview").src = base_url + 'Assets/img/' + (res.foto || ''); // Asegúrate de que 'foto' está en los datos
+            document.getElementById("ubicacion").value = res.ubicacion || ''; // Asegúrate de que 'ubicacion' está en los datos
+
+           
+            //document.getElementById("icon-image").classList.add("d-none");
+            document.getElementById("foto_actual").value = res.foto || '';
+            $("#nuevo_promotor").modal("show");
+        }
+    };
+}
+
 

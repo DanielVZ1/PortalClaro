@@ -22,6 +22,12 @@
             return $this->selectWithParams($sql, [':fecha' => $fecha]);
         }
         
+        public function verAsistencia(int $id)
+        {
+            $sql = "SELECT * FROM asistencia WHERE id = $id";
+            $data = $this->select($sql);
+            return $data;
+        }
         
     
         // Método para registrar un nuevo usuario
