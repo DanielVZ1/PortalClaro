@@ -818,7 +818,7 @@ function btnEditarVentas(id) {
 function btnEliminarVentas(id) {
     Swal.fire({
         title: '¿Está seguro de eliminar?',
-        text: "¡La venta no se eliminara de forma permanente, solo cambiará el estado a inactivo!",
+        text: "¡La venta no se eliminará de forma permanente, solo cambiará el estado a inactivo!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -827,31 +827,35 @@ function btnEliminarVentas(id) {
         cancelButtonText: 'No',
     }).then((result) => {
         if (result.isConfirmed) {
-            const url = base_url + "Ventas/eliminar/"+id;
+            const url = base_url + "Ventas/eliminar/" + id;
             const http = new XMLHttpRequest();
-            http.open("GET", url, true);
+            http.open("DELETE", url, true);
+            http.setRequestHeader("Content-Type", "application/json"); // Si es necesario
             http.send();
+
             http.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
+                if (this.readyState == 4) {
                     const res = JSON.parse(this.responseText);
-                    if (res == "ok") {
+                    if (this.status == 200 && res == "ok") {
                         Swal.fire(
                             'Mensaje',
                             'Venta eliminada con éxito',
                             'success'
-                        )
-                      tblVentas.ajax.reload();
-                    }else{ Swal.fire(
+                        );
+                        tblVentas.ajax.reload();
+                    } else {
+                        Swal.fire(
                             'Mensaje',
                             res,
                             'error'
-                    )}
+                        );
+                    }
                 }
-            }
-          
+            };
         }
-    })
+    });
 }
+
 
 function btnReingresarVentas(id) {
     Swal.fire({
