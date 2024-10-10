@@ -164,7 +164,7 @@
                     </div>
                     <div class="col">
                         <label for="fechaHoraSalida" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Salida:</label>
-                        <input class="form-control" id="fechaHoraSalida" name="fechaHoraSalida" type="datetime-local" required>
+                        <input class="form-control" id="fechaHoraSalida" name="fechaHoraSalida" type="datetime-local">
                     </div>
                 </div>
                 <div class="row mb-3">
