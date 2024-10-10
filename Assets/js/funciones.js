@@ -909,3 +909,71 @@ function registrarPermisos(e){
         }
     }
 }
+
+//-----------------------------------Asistencia--------------------------------------------------
+
+function btnEliminarAsistencia(id) {
+    Swal.fire({
+        title: '¿Está seguro de eliminar?',
+        text: "¡La Asistencia se eliminara de forma permanente!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const url = base_url + "Asistencia/eliminar/" + id;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    const res = JSON.parse(this.responseText);
+                    if (res == "ok") {
+                        Swal.fire(
+                            'Mensaje',
+                            'Asistencia eliminada con éxito',
+                            'success'
+                        )
+                        tblUsuarios.ajax.reload();
+                    } else {
+                        Swal.fire(
+                            'Mensaje',
+                            res,
+                            'error'
+                        )
+                    }
+                }
+            }
+        }
+    })
+}
+
+tblAsistencia = $('#tblAsistencia').DataTable({
+    ajax: {
+        url: base_url + "Asistencia/listar",
+        dataSrc: ''
+    },
+    columns: [
+        { 'data': 'id' },
+        { 'data': 'dni' },
+        { 'data': 'codigo' },
+        { 'data': 'nombre' },
+        { 'data': 'apellido' },
+        { 'data': 'puesto' },
+        { 'data': 'zona' },
+        { 'data': 'proveedor' },
+        { 'data': 'supervisor' },
+        { 'data': 'coordinador' },
+        { 'data': 'hora_entrada' },
+        { 'data': 'hora_salida' },
+        { 'data': 'foto' },
+        { 'data': 'ubicacion' },
+        { 'data': 'estado' },
+        { 'data': 'acciones' },
+
+    ]
+});
+

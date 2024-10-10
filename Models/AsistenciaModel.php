@@ -5,10 +5,24 @@
         }
     
         // Método para obtener todos los registros de asistencia
-        public function getAsistencia() {
-            $sql = "SELECT * FROM asistencia"; // Asegúrate de que el nombre de la tabla sea correcto
-            return $this->selectAll($sql); // Usa selectAll para obtener todos los registros
+        public function getAsistencias() {
+            $sql = "SELECT * FROM asistencia";
+            return $this->selectAll($sql);
         }
+
+        public function eliminarAsistencia($id) {
+            $sql = "DELETE FROM asistencia WHERE id = :id";
+            $params = [":id" => $id];
+            return $this->insert($sql, $params); // Asumiendo que insert es el método para ejecutar consultas con parámetros
+        }
+        
+        public function filtrarAsistencias($params) {
+            $sql = "SELECT * FROM asistencia WHERE DATE(hora_entrada) = :fecha";
+            $fecha = $params['fecha'] ?? date('Y-m-d'); // Usa la fecha pasada o la fecha de hoy
+            return $this->selectWithParams($sql, [':fecha' => $fecha]);
+        }
+        
+        
     
         // Método para registrar un nuevo usuario
         /*public function registrarUsuario($data) {
