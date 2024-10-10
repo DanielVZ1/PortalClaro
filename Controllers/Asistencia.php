@@ -13,7 +13,9 @@
       }
 
       public function listar(){
-        $data = $this->model->getAsistencias();
+        $filtro = $_GET['filtro'] ?? null;
+        $fecha = $_GET['fecha'] ?? null;
+        $data = $this->model->getAsistencias($filtro, $fecha);
         for ($i=0; $i <count($data); $i++) {  
           $data[$i]['imagen'] = '<img class= "img-thumbnail" src ="'. base_url."Assets/imgBD/". $data[$i]['foto'].'" width = "100">';
           if ($data[$i]['estado'] == 1) {
@@ -34,14 +36,6 @@
           echo json_encode($data, JSON_UNESCAPED_UNICODE);
           die();
       }
-  
-      
-      public function filtrar() {
-        $params = json_decode(file_get_contents("php://input"), true);
-        $asistencias = $this->model->getAsistencias($params);
-        echo json_encode($asistencias);
-    }
-  
 
   public function eliminar($id) {
     $asistenciaModel = new AsistenciaModel();

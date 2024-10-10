@@ -5,10 +5,40 @@
         }
     
         // Método para obtener todos los registros de asistencia
-        public function getAsistencias() {
+        public function getAsistencias($filtro = null, $fecha = null) {
             $sql = "SELECT * FROM asistencia";
-            return $this->selectAll($sql);
+            $params = [];
+        
+            if ($filtro) {
+                // Aquí se construye la consulta según el filtro
+                switch ($filtro) {
+                    case 'hoy':
+                        $sql .= " WHERE DATE(hora_entrada) = CURDATE()";
+                        break;
+                    case 'ayer':
+                        $sql .= " WHERE DATE(hora_entrada) = CURDATE() - INTERVAL 1 DAY";
+                        break;
+                    case 'semana':
+                        $sql .= " WHERE YEARWEEK(hora_entrada, 1) = YEARWEEK(CURDATE(), 1)";
+                        break;
+                    case 'mes':
+                        $sql .= " WHERE MONTH(hora_entrada) = MONTH(CURDATE()) AND YEAR(hora_entrada) = YEAR(CURDATE())";
+                        break;
+                    case 'hace_semanas':
+                        $sql .= " WHERE DATE(hora_entrada) < CURDATE() - INTERVAL 1 WEEK";
+                        break;
+                    case 'hace_meses':
+                        $sql .= " WHERE DATE(hora_entrada) < CURDATE() - INTERVAL 1 MONTH";
+                        break;
+                }
+            } elseif ($fecha) {
+                $sql .= " WHERE DATE(hora_entrada) = :fecha";
+                $params = [':fecha' => $fecha];
+            }
+        
+            return $this->selectWithParams($sql, $params);
         }
+        
 
         public function eliminarAsistencia($id) {
             $sql = "DELETE FROM asistencia WHERE id = :id";
@@ -29,24 +59,6 @@
             return $data;
         }
         
-    
-        // Método para registrar un nuevo usuario
-        /*public function registrarUsuario($data) {
-            $sql = "INSERT INTO usuarios (usuario, nombre, clave, caja) VALUES (?, ?, ?, ?)";
-            return $this->execute($sql, $data); // Asegúrate de que `$data` contenga los valores en el orden correcto
-        }
-    
-        // Método para actualizar un registro de asistencia
-        public function actualizarAsistencia($id, $data) {
-            $sql = "UPDATE asistencia SET campo1 = ?, campo2 = ? WHERE id = ?";
-            return $this->execute($sql, [...$data, $id]);
-        }
-    
-        // Método para eliminar un registro de asistencia
-        public function eliminarAsistencia($id) {
-            $sql = "DELETE FROM asistencia WHERE id = ?";
-            return $this->execute($sql, [$id]);
-        }*/
     }
     
 ?>
