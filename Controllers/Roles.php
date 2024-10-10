@@ -38,16 +38,45 @@ class Roles extends Controller
         die();
     }
 
+    public function getRol(int $idrol){
+        $intIdrol = intval(strClean($idrol));
+        if ($intIdrol > 0) 
+        {
+            $arrData = $this->model->selectRol($intIdrol);
+            if(empty($arrData))
+            {
+                $arrResponse = array('status' => false, 'msg' => 'No se encontraron datos');
+            }else{
+                $arrResponse = array('status' => true, 'data' => $arrData);
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }   
+        die();
+    }
+
     public function setRol(){
+        $intIdrol = intval($_POST['idRol']);
         $strRol = isset($_POST['txtNombre']) ? strClean($_POST['txtNombre']) : '';
         $strDescripcion = isset($_POST['txtDescripcion']) ? strClean($_POST['txtDescripcion']) : '';
         $intStatus = isset($_POST['listStatus']) ? intval($_POST['listStatus']) : 2;
-        $request_rol = $this ->model->insertRol($strRol, $strDescripcion, $intStatus);
+
+        if($intIdrol == 0)
+        {
+            $request_rol = $this->model->insertRol($strRol, $strDescripcion, $intStatus);
+            $option = 1;
+        }else{
+            $request_rol = $this->model->updateRol($strRol, $strDescripcion, $intStatus);
+            $option = 2;
+        }
 
         if($request_rol > 0)
         {
-
-            $arrResponse = array('status' => true, 'msg' => 'Rol creado correctamente.');
+            if($option == 1)
+            {
+                $arrResponse = array('status' => true, 'msg' => 'Rol creado correctamente.');
+            }else{
+                $arrResponse = array('status' => true, 'msg' => 'Rol actualizado correctamente.');
+            }
 
         }else if($request_rol == 'exist'){
 
