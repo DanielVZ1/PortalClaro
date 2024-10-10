@@ -19,6 +19,13 @@ class RolesModel extends Query
         return $data;
     }
 
+    public function selectRol(int $idrol)
+    {
+        $sql = "SELECT * FROM rol WHERE id = $idrol";
+        $request = $this->select($sql);
+        return $request;
+    }
+
     public function insertRol(string $rol, string $descripcion, int $status){
         $return = "";
         $this->strRol =  $rol;
@@ -36,10 +43,26 @@ class RolesModel extends Query
             $return = "exist";
         }
         return $return;
-
-
     }
 
+    public function updateRol(int $idrol, string $rol, string $descripcion, int $status){
+        $this->intIdrol =  $idrol;
+        $this->strRol =  $rol;
+        $this->strDescripcion = $descripcion;
+        $this->intStatus = $status;
+        $sql = "SELECT * FROM rol  WHERE nombrerol = '$this->strRol' AND id != $this->intIdrol";
+        $request = $this->selectAll($sql);
+
+        if(empty($request))
+        {
+            $sql = "UPDATE rol SET nombrerol = ?, descripcion = ?, status = ? WHERE id = $this->intIdrol ";
+            $arrData = array($this->strRol,$this->strDescripcion,$this->intStatus);
+            $request = $this->save($sql,$arrData);
+        }else{
+            $request = "exist";
+        }
+        return $request;
+    }
 
 
 
