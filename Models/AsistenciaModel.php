@@ -5,26 +5,8 @@
         }
     
         // Método para obtener todos los registros de asistencia
-        public function getAsistencias($params) {
+        public function getAsistencias() {
             $sql = "SELECT * FROM asistencia";
-            $conditions = [];
-    
-            if (isset($params['fecha'])) {
-                $fecha = $params['fecha'];
-    
-                if ($fecha === 'hoy') {
-                    $conditions[] = "DATE(hora_entrada) = CURDATE()";
-                } elseif ($fecha === 'semana') {
-                    $conditions[] = "YEARWEEK(hora_entrada, 1) = YEARWEEK(CURDATE(), 1)";
-                } elseif ($fecha === 'mes') {
-                    $conditions[] = "YEAR(hora_entrada) = YEAR(CURDATE()) AND MONTH(hora_entrada) = MONTH(CURDATE())";
-                }
-            }
-    
-            if (!empty($conditions)) {
-                $sql .= " WHERE " . implode(' AND ', $conditions);
-            }
-    
             return $this->selectAll($sql);
         }
 
@@ -39,6 +21,7 @@
             $fecha = $params['fecha'] ?? date('Y-m-d'); // Usa la fecha pasada o la fecha de hoy
             return $this->selectWithParams($sql, [':fecha' => $fecha]);
         }
+        
         
     
         // Método para registrar un nuevo usuario

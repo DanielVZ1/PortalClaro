@@ -947,3 +947,29 @@ function btnEliminarAsistencia(id) {
     })
 }
 
+tblAsistencia = $('#tblAsistencia').DataTable({
+    ajax: {
+        url: base_url + "Asistencia/listar",
+        dataSrc: ''
+    },
+    columns: [
+        { 'data': 'id' },
+        { 'data': 'dni' },
+        { 'data': 'codigo' },
+        { 'data': 'nombre' },
+        { 'data': 'apellido' },
+        { 'data': 'puesto' },
+        { 'data': 'zona' },
+        { 'data': 'proveedor' },
+        { 'data': 'supervisor' },
+        { 'data': 'coordinador' },
+        { 'data': 'hora_entrada' },
+        { 'data': 'hora_salida' },
+        { 'data': 'foto' },
+        { 'data': 'ubicacion' },
+        { 'data': 'estado' },
+        { 'data': 'acciones' },
+
+    ]
+});
+
