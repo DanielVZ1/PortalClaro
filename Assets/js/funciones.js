@@ -987,26 +987,35 @@ function btnVerAsistencia(id) {
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             const res = JSON.parse(this.responseText);
-            
-            // Asegúrate de que los IDs de los elementos en el HTML existen
-            document.getElementById("id").value = res.id || '';
-            document.getElementById("codigo").value = res.codigo_maestro || ''; // Cambié 'codigo' a 'codigo_maestro'
-            document.getElementById("dni").value = res.dni || '';
-            document.getElementById("nombre").value = res.nombre || '';
-            document.getElementById("apellido").value = res.apellido || '';
-            document.getElementById("puesto").value = res.puesto || '';
-            document.getElementById("zona").value = res.zona || ''; // Asegúrate de que 'zona' está en los datos
-            document.getElementById("proveedor").value = res.proveedor || '';
-            document.getElementById("supervisor").value = res.supervisor || '';
-            document.getElementById("coordinador").value = res.coordinador || ''; // Corrige 'corrdinador' a 'coordinador'
-            document.getElementById("hora_entrada").value = res.hora_entrada || ''; // Corrige el ID si es necesario
-            document.getElementById("hora_salida").value = res.hora_salida || '';
-            //document.getElementById("img-preview").src = base_url + 'Assets/img/' + (res.foto || ''); // Asegúrate de que 'foto' está en los datos
-            document.getElementById("ubicacion").value = res.ubicacion || ''; // Asegúrate de que 'ubicacion' está en los datos
+            document.getElementById("id").value = res.id;
+            document.getElementById("codigo").value = res.codigo;
+            document.getElementById("dni").value = res.dni;
+            document.getElementById("nombre").value = res.nombre;
+            document.getElementById("apellido").value = res.apellido;
+            document.getElementById("puesto").value = res.puesto;
+            document.getElementById("zona").value = res.zona;
+            document.getElementById("proveedor").value = res.proveedor;
+            document.getElementById("supervisor").value = res.supervisor;  
+            document.getElementById("coordinador").value = res.coordinador;
+            document.getElementById("hora_entrada").value = res.hora_entrada;
+            document.getElementById("hora_salida").value = res.hora_salida;
+            document.getElementById("ubicacion").value = res.ubicacion;
 
-           
-            //document.getElementById("icon-image").classList.add("d-none");
-            document.getElementById("foto_actual").value = res.foto || '';
+            // Actualiza el enlace para ver en el mapa
+            const regex = /Lat:\s*([\d.-]+),\s*Lon:\s*([\d.-]+)/;
+            const match = res.ubicacion.match(regex);
+            if (match) {
+                const lat = match[1];
+                const lng = match[2];
+                
+                // Actualiza el enlace para ver en el mapa con el marcador rojo
+                document.getElementById("map-link").href = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+            } else {
+                console.error("Formato de ubicación incorrecto:", res.ubicacion);
+            }
+
+            //document.getElementById("img-preview").src = base_url + 'Assets/img/' + res.foto;
+            document.getElementById("foto_actual").value = res.foto;
             $("#nuevo_promotor").modal("show");
         }
     };

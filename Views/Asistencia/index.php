@@ -54,7 +54,7 @@
                             <label style="color: black;">Foto</label>
                             <div class="card border-primary">
                                 <div class="card-body">
-                                    <input type="hidden" id="foto_actual" name="foto_actual"readonly>
+                                    <input type="hidden" id="foto_actual" name="foto_actual" readonly>
                                     <img class="img-thumbnail" id="img-preview" src="" alt="Vista previa de la foto">
                                 </div>
                             </div>
@@ -65,14 +65,14 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="codigo" style="color: black;">Código Maestro</label>
-                                <input id="codigo" class="form-control" type="text" name="codigo" placeholder="Ingrese el código maestro" maxlength="13" minlength="13" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" oncopy="return false" onpaste="return false"readonly>
+                                <input id="codigo" class="form-control" type="text" name="codigo" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" oncopy="return false" onpaste="return false" readonly>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="dni" style="color: black;">DNI</label>
-                                <input id="dni" class="form-control" type="text" name="dni" placeholder="Ingrese el número de DNI" maxlength="15" oninput="formatDNI(this)" onkeypress="return isNumber(event)" oncopy="return false" onpaste="return false"readonly>
+                                <input id="dni" class="form-control" type="text" name="dni" oninput="formatDNI(this)" onkeypress="return isNumber(event)" oncopy="return false" onpaste="return false" readonly>
                              </div>
                             <span id="errorDNI" class='text-danger'></span>
                         </div>
@@ -82,14 +82,14 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="nombre" style="color: black;">Nombres</label>
-                                <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Ingrese el nombre completo" maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)"readonly>
+                                <input id="nombre" class="form-control" type="text" name="nombre" oninput="formatInput(this)" onkeyup="formatInput(this)" readonly>
                             </div>
                         </div>
                         
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="apellido" style="color: black;">Apellidos</label>
-                                <input id="apellido" class="form-control" type="text" name="apellido" placeholder="Ingrese el apellido completo" maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)"readonly>
+                                <input id="apellido" class="form-control" type="text" name="apellido" oninput="formatInput(this)" onkeyup="formatInput(this)" readonly>
                             </div>
                         </div>
                     </div>
@@ -98,14 +98,14 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="puesto" style="color: black;">Puesto</label>
-                                <input id="puesto" class="form-control" type="text" name="puesto" placeholder="Ingrese el puesto" maxlength="50"readonly>
+                                <input id="puesto" class="form-control" type="text" name="puesto" readonly>
                             </div>
                         </div>
                     
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="zona" style="color: black;">Zonas</label>
-                                <input id="zona" class="form-control" type="text" name="zona" placeholder="Ingrese la zona"readonly>
+                                <label for="zona" style="color: black;">Zona</label>
+                                <input id="zona" class="form-control" type="text" name="zona" readonly>
                             </div>
                         </div>
                     </div>
@@ -114,14 +114,14 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="proveedor" style="color: black;">Proveedor</label>
-                                <input id="proveedor" class="form-control" type="text" name="proveedor" placeholder="Ingrese el proveedor"readonly>
+                                <input id="proveedor" class="form-control" type="text" name="proveedor" readonly>
                             </div>
                         </div>
                     
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="supervisor" style="color: black;">Supervisor</label>
-                                <input id="supervisor" class="form-control" type="text" name="supervisor" placeholder="Ingrese el supervisor"readonly>
+                                <input id="supervisor" class="form-control" type="text" name="supervisor" readonly>
                             </div>
                         </div>
                     </div>
@@ -130,14 +130,14 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="coordinador" style="color: black;">Coordinador</label>
-                                <input id="coordinador" class="form-control" type="text" name="coordinador" placeholder="Ingrese el coordinador"readonly>
+                                <input id="coordinador" class="form-control" type="text" name="coordinador" readonly>
                             </div>
                         </div>
                     
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="hora_entrada" style="color: black;">Hora de Entrada</label>
-                                <input id="hora_entrada" class="form-control" type="time" name="hora_entrada"readonly>
+                                <input id="hora_entrada" class="form-control" type="datetime" name="hora_entrada" readonly>
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="hora_salida" style="color: black;">Hora de Salida</label>
-                                <input id="hora_salida" class="form-control" type="time" name="hora_salida"readonly>
+                                <input id="hora_salida" class="form-control" type="datetime" name="hora_salida" readonly>
                             </div>
                         </div>
                     </div>
@@ -155,8 +155,14 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="ubicacion" style="color: black;">Ubicación</label>
-                                <input id="ubicacion" class="form-control" type="text" name="ubicacion" placeholder="Ingrese la ubicación"readonly>
+                                <input id="ubicacion" class="form-control" type="text" name="ubicacion" placeholder="Ingrese la ubicación" readonly>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <a id="map-link" href="#" target="_blank" style="color: blue;">Ver en el mapa</a>
                         </div>
                     </div>
 
