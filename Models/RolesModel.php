@@ -56,15 +56,12 @@ class RolesModel extends Query
         if(empty($request))
         {
             $sql = "UPDATE rol SET nombrerol = ?, descripcion = ?, status = ? WHERE id = $this->intIdrol ";
-            $arrData = array($this->strRol,$this->strDescripcion,$this->intStatus);
+            $arrData = array($this->strRol,$this->strDescripcion,$this->intStatus );
             $request = $this->save($sql,$arrData);
         }else{
             $request = "exist";
         }
         return $request;
     }
-
-
-
 }
 ?>

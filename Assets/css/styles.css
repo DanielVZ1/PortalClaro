@@ -11235,3 +11235,6 @@ body {
 .tile-footer {
   margin-top: 20px; /* O cualquier valor que necesites */
 }
+.notBlock{
+  display: none;
+}

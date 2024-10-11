@@ -20,14 +20,15 @@ document.addEventListener('DOMContentLoaded', function(){
         "resonsieve": true,             // Corregido: de "resonsieve" a "responsive".
         "bDestroy": true,
         "iDisplayLength": 10,
-        "order": [[0, "desc"]]
+        "order": [[0, "asc"]]
     });
 
     var formRol = document.querySelector("#formRol");
     formRol.onsubmit = function(e) {
         e.preventDefault();
-
-        var intIdRol =  document.querySelector('#idRol').value;
+    
+        // Obtener los valores de los campos
+        var  intIdrol = document.querySelector("#idRol").value;
         var strNombre = document.querySelector('#txtNombre').value;
         var strDescripcion = document.querySelector('#txtDescripcion').value;
         var intStatus = document.querySelector('#listStatus').value;
@@ -42,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function(){
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         var ajaxUrl = base_url + "/Roles/setRol"; // URL del controlador
         var formData = new FormData(formRol); // Enviar los datos del formulario
+    
         request.open("POST", ajaxUrl, true);
         request.send(formData);
     
@@ -57,11 +59,11 @@ document.addEventListener('DOMContentLoaded', function(){
     
                     // Mostrar mensaje de éxito
                     swal("Roles de usuario", objData.msg, "success");
-    
-                    // Recargar la tabla de roles
+
                     tableRoles.ajax.reload(function(){
                         fntEditRol();
-                    }); // Corregido: ya no se usa `.api()`
+                    });
+
                 } else {
                     // Mostrar mensaje de error
                     swal("Error", objData.msg, "error");
@@ -91,54 +93,45 @@ document.addEventListener('click', function(e) {
 
 
 function fntEditRol(button) {
-
-    // Cambia la apariencia del modal para la actualización
+    // Cambia el título y la apariencia del modal
     document.querySelector('#titleModal').innerHTML = "Actualizar Rol";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML = "Actualizar";
 
-    // Obtén el id del rol
-    var idRol = button.getAttribute("rl"); 
-    if (!idRol) {
-        swal("Error", "No se ha proporcionado un ID de rol válido.", "error");
-        return;
-    }
+    var idRol = button.getAttribute("rl"); // Obtén el id del rol
 
-    // Crear la solicitud AJAX
+    // Crear la solicitud XMLHttpRequest para obtener los datos del rol
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     var ajaxUrl = base_url + '/Roles/getRol/' + idRol;
     request.open('GET', ajaxUrl, true);
     request.send();
 
-    // Procesar la respuesta
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-
             var objData = JSON.parse(request.responseText);
 
-            // Verificar si se obtuvo correctamente el rol
-            if (objData.data) {
-                // Cargar los datos en los campos del modal
+            if (objData.status) {
+                // Llenar los campos con los datos del rol
                 document.querySelector("#idRol").value = objData.data.id;
                 document.querySelector("#txtNombre").value = objData.data.nombrerol;
                 document.querySelector("#txtDescripcion").value = objData.data.descripcion;
 
-                // Seleccionar el estado del rol
-                var optionSelect = `
-                    <option value="1" ${objData.data.status == 1 ? 'selected' : ''}>Activo</option>
-                    <option value="2" ${objData.data.status == 2 ? 'selected' : ''}>Inactivo</option>
-                `;
+                var optionSelect = (objData.data.status == 1)
+                    ? '<option value="1" selected class="notBlock">Activo</option>'
+                    : '<option value="2" selected class="notBlock">Inactivo</option>';
 
-                // Asignar las opciones al select
-                document.querySelector("#listStatus").innerHTML = optionSelect;
+                var htmlSelect = `
+                    ${optionSelect}
+                    <option value="1">Activo</option>
+                    <option value="2">Inactivo</option>
+                `;
+                document.querySelector("#listStatus").innerHTML = htmlSelect;
 
                 // Mostrar el modal
                 $('#modalFormRol').modal('show');
-
             } else {
-                // Mostrar mensaje de error si no se encuentran datos
-                swal("Error", objData.msg || "No se encontraron datos del rol.", "error");
+                swal("Error", objData.msg, "error");
             }
         }
     }

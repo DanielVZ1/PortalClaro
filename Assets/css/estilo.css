@@ -273,3 +273,6 @@ button:hover {
     padding: 77px 15px 33px 15px;
   }
 }
+.notBlock{
+  display: none;
+}

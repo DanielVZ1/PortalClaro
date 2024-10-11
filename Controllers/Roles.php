@@ -38,7 +38,8 @@ class Roles extends Controller
         die();
     }
 
-    public function getRol(int $idrol){
+    public function getRol(int $idrol)
+    {
         $intIdrol = intval(strClean($idrol));
         if ($intIdrol > 0) 
         {
@@ -54,45 +55,48 @@ class Roles extends Controller
         die();
     }
 
-    public function setRol(){
+    public function setRol() {
         $intIdrol = intval($_POST['idRol']);
         $strRol = isset($_POST['txtNombre']) ? strClean($_POST['txtNombre']) : '';
         $strDescripcion = isset($_POST['txtDescripcion']) ? strClean($_POST['txtDescripcion']) : '';
         $intStatus = isset($_POST['listStatus']) ? intval($_POST['listStatus']) : 2;
-
-        if($intIdrol == 0)
-        {
+    
+        // Logs para depurar
+        error_log("ID Rol: $intIdrol");
+        error_log("Nombre Rol: $strRol");
+        error_log("Descripción: $strDescripcion");
+        error_log("Status: $intStatus");
+    
+        if($intIdrol == 0) {
+            error_log("Insertando nuevo rol");
             $request_rol = $this->model->insertRol($strRol, $strDescripcion, $intStatus);
             $option = 1;
-        }else{
-            $request_rol = $this->model->updateRol($strRol, $strDescripcion, $intStatus);
+        } else {
+            error_log("Actualizando rol existente");
+            $request_rol = $this->model->updateRol($intIdrol, $strRol, $strDescripcion, $intStatus); // Faltaba pasar el $intIdrol
             $option = 2;
         }
-
-        if($request_rol > 0)
-        {
-            if($option == 1)
-            {
+    
+        if($request_rol > 0) {
+            if($option == 1) {
+                error_log("Rol creado correctamente");
                 $arrResponse = array('status' => true, 'msg' => 'Rol creado correctamente.');
-            }else{
+            } else {
+                error_log("Rol actualizado correctamente");
                 $arrResponse = array('status' => true, 'msg' => 'Rol actualizado correctamente.');
             }
-
-        }else if($request_rol == 'exist'){
-
+        } else if($request_rol == 'exist') {
+            error_log("El rol ya existe");
             $arrResponse = array('status' => false, 'msg' => 'El rol ya existe.');
-
-        }else{
-
+        } else {
+            error_log("Error al crear el rol");
             $arrResponse = array('status' => false, 'msg' => 'Error al crear el rol.');
-
         }
-
+    
         echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-        
         die();
     }
-
+    
 }
 
     
