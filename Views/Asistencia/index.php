@@ -8,6 +8,50 @@
     </li>
 </ol>
 
+<div class="row mb-4">
+    <div class="col-md-6">
+        <select id="filtroAsistencias" class="form-control">
+            <option value="todos">Todos</option>
+            <option value="hoy">Hoy</option>
+            <option value="ayer">Ayer</option>
+            <option value="semana">Esta Semana</option>
+            <option value="mes">Este Mes</option>
+            <option value="hace_semanas">Hace una Semana</option>
+            <option value="hace_meses">Hace un Mes</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <input type="date" id="fechaExacta" class="form-control" />
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#filtroAsistencias').change(function() {
+        const filtro = $(this).val();
+        filtrarAsistencias(filtro, null);
+    });
+
+    $('#fechaExacta').change(function() {
+        const fecha = $(this).val();
+        filtrarAsistencias(null, fecha);
+    });
+
+    function filtrarAsistencias(filtro, fecha) {
+        let url = base_url + "Asistencia/listar";
+
+        if (filtro) {
+            url += "?filtro=" + filtro;
+        } else if (fecha) {
+            url += "?fecha=" + fecha;
+        }
+
+        tblAsistencia.ajax.url(url).load();
+    }
+});
+</script>
+
 <!-- Formulario de Búsqueda -->
 
 

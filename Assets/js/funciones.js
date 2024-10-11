@@ -1021,4 +1021,29 @@ function btnVerAsistencia(id) {
     };
 }
 
+$(document).ready(function() {
+    $('#filtroAsistencias').change(function() {
+        const filtro = $(this).val();
+        filtrarAsistencias(filtro, null);
+    });
+
+    $('#fechaExacta').change(function() {
+        const fecha = $(this).val();
+        filtrarAsistencias(null, fecha);
+    });
+
+    function filtrarAsistencias(filtro, fecha) {
+        let url = base_url + "Asistencia/listar";
+
+        if (filtro) {
+            url += "?filtro=" + filtro;
+        } else if (fecha) {
+            url += "?fecha=" + fecha;
+        }
+
+        tblAsistencia.ajax.url(url).load();
+    }
+});
+
+
 
