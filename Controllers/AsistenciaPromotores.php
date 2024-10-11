@@ -73,7 +73,7 @@
         // Asegúrate de que la solicitud sea POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $codigo = $_POST['CodigoMaestro'];
-            $dni  = $_POST['dni'];
+            $dni = $_POST['dni'];
             $nombre = $_POST['nombres'];
             $apellido = $_POST['apellidos'];
             $puesto = $_POST['puesto'];
@@ -91,8 +91,12 @@
     
             // Maneja la respuesta
             if ($resultado) {
-                // Redirige o muestra un mensaje de éxito
-                header('Location: ' . base_url . 'AsistenciaPromotores/registroExitoso'); // Cambia la URL según necesites
+                // Guarda el mensaje de éxito en una variable de sesión
+                session_start();
+                $_SESSION['mensaje'] = 'Asistencia guardada exitosamente.';
+    
+                // Redirige a la página deseada
+                header('Location: ' . base_url . 'AsistenciaPromotores/asistenciapromotores'); 
                 exit();
             } else {
                 // Manejo de error

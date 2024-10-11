@@ -107,6 +107,13 @@
 </head>
 
 <body>
+<?php
+    session_start();
+    if (isset($_SESSION['mensaje'])) {
+        echo "<div class='alert alert-success text-center'>".$_SESSION['mensaje']."</div>";
+        unset($_SESSION['mensaje']); // Elimina el mensaje después de mostrarlo
+    }
+    ?>
     <div id="particles-js"></div>
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div class="form-container card p-4">
