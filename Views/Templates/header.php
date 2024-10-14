@@ -125,20 +125,7 @@
                             <li><a href="<?php echo base_url;?>Ventas">Ventas</a></li>
                         </div>
                     </div>
-
-                    <a href="Views/Geolocation/index.html" class="nav-link active" aria-current="page" style="margin: auto; padding: 10px; position: relative; top: -20px;">
-                        <div class="circle">
-                            <img src="Assets/img/Localización.png" alt="Logo" style="width: 83px">
-                        </div>
-                    </a>
-
-                    <a href="Views/Camara/index.html" class="nav-link active" aria-current="page" style="margin: auto; padding: 10px; position: relative; top: -40px;">
-                        <div class="circle">
-                            <img src="Assets/img/Camara.png" alt="Logo">
-                        </div>
-                    </a>
-
-                    <a href="Views/email/index.html" class="nav-link active" aria-current="page" style="margin: auto; padding: 10px; position: relative; top: -60px;">
+                    <a href="Views/email/index.html" class="nav-link active" aria-current="page" style="margin: auto; padding: 10px; position: relative; top: -20px;">
                         <div class="circle">
                             <img src="Assets/img/email.png" alt="Logo">
                         </div>
