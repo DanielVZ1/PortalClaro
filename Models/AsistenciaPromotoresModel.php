@@ -50,5 +50,22 @@ class AsistenciaPromotoresModel extends Query {
         
         return $this->insert($sql, $params); // Asegúrate de que tienes un método insert en tu modelo
     }
+
+    public function verificarAsistenciaHoy($codigo) {
+        $fechaHoy = date('Y-m-d');
+        $sql = "SELECT id FROM asistencia WHERE codigo = :codigo AND DATE(hora_entrada) = :fechaHoy";
+        $params = [
+            ':codigo' => $codigo,
+            ':fechaHoy' => $fechaHoy
+        ];
+        return $this->select1($sql, $params);
+    }
+    
+    public function obtenerAsistenciaPorId($id) {
+        $sql = "SELECT * FROM asistencia WHERE id = :id";
+        $params = [':id' => $id];
+        return $this->select1($sql, $params);
+    }
+    
     
 }

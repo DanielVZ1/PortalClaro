@@ -19,21 +19,29 @@
             return;
         }
     
-        // Verificar el código en la base de datos
         try {
             $verificar = $this->model->verificarCodigo($codigo);
             if (!empty($verificar)) {
-                // Obtener los datos del promotor
-                $datosPromotor = $this->model->obtenerDatosPromotor($codigo);
-                if ($datosPromotor) {
+                // Comprobar si ya hay asistencia registrada para hoy
+                $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
+                if ($asistenciaHoy) {
                     echo json_encode([
-                        'msg' => 'CÓDIGO VÁLIDO',
-                        'type' => 'success',
-                        'redirect' => base_url . 'AsistenciaPromotores/mostrarFormulario/' . $codigo,
-                        'datos' => $datosPromotor
+                        'msg' => 'YA REGISTRASTE TU ASISTENCIA PARA HOY',
+                        'type' => 'info'
                     ]);
                 } else {
-                    echo json_encode(['msg' => 'NO SE ENCONTRARON DATOS', 'type' => 'error']);
+                    // Obtener los datos del promotor
+                    $datosPromotor = $this->model->obtenerDatosPromotor($codigo);
+                    if ($datosPromotor) {
+                        echo json_encode([
+                            'msg' => 'CÓDIGO VÁLIDO',
+                            'type' => 'success',
+                            'redirect' => base_url . 'AsistenciaPromotores/mostrarFormulario/' . $codigo,
+                            'datos' => $datosPromotor
+                        ]);
+                    } else {
+                        echo json_encode(['msg' => 'NO SE ENCONTRARON DATOS', 'type' => 'error']);
+                    }
                 }
             } else {
                 echo json_encode(['msg' => 'EL CÓDIGO NO ESTÁ REGISTRADO', 'type' => 'error']);
@@ -46,12 +54,22 @@
     
     
     
+    
     public function mostrarFormulario($codigo) {
         $fechaHoraActual = date('Y-m-d\TH:i');
         $data['fechaHoraEntrada'] = $fechaHoraActual;
     
         // Obtener los datos del promotor
         $datosPromotor = $this->model->obtenerDatosPromotor($codigo);
+
+        $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
+    if ($asistenciaHoy) {
+        // Cargar asistencia existente
+        $asistenciaData = $this->model->obtenerAsistenciaPorId($asistenciaHoy['id']);
+        if ($asistenciaData) {
+            $data['horaSalida'] = $asistenciaData['hora_salida']; // Cargar hora de salida
+        }
+    }
     
         if ($datosPromotor) {
             $data['codigo'] = $datosPromotor['codigo'];
