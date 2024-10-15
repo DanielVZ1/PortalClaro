@@ -21,10 +21,6 @@ class AsistenciaPromotoresModel extends Query {
         $params = [':codigo' => $codigo];
         $result = $this->select1($sql, $params);
         
-        //error_log(print_r($result, true)); // Para depuración
-        //return $result;
-
-        //var_dump($result); // Agrega esto para ver el resultado
         return $result;
     }
 

@@ -52,9 +52,6 @@
         }
     }
     
-    
-    
-    
     public function mostrarFormulario($codigo) {
         $fechaHoraActual = date('Y-m-d\TH:i');
         $data['fechaHoraEntrada'] = $fechaHoraActual;
@@ -122,13 +119,6 @@
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
     
 }
    
