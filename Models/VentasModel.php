@@ -98,11 +98,17 @@
     }
     
 
-    public function editarUser(int $id)
+    public function editarVentas(int $id)
     {
         $sql = "SELECT * FROM ventas WHERE id = $id";
         $data = $this->select($sql);
         return $data;
+    }
+
+    public function eliminarVentas($id) {
+        $sql = "DELETE FROM ventas WHERE id = :id";
+        $params = [":id" => $id];
+        return $this->insert($sql, $params); // Asumiendo que insert es el método para ejecutar consultas con parámetros
     }
 
     public function accionVentas(int $estado, int $id)
