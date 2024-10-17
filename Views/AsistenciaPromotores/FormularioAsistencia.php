@@ -163,11 +163,14 @@
                         <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo date('Y-m-d\TH:i'); ?>" readonly required>
                     </div>
                     <div class="col">
-                        <label for="horaSalida" class="form-label">Hora de Salida:</label>
-                        <input class="form-control" id="horaSalida" name="horaSalida" type="datetime-local"
-                            value="<?php echo isset($asistencia['hora_salida']) ? $asistencia['hora_salida'] : ''; ?>"
-                            <?php echo isset($asistencia['hora_salida']) ? '' : 'readonly'; ?>>
-                    </div>
+    <label for="horaSalida" class="form-label">Hora de Salida:</label>
+    <input class="form-control" id="horaSalida" name="horaSalida" type="datetime-local"
+        value="<?php echo isset($horaSalida) ? $horaSalida : ''; ?>"
+        <?php echo $horaSalidaReadonly ? 'readonly' : ''; ?>>
+</div>
+
+
+
                 </div>
                 <div class="row mb-3">
                     <div class="col">

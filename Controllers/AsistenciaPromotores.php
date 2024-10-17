@@ -61,6 +61,7 @@ class AsistenciaPromotores extends Controller {
     public function mostrarFormulario($codigo) {
         $fechaHoraActual = date('Y-m-d\TH:i');
         $data['fechaHoraEntrada'] = $fechaHoraActual;
+        $data['horaSalidaReadonly'] = false; // Definir por defecto
     
         // Obtener datos del promotor
         $datosPromotor = $this->model->obtenerDatosPromotor($codigo);
@@ -74,8 +75,8 @@ class AsistenciaPromotores extends Controller {
                 // Cargar datos de la asistencia anterior
                 $data['codigo'] = $codigo;
                 $data['dni'] = $asistenciaData['dni'];
-                $data['nombres'] = $asistenciaData['nombres'];
-                $data['apellidos'] = $asistenciaData['apellidos'];
+                $data['nombres'] = $asistenciaData['nombre'];
+                $data['apellidos'] = $asistenciaData['apellido'];
                 $data['puesto'] = $asistenciaData['puesto'];
                 $data['zona'] = $asistenciaData['zona'];
                 $data['proveedor'] = $asistenciaData['proveedor'];
@@ -83,7 +84,9 @@ class AsistenciaPromotores extends Controller {
                 $data['coordinador'] = $asistenciaData['coordinador'];
                 $data['foto'] = $asistenciaData['foto'];
                 $data['ubicacion'] = $asistenciaData['ubicacion'];
-                $data['horaSalida'] = $asistenciaData['hora_salida'];
+                $data['horaEntrada'] = $asistenciaData['hora_entrada'];
+                $data['horaSalida'] = !empty($asistenciaData['hora_salida']) ? date('Y-m-d\TH:i', strtotime($asistenciaData['hora_salida'])) : ''; // Captura automática
+                $data['horaSalidaReadonly'] = true; // Indica que el campo es solo lectura
             }
         } else {
             // Si no hay asistencia registrada, cargar datos del promotor
@@ -103,6 +106,8 @@ class AsistenciaPromotores extends Controller {
         $this->views->getView1('AsistenciaPromotores', 'formularioAsistencia', $data);
     }
     
+    
+    
 
     public function guardarAsistencia() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -116,13 +121,14 @@ class AsistenciaPromotores extends Controller {
             $supervisor = $_POST['supervisor'];
             $coordinador = $_POST['coordinador'];
             $horaEntrada = date('Y-m-d H:i:s'); // Captura hora de entrada automáticamente
-            $horaSalida = $_POST['horaSalida'] ?? null; // Hora de salida opcional
             $foto = $_POST['foto'];
             $ubicacion = $_POST['ubicacion'];
-
+    
+            // Verificar si hay asistencia hoy
             $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
-
+    
             if ($asistenciaHoy) {
+                $horaSalida = date('Y-m-d H:i:s'); // Captura la hora actual para salida
                 // Actualizar solo la hora de salida
                 $resultado = $this->model->actualizarHoraSalida($asistenciaHoy['id'], $horaSalida);
                 if ($resultado) {
@@ -147,5 +153,7 @@ class AsistenciaPromotores extends Controller {
             }
         }
     }
+    
+    
 }
 ?>
