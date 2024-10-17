@@ -36,13 +36,13 @@
             color: #000;
             border-radius: 8px;
             padding: 20px;
-            max-width: 600px; /* Ancho máximo */
-            width: 90%; /* Ancho del formulario */
+            max-width: 600px;
+            width: 90%;
             position: relative;
             z-index: 1;
             background-color: rgba(255, 255, 255, 0.8);
-            overflow-y: auto; /* Permite desplazamiento vertical */
-            max-height: 90vh; /* Altura máxima */
+            overflow-y: auto;
+            max-height: 90vh;
         }
 
         .form-container h2 {
@@ -78,12 +78,12 @@
         }
 
         #capturedImage {
-            object-fit: cover; /* Para que la imagen llene el cuadrado sin distorsionarse */
-            width: 100%; /* Ancho completo */
-            height: 200px; /* Altura fija para que sea un cuadrado */
-            border-radius: 8px; /* Bordes redondeados */
-            margin-top: 10px; /* Espacio superior */
-            border: 2px solid #ced4da; /* Bordes */
+            object-fit: cover;
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 2px solid #ced4da;
         }
     </style>
 </head>
@@ -100,47 +100,47 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="codigo" class="form-label">Código Maestro:</label>
-                        <input class="form-control" id="codigo" name="CodigoMaestro" type="text" value="<?php echo ($codigo) ? $codigo : ''; ?>" readonly required>
+                        <input class="form-control" id="codigo" name="CodigoMaestro" type="text" value="<?php echo isset($codigo) ? $codigo : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="dni" class="form-label">DNI:</label>
-                        <input class="form-control" id="dni" name="dni" type="text" value="<?php echo ($dni) ? $dni : ''; ?>" readonly required>
+                        <input class="form-control" id="dni" name="dni" type="text" value="<?php echo isset($dni) ? $dni : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="nombres" class="form-label">Nombres:</label>
-                        <input class="form-control" id="nombres" name="nombres" type="text" value="<?php echo ($nombres) ? $nombres : ''; ?>" readonly required>
+                        <input class="form-control" id="nombres" name="nombres" type="text" value="<?php echo isset($nombres) ? $nombres : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="apellidos" class="form-label">Apellidos:</label>
-                        <input class="form-control" id="apellidos" name="apellidos" type="text" value="<?php echo ($apellidos) ? $apellidos : ''; ?>" readonly required>
+                        <input class="form-control" id="apellidos" name="apellidos" type="text" value="<?php echo isset($apellidos) ? $apellidos : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="puesto" class="form-label">Puesto de Trabajo:</label>
-                        <input class="form-control" id="puesto" name="puesto" type="text" value="<?php echo ($puesto) ? $puesto : ''; ?>" readonly required>
+                        <input class="form-control" id="puesto" name="puesto" type="text" value="<?php echo isset($puesto) ? $puesto : ''; ?>" readonly required>
                     </div>
                     <div class="col">
                         <label for="zona" class="form-label">Zona:</label>
-                        <input class="form-control" id="zona" name="zona" type="text" value="<?php echo ($zona) ? $zona : ''; ?>" readonly required>
+                        <input class="form-control" id="zona" name="zona" type="text" value="<?php echo isset($zona) ? $zona : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="proveedor" class="form-label">Proveedor:</label>
-                        <input class="form-control" id="proveedor" name="proveedor" type="text" required> 
+                        <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" required>
                     </div>
                     <div class="col">
                         <label for="supervisor" class="form-label">Supervisor:</label>
-                        <input class="form-control" id="supervisor" name="supervisor" type="text" required>
+                        <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="coordinador" class="form-label">Coordinador del Proyecto:</label>
-                        <input class="form-control" id="coordinador" name="coordinador" type="text" required>
+                        <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" required>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -163,14 +163,16 @@
                         <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo date('Y-m-d\TH:i'); ?>" readonly required>
                     </div>
                     <div class="col">
-                        <label for="fechaHoraSalida" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Salida:</label>
-                        <input class="form-control" id="fechaHoraSalida" name="fechaHoraSalida" type="datetime-local">
+                        <label for="horaSalida" class="form-label">Hora de Salida:</label>
+                        <input class="form-control" id="horaSalida" name="horaSalida" type="datetime-local"
+                            value="<?php echo isset($asistencia['hora_salida']) ? $asistencia['hora_salida'] : ''; ?>"
+                            <?php echo isset($asistencia['hora_salida']) ? '' : 'readonly'; ?>>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="ubicacion" class="form-label">Ubicación:</label>
-                        <input class="form-control" id="ubicacion" name="ubicacion" type="text" required>
+                        <input class="form-control" id="ubicacion" name="ubicacion" type="text" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>" required>
                         <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
                         <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
                     </div>
@@ -189,7 +191,7 @@
     <script src="<?php echo base_url; ?>Assets/js/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-         particlesJS('particles-js', {
+        particlesJS('particles-js', {
             "particles": {
                 "number": {
                     "value": 80,
@@ -277,14 +279,12 @@
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
 
-                    // Muestra las coordenadas en el campo de texto
                     const locationInput = document.getElementById('ubicacion');
                     locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
 
-                    // Crea el enlace para Google Maps con un marcador
                     const locationLink = document.getElementById('ubicacionLink');
-                    locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`; // Usar `q=` para marcar la ubicación
-                    locationLink.classList.remove('d-none'); // Muestra el enlace
+                    locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                    locationLink.classList.remove('d-none');
                     locationLink.innerText = "Ver en el Mapa";
                 }, function(error) {
                     console.error("Error obteniendo la ubicación:", error);

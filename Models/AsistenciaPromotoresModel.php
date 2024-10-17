@@ -1,5 +1,6 @@
 <?php
 class AsistenciaPromotoresModel extends Query {
+
     public function __construct() {
         parent::__construct();
     }
@@ -19,9 +20,7 @@ class AsistenciaPromotoresModel extends Query {
                 LEFT JOIN zona z ON p.id_zona = z.id
                 WHERE p.codigo = :codigo";
         $params = [':codigo' => $codigo];
-        $result = $this->select1($sql, $params);
-        
-        return $result;
+        return $this->select1($sql, $params);
     }
 
     public function guardarAsistencia($codigo, $dni, $nombre, $apellido, $puesto, $proveedor, $zona, $supervisor, $coordinador, $horaEntrada, $horaSalida, $foto, $ubicacion) {
@@ -44,12 +43,12 @@ class AsistenciaPromotoresModel extends Query {
             ':ubicacion' => $ubicacion
         ];
         
-        return $this->insert($sql, $params); // Asegúrate de que tienes un método insert en tu modelo
+        return $this->insert($sql, $params);
     }
 
     public function verificarAsistenciaHoy($codigo) {
         $fechaHoy = date('Y-m-d');
-        $sql = "SELECT id FROM asistencia WHERE codigo = :codigo AND DATE(hora_entrada) = :fechaHoy";
+        $sql = "SELECT id, hora_salida FROM asistencia WHERE codigo = :codigo AND DATE(hora_entrada) = :fechaHoy";
         $params = [
             ':codigo' => $codigo,
             ':fechaHoy' => $fechaHoy
@@ -57,11 +56,20 @@ class AsistenciaPromotoresModel extends Query {
         return $this->select1($sql, $params);
     }
     
+
     public function obtenerAsistenciaPorId($id) {
         $sql = "SELECT * FROM asistencia WHERE id = :id";
         $params = [':id' => $id];
         return $this->select1($sql, $params);
     }
-    
-    
+
+    public function actualizarHoraSalida($id, $horaSalida) {
+        $sql = "UPDATE asistencia SET hora_salida = :horaSalida WHERE id = :id";
+        $params = [
+            ':horaSalida' => $horaSalida,
+            ':id' => $id
+        ];
+        return $this->update($sql, $params); // Asegúrate de que tienes un método update en tu modelo
+    }
 }
+?>

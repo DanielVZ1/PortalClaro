@@ -1,36 +1,42 @@
 <?php
-   class AsistenciaPromotores extends Controller{
+class AsistenciaPromotores extends Controller {
 
-   public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         date_default_timezone_set('America/Tegucigalpa'); // Configurar la zona horaria
     }
-    public function asistenciapromotores()
-    {
+
+    public function asistenciapromotores() {
         $data['title'] = 'Asistencia de Promotor';
-        $this->views->getView1('AsistenciaPromotores', 'asistenciapromotores',$data);
+        $this->views->getView1('AsistenciaPromotores', 'asistenciapromotores', $data);
     }
 
     public function VerificarCodigo($codigo) {
-        // Validar el código recibido
         if (empty($codigo)) {
             echo json_encode(['msg' => 'CÓDIGO NO PUEDE ESTAR VACÍO', 'type' => 'error']);
             return;
         }
-    
+
         try {
             $verificar = $this->model->verificarCodigo($codigo);
             if (!empty($verificar)) {
-                // Comprobar si ya hay asistencia registrada para hoy
                 $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
                 if ($asistenciaHoy) {
-                    echo json_encode([
-                        'msg' => 'YA REGISTRASTE TU ASISTENCIA PARA HOY',
-                        'type' => 'info'
-                    ]);
+                    // Aquí se verifica si hay hora de salida
+                    if ($asistenciaHoy['hora_salida'] !== null) {
+                        echo json_encode([
+                            'msg' => 'YA REGISTRASTE TU ASISTENCIA PARA HOY',
+                            'type' => 'info',
+                            'redirect' => base_url . 'AsistenciaPromotores/mostrarFormulario/' . $codigo
+                        ]);
+                    } else {
+                        echo json_encode([
+                            'msg' => 'CÓDIGO VÁLIDO',
+                            'type' => 'success',
+                            'redirect' => base_url . 'AsistenciaPromotores/mostrarFormulario/' . $codigo
+                        ]);
+                    }
                 } else {
-                    // Obtener los datos del promotor
                     $datosPromotor = $this->model->obtenerDatosPromotor($codigo);
                     if ($datosPromotor) {
                         echo json_encode([
@@ -51,41 +57,54 @@
             error_log($e->getMessage());
         }
     }
-    
+
     public function mostrarFormulario($codigo) {
         $fechaHoraActual = date('Y-m-d\TH:i');
         $data['fechaHoraEntrada'] = $fechaHoraActual;
     
-        // Obtener los datos del promotor
+        // Obtener datos del promotor
         $datosPromotor = $this->model->obtenerDatosPromotor($codigo);
-
+        // Verificar asistencia del día
         $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
-    if ($asistenciaHoy) {
-        // Cargar asistencia existente
-        $asistenciaData = $this->model->obtenerAsistenciaPorId($asistenciaHoy['id']);
-        if ($asistenciaData) {
-            $data['horaSalida'] = $asistenciaData['hora_salida']; // Cargar hora de salida
-        }
-    }
     
-        if ($datosPromotor) {
-            $data['codigo'] = $datosPromotor['codigo'];
-            $data['dni'] = $datosPromotor['dni'];
-            $data['nombres'] = $datosPromotor['nombre'];
-            $data['apellidos'] = $datosPromotor['apellido'];
-            $data['puesto'] = $datosPromotor['nombre_cargo']; // Cambiar a nombre_cargo
-            $data['zona'] = $datosPromotor['nombre_zona']; // Cambiar a nombre_zona
+        if ($asistenciaHoy) {
+            // Obtener los datos de la asistencia
+            $asistenciaData = $this->model->obtenerAsistenciaPorId($asistenciaHoy['id']);
+            if ($asistenciaData) {
+                // Cargar datos de la asistencia anterior
+                $data['codigo'] = $codigo;
+                $data['dni'] = $asistenciaData['dni'];
+                $data['nombres'] = $asistenciaData['nombres'];
+                $data['apellidos'] = $asistenciaData['apellidos'];
+                $data['puesto'] = $asistenciaData['puesto'];
+                $data['zona'] = $asistenciaData['zona'];
+                $data['proveedor'] = $asistenciaData['proveedor'];
+                $data['supervisor'] = $asistenciaData['supervisor'];
+                $data['coordinador'] = $asistenciaData['coordinador'];
+                $data['foto'] = $asistenciaData['foto'];
+                $data['ubicacion'] = $asistenciaData['ubicacion'];
+                $data['horaSalida'] = $asistenciaData['hora_salida'];
+            }
         } else {
-            // Manejo de error si no se encuentra el promotor
-            $data['error'] = "Promotor no encontrado.";
+            // Si no hay asistencia registrada, cargar datos del promotor
+            if ($datosPromotor) {
+                $data['codigo'] = $datosPromotor['codigo'];
+                $data['dni'] = $datosPromotor['dni'];
+                $data['nombres'] = $datosPromotor['nombre'];
+                $data['apellidos'] = $datosPromotor['apellido'];
+                $data['puesto'] = $datosPromotor['nombre_cargo'];
+                $data['zona'] = $datosPromotor['nombre_zona'];
+            } else {
+                $data['error'] = "Promotor no encontrado.";
+            }
         }
-        
+    
         $data['title'] = 'Registro de Asistencia';
         $this->views->getView1('AsistenciaPromotores', 'formularioAsistencia', $data);
     }
+    
 
     public function guardarAsistencia() {
-        // Asegúrate de que la solicitud sea POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $codigo = $_POST['CodigoMaestro'];
             $dni = $_POST['dni'];
@@ -96,30 +115,37 @@
             $zona = $_POST['zona'];
             $supervisor = $_POST['supervisor'];
             $coordinador = $_POST['coordinador'];
-            $horaEntrada = $_POST['fechaHora'];
-            $horaSalida = $_POST['fechaHoraSalida'];
-            $foto = $_POST['foto']; // Asegúrate de que se envíe correctamente
+            $horaEntrada = date('Y-m-d H:i:s'); // Captura hora de entrada automáticamente
+            $horaSalida = $_POST['horaSalida'] ?? null; // Hora de salida opcional
+            $foto = $_POST['foto'];
             $ubicacion = $_POST['ubicacion'];
-    
-            // Llama al método del modelo para guardar la asistencia
-            $resultado = $this->model->guardarAsistencia($codigo, $dni, $nombre, $apellido, $puesto, $proveedor, $zona, $supervisor, $coordinador, $horaEntrada, $horaSalida, $foto, $ubicacion);
-    
-            // Maneja la respuesta
-            if ($resultado) {
-                // Guarda el mensaje de éxito en una variable de sesión
-                session_start();
-                $_SESSION['mensaje'] = 'Asistencia guardada exitosamente.';
-    
-                // Redirige a la página deseada
-                header('Location: ' . base_url . 'AsistenciaPromotores/asistenciapromotores'); 
-                exit();
+
+            $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
+
+            if ($asistenciaHoy) {
+                // Actualizar solo la hora de salida
+                $resultado = $this->model->actualizarHoraSalida($asistenciaHoy['id'], $horaSalida);
+                if ($resultado) {
+                    session_start();
+                    $_SESSION['mensaje'] = 'Hora de salida actualizada exitosamente.';
+                    header('Location: ' . base_url . 'AsistenciaPromotores/asistenciapromotores');
+                    exit();
+                } else {
+                    echo "Error al actualizar la hora de salida.";
+                }
             } else {
-                // Manejo de error
-                echo "Error al guardar la asistencia.";
+                // Guardar nueva asistencia
+                $resultado = $this->model->guardarAsistencia($codigo, $dni, $nombre, $apellido, $puesto, $proveedor, $zona, $supervisor, $coordinador, $horaEntrada, null, $foto, $ubicacion);
+                if ($resultado) {
+                    session_start();
+                    $_SESSION['mensaje'] = 'Asistencia guardada exitosamente.';
+                    header('Location: ' . base_url . 'AsistenciaPromotores/asistenciapromotores');
+                    exit();
+                } else {
+                    echo "Error al guardar la asistencia.";
+                }
             }
         }
     }
-    
 }
-   
 ?>

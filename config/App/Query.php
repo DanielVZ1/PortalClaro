@@ -64,5 +64,12 @@ class Query extends Conexion {
         $data = $resul->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
+
+    public function update(string $sql, array $params = []) {
+        $this->sql = $sql;
+        $stmt = $this->con->prepare($this->sql);
+        return $stmt->execute($params); // Devuelve true si la actualización fue exitosa
+    }
+    
 }
 ?>
