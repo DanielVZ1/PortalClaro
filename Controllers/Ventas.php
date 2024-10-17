@@ -5,6 +5,7 @@
         
         parent::__construct();      
       }
+      
         public function index()
         {
           if (empty($_SESSION['activo'])){
@@ -95,39 +96,16 @@
             echo json_encode($data, JSON_UNESCAPED_UNICODE);
             die();
         }
-        public function eliminar(int $id)
-        {
-            // Validar si el ID es válido (opcional)
-            if ($id <= 0) {
-                http_response_code(400); // Bad Request
-                echo json_encode(["msg" => "ID no válido"], JSON_UNESCAPED_UNICODE);
-                die();
-            }
-        
-            // Intentar eliminar la venta
-            $data = $this->model->accionVentas(0, $id);
-        
-            if ($data == 1) {
-                echo json_encode(["msg" => "ok"], JSON_UNESCAPED_UNICODE);
-            } else {
-                http_response_code(500); // Internal Server Error
-                echo json_encode(["msg" => "Error al eliminar la venta"], JSON_UNESCAPED_UNICODE);
-            }
-        
-            die();
-        }
-        
 
-        public function reingresar(int $id)
-        {
-            $data = $this->model->accionVentas(1, $id);
-            if ($data == 1){
-              $msg = "ok";
-            }else{
-              $msg = "Error al reingresar la venta";
-            }  
-           echo json_encode($msg, JSON_UNESCAPED_UNICODE);
-           die();
+        public function eliminar($id) {
+          $ventasModel = new VentasModel();
+          $resultado = $ventasModel->eliminarVentas($id);
+          
+          if ($resultado) {
+              echo json_encode("ok");
+          } else {
+              echo json_encode("Error al eliminar la venta");
+          }
         }
 
         public function salir()
