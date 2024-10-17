@@ -63,5 +63,13 @@ class RolesModel extends Query
         }
         return $request;
     }
+
+    public function DeleteRol($idrol) {
+        $sql = "DELETE FROM rol WHERE id = :id";
+        $params = [":id" => $idrol];
+        return $this->insert($sql, $params); // Asumiendo que insert es el método para ejecutar consultas con parámetros
+    }
+
+    
 }
 ?>

@@ -137,4 +137,43 @@ function fntEditRol(button) {
     }
 }
 
+function btnDelRol(idrol) {
+    Swal.fire({
+        title: '¿Está seguro de Rol?',
+        text: "¡El rol se eliminara de forma permanente!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const url = base_url + "Roles/delRol/" + idrol;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    const res = JSON.parse(this.responseText);
+                    if (res == "ok") {
+                        Swal.fire(
+                            'Mensaje',
+                            'Rol eliminado con éxito',
+                            'success'
+                        )
+                        tableRoles.ajax.reload();
+                    } else {
+                        Swal.fire(
+                            'Mensaje',
+                            res,
+                            'error'
+                        )
+                    }
+                }
+            }
+        }
+    })
+}
+
 
