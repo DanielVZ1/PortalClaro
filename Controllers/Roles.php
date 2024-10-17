@@ -29,7 +29,7 @@ class Roles extends Controller
             $arrData[$i]['options'] = '<div class="text-center">
                 <button class="btn btn-secondary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Permisos"><i class="fas fa-key"></i></button>
                 <button class="btn btn-primary btn-sm btnEditRol" rl="'.$arrData[$i]['id'].'" title="Editar"><i class="fas fa-pencil-alt"></i></button>
-                <button class="btn btn-danger btn-sm btnDelRol" rl="'.$arrData[$i]['id'].'" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+                <button class="btn btn-danger" type="button" onclick="btnDelRol('.$arrData[$i]['id'].');" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
             </div>';
         }
     
@@ -97,8 +97,18 @@ class Roles extends Controller
         die();
     }
     
+
+
+    public function delRol($idrol) {
+        $RolesModel = new RolesModel();
+        $resultado = $RolesModel->DeleteRol($idrol);
+        
+        if ($resultado) {
+            echo json_encode("ok");
+        } else {
+            echo json_encode("Error al eliminar el rol");
+        }
+      }
+
 }
-
-    
-
 ?>

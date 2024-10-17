@@ -46,5 +46,13 @@
     border-color: chocolate;
     border-radius: 20%;
 }
-
+.btn i {
+    font-size: 14px; /* Ajusta este valor según el tamaño que necesites */
+    line-height: 1;
+  }
+  .btnDelRol i {
+    font-size: 14px; /* Ajusta este valor según sea necesario */
+    line-height: 1;
+  }
+  
 
