@@ -84,6 +84,7 @@ class AsistenciaPromotores extends Controller {
     
                 // La hora de salida se muestra solo si ya se registró
                 $data['horaSalida'] = $fechaHoraActual;
+                $data['isSecondEntry'] = true; // Indica que es la segunda entrada
             }
         } else {
             if ($datosPromotor) {
@@ -95,6 +96,7 @@ class AsistenciaPromotores extends Controller {
                 $data['zona'] = $datosPromotor['nombre_zona'];
                 $data['horaEntrada'] = $fechaHoraActual; // Hora de entrada actual
                 $data['horaSalida'] = ''; // Hora de salida vacía
+                $data['isSecondEntry'] = false; // Indica que es la primera entrada
             } else {
                 $data['error'] = "Promotor no encontrado.";
             }
@@ -103,6 +105,7 @@ class AsistenciaPromotores extends Controller {
         $data['title'] = 'Registro de Asistencia';
         $this->views->getView1('AsistenciaPromotores', 'formularioAsistencia', $data);
     }
+    
     
     
     

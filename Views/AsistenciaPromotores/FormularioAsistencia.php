@@ -128,20 +128,20 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col">
-                        <label for="proveedor" class="form-label">Proveedor:</label>
-                        <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" required>
-                    </div>
-                    <div class="col">
-                        <label for="supervisor" class="form-label">Supervisor:</label>
-                        <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" required>
-                    </div>
+                <div class="col">
+        <label for="proveedor" class="form-label">Proveedor:</label>
+        <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
+    </div>
+    <div class="col">
+        <label for="supervisor" class="form-label">Supervisor:</label>
+        <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
+    </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col">
-                        <label for="coordinador" class="form-label">Coordinador del Proyecto:</label>
-                        <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" required>
-                    </div>
+                <div class="col">
+        <label for="coordinador" class="form-label">Coordinador del Proyecto:</label>
+        <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
+    </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
@@ -170,12 +170,12 @@
 </div>
 
                 <div class="row mb-3">
-                    <div class="col">
-                        <label for="ubicacion" class="form-label">Ubicación:</label>
-                        <input class="form-control" id="ubicacion" name="ubicacion" type="text" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>" required>
-                        <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
-                        <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
-                    </div>
+                <div class="col">
+        <label for="ubicacion" class="form-label">Ubicación:</label>
+        <input class="form-control" id="ubicacion" name="ubicacion" type="text" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
+        <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
+        <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
+    </div>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
                     <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
@@ -273,28 +273,37 @@
     <script src="<?php echo base_url; ?>Assets/js/Asistenciaformulario.js"></script>
 
     <script>
-        document.getElementById('getLocation').addEventListener('click', function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
+    const isSecondEntry = <?php echo json_encode($isSecondEntry); ?>; // Obtener el estado de la entrada desde PHP
 
-                    const locationInput = document.getElementById('ubicacion');
-                    locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
+    if (isSecondEntry) {
+        document.getElementById('getLocation').disabled = true; // Deshabilitar el botón
+    }
 
-                    const locationLink = document.getElementById('ubicacionLink');
-                    locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
-                    locationLink.classList.remove('d-none');
-                    locationLink.innerText = "Ver en el Mapa";
-                }, function(error) {
-                    console.error("Error obteniendo la ubicación:", error);
-                    alert("No se pudo obtener la ubicación.");
-                });
-            } else {
-                alert("La geolocalización no es soportada por este navegador.");
-            }
-        });
-    </script>
+    document.getElementById('getLocation').addEventListener('click', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                const locationInput = document.getElementById('ubicacion');
+                locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
+
+                const locationLink = document.getElementById('ubicacionLink');
+                locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                locationLink.classList.remove('d-none');
+                locationLink.innerText = "Ver en el Mapa";
+            }, function(error) {
+                console.error("Error obteniendo la ubicación:", error);
+                alert("No se pudo obtener la ubicación.");
+            });
+        } else {
+            alert("La geolocalización no es soportada por este navegador.");
+        }
+    });
+</script>
+
+
+
 
 </body>
 
