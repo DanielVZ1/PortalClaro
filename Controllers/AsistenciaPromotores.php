@@ -112,7 +112,7 @@ class AsistenciaPromotores extends Controller {
     
     
     
-    public function guardarAsistencia() {
+    public function guardarAsistencia() { 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $codigo = $_POST['CodigoMaestro'];
             $dni = $_POST['dni'];
@@ -124,8 +124,26 @@ class AsistenciaPromotores extends Controller {
             $supervisor = $_POST['supervisor'];
             $coordinador = $_POST['coordinador'];
             $horaEntrada = date('Y-m-d H:i:s'); // Captura hora de entrada automáticamente
-            $foto = $_POST['foto'];
             $ubicacion = $_POST['ubicacion'];
+    
+            $foto = null; // Inicializamos la variable foto
+    
+            // Manejar la subida de la imagen
+            if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+                $targetDir = "Assets/img/FotosAsistencias/";
+                $fileName = uniqid() . '_' . basename($_FILES['imagen']['name']);
+                $targetFilePath = $targetDir . $fileName;
+    
+                // Mover la imagen a la carpeta deseada
+                if (move_uploaded_file($_FILES['imagen']['tmp_name'], $targetFilePath)) {
+                    $foto = $fileName; // Guardar el nombre del archivo si la subida fue exitosa
+                }
+            }
+    
+            // Verifica que $foto no esté vacío
+            if (empty($foto)) {
+                $foto = 'default.png'; // O maneja la situación como prefieras
+            }
     
             // Verificar si hay asistencia hoy
             $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
@@ -156,6 +174,9 @@ class AsistenciaPromotores extends Controller {
             }
         }
     }
+    
+    
+    
     
     
 }
