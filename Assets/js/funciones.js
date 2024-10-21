@@ -931,7 +931,7 @@ tblAsistencia = $('#tblAsistencia').DataTable({
         { 'data': 'coordinador' },
         { 'data': 'hora_entrada' },
         { 'data': 'hora_salida' },
-        { 'data': 'foto' },
+        { 'data': 'imagen' },
         { 'data': 'ubicacion' },
         { 'data': 'estado' },
         { 'data': 'acciones' },
@@ -940,7 +940,7 @@ tblAsistencia = $('#tblAsistencia').DataTable({
 });
 
 function btnVerAsistencia(id) {
-    document.getElementById("title").innerHTML = "Ficha asistencia"; // Asegúrate de que este elemento existe
+    document.getElementById("title").innerHTML = "Ficha asistencia";
     const url = base_url + "Asistencia/ver/" + id;
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
@@ -963,25 +963,23 @@ function btnVerAsistencia(id) {
             document.getElementById("hora_salida").value = res.hora_salida;
             document.getElementById("ubicacion").value = res.ubicacion;
 
+            // Configurar la imagen en el modal
+            document.getElementById("img-preview").src = base_url + "Assets/img/FotosAsistencias/" + res.foto;
+
             // Actualiza el enlace para ver en el mapa
             const regex = /Lat:\s*([\d.-]+),\s*Lon:\s*([\d.-]+)/;
             const match = res.ubicacion.match(regex);
             if (match) {
                 const lat = match[1];
                 const lng = match[2];
-                
-                // Actualiza el enlace para ver en el mapa con el marcador rojo
                 document.getElementById("map-link").href = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
-            } else {
-                console.error("Formato de ubicación incorrecto:", res.ubicacion);
             }
 
-            //document.getElementById("img-preview").src = base_url + 'Assets/img/' + res.foto;
-            document.getElementById("foto_actual").value = res.foto;
             $("#nuevo_promotor").modal("show");
         }
     };
 }
+
 
 $(document).ready(function() {
     $('#filtroAsistencias').change(function() {
