@@ -90,9 +90,8 @@ $(document).ready(function() {
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" id="frmPromotor">
+                <form method="post" >
                     <input type="hidden" id="id" name="id">
-
                     <div class="col-md-12">
                         <div class="form-group">
                             <label style="color: black;">Foto</label>
