@@ -1,5 +1,6 @@
 var tableRoles;
 
+
 document.addEventListener('DOMContentLoaded', function(){
     tableRoles = $('#tableRoles').DataTable({
         "aProcessing": true,            // Corregido: de "aProcessing" a "processing".
@@ -83,15 +84,23 @@ function openModal() {
     $('#modalFormRol').modal('show');
 }
 
+// Evento para detectar clic en el botón de editar rol
 document.addEventListener('click', function(e) {
-    // Verifica si el elemento clicado o su padre tiene la clase btnEditRol
-    var button = e.target.closest('.btnEditRol');
-    if (button) {
-        fntEditRol(button);
+    var buttonEditRol = e.target.closest('.btnEditRol');
+    if (buttonEditRol) {
+        fntEditRol(buttonEditRol);
     }
 });
 
+// Evento para detectar clic en el botón de permisos del rol
+document.addEventListener('click', function(e) {
+    var buttonPermisoRol = e.target.closest('.btnPermisosRol');
+    if (buttonPermisoRol) {
+        fntPermisos(buttonPermisoRol);
+    }
+});
 
+// Función para editar rol
 function fntEditRol(button) {
     // Cambia el título y la apariencia del modal
     document.querySelector('#titleModal').innerHTML = "Actualizar Rol";
@@ -175,5 +184,51 @@ function btnDelRol(idrol) {
         }
     })
 }
+
+// Función para mostrar modal de permisos
+function fntPermisos(button) {
+    // Obtén el id del rol
+    var idRol = button.getAttribute("rl");
+
+    // Crear la solicitud XMLHttpRequest para obtener los datos del rol
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    var ajaxUrl = base_url + '/Permisos/getPermisosRol/' + idRol;
+    
+    request.open('GET', ajaxUrl, true);
+    request.send();
+
+    // Manejar el cambio de estado de la solicitud
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            document.querySelector('#contentAjax').innerHTML = request.responseText;
+            $('.modalPermisos').modal('show');
+            document.querySelector('#formPermisos').addEventListener('submit',fntSavePermisos,false);
+        }
+    }
+}
+
+function fntSavePermisos(event){
+    event.preventDefault();
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    var ajaxUrl = base_url + '/Permisos/setPermisos';
+    var formElement = document.querySelector("#formPermisos");
+    var formData = new FormData(formElement);
+    request.open("POST",ajaxUrl,true);
+    request.send(formData);
+
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            var objData = JSON.parse(request.responseText);
+            if (objData.status) 
+            {
+                swal("Permisos de usuario",  objData.msg, "success");
+            }else{
+                swal("Error",  objData.msg, "error");
+            }
+        }
+    }
+
+}
+
 
 

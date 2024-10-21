@@ -1,60 +1,69 @@
 <?php
-class PermisosModel extends Query{
-    public function __construct() {
+class PermisosModel extends Query
+{
+    public $intIdpermiso;
+    public $intRolid;
+    public $intModuloid;
+    public $r;
+    public $w;
+    public $u;
+    public $d;
+
+
+    public function __construct()
+    {
         parent::__construct();
     }
-    public function getPermisos()
+
+    public function selectModulos()
     {
-        $sql = "SELECT * FROM permisos";
-        return $this->selectAll($sql);
-    }
-    public function getRoles($estado)
-    {
-        $sql = "SELECT * FROM roles WHERE estado != $estado";
-        return $this->selectAll($sql);
+        $sql = "SELECT * FROM modulo WHERE status != 0";
+        $request = $this->selectAll($sql);
+        return $request;
+
     }
 
-    public function registrar($nombre, $permisos)
-    {
-        $sql = "INSERT INTO roles (nombre, permisos) VALUES (?,?)";
-        
-        $array = array($nombre, $permisos);
-        return $this->insertar($sql, $array);
-    }
-    public function getValidar($campo, $valor, $accion, $id)
-    {
-        if ($accion == 'registrar' && $id == 0) {
-            $sql = "SELECT id FROM roles WHERE $campo = '$valor'";
-        }else{
-            $sql = "SELECT id FROM roles WHERE $campo = '$valor' AND id != $id";
-        }
-        return $this->select($sql);
-    }
-    public function eliminar($estado, $idRol)
-    {
-        $sql = "UPDATE roles SET estado = ? WHERE id = ?";
-        $array = array($estado, $idRol);
-        return $this->save($sql, $array);
-    }
+  // Selecciona los permisos de un rol
+public function selectPermisosRol(int $idrol) 
+{
+    $this->intRolid = $idrol;
+    $sql = "SELECT * FROM permisos WHERE rolid = $this->intRolid";
+    $request = $this->selectAll($sql);
+    return $request;
+}
 
-    public function editar($idRol)
-    {
-        $sql = "SELECT * FROM roles WHERE id = $idRol";
-        return $this->select($sql);
-    }
-    public function actualizar($nombre, $permisos, $id)
-    {
-        $sql = "UPDATE roles SET nombre=?, permisos=? WHERE id=?";
-        $array = array($nombre, $permisos, $id);
-        return $this->save($sql, $array);
-    }
+// Elimina los permisos del rol
+public function deletePermisos(int $idrol)
+{
+    $this->intRolid = $idrol;
+    $sql = "DELETE FROM permisos WHERE rolid = $this->intRolid";
+    $request = $this->delete($sql);
+    return $request;
+}
 
-    public function restaurar($idRol)
-    {
-        $sql = "UPDATE roles SET estado = 1 WHERE id = ?";
-        $array = array($idRol);
-        return $this->save($sql, $array);
-    }
+// Inserta nuevos permisos
+public function insertPermisos(int $idrol, int $idmodulo, int $r, int $w, int $u, int $d)
+{
+    $this->intRolid = $idrol;
+    $this->intModuloid = $idmodulo;
+    $this->r = $r;
+    $this->w = $w;
+    $this->u = $u;
+    $this->d = $d;
+    
+    $query_insert = "INSERT INTO permisos(rolid,moduloid,r,w,u,d) VALUES(?,?,?,?,?,?)";
+    $arrData = array($this->intRolid, $this->intModuloid, $this->r, $this->w, $this->u, $this->d);
+    $request_insert = $this->insert($query_insert, $arrData);
+
+    error_log("Consulta de inserción: " . $query_insert); // Verifica la consulta de inserción
+    error_log("Datos de inserción: " . implode(', ', $arrData)); // Verifica los datos enviados
+
+    return $request_insert; // Asegúrate de que esto retorne el número de filas afectadas o ID insertado
+}
+
+    
+
+
 }
 
 ?>

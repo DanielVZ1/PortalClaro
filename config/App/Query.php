@@ -71,5 +71,11 @@ class Query extends Conexion {
         return $stmt->execute($params); // Devuelve true si la actualización fue exitosa
     }
     
+    public function delete($sql)
+{
+    $request = $this->con->prepare($sql); // Preparar la consulta SQL
+    $result = $request->execute(); // Ejecutar la consulta
+    return $result;
+}
 }
 ?>

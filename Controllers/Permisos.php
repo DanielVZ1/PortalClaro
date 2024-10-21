@@ -3,151 +3,94 @@
 class Permisos extends Controller
 {
     public function __construct()
-    {
-        parent::__construct();
-        session_start();
-        if (empty($_SESSION['activo'])) {
-            header('Location: ' .base_url);
-            exit;
-        }
-        /*if (!verificar('roles')){
-            header('Location: ' . BASE_URL . 'admin/permisos');
-            exit;
-        }*/
-    }
-    public function index()
-    {
-        $data['title'] = 'ROLES';
-        $data['script'] = 'roles.js';
-        $data['permisos'] = $this->model->getPermisos();
-        $this->views->getView1('Roles', 'permisos', $data);
-    }
-    public function listar()
-    {
-        $data = $this->model->getRoles(2);
-        //$data2 = $this->model->getRoles(1);
-        for ($i = 0; $i < count($data); $i++) {
-            if ($data[$i]['estado'] == 1) {
-                $data[$i]['estado'] = '<span class="badge bg-success">Disponible</span>';
-
-                $data[$i]['acciones'] = '<div>
-                    <button class="btn btn-danger" type="button" onclick="eliminarRol(' . $data[$i]['id'] . ')"><i class="fas fa-trash"></i></button>
-                    <button class="btn btn-info" type="button" onclick="editarRol(' . $data[$i]['id'] . ')"><i class="fa-solid fa-eye"></i></button>
-                </div>';
-            } else {
-                $data[$i]['estado'] = '<span class="badge bg-danger">No Disponible</span>';
-
-                $data[$i]['acciones'] = '<div>
-                    <!--<button class="btn btn-danger" type="button" onclick="eliminarRol(' . $data[$i]['id'] . ')"><i class="fas fa-trash"></i></button>
-                    <!--<button class="btn btn-info" type="button" onclick="editarRol(' . $data[$i]['id'] . ')"><i class="fa-solid fa-eye"></i></button>-->
-                    <button class="btn btn-success" type="button" onclick="restaurarRol(' . $data[$i]['id'] . ')"><i class="fa-solid fa-check-double"></i></button>
-                </div>';
-            }
-            /*$data[$i]['acciones'] = '<div>
-                <button class="btn btn-danger" type="button" onclick="eliminarRol(' . $data[$i]['id'] . ')"><i class="fas fa-trash"></i></button>
-                <button class="btn btn-info" type="button" onclick="editarRol(' . $data[$i]['id'] . ')"><i class="fa-solid fa-eye"></i></button>
-            </div>';*/
-        }
-        echo json_encode($data, JSON_UNESCAPED_UNICODE);
-        die();
+    {   session_start();
+        parent::__construct();      
     }
 
-
-    public function registrar()
+    public function getPermisosRol(int $idrol)
     {
-        $nombre = strClean($_POST['nombre']);
-        $permisos = (!empty($_POST['permisos'])) ? $_POST['permisos'] : null;
+        $rolid = intval($idrol);
+        if($rolid > 0)
+        {
+            $arrModulos = $this->model->selectModulos();
+            $arrPermisoRol = $this->model->selectPermisosRol($rolid);
+            $arrPermisos = array('r' => 0, 'w' => 0,'u' => 0,'d' => 0);
+            $arrPermisoRol = array('idrol' => $rolid);
 
-        $id = strClean($_POST['id']);
-        if (empty($nombre)) {
-            $res = array('msg' => 'EL NOMBRE ES REQUERIDO', 'type' => 'warning');
-        } else {
-            $listaPermisos = ($permisos != null) ? json_encode($permisos) : null;
-            if ($id == '') {
-                $verificar = $this->model->getValidar('nombre', $nombre, 'registrar', 0);
-                if (empty($verificar)) {
-                    $data = $this->model->registrar($nombre, $listaPermisos);
-                    if ($data > 0) {
-                        $res = array('msg' => 'ROL REGISTRADO', 'type' => 'success');
-                    } else {
-                        $res = array('msg' => 'ERROR AL REGISTRAR', 'type' => 'error');
+            if( empty ($arrPermisosRol))
+            {
+                for ($i = 0; $i < count($arrModulos) ; $i++){
+
+                    $arrModulos [$i]['permisos'] = $arrPermisos;
+                }
+            }else{
+                for ($i = 0; $i < count($arrModulos) ; $i++){
+
+                    $arrPermisos = array('r' => $arrPermisoRol[$i]['r'],
+                                         'w' => $arrPermisoRol[$i]['w'],
+                                         'u' => $arrPermisoRol[$i]['u'],
+                                         'd' => $arrPermisoRol[$i]['d']
+                                        );
+                    if($arrModulos[$i]['idmodulos'] == $arrPermisosRol[$i]['moduloid'])
+                    {
+                        $arrModulos[$i]['permisos'] = $arrPermisos;
                     }
-                } else {
-                    $res = array('msg' => 'EL ROL YA EXISTE', 'type' => 'warning');
                 }
-            } else { /////parte a continuacion para editar un rol
-                $verificar = $this->model->getValidar('nombre', $nombre, 'actualizar', $id);
-                if (empty($verificar)) {
-                    $data = $this->model->actualizar($nombre, $listaPermisos, $id);
-                    if ($data == 1) {
-                        $res = array('msg' => 'ROL MODIFICADO', 'type' => 'success');
-                    } else {
-                        $res = array('msg' => 'ERROR AL MODICAR', 'type' => 'error');
+            }
+            $arrPermisoRol['modulos'] = $arrModulos;
+            $html = getModal("modalPermisos",$arrPermisoRol);
+        }
+        die();
+
+    }
+
+    public function setPermisos()
+    {
+        if ($_POST) {
+            // Capturamos el ID del rol
+            $intIdrol = intval($_POST['idrol']);
+            error_log("ID del rol recibido: " . $intIdrol);  // Verificamos que el ID se reciba correctamente
+    
+            if ($intIdrol > 0) {
+                $modulos = $_POST['modulos'];
+                $this->model->deletePermisos($intIdrol); // Eliminar permisos anteriores
+                
+                // Inicializamos una variable para verificar si alguna inserción falla
+                $insertSuccess = true;
+    
+                foreach ($modulos as $modulo) {
+                    $idModulo = intval($modulo['idmodulo']);
+                    $r = empty($modulo['r']) ? 0 : 1;
+                    $w = empty($modulo['w']) ? 0 : 1;
+                    $u = empty($modulo['u']) ? 0 : 1;
+                    $d = empty($modulo['d']) ? 0 : 1;
+    
+                    // Intentamos insertar los permisos
+                    $requestPermiso = $this->model->insertPermisos($intIdrol, $idModulo, $r, $w, $u, $d);
+                    error_log("Resultado de inserción para módulo $idModulo: " . $requestPermiso); // Verificamos el resultado de cada inserción
+    
+                    if ($requestPermiso <= 0) {
+                        $insertSuccess = false;
+                        break;
                     }
-                } else {
-                    $res = array('msg' => 'El ROL YA EXISTE', 'type' => 'warning');
                 }
-            }
-        }
-        echo json_encode($res, JSON_UNESCAPED_UNICODE);
-        die();
-    }
-
-
-
-
-    public function eliminar($idRol)
-    {
-        if (isset($_GET)) {
-            if (is_numeric($idRol)) {
-                $data = $this->model->eliminar(0, $idRol);
-                if ($data == 1) {
-                    $res = array('msg' => 'ROL DADO DE BAJA', 'type' => 'success');
+    
+                // Generamos la respuesta
+                if ($insertSuccess) {
+                    $arrResponse = array('status' => true, 'msg' => 'Permisos asignados correctamente.');
                 } else {
-                    $res = array('msg' => 'ERROR AL ELIMINAR', 'type' => 'error');
+                    $arrResponse = array('status' => false, 'msg' => 'No se pudieron asignar todos los permisos.');
                 }
             } else {
-                $res = array('msg' => 'ERROR DESCONOCIDO', 'type' => 'error');
+                $arrResponse = array('status' => false, 'msg' => 'El ID del rol no es válido.');
             }
-        } else {
-            $res = array('msg' => 'ERROR DESCONOCIDO', 'type' => 'error');
+    
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
-        echo json_encode($res, JSON_UNESCAPED_UNICODE);
         die();
     }
-
-    public function editar($idRol)
-    {
-        $data['rol'] = $this->model->editar($idRol);
-        $permisos = [];
-        if ($data['rol']['permisos'] != null) {
-            $permisos = json_decode($data['rol']['permisos'], true);
-        }
-        $data['permisos'] = $permisos;
-        echo json_encode($data, JSON_UNESCAPED_UNICODE);
-        die();
-    }
+    
 
 
-
-
-    public function restaurar($idRol)
-    {
-        if (isset($_GET)) {
-            if (is_numeric($idRol)) {
-                $data = $this->model->restaurar($idRol);
-                if ($data == 1) {
-                    $res = array('msg' => 'ROL DADO DE ALTA', 'type' => 'success');
-                } else {
-                    $res = array('msg' => 'ERROR AL ACTUALIZAR', 'type' => 'error');
-                }
-            } else {
-                $res = array('msg' => 'ERROR DESCONOCIDO', 'type' => 'error');
-            }
-        } else {
-            $res = array('msg' => 'ERROR DESCONOCIDO', 'type' => 'error');
-        }
-        echo json_encode($res, JSON_UNESCAPED_UNICODE);
-        die();
-    }
 }
+?>
