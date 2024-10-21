@@ -60,19 +60,15 @@ class AsistenciaPromotores extends Controller {
 
     public function mostrarFormulario($codigo) {
         $fechaHoraActual = date('Y-m-d\TH:i');
-        $data['fechaHoraEntrada'] = $fechaHoraActual;
-        $data['horaSalidaReadonly'] = false; // Definir por defecto
+        $data = []; // Inicializar el array de datos
     
         // Obtener datos del promotor
         $datosPromotor = $this->model->obtenerDatosPromotor($codigo);
-        // Verificar asistencia del día
         $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
     
         if ($asistenciaHoy) {
-            // Obtener los datos de la asistencia
             $asistenciaData = $this->model->obtenerAsistenciaPorId($asistenciaHoy['id']);
             if ($asistenciaData) {
-                // Cargar datos de la asistencia anterior
                 $data['codigo'] = $codigo;
                 $data['dni'] = $asistenciaData['dni'];
                 $data['nombres'] = $asistenciaData['nombre'];
@@ -84,12 +80,13 @@ class AsistenciaPromotores extends Controller {
                 $data['coordinador'] = $asistenciaData['coordinador'];
                 $data['foto'] = $asistenciaData['foto'];
                 $data['ubicacion'] = $asistenciaData['ubicacion'];
-                $data['horaEntrada'] = $asistenciaData['hora_entrada'];
-                $data['horaSalida'] = !empty($asistenciaData['hora_salida']) ? date('Y-m-d\TH:i', strtotime($asistenciaData['hora_salida'])) : ''; // Captura automática
-                $data['horaSalidaReadonly'] = true; // Indica que el campo es solo lectura
+                $data['horaEntrada'] = date('Y-m-d\TH:i', strtotime($asistenciaData['hora_entrada']));
+    
+                // La hora de salida se muestra solo si ya se registró
+                $data['horaSalida'] = $fechaHoraActual;
+                $data['isSecondEntry'] = true; // Indica que es la segunda entrada
             }
         } else {
-            // Si no hay asistencia registrada, cargar datos del promotor
             if ($datosPromotor) {
                 $data['codigo'] = $datosPromotor['codigo'];
                 $data['dni'] = $datosPromotor['dni'];
@@ -97,6 +94,9 @@ class AsistenciaPromotores extends Controller {
                 $data['apellidos'] = $datosPromotor['apellido'];
                 $data['puesto'] = $datosPromotor['nombre_cargo'];
                 $data['zona'] = $datosPromotor['nombre_zona'];
+                $data['horaEntrada'] = $fechaHoraActual; // Hora de entrada actual
+                $data['horaSalida'] = ''; // Hora de salida vacía
+                $data['isSecondEntry'] = false; // Indica que es la primera entrada
             } else {
                 $data['error'] = "Promotor no encontrado.";
             }
@@ -108,8 +108,11 @@ class AsistenciaPromotores extends Controller {
     
     
     
-
-    public function guardarAsistencia() {
+    
+    
+    
+    
+    public function guardarAsistencia() { 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $codigo = $_POST['CodigoMaestro'];
             $dni = $_POST['dni'];
@@ -121,8 +124,26 @@ class AsistenciaPromotores extends Controller {
             $supervisor = $_POST['supervisor'];
             $coordinador = $_POST['coordinador'];
             $horaEntrada = date('Y-m-d H:i:s'); // Captura hora de entrada automáticamente
-            $foto = $_POST['foto'];
             $ubicacion = $_POST['ubicacion'];
+    
+            $foto = null; // Inicializamos la variable foto
+    
+            // Manejar la subida de la imagen
+            if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+                $targetDir = "Assets/img/FotosAsistencias/";
+                $fileName = uniqid() . '_' . basename($_FILES['imagen']['name']);
+                $targetFilePath = $targetDir . $fileName;
+    
+                // Mover la imagen a la carpeta deseada
+                if (move_uploaded_file($_FILES['imagen']['tmp_name'], $targetFilePath)) {
+                    $foto = $fileName; // Guardar el nombre del archivo si la subida fue exitosa
+                }
+            }
+    
+            // Verifica que $foto no esté vacío
+            if (empty($foto)) {
+                $foto = 'default.png'; // O maneja la situación como prefieras
+            }
     
             // Verificar si hay asistencia hoy
             $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
@@ -153,6 +174,9 @@ class AsistenciaPromotores extends Controller {
             }
         }
     }
+    
+    
+    
     
     
 }

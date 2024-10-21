@@ -96,7 +96,7 @@
                 <img src="<?php echo base_url; ?>Assets/img/Claro03.png" alt="Logo" style="width: 120px;">
             </div>
             <h2 class="text-center mb-4">Formulario de Asistencia</h2>
-            <form id="asistenciaForm" action="<?php echo base_url; ?>AsistenciaPromotores/guardarAsistencia" method="post">
+            <form id="asistenciaForm" action="<?php echo base_url; ?>AsistenciaPromotores/guardarAsistencia" method="post" enctype="multipart/form-data">
                 <div class="row mb-3">
                     <div class="col">
                         <label for="codigo" class="form-label">Código Maestro:</label>
@@ -130,52 +130,52 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="proveedor" class="form-label">Proveedor:</label>
-                        <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" required>
+                        <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
                     </div>
                     <div class="col">
                         <label for="supervisor" class="form-label">Supervisor:</label>
-                        <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" required>
+                        <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="coordinador" class="form-label">Coordinador del Proyecto:</label>
-                        <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" required>
+                        <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col">
-                        <label for="foto" class="form-label">Foto:</label>
-                        <div style="display: flex; align-items: center;">
-                            <div style="position: relative; width: 50%; padding-top: 50%; overflow: hidden; margin-right: 10px;">
-                                <video id="video" class="form-control" autoplay style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label style="color: black;">Foto</label>
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <label for="imagen" id="icon-image" class="btn btn-primary">
+                                        <i class="fas fa-image"></i>
+                                    </label>
+                                    <span id="icon-cerrar"></span>
+                                    <input id="imagen" class="d-none" type="file" name="imagen" onchange="preview(event)">
+                                    <input type="hidden" id="foto_actual" name="foto_actual">
+                                    <img class="img-thumbnail" id="img-preview" style="display: none;">
+                                </div>
                             </div>
-                            <button type="button" id="btnCapture" class="btn btn-primary">Tomar Foto</button>
                         </div>
-                        <canvas id="canvas" style="display:none;"></canvas>
-                        <input type="hidden" name="foto" id="fotoInput">
-                        <img id="capturedImage" style="display:none; width: 50%; height: auto; border-radius: 8px; margin-top: 10px;" />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
-                        <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo date('Y-m-d\TH:i'); ?>" readonly required>
+                        <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo isset($horaEntrada) ? $horaEntrada : ''; ?>" readonly required>
                     </div>
                     <div class="col">
-    <label for="horaSalida" class="form-label">Hora de Salida:</label>
-    <input class="form-control" id="horaSalida" name="horaSalida" type="datetime-local"
-        value="<?php echo isset($horaSalida) ? $horaSalida : ''; ?>"
-        <?php echo $horaSalidaReadonly ? 'readonly' : ''; ?>>
-</div>
-
-
-
+                        <label for="horaSalida" class="form-label">Fecha y Hora de Salida:</label>
+                        <input class="form-control" id="horaSalida" name="horaSalida" type="datetime-local"
+                            value="<?php echo isset($horaSalida) ? $horaSalida : ''; ?>" readonly>
+                    </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="ubicacion" class="form-label">Ubicación:</label>
-                        <input class="form-control" id="ubicacion" name="ubicacion" type="text" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>" required>
+                        <input class="form-control" id="ubicacion" name="ubicacion" type="text" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
                         <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
                         <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
                     </div>
@@ -193,6 +193,14 @@
     <script src="<?php echo base_url; ?>Assets/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url; ?>Assets/js/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        function preview(event) {
+            const imgPreview = document.getElementById('img-preview');
+            imgPreview.src = URL.createObjectURL(event.target.files[0]);
+            imgPreview.style.display = 'block';
+        }
+    </script>
+
     <script>
         particlesJS('particles-js', {
             "particles": {
@@ -273,9 +281,13 @@
         });
     </script>
 
-    <script src="<?php echo base_url; ?>Assets/js/Asistenciaformulario.js"></script>
-
     <script>
+        const isSecondEntry = <?php echo json_encode($isSecondEntry); ?>; // Obtener el estado de la entrada desde PHP
+
+        if (isSecondEntry) {
+            document.getElementById('getLocation').disabled = true; // Deshabilitar el botón
+        }
+
         document.getElementById('getLocation').addEventListener('click', function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
@@ -298,6 +310,9 @@
             }
         });
     </script>
+
+
+
 
 </body>
 

@@ -83,6 +83,7 @@
         $this->centro_venta = $centro_venta;
         $this->canal_rediac = $canal_rediac;
         $this->aliado = $aliado;
+        $this->id = $id;
         $sql = "UPDATE ventas SET telefono = ?,medio= ?,subgerente= ?,coordinador= ?,supervisor= ?,fecha= ?,codigo= ?,ubicacion= ?,
                 promotor= ?,punto_venta= ?,departamento= ?,zona= ?,distribuidor= ?,proveedor= ?,producto= ?,perfil_plan= ?,tecnologia= ?,centro_venta= ?,canal_rediac= ?,aliado= ? WHERE id = ?";
         $datos = array($this->telefono,$this->medio,$this->subgerente,$this->coordinador,$this->supervisor,$this->fecha ,

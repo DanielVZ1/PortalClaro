@@ -24,9 +24,11 @@ class AsistenciaPromotoresModel extends Query {
     }
 
     public function guardarAsistencia($codigo, $dni, $nombre, $apellido, $puesto, $proveedor, $zona, $supervisor, $coordinador, $horaEntrada, $horaSalida, $foto, $ubicacion) {
+        // Consulta SQL para insertar los datos de asistencia
         $sql = "INSERT INTO asistencia (codigo, dni, nombre, apellido, puesto, proveedor, zona, supervisor, coordinador, hora_entrada, hora_salida, foto, ubicacion, estado) 
                 VALUES (:codigo, :dni, :nombre, :apellido, :puesto, :proveedor, :zona, :supervisor, :coordinador, :horaEntrada, :horaSalida, :foto, :ubicacion, 1)";
         
+        // Parámetros para la consulta
         $params = [
             ':codigo' => $codigo,
             ':dni' => $dni,
@@ -39,12 +41,14 @@ class AsistenciaPromotoresModel extends Query {
             ':coordinador' => $coordinador,
             ':horaEntrada' => $horaEntrada,
             ':horaSalida' => $horaSalida,
-            ':foto' => $foto,
+            ':foto' => $foto, // Aquí se guarda el nombre de la foto
             ':ubicacion' => $ubicacion
         ];
         
+        // Ejecutar la inserción y devolver el resultado
         return $this->insert($sql, $params);
     }
+    
 
     public function verificarAsistenciaHoy($codigo) {
         $fechaHoy = date('Y-m-d');
