@@ -83,10 +83,9 @@ class AsistenciaPromotores extends Controller
                 $data['proveedor'] = $asistenciaData['proveedor'];
                 $data['supervisor'] = $asistenciaData['supervisor'];
                 $data['coordinador'] = $asistenciaData['coordinador'];
-                $data['foto'] = $asistenciaData['foto'];
+                $data['foto'] = base_url . "Assets/img/FotosAsistencias/" . $asistenciaData['foto'];
                 $data['ubicacion'] = $asistenciaData['ubicacion'];
                 $data['horaEntrada'] = date('Y-m-d\TH:i', strtotime($asistenciaData['hora_entrada']));
-
                 // La hora de salida se muestra solo si ya se registró
                 $data['horaSalida'] = $fechaHoraActual;
                 $data['isSecondEntry'] = true; // Indica que es la segunda entrada

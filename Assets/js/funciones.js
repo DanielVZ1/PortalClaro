@@ -962,9 +962,8 @@ function btnVerAsistencia(id) {
             document.getElementById("hora_entrada").value = res.hora_entrada;
             document.getElementById("hora_salida").value = res.hora_salida;
             document.getElementById("ubicacion").value = res.ubicacion;
-
             // Configurar la imagen en el modal
-            document.getElementById("img-preview").src = base_url + "Assets/img/FotosAsistencias/" + res.foto;
+            document.getElementById("img-preview").src = base_url + 'Assets/img/FotosAsistencias/' + res.foto;
 
             // Actualiza el enlace para ver en el mapa
             const regex = /Lat:\s*([\d.-]+),\s*Lon:\s*([\d.-]+)/;

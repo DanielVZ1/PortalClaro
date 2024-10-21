@@ -149,15 +149,22 @@
                             <label style="color: black;">Foto</label>
                             <div class="card border-primary">
                                 <div class="card-body">
-                                    <label for="imagen" id="icon-image" class="btn btn-primary">
-                                        <i class="fas fa-image"></i>
+                                    <label for="imagen" id="icon-image" class="btn btn-outline-primary btn-lg" style="padding: 10px 20px; cursor: pointer;" <?php echo $isSecondEntry ? 'style="pointer-events: none; opacity: 0.5;"' : ''; ?>>
+                                        <i class="fas fa-image"></i> Subir Foto
                                     </label>
                                     <span id="icon-cerrar"></span>
-                                    <input id="imagen" class="d-none" type="file" name="imagen" onchange="preview(event)">
-                                    <input type="hidden" id="foto_actual" name="foto_actual">
-                                    <img class="img-thumbnail" id="img-preview" style="display: none;">
+                                    <input id="imagen" class="d-none" type="file" name="imagen" onchange="preview(event)" <?php echo $isSecondEntry ? 'disabled' : 'required'; ?>>
+                                    <input type="hidden" id="foto_actual" name="foto_actual" value="<?= isset($foto) ? $foto : ''; ?>">
+                                    <img class="img-thumbnail mt-3" id="img-preview"
+                                        src="<?= isset($foto) ? $foto : base_url . 'Assets/img/default.png'; ?>"
+                                        style="display: <?= isset($foto) ? 'block' : 'none'; ?>; max-width: 100%; height: auto;">
                                 </div>
                             </div>
+                            <?php if ($isSecondEntry): ?>
+                                <small class="text-muted">Foto Validada.</small>
+                            <?php else: ?>
+                                <small class="text-danger">La foto es obligatoria.</small>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

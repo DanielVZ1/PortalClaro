@@ -58,7 +58,6 @@ class Asistencia extends Controller
   public function ver(int $id)
   {
     $data = $this->model->verAsistencia($id);
-    $data['foto'] = base_url . "Assets/img/FotosAsistencias/" . $data['foto'];
     echo json_encode($data, JSON_UNESCAPED_UNICODE);
     die();
   }
