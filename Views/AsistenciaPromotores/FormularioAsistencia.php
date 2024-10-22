@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="<?php echo base_url; ?>Assets/img/Claro01.png" type="image/png">
     <title>Formulario de Asistencia</title>
 
@@ -85,6 +86,11 @@
             margin-top: 10px;
             border: 2px solid #ced4da;
         }
+
+        #icon-image:hover {
+            background-color: #0056b3;
+            color: white;
+        }
     </style>
 </head>
 
@@ -99,97 +105,93 @@
             <form id="asistenciaForm" action="<?php echo base_url; ?>AsistenciaPromotores/guardarAsistencia" method="post" enctype="multipart/form-data">
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="codigo" class="form-label">Código Maestro:</label>
+                        <label for="codigo" class="form-label"><i class="fas fa-user"></i> Código Maestro:</label>
                         <input class="form-control" id="codigo" name="CodigoMaestro" type="text" value="<?php echo isset($codigo) ? $codigo : ''; ?>" readonly required>
                     </div>
                     <div class="col">
-                        <label for="dni" class="form-label">DNI:</label>
+                        <label for="dni" class="form-label"><i class="fas fa-id-card"></i> DNI:</label>
                         <input class="form-control" id="dni" name="dni" type="text" value="<?php echo isset($dni) ? $dni : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="nombres" class="form-label">Nombres:</label>
+                        <label for="nombres" class="form-label"><i class="fas fa-user-circle"></i> Nombres:</label>
                         <input class="form-control" id="nombres" name="nombres" type="text" value="<?php echo isset($nombres) ? $nombres : ''; ?>" readonly required>
                     </div>
                     <div class="col">
-                        <label for="apellidos" class="form-label">Apellidos:</label>
+                        <label for="apellidos" class="form-label"><i class="fas fa-user-circle"></i> Apellidos:</label>
                         <input class="form-control" id="apellidos" name="apellidos" type="text" value="<?php echo isset($apellidos) ? $apellidos : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="puesto" class="form-label">Puesto de Trabajo:</label>
+                        <label for="puesto" class="form-label"><i class="fas fa-briefcase"></i> Puesto de Trabajo:</label>
                         <input class="form-control" id="puesto" name="puesto" type="text" value="<?php echo isset($puesto) ? $puesto : ''; ?>" readonly required>
                     </div>
                     <div class="col">
-                        <label for="zona" class="form-label">Zona:</label>
+                        <label for="zona" class="form-label"><i class="fas fa-map"></i> Zona:</label>
                         <input class="form-control" id="zona" name="zona" type="text" value="<?php echo isset($zona) ? $zona : ''; ?>" readonly required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="proveedor" class="form-label">Proveedor:</label>
+                        <label for="proveedor" class="form-label"><i class="fas fa-store"></i> Proveedor:</label>
                         <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
                     </div>
                     <div class="col">
-                        <label for="supervisor" class="form-label">Supervisor:</label>
+                        <label for="supervisor" class="form-label"><i class="fas fa-user-tie"></i> Supervisor:</label>
                         <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="coordinador" class="form-label">Coordinador del Proyecto:</label>
+                        <label for="coordinador" class="form-label"><i class="fas fa-users"></i> Coordinador del Proyecto:</label>
                         <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label style="color: black;">Foto</label>
+                            <label style="color: black;"><i class="fas fa-upload"></i> Foto:</label>
                             <div class="card border-primary">
-                                <div class="card-body">
-                                    <label for="imagen" id="icon-image" class="btn btn-outline-primary btn-lg" style="padding: 10px 20px; cursor: pointer;" <?php echo $isSecondEntry ? 'style="pointer-events: none; opacity: 0.5;"' : ''; ?>>
-                                        <i class="fas fa-image"></i> Subir Foto
+                                <div class="card-body text-center">
+                                    <label for="imagen" id="icon-image" class="btn btn-primary btn-lg" style="padding: 15px 25px; cursor: pointer; transition: background-color 0.3s; border-radius: 5px;" <?php echo $isSecondEntry ? 'style="pointer-events: none; opacity: 0.5;"' : ''; ?>>
+                                        <i class="fas fa-image"></i>
                                     </label>
-                                    <span id="icon-cerrar"></span>
                                     <input id="imagen" class="d-none" type="file" name="imagen" onchange="preview(event)" <?php echo $isSecondEntry ? 'disabled' : 'required'; ?>>
                                     <input type="hidden" id="foto_actual" name="foto_actual" value="<?= isset($foto) ? $foto : ''; ?>">
-                                    <img class="img-thumbnail mt-3" id="img-preview"
-                                        src="<?= isset($foto) ? $foto : base_url . 'Assets/img/default.png'; ?>"
-                                        style="display: <?= isset($foto) ? 'block' : 'none'; ?>; max-width: 100%; height: auto;">
+                                    <img class="img-thumbnail mt-3" id="img-preview" src="<?= isset($foto) ? $foto : base_url . 'Assets/img/default.png'; ?>" style="display: <?= isset($foto) ? 'block' : 'none'; ?>; max-width: 100%; height: auto;">
                                 </div>
                             </div>
                             <?php if ($isSecondEntry): ?>
                                 <small class="text-muted">Foto Validada.</small>
                             <?php else: ?>
-                                <small class="text-danger">La foto es obligatoria.</small>
+                                <small class="text-danger">Campo obligatorio.</small>
                             <?php endif; ?>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="fechaHora" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
+                        <label for="fechaHoraEntrada" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
                         <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo isset($horaEntrada) ? $horaEntrada : ''; ?>" readonly required>
                     </div>
                     <div class="col">
-                        <label for="horaSalida" class="form-label">Fecha y Hora de Salida:</label>
-                        <input class="form-control" id="horaSalida" name="horaSalida" type="datetime-local"
-                            value="<?php echo isset($horaSalida) ? $horaSalida : ''; ?>" readonly>
+                        <label for="horaSalida" class="form-label"><i class="fas fa-calendar-alt"></i> Fecha y Hora de Salida:</label>
+                        <input class="form-control" id="horaSalida" name="horaSalida" type="datetime-local" value="<?php echo isset($horaSalida) ? $horaSalida : ''; ?>" readonly>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="ubicacion" class="form-label">Ubicación:</label>
+                        <label for="ubicacion" class="form-label"><i class="fas fa-map-marker-alt"></i> Ubicación:</label>
                         <input class="form-control" id="ubicacion" name="ubicacion" type="text" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
                         <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
                         <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
                     </div>
                 </div>
-                <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
-                    <a href="<?php echo base_url; ?>" class="btn btn-light btn-lg"><i class="bx bx-arrow-back me-1"></i> Regresar</a>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <a href="<?php echo base_url; ?>" class="btn btn-light">Cancelar</a>
                 </div>
             </form>
         </div>
@@ -206,113 +208,112 @@
             imgPreview.src = URL.createObjectURL(event.target.files[0]);
             imgPreview.style.display = 'block';
         }
-    </script>
+</script>
 
-    <script>
-        particlesJS('particles-js', {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 700
-                    }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": false,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
+<script>
+    particlesJS('particles-js', {
+        "particles": {
+            "number": {
+                "value": 80,
+                "density": {
                     "enable": true,
-                    "speed": 2,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
+                    "value_area": 700
                 }
             },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": false,
-                        "mode": "repulse"
-                    },
-                    "onclick": {
-                        "enable": false,
-                        "mode": "push"
-                    },
-                    "resize": true
+            "color": {
+                "value": "#ffffff"
+            },
+            "shape": {
+                "type": "circle",
+                "stroke": {
+                    "width": 0,
+                    "color": "#000000"
                 }
             },
-            "retina_detect": true
-        });
-    </script>
+            "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                    "enable": false,
+                    "speed": 1,
+                    "opacity_min": 0.1,
+                    "sync": false
+                }
+            },
+            "size": {
+                "value": 3,
+                "random": true,
+                "anim": {
+                    "enable": false,
+                    "speed": 40,
+                    "size_min": 0.1,
+                    "sync": false
+                }
+            },
+            "line_linked": {
+                "enable": false,
+                "distance": 150,
+                "color": "#ffffff",
+                "opacity": 0.4,
+                "width": 1
+            },
+            "move": {
+                "enable": true,
+                "speed": 2,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                    "enable": false,
+                    "rotateX": 600,
+                    "rotateY": 1200
+                }
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": false,
+                    "mode": "repulse"
+                },
+                "onclick": {
+                    "enable": false,
+                    "mode": "push"
+                },
+                "resize": true
+            }
+        },
+        "retina_detect": true
+    });
+</script>
 
-    <script>
-        const isSecondEntry = <?php echo json_encode($isSecondEntry); ?>; // Obtener el estado de la entrada desde PHP
+<script>
+    const isSecondEntry = <?php echo json_encode($isSecondEntry); ?>; // Obtener el estado de la entrada desde PHP
 
-        if (isSecondEntry) {
-            document.getElementById('getLocation').disabled = true; // Deshabilitar el botón
-        }
-
+    if (isSecondEntry) {
+        document.getElementById('getLocation').disabled = true; // Deshabilitar el botón
+    }
         document.getElementById('getLocation').addEventListener('click', function() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
 
-                const locationInput = document.getElementById('ubicacion');
-                locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
+                        const locationInput = document.getElementById('ubicacion');
+                        locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
 
-                const locationLink = document.getElementById('ubicacionLink');
-                locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
-                locationLink.classList.remove('d-none');
-                locationLink.innerText = "Ver en el Mapa";
-            },
-            function(error) {
-                console.error("Error obteniendo la ubicación:", error);
-                switch(error.code) {
+                        const locationLink = document.getElementById('ubicacionLink');
+                        locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                        locationLink.classList.remove('d-none');
+                        locationLink.innerText = "Ver en el Mapa";
+                    },
+                    function(error) {
+                        console.error("Error obteniendo la ubicación:", error);
+                        switch(error.code) {
                     case error.PERMISSION_DENIED:
                         alert("Se denegó el acceso a la ubicación.");
                         break;
@@ -326,17 +327,13 @@
                         alert("Se produjo un error desconocido.");
                         break;
                 }
+                    }
+                );
+            } else {
+                alert("La geolocalización no es soportada por este navegador.");
             }
-        );
-    } else {
-        alert("La geolocalización no es soportada por este navegador.");
-    }
-});
-
+        });
     </script>
-
-
-
 
 </body>
 
