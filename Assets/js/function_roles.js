@@ -197,7 +197,7 @@ function fntPermisos(button) {
     request.open('GET', ajaxUrl, true);
     request.send();
 
-    // Manejar el cambio de estado de la solicitud
+    // Manejar el cambio de estado de la solicitudcdcdcd
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
             document.querySelector('#contentAjax').innerHTML = request.responseText;

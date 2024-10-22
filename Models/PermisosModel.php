@@ -58,12 +58,8 @@ public function insertPermisos(int $idrol, int $idmodulo, int $r, int $w, int $u
     error_log("Consulta de inserción: " . $query_insert); // Verifica la consulta de inserción
     error_log("Datos de inserción: " . implode(', ', $arrData)); // Verifica los datos enviados
 
-    return $request_insert; // Asegúrate de que esto retorne el número de filas afectadas o ID insertado
+    return $request_insert; // yeha Asegúrate de que esto retorne el número de filas afectadas o ID insertado
 }
-
-    
-
-
 }
 
 ?>

@@ -55,7 +55,7 @@ class Permisos extends Controller
                 $modulos = $_POST['modulos'];
                 $this->model->deletePermisos($intIdrol); // Eliminar permisos anteriores
                 
-                // Inicializamos una variable para verificar si alguna inserción falla
+                // a<quii Inicializamos una variable para verificar si alguna inserción falla
                 $insertSuccess = true;
     
                 foreach ($modulos as $modulo) {

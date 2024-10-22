@@ -10,7 +10,7 @@
         <div class="modal-body" style="color:black">
             <?php
             
-              //dep($data);
+              //dep($data);;
 
             ?>
             <div class="col-md-12">
