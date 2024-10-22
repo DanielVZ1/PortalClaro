@@ -7,89 +7,93 @@ class Permisos extends Controller
         parent::__construct();      
     }
 
-    public function getPermisosRol(int $idrol)
+    public function getPermisosRol(string $idrol)
     {
         $rolid = intval($idrol);
-        if($rolid > 0)
-        {
+        if ($rolid > 0) {
+            // Obtén todos los módulos
             $arrModulos = $this->model->selectModulos();
-            $arrPermisoRol = $this->model->selectPermisosRol($rolid);
-            $arrPermisos = array('r' => 0, 'w' => 0,'u' => 0,'d' => 0);
-            $arrPermisoRol = array('idrol' => $rolid);
-
-            if( empty ($arrPermisosRol))
-            {
-                for ($i = 0; $i < count($arrModulos) ; $i++){
-
-                    $arrModulos [$i]['permisos'] = $arrPermisos;
+    
+            // Verifica si realmente obtuviste datos de módulos
+            if (empty($arrModulos)) {
+                die('No se encontraron módulos.');
+            }
+    
+            // Obtén los permisos del rol actual
+            $arrPermisosRol = $this->model->selectPermisosRol($rolid);
+    
+            // Inicializa un array de permisos vacíos
+            $arrPermisosDefault = ['r' => 0, 'w' => 0, 'u' => 0, 'd' => 0];
+    
+            // Asigna permisos a cada módulo
+            foreach ($arrModulos as &$modulo) {
+                // Inicializa con permisos vacíos
+                $permisos = $arrPermisosDefault;
+    
+                // Verifica que el módulo actual tenga un 'idmodulo'
+                if (!isset($modulo['idmodulo'])) {
+                    die('El módulo no tiene un idmodulo definido.');
                 }
-            }else{
-                for ($i = 0; $i < count($arrModulos) ; $i++){
-
-                    $arrPermisos = array('r' => $arrPermisoRol[$i]['r'],
-                                         'w' => $arrPermisoRol[$i]['w'],
-                                         'u' => $arrPermisoRol[$i]['u'],
-                                         'd' => $arrPermisoRol[$i]['d']
-                                        );
-                    if($arrModulos[$i]['idmodulos'] == $arrPermisosRol[$i]['moduloid'])
-                    {
-                        $arrModulos[$i]['permisos'] = $arrPermisos;
+    
+                // Busca los permisos del módulo actual
+                foreach ($arrPermisosRol as $permisoRol) {
+                    if ($modulo['idmodulo'] == $permisoRol['moduloid']) {
+                        // Asigna esos valores si hay permisos
+                        $permisos = [
+                            'r' => $permisoRol['r'],
+                            'w' => $permisoRol['w'],
+                            'u' => $permisoRol['u'],
+                            'd' => $permisoRol['d'],
+                        ];
+                        break; // Sale del bucle una vez que encuentra los permisos
                     }
                 }
+    
+                // Asigna los permisos al módulo
+                $modulo['permisos'] = $permisos;
             }
-            $arrPermisoRol['modulos'] = $arrModulos;
-            $html = getModal("modalPermisos",$arrPermisoRol);
+    
+            // Asigna los módulos con permisos al array principal
+            $arrPermisoRol = ['idrol' => $rolid, 'modulos' => $arrModulos];
+    
+            // Genera el modal con los permisos cargados
+            $html = getModal("modalPermisos", $arrPermisoRol);
+            
+            // Asegúrate de que el modal se imprima correctamente
+            echo $html;
+            return; // Asegúrate de salir de la función después de generar el modal
         }
-        die();
-
+    
+        die('ID de rol inválido.');
     }
+    
 
     public function setPermisos()
     {
-        if ($_POST) {
-            // Capturamos el ID del rol
+        if($_POST)
+        {
             $intIdrol = intval($_POST['idrol']);
-            error_log("ID del rol recibido: " . $intIdrol);  // Verificamos que el ID se reciba correctamente
-    
-            if ($intIdrol > 0) {
-                $modulos = $_POST['modulos'];
-                $this->model->deletePermisos($intIdrol); // Eliminar permisos anteriores
-                
-                // a<quii Inicializamos una variable para verificar si alguna inserción falla
-                $insertSuccess = true;
-    
-                foreach ($modulos as $modulo) {
-                    $idModulo = intval($modulo['idmodulo']);
-                    $r = empty($modulo['r']) ? 0 : 1;
-                    $w = empty($modulo['w']) ? 0 : 1;
-                    $u = empty($modulo['u']) ? 0 : 1;
-                    $d = empty($modulo['d']) ? 0 : 1;
-    
-                    // Intentamos insertar los permisos
-                    $requestPermiso = $this->model->insertPermisos($intIdrol, $idModulo, $r, $w, $u, $d);
-                    error_log("Resultado de inserción para módulo $idModulo: " . $requestPermiso); // Verificamos el resultado de cada inserción
-    
-                    if ($requestPermiso <= 0) {
-                        $insertSuccess = false;
-                        break;
-                    }
-                }
-    
-                // Generamos la respuesta
-                if ($insertSuccess) {
-                    $arrResponse = array('status' => true, 'msg' => 'Permisos asignados correctamente.');
-                } else {
-                    $arrResponse = array('status' => false, 'msg' => 'No se pudieron asignar todos los permisos.');
-                }
-            } else {
-                $arrResponse = array('status' => false, 'msg' => 'El ID del rol no es válido.');
+            $modulos = $_POST['modulos'];
+
+            $this->model->deletePermisos($intIdrol);
+            foreach ($modulos as $modulo){
+                $idModulo = $modulo['idmodulo'];
+                $r = empty($modulo['r']) ? 0 : 1;
+                $w = empty($modulo['w']) ? 0 : 1;
+                $u = empty($modulo['u']) ? 0 : 1;
+                $d = empty($modulo['d']) ? 0 : 1;
+                $requestPermiso = $this->model->insertPermisos($intIdrol, $idModulo, $r, $w, $u, $d);
             }
-    
-            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+            if($requestPermiso > 0)
+            {
+                $arrResponse = array('status' => true, 'msg'  => 'Permisos asignados correctemente.');
+            }else{
+                $arrResponse = array("status" => false, "msg"  => 'No es posible asignar permisos');
+            }
+            echo  json_encode($arrResponse,  JSON_UNESCAPED_UNICODE);
         }
         die();
     }
-    
 
 
 }

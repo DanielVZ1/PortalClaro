@@ -197,7 +197,7 @@ function fntPermisos(button) {
     request.open('GET', ajaxUrl, true);
     request.send();
 
-    // Manejar el cambio de estado de la solicitudcdcdcd
+    // Manejar el cambio de estado de la solicitud
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
             document.querySelector('#contentAjax').innerHTML = request.responseText;
@@ -222,6 +222,8 @@ function fntSavePermisos(event){
             if (objData.status) 
             {
                 swal("Permisos de usuario",  objData.msg, "success");
+                $('.modalPermisos').modal('hide');
+                formElement.remove();
             }else{
                 swal("Error",  objData.msg, "error");
             }

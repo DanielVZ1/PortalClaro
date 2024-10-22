@@ -50,16 +50,17 @@ public function insertPermisos(int $idrol, int $idmodulo, int $r, int $w, int $u
     $this->w = $w;
     $this->u = $u;
     $this->d = $d;
-    
+
+    // Imprimir los datos antes de insertar
+    error_log("Insertando permisos: rolid = $this->intRolid, moduloid = $this->intModuloid, r = $this->r, w = $this->w, u = $this->u, d = $this->d");
+
+    // Insertamos los nuevos permisos
     $query_insert = "INSERT INTO permisos(rolid,moduloid,r,w,u,d) VALUES(?,?,?,?,?,?)";
-    $arrData = array($this->intRolid, $this->intModuloid, $this->r, $this->w, $this->u, $this->d);
+    $arrData = array($this->intRolid, $this->intModuloid, $this->r,  $this->w, $this->u, $this->d);
     $request_insert = $this->insert($query_insert, $arrData);
-
-    error_log("Consulta de inserción: " . $query_insert); // Verifica la consulta de inserción
-    error_log("Datos de inserción: " . implode(', ', $arrData)); // Verifica los datos enviados
-
-    return $request_insert; // yeha Asegúrate de que esto retorne el número de filas afectadas o ID insertado
+    return  $request_insert;
 }
+
 }
 
 ?>

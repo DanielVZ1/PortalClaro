@@ -10,7 +10,7 @@
         <div class="modal-body" style="color:black">
             <?php
             
-              //dep($data);;
+              //dep($data);
 
             ?>
             <div class="col-md-12">
@@ -29,64 +29,69 @@
                           <th>Eliminar</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <?php
-                            $no=1;
-                            $modulos = $data['modulos'];
-                            for ($i = 0; $i < count($modulos) ; $i++){
+                     <tbody>
+                      <?php
+                      $no = 1;
+                      $modulos = $data['modulos'];
+                      for ($i = 0; $i < count($modulos); $i++) {
+                          // Obtener los permisos
+                          $permisos = $modulos[$i]['permisos'];
 
-                                $permisos = $modulos[$i]['permisos'];
-                                $rCheck = $permisos['r'] == 1 ? " checked " : "";
-                                $wCheck = $permisos['w'] == 1 ? " checked " : "";
-                                $uCheck = $permisos['u'] == 1 ? " checked " : "";
-                                $dCheck = $permisos['d'] == 1 ? " checked " : "";
+                          // Verificación de los permisos (r: Leer, w: Escribir, u: Actualizar, d: Eliminar)
+                          $rCheck = isset($permisos['r']) && $permisos['r'] == 1 ? " checked " : "";
+                          $wCheck = isset($permisos['w']) && $permisos['w'] == 1 ? " checked " : "";
+                          $uCheck = isset($permisos['u']) && $permisos['u'] == 1 ? " checked " : "";
+                          $dCheck = isset($permisos['d']) && $permisos['d'] == 1 ? " checked " : "";
 
-                                $idmod = $modulos[$i]['idmodulo'];
-                        ?>
+                          $idmod = $modulos[$i]['idmodulo'];
+                      ?>
                       <tr>
                           <td>
                             <?= $no; ?>
-                            <input type="hidden" name="modulos[<?= $i; ?>][idmodulo]" value="<?= $idmod ?>" require>
+                            <input type="hidden" name="modulos[<?= $i; ?>][idmodulo]" value="<?= $idmod ?>" required>
                           </td>
                           <td>
                             <?= $modulos[$i]['titulo']; ?>
-                          </div>
-                        </td>
-                        </td>
-                        <td><div class="toggle-flip">
-                                <label>
-                                  <input type="checkbox" name="modulos[<?= $i; ?>][r]"<?= $rCheck ?>><span class="flip-indecator" data-toggler-on="ON" data-toggler-off="OFF">
-                                  </span>
-                                </label>
-                          </div>
-                        </td>
-                        <td><div class="toggle-flip">
-                                <label>
-                                  <input type="checkbox"name="modulos[<?= $i; ?>][w]"<?= $wCheck ?>><span class="flip-indecator" data-toggler-on="ON" data-toggler-off="OFF">
-                                  </span>
-                                </label>
-                          </div>
-                        </td>
-                        <td><div class="toggle-flip">
-                                <label>
-                                  <input type="checkbox"name="modulos[<?= $i; ?>][u]"<?= $uCheck ?>><span class="flip-indecator" data-toggler-on="ON" data-toggler-off="OFF">
-                                  </span>
-                                </label>
-                          </div>
-                        </td>
-                        <td><div class="toggle-flip">
-                                <label>
-                                  <input type="checkbox"name="modulos[<?= $i; ?>][d]"<?= $dCheck ?>><span class="flip-indecator" data-toggler-on="ON" data-toggler-off="OFF">
-                                  </span>
-                                </label>
-                          </div>
-                        </td>
-                        </tr>
-                        <?php
-                            $no++;
-                        }      
-                        ?>
-                      </tbody>
+                          </td>
+                          <td>
+                            <div class="toggle-flip">
+                              <label>
+                                <input type="checkbox" name="modulos[<?= $i; ?>][r]" <?= $rCheck ?>>
+                                <span class="flip-indicator" data-toggler-on="ON" data-toggler-off="OFF"></span>
+                              </label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="toggle-flip">
+                              <label>
+                                <input type="checkbox" name="modulos[<?= $i; ?>][w]" <?= $wCheck ?>>
+                                <span class="flip-indicator" data-toggler-on="ON" data-toggler-off="OFF"></span>
+                              </label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="toggle-flip">
+                              <label>
+                                <input type="checkbox" name="modulos[<?= $i; ?>][u]" <?= $uCheck ?>>
+                                <span class="flip-indicator" data-toggler-on="ON" data-toggler-off="OFF"></span>
+                              </label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="toggle-flip">
+                              <label>
+                                <input type="checkbox" name="modulos[<?= $i; ?>][d]" <?= $dCheck ?>>
+                                <span class="flip-indicator" data-toggler-on="ON" data-toggler-off="OFF"></span>
+                              </label>
+                            </div>
+                          </td>
+                      </tr>
+                      <?php
+                          $no++;
+                      }      
+                      ?>
+                    </tbody>
+
                     </table>
                   </div>
                   <div class="text-center">
