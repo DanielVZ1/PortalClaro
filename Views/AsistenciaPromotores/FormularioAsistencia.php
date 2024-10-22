@@ -296,26 +296,43 @@
         }
 
         document.getElementById('getLocation').addEventListener('click', function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
 
-                    const locationInput = document.getElementById('ubicacion');
-                    locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
+                const locationInput = document.getElementById('ubicacion');
+                locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
 
-                    const locationLink = document.getElementById('ubicacionLink');
-                    locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
-                    locationLink.classList.remove('d-none');
-                    locationLink.innerText = "Ver en el Mapa";
-                }, function(error) {
-                    console.error("Error obteniendo la ubicación:", error);
-                    alert("No se pudo obtener la ubicación.");
-                });
-            } else {
-                alert("La geolocalización no es soportada por este navegador.");
+                const locationLink = document.getElementById('ubicacionLink');
+                locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                locationLink.classList.remove('d-none');
+                locationLink.innerText = "Ver en el Mapa";
+            },
+            function(error) {
+                console.error("Error obteniendo la ubicación:", error);
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("Se denegó el acceso a la ubicación.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("La ubicación no está disponible.");
+                        break;
+                    case error.TIMEOUT:
+                        alert("La solicitud de ubicación ha tardado demasiado.");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        alert("Se produjo un error desconocido.");
+                        break;
+                }
             }
-        });
+        );
+    } else {
+        alert("La geolocalización no es soportada por este navegador.");
+    }
+});
+
     </script>
 
 
