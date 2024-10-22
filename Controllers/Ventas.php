@@ -69,8 +69,6 @@
                  $tecnologia,$centro_venta,$canal_rediac,$aliado);
                   if ($data == "ok") {
                     $msg = "si";
-                  }else if ($data =="existe"){
-                    $msg ="La venta ya existe";
                   }else{
                     $msg ="Error al registrar la venta";
                   }

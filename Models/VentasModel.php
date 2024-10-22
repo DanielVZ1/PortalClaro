@@ -38,9 +38,7 @@
         $this->centro_venta = $centro_venta;
         $this->canal_rediac = $canal_rediac;
         $this->aliado = $aliado;
-            $vericar = "SELECT * FROM ventas WHERE codigo = '$this->codigo'";
-            $existe = $this->select($vericar);
-            if (empty($existe)) {
+           
             $sql = "INSERT INTO ventas(telefono,medio,subgerente,coordinador,supervisor,fecha,codigo,ubicacion,
             promotor,punto_venta,departamento,zona,distribuidor,proveedor,producto,perfil_plan,tecnologia,centro_venta,canal_rediac,aliado)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -53,9 +51,7 @@
             }else{
                 $res = "error";
            }
-            }else{
-            $res = "existe";
-           }
+          
             return $res;
         }
 
