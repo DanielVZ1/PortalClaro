@@ -41,10 +41,29 @@
         
 
         public function eliminarAsistencia($id) {
+            // Primero, obtener el nombre de la foto asociada
+            $sql = "SELECT foto FROM asistencia WHERE id = :id";
+            $params = [":id" => $id];
+            $fotoData = $this->selectWithParams($sql, $params);
+        
+            // Verifica si se encontró la foto
+            if (!empty($fotoData) && isset($fotoData[0]['foto'])) {
+                $nombreFoto = $fotoData[0]['foto'];
+                $rutaFoto = "Assets/img/FotosAsistencias/" . $nombreFoto;
+        
+                // Eliminar el archivo de la ruta
+                if (file_exists($rutaFoto)) {
+                    unlink($rutaFoto);
+                }
+            }
+        
+            // Ahora, proceder a eliminar el registro de la base de datos
             $sql = "DELETE FROM asistencia WHERE id = :id";
             $params = [":id" => $id];
+            
             return $this->insert($sql, $params); // Asumiendo que insert es el método para ejecutar consultas con parámetros
         }
+        
         
         public function filtrarAsistencias($params) {
             $sql = "SELECT * FROM asistencia WHERE DATE(hora_entrada) = :fecha";
