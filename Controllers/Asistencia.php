@@ -32,7 +32,7 @@ class Asistencia extends Controller
         $data[$i]['estado'] = '<span class="badge badge-danger" style="color:red">Inactivo</span>';
         $data[$i]['acciones'] = '<div>
               <button class="btn btn-secondary" type="button" onclick="btnVerAsistencia(' . $data[$i]['id'] . ');"><i class="fas fa-eye"></i></button>
-
+              <button class="btn btn-danger" type="button" onclick="btnEliminarAsistencia(' . $data[$i]['id'] . ');"><i class="fas fa-trash-alt"></i></button>
             <div/>';
       }
       if ($data[$i]['hora_salida'] == null) {

@@ -14,19 +14,24 @@ class AsistenciaPromotores extends Controller
         $this->views->getView1('AsistenciaPromotores', 'asistenciapromotores', $data);
     }
 
-    public function VerificarCodigo($codigo)
-    {
+    public function VerificarCodigo($codigo) {
         if (empty($codigo)) {
             echo json_encode(['msg' => 'CÓDIGO NO PUEDE ESTAR VACÍO', 'type' => 'error']);
             return;
         }
-
+    
         try {
             $verificar = $this->model->verificarCodigo($codigo);
+            
             if (!empty($verificar)) {
+                // Verifica el estado
+                if ($verificar['estado'] != 1) {
+                    echo json_encode(['msg' => 'EL PROMOTOR ESTÁ INACTIVO', 'type' => 'error']);
+                    return;
+                }
+    
                 $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
                 if ($asistenciaHoy) {
-                    // Aquí se verifica si hay hora de salida
                     if ($asistenciaHoy['hora_salida'] !== null) {
                         echo json_encode([
                             'msg' => 'YA REGISTRASTE TU ASISTENCIA PARA HOY',
@@ -57,10 +62,11 @@ class AsistenciaPromotores extends Controller
                 echo json_encode(['msg' => 'EL CÓDIGO NO ESTÁ REGISTRADO', 'type' => 'error']);
             }
         } catch (Exception $e) {
-            echo json_encode(['msg' => 'ERROR AL VERIFICAR CÓDIGO', 'type' => 'error']);
-            error_log($e->getMessage());
+            echo json_encode(['msg' => 'ERROR AL VERIFICAR CÓDIGO. INTENTA DE NUEVO.', 'type' => 'error']);
+            error_log($e->getMessage() . ' - Código: ' . $codigo);
         }
     }
+    
 
     public function mostrarFormulario($codigo)
     {

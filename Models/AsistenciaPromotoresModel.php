@@ -6,10 +6,17 @@ class AsistenciaPromotoresModel extends Query {
     }
 
     public function verificarCodigo($codigo) {
-        $sql = "SELECT id FROM promotores WHERE codigo = :codigo";
+        $sql = "SELECT id, estado FROM promotores WHERE codigo = :codigo";
         $params = [':codigo' => $codigo];
-        return $this->select1($sql, $params);
+    
+        try {
+            return $this->select1($sql, $params);
+        } catch (Exception $e) {
+            error_log('Error en verificarCodigo: ' . $e->getMessage());
+            return null;
+        }
     }
+    
 
     public function obtenerDatosPromotor($codigo) {
         $sql = "SELECT p.codigo, p.dni, p.nombre, p.apellido, p.id_cargo, 
