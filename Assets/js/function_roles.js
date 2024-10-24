@@ -28,8 +28,7 @@ document.addEventListener('DOMContentLoaded', function(){
     formRol.onsubmit = function(e) {
         e.preventDefault();
     
-        // Obtener los valores de los campos
-        var  intIdrol = document.querySelector("#idRol").value;
+        var intIdrol = document.querySelector("#idRol").value; // Esto debe ser un ID vacío o existente
         var strNombre = document.querySelector('#txtNombre').value;
         var strDescripcion = document.querySelector('#txtDescripcion').value;
         var intStatus = document.querySelector('#listStatus').value;
@@ -54,26 +53,17 @@ document.addEventListener('DOMContentLoaded', function(){
                 var objData = JSON.parse(request.responseText);
     
                 if (objData.status) {
-                    // Cerrar el modal y limpiar el formulario
-                    $('#modalFormRol').modal("hide"); // Corregido el ID del modal
-                    formRol.reset();
+                    $('#modalFormRol').modal("hide");
+                    formRol.reset(); // Limpia el formulario
     
-                    // Mostrar mensaje de éxito
                     swal("Roles de usuario", objData.msg, "success");
-
-                    tableRoles.ajax.reload(function(){
-                        fntEditRol();
-                    });
-
+                    tableRoles.ajax.reload(); // Recargar la tabla
                 } else {
-                    // Mostrar mensaje de error
                     swal("Error", objData.msg, "error");
                 }
             }
         }
     }
- 
-
     
 });
 

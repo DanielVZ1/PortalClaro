@@ -2,6 +2,11 @@
     //print_r($_SESSION)
     include "Views/Templates/header.php";
 ?>
+
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
 <ol class="breadcrumb mb-4 bg-primary">
     <li class="breadcrumb-item active text-white m">
         <h4 style="color:red">Usuarios</h4>
@@ -15,7 +20,7 @@
             <th>Usuario</th>
             <th>Nombre</th>
             <th>Email</th>
-            <th>Caja</th>
+            <th>Rol</th>
             <th>Estado</th>
             <th></th>
         </tr>
@@ -28,7 +33,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger">
-                <h5 class="modal-title text-white" id="title">Nuevo Usuario</h5>
+                <h5 class="modal-title text-white" id="title"><i class="fas fa-user"></i> Nuevo Usuario</h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -65,17 +70,17 @@
                             </div>
                         </div>
                 </div>
-               
-                        <div class="form-group">
-                            <label for="caja" style="color: black;">Caja</label>
-                            <select id="caja" class="form-control" name="caja"> 
-                                <?php foreach ($data['cajas'] as $row) { ?>
-                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['caja']; ?></option>
-                                <?php  }?>  
-                            </select>
-                        </div>
-                        <button class = "btn btn-primary" type="button" onclick="registrarUser(event)" id="btnAccion">Registrar</button>
-                        <button class = "btn bg-danger" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
+                    <div class="form-group">
+                        <label for="rol" style="color: black;">Rol</label>
+                        <select id="rol" class="form-control" name="rol"> 
+                            <?php foreach ($data['roles'] as $row) { ?>
+                                <option value="<?php echo $row['id']; ?>"><?php echo $row['nombrerol']; ?></option>
+                            <?php } ?>  
+                        </select>
+                    </div>
+                        <button class="btn btn-primary mt-3" type="button" onclick="registrarUser(event)" id="btnAccion">Registrar</button>
+                        <button class="btn bg-danger mt-3" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
+
                     </form>
             </div>
         </div>

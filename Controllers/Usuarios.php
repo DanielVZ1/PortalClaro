@@ -5,34 +5,36 @@
         parent::__construct();      
       }
 
-      public function index()
-      {
-        if (empty($_SESSION['activo'])){
-          header("location:".base_url);
+      public function index() {
+        if (empty($_SESSION['activo'])) {
+            header("location:".base_url);
         }
-        $data['cajas'] = $this->model->getCajas();
-        $this->views->getView($this,"index",$data);
-      } 
+        $data['roles'] = $this->model->getRoles(); // Cambiado a roles
+        $this->views->getView($this, "index", $data);
+    }
 
-      public function listar(){
-        $data = $this->model->getUsuarios();
-        for ($i = 0; $i < count($data); $i++) {  
+    public function listar() {
+      $data = $this->model->getUsuarios();
+      for ($i = 0; $i < count($data); $i++) {  
           if ($data[$i]['estado'] == 1) {
-            $data[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
-            $data[$i]['acciones'] = '<div>
-              <button class="btn btn-primary" type="button" onclick="btnEditarUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
-              <button class="btn btn-danger" type="button" onclick="btnEliminarUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
-            <div/>';
+              $data[$i]['estado'] = '<span class="badge badge-success">Activo</span>';
+              $data[$i]['acciones'] = '<div>
+                  <button class="btn btn-primary" onclick="btnEditarUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-danger" onclick="btnEliminarUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
+              </div>';
           } else {
-            $data[$i]['estado'] = '<span class="badge badge-danger" style="color:red">Inactivo</span>';
-            $data[$i]['acciones'] = '<div>
-              <button class="btn btn-success" type="button" onclick="btnReingresarUser('.$data[$i]['id'].');"><i class="fas fa-sync-alt"></i></button>
-            <div/>';
+              $data[$i]['estado'] = '<span class="badge badge-danger">Inactivo</span>';
+              $data[$i]['acciones'] = '<div>
+                  <button class="btn btn-success" onclick="btnReingresarUser('.$data[$i]['id'].');"><i class="fas fa-sync-alt"></i></button>
+              </div>';
           }
-        }
-        echo json_encode($data, JSON_UNESCAPED_UNICODE);
-        die();
       }
+      header('Content-Type: application/json');
+      echo json_encode($data, JSON_UNESCAPED_UNICODE);
+      die();
+  }
+  
+
 
       public function validar() {
         if (empty($_POST['usuario']) || empty($_POST['clave'])) {
@@ -64,45 +66,35 @@
     }
     
 
-      public function registrar()
-      {
-        $usuario = strClean($_POST['usuario']);
-        $nombre = strClean($_POST['nombre']);
-        $email = strClean($_POST['email']); // Se añade el email
-        $clave = strClean($_POST['clave']);
-        $confirmar = strClean($_POST['confirmar']);
-        $caja = strClean($_POST['caja']);
-        $id = strClean($_POST['id']);
-        $hash = password_hash($clave, PASSWORD_DEFAULT);
-
-        if (empty($usuario) || empty($nombre) || empty($email) || empty($caja)) {
+    public function registrar() {
+      $usuario = strClean($_POST['usuario']);
+      $nombre = strClean($_POST['nombre']);
+      $email = strClean($_POST['email']);
+      $clave = strClean($_POST['clave']);
+      $confirmar = strClean($_POST['confirmar']);
+      $id_rol = strClean($_POST['rol']); // Cambiado
+      $id = isset($_POST['id']) ? strClean($_POST['id']) : ""; // Capturamos el ID si existe
+      $hash = password_hash($clave, PASSWORD_DEFAULT);
+  
+      if (empty($usuario) || empty($nombre) || empty($email) || empty($id_rol)) {
           $msg = "Todos los campos son obligatorios";
-        } else {
+      } else {
           if ($id == "") {
-            if ($clave != $confirmar) {
-              $msg = "Las contraseñas no coinciden";
-            } else {
-              $data = $this->model->registrarUsuario($usuario, $nombre, $hash, $email, $caja);
-              if ($data == "ok") {
-                $msg = "si";
-              } else if ($data == "existe") {
-                $msg = "El usuario ya existe";
+              if ($clave != $confirmar) {
+                  $msg = "Las contraseñas no coinciden";
               } else {
-                $msg = "Error al registrar el usuario";
+                  $data = $this->model->registrarUsuario($usuario, $nombre, $hash, $email, $id_rol);
+                  $msg = $data == "ok" ? "si" : ($data == "existe" ? "El usuario ya existe" : "Error al registrar el usuario");
               }
-            }
           } else {
-            $data = $this->model->modificarUsuario($usuario, $nombre, $email, $caja, $id); // Modificar con email
-            if ($data == "modificado") {
-              $msg = "modificado";
-            } else {
-              $msg = "Error al modificar el usuario";
-            }
+              $data = $this->model->modificarUsuario($usuario, $nombre, $email, $id_rol, $id); // Cambiado
+              $msg = $data == "modificado" ? "modificado" : "Error al modificar el usuario";
           }
-        }
-        echo json_encode($msg, JSON_UNESCAPED_UNICODE);
-        die();
       }
+      echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+      die();
+  }
+  
 
       public function editar(int $id)
       {

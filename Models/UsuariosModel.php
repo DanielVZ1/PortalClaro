@@ -1,6 +1,6 @@
 <?php
     class UsuariosModel extends Query{
-        private $usuario, $nombre, $clave, $email, $id_caja, $id, $estado;
+        private $usuario, $nombre, $clave, $email, $id_rol, $id, $estado;
         
         public function __construct(){
             parent::__construct();        
@@ -13,67 +13,48 @@
         }
         
 
-        public function getCajas()
-        {
-            $sql = "SELECT * FROM caja WHERE estado = 1";
+        public function getRoles() {
+            $sql = "SELECT * FROM rol WHERE status = 1";
             $data = $this->selectAll($sql);
             return $data;
         }
-
-        public function getUsuarios()
-        {
-            $sql = "SELECT u.*, c.id as id_caja, c.caja FROM usuarios u INNER JOIN caja c where u.id_caja = c.id";
+    
+        public function getUsuarios() {
+            $sql = "SELECT u.*, r.id AS id_rol, r.nombrerol FROM usuarios u INNER JOIN rol r ON u.id_rol = r.id";
             $data = $this->selectAll($sql);
             return $data;
         }
-
-        public function registrarUsuario(string $usuario, string $nombre, string $clave, string $email, int $id_caja)
-        {
+    
+        public function registrarUsuario(string $usuario, string $nombre, string $clave, string $email, int $id_rol) {
             $this->usuario = $usuario;
             $this->nombre = $nombre;
             $this->clave = $clave;
             $this->email = $email;
-            $this->id_caja = $id_caja;
-            
+            $this->id_rol = $id_rol;
+    
             $verificar = "SELECT * FROM usuarios WHERE usuario = '$this->usuario'";
             $existe = $this->select($verificar);
-            
+    
             if (empty($existe)) {
-                $sql = "INSERT INTO usuarios(usuario, nombre, clave, email, id_caja) VALUES (?,?,?,?,?)";
-                $datos = array($this->usuario, $this->nombre, $this->clave, $this->email, $this->id_caja);
+                $sql = "INSERT INTO usuarios(usuario, nombre, clave, email, id_rol) VALUES (?,?,?,?,?)";
+                $datos = array($this->usuario, $this->nombre, $this->clave, $this->email, $this->id_rol);
                 $data = $this->save($sql, $datos);
-                
-                if ($data == 1) {
-                    $res = "ok";
-                } else {
-                    $res = "error";
-                }
+                return $data == 1 ? "ok" : "error";
             } else {
-                $res = "existe";
+                return "existe";
             }
-            
-            return $res;
         }
-
-        public function modificarUsuario(string $usuario, string $nombre, string $email, int $id_caja, int $id)
-        {
+    
+        public function modificarUsuario(string $usuario, string $nombre, string $email, int $id_rol, int $id) {
             $this->usuario = $usuario;
             $this->nombre = $nombre;
             $this->email = $email;
             $this->id = $id;
-            $this->id_caja = $id_caja;
-            
-            $sql = "UPDATE usuarios SET usuario = ?, nombre = ?, email = ?, id_caja = ? WHERE id = ?";
-            $datos = array($this->usuario, $this->nombre, $this->email, $this->id_caja, $this->id);
-            $data = $this->save($sql, $datos);
-            
-            if ($data == 1) {
-                $res = "modificado";
-            } else {
-                $res = "error";
-            }   
-            
-            return $res;
+            $this->id_rol = $id_rol;
+    
+            $sql = "UPDATE usuarios SET usuario = ?, nombre = ?, email = ?, id_rol = ? WHERE id = ?";
+            $datos = array($this->usuario, $this->nombre, $this->email, $this->id_rol, $this->id);
+            return $this->save($sql, $datos) == 1 ? "modificado" : "error";
         }
 
         public function editarUser(int $id)

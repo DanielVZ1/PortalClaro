@@ -77,5 +77,8 @@ class Query extends Conexion {
     $result = $request->execute(); // Ejecutar la consulta
     return $result;
 }
+
+
+
 }
 ?>
