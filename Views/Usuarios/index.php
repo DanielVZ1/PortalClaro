@@ -78,8 +78,14 @@
                             <?php } ?>  
                         </select>
                     </div>
+                    <div class="modal-body">
+                    <form method="post" id="frmUsuario">
+                        <!-- Otros campos aquí -->
                         <button class="btn btn-primary mt-3" type="button" onclick="registrarUser(event)" id="btnAccion">Registrar</button>
                         <button class="btn bg-danger mt-3" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
+                    </form>
+                </div>
+
 
                     </form>
             </div>

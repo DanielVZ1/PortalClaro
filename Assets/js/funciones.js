@@ -103,7 +103,7 @@ function fntRolesUsuarios() {
     
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-            document.querySelector("#listRolid").innerHTML = request.responseText;
+            document.querySelector("#rol").innerHTML = request.responseText; // Cambiado a 'rol'
         }
     };
     request.send();
@@ -115,7 +115,7 @@ function registrarUser(e) {
     const nombre = document.getElementById("nombre");
     const clave = document.getElementById("clave");
     const confirmar = document.getElementById("confirmar");
-    const rol = document.getElementById("listRolid");
+    const rol = document.getElementById("rol"); // Cambiado a 'rol'
     const email = document.getElementById("email");
 
     if (usuario.value == "" || nombre.value == "" || rol.value == "" || email.value == "") {
@@ -177,12 +177,7 @@ function btnEditarUser(id) {
     const usuarioElement = document.getElementById("usuario");
     const nombreElement = document.getElementById("nombre");
     const emailElement = document.getElementById("email");
-    const rolElement = document.getElementById("listRolid");
-
-    if (!titleElement || !btnAccionElement || !idElement || !usuarioElement || !nombreElement || !emailElement || !rolElement) {
-        console.error("Uno o más elementos no se encontraron en el DOM");
-        return; // Salir si no se encuentran elementos
-    }
+    const rolElement = document.getElementById("rol"); // Cambiado a 'rol'
 
     titleElement.innerHTML = "Actualizar usuario";
     btnAccionElement.innerHTML = "Modificar";
@@ -199,73 +194,11 @@ function btnEditarUser(id) {
             usuarioElement.value = res.usuario;
             nombreElement.value = res.nombre;
             emailElement.value = res.email;
-            rolElement.value = res.id_rol; // Cambiar esto a "id_rol"
+            rolElement.value = res.id_rol; // Asegúrate de que esto sea correcto
             document.getElementById("claves").classList.add("d-none");
             $("#nuevo_usuario").modal("show");
         }
     };
-}
-
-// Funciones de eliminación y reingreso se mantienen igual
-function btnEliminarUser(id) {
-    Swal.fire({
-        title: '¿Está seguro de eliminar?',
-        text: "¡El usuario no se eliminará de forma permanente, solo cambiará el estado a inactivo!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        cancelButtonText: 'No',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const url = base_url + "Usuarios/eliminar/" + id;
-            const http = new XMLHttpRequest();
-            http.open("GET", url, true);
-            http.send();
-            http.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    const res = JSON.parse(this.responseText);
-                    if (res == "ok") {
-                        Swal.fire('Mensaje', 'Usuario eliminado con éxito', 'success');
-                        tblUsuarios.ajax.reload();
-                    } else {
-                        Swal.fire('Mensaje', res, 'error');
-                    }
-                }
-            };
-        }
-    });
-}
-
-function btnReingresarUser(id) {
-    Swal.fire({
-        title: '¿Está seguro de reingresar?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        cancelButtonText: 'No',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const url = base_url + "Usuarios/reingresar/" + id;
-            const http = new XMLHttpRequest();
-            http.open("GET", url, true);
-            http.send();
-            http.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    const res = JSON.parse(this.responseText);
-                    if (res == "ok") {
-                        Swal.fire('Mensaje', 'Usuario reingresado con éxito', 'success');
-                        tblUsuarios.ajax.reload();
-                    } else {
-                        Swal.fire('Mensaje', res, 'error');
-                    }
-                }
-            };
-        }
-    });
 }
 
 
