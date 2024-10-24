@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     formData.append('archivoRespaldo', selectedFile);
 
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'http://localhost/proyectoRRHH/backups/restore.php', true);
+                    xhr.open('POST', 'http://localhost/PortalClaro/Backups/restore.php', true);
                     xhr.onload = function () {
                         loadingMessage.close();
 

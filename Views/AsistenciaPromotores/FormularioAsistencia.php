@@ -184,7 +184,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="ubicacion" class="form-label"><i class="fas fa-map-marker-alt"></i> Ubicación:</label>
-                        <input class="form-control" id="ubicacion" name="ubicacion" type="text" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
+                        <input class="form-control" id="ubicacion" name="ubicacion" type="text" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>required>
                         <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
                         <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
                     </div>
