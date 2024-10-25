@@ -2,7 +2,7 @@
 // Función para realizar el respaldo de la base de datos
 function realizarRespaldo() {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost/PortalClaro/Backups/index.php', true);
+    xhr.open('POST', base_url + '/Backups/index.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     xhr.onreadystatechange = function () {
@@ -62,7 +62,7 @@ function confirmarEliminarRespaldo(archivo) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: 'http://localhost/PortalClaro/eliminar_respaldo.php',
+                url: base_url + '/eliminar_respaldo.php',
                 type: 'POST',
                 data: { archivo: archivo },
                 dataType: 'json',
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     formData.append('archivoRespaldo', selectedFile);
 
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'http://localhost/PortalClaro/Backups/restore.php', true);
+                    xhr.open('POST', base_url + '/Backups/restore.php', true);
                     xhr.onload = function () {
                         loadingMessage.close();
 

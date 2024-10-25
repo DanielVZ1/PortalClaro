@@ -62,27 +62,28 @@ $(document).ready(function() {
 <table class="table table-light" id="tblAsistencia">
     <thead class="thead-dark">
         <tr>
-            <th>Id</th>
-            <th>Código Maestro</th>
-            <th>DNI</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Puesto de trabajo</th>
-            <th>Zona</th>
-            <th>Proveedor</th>
-            <th>Supervisor</th>
-            <th>Coordinador de proyecto</th>
-            <th>Hora Entrada</th>
-            <th>Hora Salida</th>
-            <th>Foto</th>
-            <th>Ubicación</th>
-            <th>Estado</th>
-            <th>Acciones</th>
+            <th><i class="fas fa-id-badge"></i> Id</th>
+            <th><i class="fas fa-code-branch"></i> Código Maestro</th>
+            <th><i class="fas fa-id-card"></i> DNI</th>
+            <th><i class="fas fa-user"></i> Nombres</th>
+            <th><i class="fas fa-user"></i> Apellidos</th>
+            <th><i class="fas fa-briefcase"></i> Puesto de trabajo</th>
+            <th><i class="fas fa-map"></i> Zona</th>
+            <th><i class="fas fa-truck"></i> Proveedor</th>
+            <th><i class="fas fa-user-tie"></i> Supervisor</th>
+            <th><i class="fas fa-user-friends"></i> Coordinador de proyecto</th>
+            <th><i class="fas fa-clock"></i> Hora Entrada</th>
+            <th><i class="fas fa-clock"></i> Hora Salida</th>
+            <th><i class="fas fa-image"></i> Foto</th>
+            <th><i class="fas fa-map-marker-alt"></i> Ubicación</th>
+            <th><i class="fas fa-check-circle"></i> Estado</th>
+            <th><i class="fas fa-cogs"></i> Acciones</th>
         </tr>
     </thead>
     <tbody>
     </tbody>
 </table>
+
 
 <div id="nuevo_promotor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
