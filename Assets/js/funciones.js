@@ -280,14 +280,18 @@ function btnReingresarUser(id) {
 
 //-----------------------------------Promotores--------------------------------------------------
 function frmPromotor() {
-    document.getElementById("title").innerHTML="Nuevo Promotor";
-    document.getElementById("btnAccion").innerHTML="Registrar";
+    document.getElementById("title").innerHTML = "Nuevo Promotor";
+    document.getElementById("btnAccion").innerHTML = "Registrar";
     document.getElementById("frmPromotor").reset();
     document.getElementById("id").value = "";
+
+    // Habilitar los campos
+    disableFormFields(false);
+
     $("#nuevo_promotor").modal("show");
     deleteImg();
-
 }
+
 
 function registrarPromotor(e){
     e.preventDefault();
@@ -364,43 +368,40 @@ function registrarPromotor(e){
 }
 
 function btnEditarPromotor(id) {
-    document.getElementById("title").innerHTML="Actualizar promotor";
-    document.getElementById("btnAccion").innerHTML="Modificar";
+    document.getElementById("title").innerHTML = "Actualizar promotor";
+    document.getElementById("btnAccion").innerHTML = "Modificar";
     const url = base_url + "Promotores/editar/" + id;
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                //console.log(this.responseText);
-                const res = JSON.parse(this.responseText);
-                document.getElementById("id").value = res.id;
-                document.getElementById("codigo").value = res.codigo;
-                document.getElementById("dni").value = res.dni;
-                document.getElementById("nombre").value = res.nombre;
-                document.getElementById("apellido").value = res.apellido;
-                document.getElementById("telefono").value = res.telefono;
-                document.getElementById("profesion").value = res.profesion;
-                document.getElementById("estado_civil").value = res.id_estado_civil;
-                document.getElementById("genero").value = res.id_genero;  
-                document.getElementById("direccion").value = res.direccion;
-                document.getElementById("zona").value = res.id_zona;
-                document.getElementById("departamento").value = res.id_departamento;
-                document.getElementById("municipio").value = res.id_municipio;
-                document.getElementById("gerencia").value = res.id_gerencia;
-                document.getElementById("canal").value = res.id_canal;
-                document.getElementById("proyecto").value = res.id_proyecto;
-                document.getElementById("cargo").value = res.id_cargo;
-                document.getElementById("img-preview").src = base_url + 'Assets/imgBD/' + res.foto;
-                document.getElementById("icon-cerrar").innerHTML = ` 
-                <button class="btn btn-danger" onclick="deleteImg()">
-                <i class="fas fa-times"></i></button>`;
-                document.getElementById("icon-image").classList.add("d-none");
-                document.getElementById("foto_actual").value = res.foto;
-                $("#nuevo_promotor").modal("show");
-            }
-    }
+        if (this.readyState == 4 && this.status == 200) {
+            const res = JSON.parse(this.responseText);
+            document.getElementById("id").value = res.id;
+            document.getElementById("codigo").value = res.codigo;
+            document.getElementById("dni").value = res.dni;
+            document.getElementById("nombre").value = res.nombre;
+            document.getElementById("apellido").value = res.apellido;
+            document.getElementById("telefono").value = res.telefono;
+            document.getElementById("profesion").value = res.profesion;
+            document.getElementById("estado_civil").value = res.id_estado_civil;
+            document.getElementById("genero").value = res.id_genero;  
+            document.getElementById("direccion").value = res.direccion;
+            document.getElementById("zona").value = res.id_zona;
+            document.getElementById("departamento").value = res.id_departamento;
+            document.getElementById("municipio").value = res.id_municipio;
+            document.getElementById("gerencia").value = res.id_gerencia;
+            document.getElementById("canal").value = res.id_canal;
+            document.getElementById("proyecto").value = res.id_proyecto;
+            document.getElementById("cargo").value = res.id_cargo;
+            document.getElementById("img-preview").src = base_url + 'Assets/imgBD/' + res.foto;
 
+            // Habilitar los campos
+            disableFormFields(false);
+
+            $("#nuevo_promotor").modal("show");
+        }
+    }
 }
 
 function btnEliminarPromotor(id) {
@@ -479,43 +480,68 @@ function btnReingresarPromotor(id) {
 }
 
 function btnVerPromotor(id) {
-    document.getElementById("title").innerHTML="Ficha promotor";
-    document.getElementById("btnAccion").innerHTML="Imprimir";
+    document.getElementById("title").innerHTML = "Ficha promotor";
+    document.getElementById("btnAccion").innerHTML = "Imprimir";
     const url = base_url + "Promotores/ver/" + id;
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                const res = JSON.parse(this.responseText);
-                document.getElementById("id").value = res.id;
-                document.getElementById("codigo").value = res.codigo;
-                document.getElementById("dni").value = res.dni;
-                document.getElementById("nombre").value = res.nombre;
-                document.getElementById("apellido").value = res.apellido;
-                document.getElementById("telefono").value = res.telefono;
-                document.getElementById("profesion").value = res.profesion;
-                document.getElementById("estado_civil").value = res.id_estado_civil;
-                document.getElementById("genero").value = res.id_genero;  
-                document.getElementById("direccion").value = res.direccion;
-                document.getElementById("zona").value = res.id_zona;
-                document.getElementById("departamento").value = res.id_departamento;
-                document.getElementById("municipio").value = res.id_municipio;
-                document.getElementById("gerencia").value = res.id_gerencia;
-                document.getElementById("canal").value = res.id_canal;
-                document.getElementById("proyecto").value = res.id_proyecto;
-                document.getElementById("cargo").value = res.id_cargo;
-                document.getElementById("img-preview").src = base_url + 'Assets/img/' + res.foto;
-                document.getElementById("icon-cerrar").innerHTML = ` 
-                <button class="btn btn-danger" onclick="deleteImg()">
-                <i class="fas fa-times"></i></button>`;
-                document.getElementById("icon-image").classList.add("d-none");
-                document.getElementById("foto_actual").value = res.foto;
-                $("#nuevo_promotor").modal("show");
-            }
-    }
+        if (this.readyState == 4 && this.status == 200) {
+            const res = JSON.parse(this.responseText);
+            document.getElementById("id").value = res.id;
+            document.getElementById("codigo").value = res.codigo;
+            document.getElementById("dni").value = res.dni;
+            document.getElementById("nombre").value = res.nombre;
+            document.getElementById("apellido").value = res.apellido;
+            document.getElementById("telefono").value = res.telefono;
+            document.getElementById("profesion").value = res.profesion;
+            document.getElementById("estado_civil").value = res.id_estado_civil;
+            document.getElementById("genero").value = res.id_genero;  
+            document.getElementById("direccion").value = res.direccion;
+            document.getElementById("zona").value = res.id_zona;
+            document.getElementById("departamento").value = res.id_departamento;
+            document.getElementById("municipio").value = res.id_municipio;
+            document.getElementById("gerencia").value = res.id_gerencia;
+            document.getElementById("canal").value = res.id_canal;
+            document.getElementById("proyecto").value = res.id_proyecto;
+            document.getElementById("cargo").value = res.id_cargo;
+            document.getElementById("img-preview").src = base_url + 'Assets/img/' + res.foto;
 
+            // Deshabilitar todos los campos del formulario
+            disableFormFields(true);
+
+            $("#nuevo_promotor").modal("show");
+        }
+    }
 }
+
+// Función para habilitar o deshabilitar los campos del formulario
+function disableFormFields(disable) {
+    const fields = [
+        "codigo", "dni", "nombre", "apellido", "telefono", "profesion", 
+        "estado_civil", "genero", "direccion", "zona", "departamento", 
+        "municipio", "gerencia", "canal", "proyecto", "cargo"
+    ];
+    
+    fields.forEach(field => {
+        document.getElementById(field).disabled = disable;
+    });
+}
+
+// Función para habilitar o deshabilitar los campos del formulario
+function disableFormFields(disable) {
+    const fields = [
+        "codigo", "dni", "nombre", "apellido", "telefono", "profesion", 
+        "estado_civil", "genero", "direccion", "zona", "departamento", 
+        "municipio", "gerencia", "canal", "proyecto", "cargo"
+    ];
+    
+    fields.forEach(field => {
+        document.getElementById(field).disabled = disable;
+    });
+}
+
 //Funciones para las fotos
 function preview(e){
     const url = e.target.files[0];
