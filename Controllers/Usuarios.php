@@ -1,17 +1,19 @@
+
 <?php
     class Usuarios extends Controller{
       public function __construct(){
         session_start();
         parent::__construct();      
       }
+      public function index()
+      {
+          $data['page_id'] = 1;
+          $data['page_tag'] = "Usuarios";
+          $data['page_name'] = "Lista_Usuario";
+          $data['page_title'] = "Usuarios <small> </small>";
+          $this->views->getView($this, "index", $data);
+      } 
 
-      public function index() {
-        if (empty($_SESSION['activo'])) {
-            header("location:".base_url);
-        }
-        $data['roles'] = $this->model->getRoles(); // Cambiado a roles
-        $this->views->getView($this, "index", $data);
-    }
 
     public function listar() {
       $data = $this->model->getUsuarios();

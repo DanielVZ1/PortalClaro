@@ -4,15 +4,18 @@
 ?>
 
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-
-<ol class="breadcrumb mb-4 bg-primary">
-    <li class="breadcrumb-item active text-white m">
-        <h4 style="color:red">Usuarios</h4>
-    </li>
-</ol>
-<button class="btn btn-primary mb-2" type="button" onclick="frmUsuario();"><i class="fas fa-plus"></i></button>
+<div id="contentAjax"></div>
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fas fa-user"></i> <?= $data['page_title'] ?> <button class="btn btn-primary mb-2" type="button" onclick="frmUsuario();"><i class="fas fa-plus"></i></button>
+            
+         </div>
+        <!--<ul  class="app-breadcrumb breadcrumb">
+           <li  class="breadcrumb-item"><i  class="fa fa-home fa-lg"></i></li>
+           <li class="breadcrumb-item"><a href="<?php echo base_url;?>Roles"><?= $data['page_title'] ?></a></li>
+        </ul>-->
+    </div>
 <table class="table table-light" id="tblUsuarios">
     <thead class="thead-dark">
         <tr>
