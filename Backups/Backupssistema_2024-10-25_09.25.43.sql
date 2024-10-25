@@ -19,7 +19,7 @@
 -- Current Database: `sistema`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `sistema` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `sistema` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `sistema`;
 
@@ -32,21 +32,22 @@ DROP TABLE IF EXISTS `asistencia`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `asistencia` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dni` int(12) NOT NULL,
+  `codigo` int(13) NOT NULL,
+  `dni` varchar(15) NOT NULL,
   `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(50) NOT NULL,
   `puesto` varchar(50) NOT NULL,
   `proveedor` varchar(50) NOT NULL,
   `zona` varchar(50) NOT NULL,
   `supervisor` varchar(50) NOT NULL,
-  `asistencia` varchar(50) NOT NULL,
   `coordinador` varchar(50) NOT NULL,
-  `latitud` varchar(100) NOT NULL,
-  `longitud` varchar(100) NOT NULL,
-  `caja` varchar(100) NOT NULL,
+  `hora_entrada` datetime NOT NULL,
+  `hora_salida` datetime DEFAULT NULL,
+  `foto` varchar(100) NOT NULL,
+  `ubicacion` varchar(50) NOT NULL,
   `estado` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_asistencia` (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,6 +56,7 @@ CREATE TABLE `asistencia` (
 
 LOCK TABLES `asistencia` WRITE;
 /*!40000 ALTER TABLE `asistencia` DISABLE KEYS */;
+INSERT INTO `asistencia` VALUES (2,1012,'0801-2021-98766','Claudia Maria','Giron Matute','Promotores','jjjjnkm','Norte','jhujhhuij','jhhjhihio','2024-10-10 08:40:00','2024-10-10 09:44:00','','Lat: 14.101207624110913, Lon: -87.18977139656884',1),(3,1015,'0988-7782-48282','Yugygygh','Uggyguhu','Promotores','jjjjnkm','Norte','jhujhhuij','jhhjhihio','2024-10-10 08:45:00','0000-00-00 00:00:00','','Lat: 14.101207624110913, Lon: -87.18977139656884',1),(5,1013,'0987-6273-73277','Blanca Maria','Gutierrez Perez','Promotores','jjjjnkm','Norte','jhujhhuij','jhhjhihio','2024-10-10 10:16:00','0000-00-00 00:00:00','','Lat: 14.101207624110913, Lon: -87.18977139656884',1),(6,1010,'0801-1992-08192','Alma Gissel','Carrasco Flores','Promotores','jjjjnkm','Centro Sur','jhujhhuij','ddddddddddddddd','2024-10-10 10:24:00','0000-00-00 00:00:00','','Lat: 14.101207624110913, Lon: -87.18977139656884',1),(9,1010,'0801-1992-08192','Alma Gissel','Carrasco Flores','Promotores','jjjjnkm','Occidente','jhujhhuij','ddddddddddddddd','2024-10-10 11:31:00','0000-00-00 00:00:00','','Lat: 14.101207624110913, Lon: -87.18977139656884',1),(11,1015,'0988-7782-48282','Yugygygh','Uggyguhu','Promotores','jjjjnkm','Norte','jhujhhuij','ddddddddddddddd','2024-10-11 15:49:00','0000-00-00 00:00:00','','Lat: 14.101208815485062, Lon: -87.18976896732751',1),(12,1015,'0988-7782-48282','Yugygygh','Uggyguhu','Promotores','jjjjnkm','Norte','jhujhhuij','ddddddddddddddd','2024-10-11 16:35:00','0000-00-00 00:00:00','','Lat: 14.101208815485062, Lon: -87.18976896732751',1),(13,1015,'0988-7782-48282','Yugygygh','Uggyguhu','Promotores','jjjjnkm','Norte','jhujhhuij','ddddddddddddddd','2024-10-11 16:48:00','0000-00-00 00:00:00','','Lat: 14.101208815485062, Lon: -87.18976896732751',1),(22,1014,'0801-1998-71234','Pedro Pablo','Zuniga Quiroz','Promotores','jjjjnkm','Centro Sur','jhujhhuij','ddddddddddddddd','2024-10-14 10:40:00','0000-00-00 00:00:00','','Lat: 14.101208630861906, Lon: -87.18977147829952',1),(28,1011,'0801-1987-87652','Marco Tulio','Espinoza Blandin','Promotores','jjjjnkm','Centro Sur','jhujhhuij','ddddddddddddddd','2024-10-14 13:57:00','0000-00-00 00:00:00','','Lat: 14.101208630861906, Lon: -87.18977147829952',1),(56,1010,'0801-1992-08192','Alma Gissel','Carrasco Flores','Promotores','dddddddddddddd','Occidente','ddddddddddd','dddddddddddd','2024-10-17 16:15:39','2024-10-17 16:16:14','','Lat: 14.0828, Lon: -87.2041',1),(57,1011,'0801-1987-87652','Marco Tulio','Espinoza Blandin','Promotores','wwwww','Centro Sur','ddddddddddd','dddddddddddd','2024-10-17 16:18:50','2024-10-17 16:19:31','','Lat: 14.0858, Lon: -87.203',1),(58,1012,'0801-2021-98766','Claudia Maria','Giron Matute','Promotores','dddddddddddddd','Norte','dddd','dddddddddddd','2024-10-17 16:24:26','2024-10-17 16:24:44','','Lat: 14.0828, Lon: -87.2041',1),(59,1013,'0987-6273-73277','Blanca Maria','Gutierrez Perez','Promotores','dasdsa','Norte','dsadasd','dddddddddddd','2024-10-17 16:25:39','2024-10-17 16:26:58','','Lat: 14.0826, Lon: -87.1674',1),(60,1014,'0801-1998-71234','Pedro Pablo','Zuniga Quiroz','Promotores','dddddddddddddd','Centro Sur','ddddddddddd','dddddddddddd','2024-10-17 16:29:08','2024-10-17 16:29:26','','Lat: 14.0858, Lon: -87.203',1),(61,1015,'0988-7782-48282','Yugygygh','Uggyguhu','Promotores','Hshw','Norte','Sbwbw','Benenw','2024-10-17 16:35:45','2024-10-17 16:36:46','','Nsbdb',1),(66,1014,'0801-1998-71234','Pedro Pablo','Zuniga Quiroz','Promotores','dddddddddddddd','Centro Sur','ddddddddddd','dddddddddddd','2024-10-18 11:14:53','2024-10-18 11:45:29','','Lat: 14.0828, Lon: -87.2041',1),(67,1013,'0987-6273-73277','Blanca Maria','Gutierrez Perez','Promotores','dddddddddddddd','Norte','ddddddddddd','dddddddddddd','2024-10-18 11:46:29','2024-10-18 11:55:03','','Lat: 14.0828, Lon: -87.2041',1),(70,1015,'0988-7782-48282','Yugygygh','Uggyguhu','Promotores','gfgf','Norte','ggfg','fggffgg','2024-10-18 14:30:59','2024-10-18 14:34:48','','fgfgfgfg',1),(71,1016,'0801-1999-88777','Eedrderd','Deded','Promotores','rrrrrrr','Norte','rrrrrr','rrrrrrrrrrr','2024-10-18 14:35:45','2024-10-18 14:46:25','','rrrrrrrrrr',1),(72,1012,'0801-2021-98766','Claudia Maria','Giron Matute','Promotores','dsdsds','Norte','dsdsdsd','sdsdsdsdsds','2024-10-18 15:22:54',NULL,'','czczxcxzczxcz',1),(73,1010,'0801-1992-08192','Alma Gissel','Carrasco Flores','Promotores','sasaS','Occidente','asASa','sASasa','2024-10-18 16:46:54',NULL,'default.png','SasaSasASas',1),(75,1011,'0801-1987-87652','Marco Tulio','Espinoza Blandin','Promotores','Ghh','Centro Sur','Vbbb','Vvvb','2024-10-18 16:52:04','2024-10-18 16:53:48','6712e69496977_17292918797408954536925788946893.jpg','Cvbbb',1),(79,1014,'0801-1998-71234','Pedro Pablo','Zuniga Quiroz','Promotores','wwqeqwewqee','Centro Sur','qweqweqwe','qweqweqweqw','2024-10-21 09:46:47',NULL,'671677674d0d1_forgot-password-frent-img.jpg','4R26+F3C, Tegucigalpa, Francisco MorazÃ¡n',1),(80,1015,'0988-7782-48282','Yugygygh','Uggyguhu','Promotores','wwqeqwewqee','Norte','qweqweqwe','qweqweqweqw','2024-10-21 10:06:02','2024-10-21 10:10:21','67167beaae3c6_6325247.jpg','4R26+F3C, Tegucigalpa, Francisco MorazÃ¡n',1),(86,1012,'0801-2021-98766','Claudia Maria','Giron Matute','Promotores','Hebebw','Norte','Bdndndn','Ndnwndd','2024-10-21 15:57:38',NULL,'6716ce529b26c_17295478015615281799936728878993.jpg','Jbwbsb',1),(91,1010,'0801-1992-08192','Alma Gissel','Carrasco Flores','Promotores','dddddddddddddd','Occidente','ddddddddddd','dddddddddddd','2024-10-21 16:23:14','2024-10-21 16:26:39','6716d452503f2_forgot-password-frent-img.jpg','Lat: 14.0828, Lon: -87.2041',1),(92,1012,'0801-2021-98766','Claudia Maria','Giron Matute','Promotores','dddddddddddddd','Norte','ddddddddddd','dddddddddddd','2024-10-22 08:16:50','2024-10-22 14:29:15','6717b3d2571f2_Claro-Logo.png','Lat: 14.0828, Lon: -87.2041',1),(93,1010,'0801-1992-08192','Alma Gissel','Carrasco Flores','Promotores','dddddddddddddd','Occidente','ddddddddddd','dddddddddddd','2024-10-22 09:56:36',NULL,'6717cb3471538_6325247.jpg','Lat: 14.101252, Lon: -87.189848',1),(94,1013,'0987-6273-73277','Blanca Maria','Gutierrez Perez','Promotores','ViralShower','Norte','Auronplays','DjMariio','2024-10-22 15:08:55',NULL,'67181467ef283_17296312540994365435416776569029.jpg','Lat: 14.1011709, Lon: -87.1899083',1),(95,1017,'0809-8877-77777','Hyugyfdwd','Wefewwdfw','Promotores','Viral','Norte','GymVirtual','Porcinos','2024-10-22 15:10:21',NULL,'671814bd3f234_Screenshot_20241021_165328_Instagram.jpg','Lat: 14.1011709, Lon: -87.1899083',1),(96,1014,'0801-1998-71234','Pedro Pablo','Zuniga Quiroz','Promotores','bmnnm','Centro Sur','bnnbvn','ncnccvc','2024-10-22 15:24:37','2024-10-22 15:26:11','67181815efa5e_forgot-password-frent-img.jpg','Lat: 14.0828, Lon: -87.2041',1);
 /*!40000 ALTER TABLE `asistencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,7 +175,7 @@ CREATE TABLE `detalle_permisos` (
   `id_usuario` int(11) NOT NULL,
   `id_permiso` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,7 +184,6 @@ CREATE TABLE `detalle_permisos` (
 
 LOCK TABLES `detalle_permisos` WRITE;
 /*!40000 ALTER TABLE `detalle_permisos` DISABLE KEYS */;
-INSERT INTO `detalle_permisos` VALUES (1,2,1),(2,2,4),(15,1,2),(16,1,5),(17,1,8);
 /*!40000 ALTER TABLE `detalle_permisos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,6 +266,32 @@ INSERT INTO `gerencia` VALUES (1,'Distribución',1);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `modulo`
+--
+
+DROP TABLE IF EXISTS `modulo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `modulo` (
+  `idmodulo` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`idmodulo`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `modulo`
+--
+
+LOCK TABLES `modulo` WRITE;
+/*!40000 ALTER TABLE `modulo` DISABLE KEYS */;
+INSERT INTO `modulo` VALUES (1,'Dashboard','Dashboard',1),(2,'Usuarios','Datos de los usuarios',1),(3,'Roles','Datos de los roles',1),(4,'Permisos','Permisos de usuarios',1),(5,'Registro Promotores','Registros de promotores',1),(6,'Asistencia','Asistencia de promotores',1),(7,'Ventas','Ventas  de los promotores',1);
+/*!40000 ALTER TABLE `modulo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `municipio`
 --
 
@@ -298,13 +325,15 @@ DROP TABLE IF EXISTS `permisos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permisos` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `R` int(11) NOT NULL,
-  `W` int(11) NOT NULL,
-  `U` int(11) NOT NULL,
-  `D` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `idpermiso` int(11) NOT NULL AUTO_INCREMENT,
+  `rolid` int(11) NOT NULL,
+  `moduloid` int(11) NOT NULL,
+  `r` int(11) NOT NULL,
+  `w` int(11) NOT NULL,
+  `u` int(11) NOT NULL,
+  `d` int(11) NOT NULL,
+  PRIMARY KEY (`idpermiso`)
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,7 +342,7 @@ CREATE TABLE `permisos` (
 
 LOCK TABLES `permisos` WRITE;
 /*!40000 ALTER TABLE `permisos` DISABLE KEYS */;
-INSERT INTO `permisos` VALUES (1,'Asistencia',11,12,13,14),(2,'Camara',21,22,23,24),(3,'Fichas',31,32,33,34),(4,'Geolocation',41,42,43,44),(5,'Principal',51,52,53,54),(6,'Promotores',61,62,63,64),(7,'Reloj',71,72,73,74),(8,'Usuarios',81,82,83,84),(9,'Ventas',91,92,93,94);
+INSERT INTO `permisos` VALUES (75,3,1,0,1,0,0),(76,3,2,0,1,0,0),(77,3,3,0,1,1,0),(78,3,4,0,1,0,0),(79,3,5,1,0,0,0),(80,3,6,0,0,0,0),(81,3,7,0,0,0,0),(89,1,1,1,0,0,0),(90,1,2,0,0,0,0),(91,1,3,0,0,0,0),(92,1,4,0,0,1,0),(93,1,5,0,1,0,0),(94,1,6,0,0,0,0),(95,1,7,1,0,0,0);
 /*!40000 ALTER TABLE `permisos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,7 +355,7 @@ DROP TABLE IF EXISTS `promotores`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `promotores` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(13) NOT NULL,
+  `codigo` int(13) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `dni` varchar(15) NOT NULL,
@@ -343,6 +372,11 @@ CREATE TABLE `promotores` (
   `id_genero` int(50) NOT NULL,
   `profesion` varchar(50) NOT NULL,
   `foto` varchar(50) NOT NULL,
+  `cv` varchar(50) NOT NULL,
+  `antecedentes` varchar(50) NOT NULL,
+  `contrato` varchar(50) NOT NULL,
+  `id_asistencia` int(50) NOT NULL,
+  `id_ventas` int(50) NOT NULL,
   `estado` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `fk_dni` (`dni`),
@@ -354,8 +388,21 @@ CREATE TABLE `promotores` (
   KEY `id_proyecto` (`id_proyecto`),
   KEY `id_cargo` (`id_cargo`),
   KEY `id_estado_civil` (`id_estado_civil`),
-  KEY `id_genero` (`id_genero`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `id_genero` (`id_genero`),
+  KEY `codigo` (`codigo`),
+  KEY `codigo_2` (`codigo`),
+  KEY `id_asistencia` (`id_asistencia`),
+  KEY `id_ventas` (`id_ventas`),
+  CONSTRAINT `promotores_ibfk_1` FOREIGN KEY (`id_zona`) REFERENCES `zona` (`id`),
+  CONSTRAINT `promotores_ibfk_2` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id`),
+  CONSTRAINT `promotores_ibfk_3` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id`),
+  CONSTRAINT `promotores_ibfk_4` FOREIGN KEY (`id_gerencia`) REFERENCES `gerencia` (`id`),
+  CONSTRAINT `promotores_ibfk_5` FOREIGN KEY (`id_canal`) REFERENCES `canal` (`id`),
+  CONSTRAINT `promotores_ibfk_6` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id`),
+  CONSTRAINT `promotores_ibfk_7` FOREIGN KEY (`id_estado_civil`) REFERENCES `estado_civil` (`id`),
+  CONSTRAINT `promotores_ibfk_8` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id`),
+  CONSTRAINT `promotores_ibfk_9` FOREIGN KEY (`id_genero`) REFERENCES `genero` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -364,7 +411,7 @@ CREATE TABLE `promotores` (
 
 LOCK TABLES `promotores` WRITE;
 /*!40000 ALTER TABLE `promotores` DISABLE KEYS */;
-INSERT INTO `promotores` VALUES (1,'1010','Alma Gissel','Carrasco Flores','0801-1992-08192','99804912','San Carlos',4,1,1,1,2,2,1,3,1,'Ingeniero En Sistemas','default.png',1),(2,'1011','Marco Tulio','Espinoza Blandin','0801-1987-87652','31827362','La Rosa',4,1,13,1,1,1,1,1,2,'Electricista','20240918191721.jpg',1),(3,'1012','Claudia Maria','Giron Matute','0801-2021-98766','31283736','Kennedy',1,1,1,1,2,2,1,1,1,'Basica Noveno Grado','20240918191755.jpg',1),(4,'1013','Blanca Maria','Gutierrez Perez','0987-6273-73277','98765443','Residencial Las Uvas',1,1,1,1,2,2,1,3,1,'Bch','default.png',1),(5,'1014','Pedro Pablo','Zuniga Quiroz','0801-1998-71234','98787676','Barrio abajo',4,1,1,1,2,1,1,1,2,'Basica Septimo Grado','20240918190153.jpg',1),(6,'1015','Yugygygh','Uggyguhu','0988-7782-48282','87763638','bfggrfvbf',1,1,1,1,1,1,1,1,1,'Dfdsffdbvv ','20240918191919.jpg',1),(7,'1016','Eedrderd','Deded','0801-1999-88777','38193873','wededfe',1,1,1,1,1,1,1,1,1,'Efrefre','20240919233033.png',1),(8,'1018','Alma Gissel','Carrasco Flores','0801-1992-08190','99804912','San Carlos',1,1,1,1,1,1,1,3,1,'Ingeniero En Sistemas','20240920195232.png',1);
+INSERT INTO `promotores` VALUES (1,1010,'Alma Gissel','Carrasco Flores','0801-1992-08192','99804912','San Carlos',2,1,1,1,2,2,1,3,1,'Ingeniero En Sistemas','default.png','','','',0,0,0),(2,1011,'Marco Tulio','Espinoza Blandin','0801-1987-87652','31827362','La Rosa',4,1,13,1,1,1,1,1,2,'Electricista','20240918191721.jpg','','','',0,0,1),(3,1012,'Claudia Maria','Giron Matute','0801-2021-98766','31283736','Kennedy',1,1,1,1,2,2,1,1,1,'Basica Noveno Grado','20240918191755.jpg','','','',0,0,1),(4,1013,'Blanca Maria','Gutierrez Perez','0987-6273-73277','98765443','Residencial Las Uvas',1,1,1,1,2,2,1,3,1,'Bch','default.png','','','',0,0,0),(5,1014,'Pedro Pablo','Zuniga Quiroz','0801-1998-71234','98787676','Barrio abajo',4,1,1,1,2,1,1,1,2,'Basica Septimo Grado','20240918190153.jpg','','','',0,0,1),(6,1015,'Yugygygh','Uggyguhu','0988-7782-48282','87763638','bfggrfvbf',1,1,1,1,1,1,1,1,1,'Dfdsffdbvv ','20240918191919.jpg','','','',0,0,1),(7,1016,'Eedrderd','Deded','0801-1999-88777','38193873','wededfe',1,1,1,1,1,1,1,1,1,'Efrefre','default.png','','','',0,0,1),(8,1018,'Alma Gissel','Carrasco Flores','0801-1992-08190','99804912','San Carlos',1,1,1,1,1,1,1,3,1,'Ingeniero En Sistemas','20240920195232.png','','','',0,0,1),(9,1017,'Hyugyfdwd','Wefewwdfw','0809-8877-77777','12312312','cfvdcvdv',1,1,1,1,1,1,1,1,1,'Dsfsdfcxv ','default.png','','','',0,0,1),(10,998989,'Dsfdfdf','Ggfgfd','2342-3423-43434','64653434','ftdgf',1,1,1,1,1,1,1,1,1,'Dgfe','default.png','','','',0,0,1);
 /*!40000 ALTER TABLE `promotores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,22 +450,11 @@ DROP TABLE IF EXISTS `rol`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rol` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `rol` varchar(25) NOT NULL,
-  `descripcion` varchar(50) NOT NULL,
-  `fecha_creacion` datetime DEFAULT current_timestamp(),
-  `creado_por` varchar(25) DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT current_timestamp(),
-  `modificado_por` varchar(25) DEFAULT NULL,
-  `rol_est` varchar(10) DEFAULT NULL,
-  `r` int(11) NOT NULL DEFAULT 0,
-  `w` int(11) NOT NULL DEFAULT 0,
-  `u` int(11) NOT NULL DEFAULT 0,
-  `d` int(11) NOT NULL DEFAULT 0,
-  `permisos` text DEFAULT NULL,
-  `estado` int(11) NOT NULL DEFAULT 1,
-  `nombre` varchar(100) DEFAULT NULL,
+  `nombrerol` varchar(50) NOT NULL,
+  `descripcion` text NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -427,43 +463,8 @@ CREATE TABLE `rol` (
 
 LOCK TABLES `rol` WRITE;
 /*!40000 ALTER TABLE `rol` DISABLE KEYS */;
+INSERT INTO `rol` VALUES (1,'sssssssss','ssssssss',1),(3,'ecvbhnm','vujiolp',1);
 /*!40000 ALTER TABLE `rol` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `roles`
---
-
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ROL` varchar(25) NOT NULL,
-  `DESCRIPCION` varchar(50) NOT NULL,
-  `FECHA_CREACION` datetime DEFAULT current_timestamp(),
-  `CREADO_POR` varchar(25) DEFAULT NULL,
-  `FECHA_MODIFICACION` datetime DEFAULT current_timestamp(),
-  `MODIFICADO_POR` varchar(25) DEFAULT NULL,
-  `ROL_EST` varchar(10) DEFAULT NULL,
-  `R` int(11) NOT NULL DEFAULT 0,
-  `W` int(11) NOT NULL DEFAULT 0,
-  `U` int(11) NOT NULL DEFAULT 0,
-  `D` int(11) NOT NULL DEFAULT 0,
-  `permisos` text DEFAULT NULL,
-  `estado` int(11) NOT NULL DEFAULT 1,
-  `nombre` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `roles`
---
-
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -479,12 +480,12 @@ CREATE TABLE `usuarios` (
   `nombre` varchar(100) NOT NULL,
   `clave` varchar(100) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `id_caja` int(11) NOT NULL,
+  `id_rol` int(11) NOT NULL,
   `estado` int(11) NOT NULL DEFAULT 1,
   `RESETEO_CLANZ` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_caja` (`id_caja`),
-  CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_caja`) REFERENCES `caja` (`id`)
+  KEY `id_caja` (`id_rol`),
+  CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `caja` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -494,7 +495,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'ADMINISTRADOR','ADMINISTRADOR','$2y$10$uOMjsdQoNuXuosE7QhgvHeuNWTQUQGaa5hcDd2P55pBrx4qOwreBW','ivisherrera1234@gmail.com',1,1,NULL),(2,'Marco','Marco','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',NULL,1,1,''),(3,'Elisa','Elisa','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',NULL,2,1,''),(4,'Mario','Mario','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',NULL,1,1,''),(5,'Jorge','Jorge Palma','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',NULL,2,1,''),(6,'Alejandro','Alejandro','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',NULL,2,1,''),(7,'Josue','Josue','$2y$10$uOMjsdQoNuXuosE7QhgvHeuNWTQUQGaa5hcDd2P55pBrx4qOwreBW','ivisherrera1234@gmail.com',2,1,NULL),(8,'Carlos','Carlos','$2y$10$Qst2Hjd.ojPnLt5to1Xc0.fUCBjNqXwig3FQcljYNHq69nw0gLkf6','Carlosvelasq88@gmail.com',1,1,NULL),(9,'Claro','Claro','$2y$10$PsVCfV165Ip2ha/xWF0G5ObhxrzgnjH2YOwM0p2/O40lpGLpN7NnW','portalclaro09@gmail.com',1,1,'ea5e18f6305a1ae4b5f2ee02f601a619'),(10,'Yesenia','Yesenia Xiomara Espinoza Blandin','$2y$10$dB8uqM0hLuF3MT1d3dDdEO2K532DsuLOg/834SuzJXbUD4rrM27g2','yeseniablandin@gmail.com',1,1,NULL);
+INSERT INTO `usuarios` VALUES (1,'admin','Yesenia Espinoza','$2y$10$0ooi9Fa0epyXQWbR0tCOx.os78oBB38n.LMF7h34hpRf5LF.460je','yeseniablandin@gmail.com',1,1,NULL),(2,'Marco','Marco','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','yeseniablandin@gmail.com',1,1,''),(3,'Elisa','Elisa','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',NULL,2,1,''),(4,'Mario','Mario','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',NULL,1,1,''),(5,'Jorge','Jorge Palma','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',NULL,2,1,''),(6,'Alejandro','Alejandro','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',NULL,2,1,''),(7,'Josue','Josue','835d6dc88b708bc646d6db82c853ef4182fabbd4a8de59c213f2b5ab3ae7d9be','ivisherrera1234@gmail.com',2,1,''),(8,'Carlos','Carlos','$2y$10$cxif1jKNCpLWo1DHltdk7Or7QcfP1ctLGI5E74jkPK1ahYeavqyfa','Carlosvelasq88@gmail.com',1,1,NULL),(9,'Claro','Claro','$2y$10$c6HDGJEqaIBtVRffVg8SlOf5MiNEUs2gMPs6lhWCbJVm7GgwmyxWS','portalclaro09@gmail.com',1,1,NULL),(10,'Yesenia','Yesenia Xiomara Espinoza Blandin','$2y$10$0ooi9Fa0epyXQWbR0tCOx.os78oBB38n.LMF7h34hpRf5LF.460je','yeseniablandin@gmail.com',1,1,NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -507,7 +508,7 @@ DROP TABLE IF EXISTS `ventas`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ventas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `telefono` varchar(8) NOT NULL,
+  `telefono` varchar(11) NOT NULL,
   `medio` varchar(50) NOT NULL,
   `subgerente` varchar(50) NOT NULL,
   `coordinador` varchar(50) NOT NULL,
@@ -517,8 +518,10 @@ CREATE TABLE `ventas` (
   `ubicacion` varchar(50) NOT NULL,
   `promotor` varchar(50) NOT NULL,
   `punto_venta` varchar(50) NOT NULL,
-  `zona_supervisor` varchar(50) NOT NULL,
+  `departamento` varchar(50) NOT NULL,
+  `zona` varchar(50) NOT NULL,
   `distribuidor` varchar(50) NOT NULL,
+  `proveedor` varchar(50) NOT NULL,
   `producto` varchar(50) NOT NULL,
   `perfil_plan` varchar(50) NOT NULL,
   `tecnologia` varchar(50) NOT NULL,
@@ -527,7 +530,7 @@ CREATE TABLE `ventas` (
   `aliado` varchar(50) NOT NULL,
   `estado` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -536,7 +539,7 @@ CREATE TABLE `ventas` (
 
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-INSERT INTO `ventas` VALUES (1,'89283880','USSD','CARLOS A. MURILLO','HANSEL B. ZEPEDA','SUSETH RODAS RAPALO','0000-00-00',9092,'801','JORGE ARIEL ORTEGA SEVILLA','GALLO MAS GALLO','Fany Gavarrete','DISMOH','PRE-PAGO','CLARO PP SMARTHPHONE II + 1','SIM-CARD','DISTRIBUIDORA DE MOVILES DE HO','CADENAS','DISMOH',1),(2,'98989898','dsfdsfsdf','sdfdsf','sdfsdfsf','sfsf','0000-00-00',0,'sdfsdfsd','fsdfsdfs','fsfsfsd','fsdfsdf','sdfsdfsdfsdf','dsfsdfsd','ffsdfsf','sdfdsfsdf','fsdfsdfs','fsdfsdfsd','fdsfsdf',1);
+INSERT INTO `ventas` VALUES (1,'50489283880','USSD','CARLOS A. MURILLO','HANSEL B. ZEPEDA','SUSETH RODAS RAPALO','2024-10-08',9092,'801','JORGE ARIEL ORTEGA SEVILLA','GALLO MAS GALLO','LA PAZ','NORTE','DISMOH','BMP','PRE-PAGO','CLARO PP SMARTHPHONE II + 1','SIM-CARD','DISTRIBUIDORA DE MOVILES DE HO','CADENAS','DISMOH',1),(2,'50432486678','USSD','CARLOS A. MURIILO','HANSEL B. ZEPEDA','SUSETH RODAS RAPALO','2024-10-08',3048,'801','GLENDA SUYAPA VENTURA MEMBREDO','RADIO SHACK MALL CASCADAS','FRANCISCO MORAZÁN','CENTRO','CADENAS','Q105','PRE-PAGO','CLARO PP PDV','SIM-CARD','PROYECTO DOM','CADENAS','PROYECTO DOM',0),(3,'98987967890','Wqswqswqsa','Sssadxsadxd Wedw','Qwswqs','Sqdqwdwsd','2024-10-08',12313,'Lat: 14.101205842676837, Lon: -87.1897725072127','Weds','wesdewd2we','Fedewdew','Wedwerd','we34r','we3e','e3ewer','uuhuijiok','jiojokl','lklklñlkkj',',lñlñkñl,ñl','lkjjhnkj',0),(4,'98926261','Fsfsfs','Sfsf','Fsfsfsfs','Fsfsfsfsfs','2024-10-16',909200,'fsfsfsfsf','Sfsfsf','sfsfsf','Sfsf','Sfsfsf','fsfsf','sfsfsfs','fsfsfs','fsfsfsfs','fsfsfs','fsfsfsfss','fsfsfsf','sfsfsfsf',1),(5,'98926261','Fsfsfs','Sfsf','Fsfsfsfs','Fsfsfsfsfs','2024-10-22',9092,'fsfsfsfsf','Sfsfsf','sfsfsf','Sfsf','Sfsfsf','fsfsf','sfsfsfs','fsfsfs','fsfsfsfs','fsfsfs','fsfsfsfss','fsfsfsf','sfsfsfsf',1);
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -575,4 +578,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-26 15:46:36
+-- Dump completed on 2024-10-25  9:25:44
