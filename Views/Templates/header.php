@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +11,7 @@
     <link href="<?php echo base_url;?>/Assets/css/styles.css" rel="stylesheet" />
     <link href="<?php echo base_url;?>/Assets/css/estilosPrincipal.Css" rel="stylesheet">
     <link href="<?php echo base_url;?>/Assets/css/estiloscheck.Css" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         .menu-container {
             position: relative;
@@ -43,32 +41,88 @@
             opacity: 1; /* Visible */
             visibility: visible; /* Permitir clics */
         }
-        /* Para ocultar correctamente */
         .menu-content.hidden {
             display: none; /* No mostrar */
             opacity: 0; /* Invisible */
             visibility: hidden; /* No permitir clics */
         }
-        
+
         /* Estilos para la circunferencia */
         .circle {
-            width: 80px; /* Ajusta el tamaño según sea necesario */
-            height: 80px; /* Ajusta el tamaño según sea necesario */
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            border: 2px solid transparent; /* Sin borde visible */
+            border: 2px solid transparent; 
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer; /* Cambia el cursor */
+            cursor: pointer; 
             position: relative;
         }
         .circle:hover {
-            border-color: #D70B0B; /* Cambia el color del borde al pasar el mouse */
+            border-color: #D70B0B; 
         }
         .circle img {
-            width: 70%; /* Ajusta el tamaño de la imagen */
+            width: 70%; 
             height: auto;
+            transition: transform 0.3s ease; /* Para la animación de rotación */
         }
+
+        /* Estilos para la barra lateral */
+        #layoutSidenav {
+            display: flex;
+            height: 100vh; 
+        }
+        #layoutSidenav #layoutSidenav_nav {
+            flex-basis: 150px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease-in-out; 
+            z-index: 1038;
+            transform: translateX(-225px); 
+        }
+        #layoutSidenav #layoutSidenav_content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; 
+            min-width: 0;
+            flex-grow: 1;
+            min-height: calc(100vh - 56px);
+            margin-left: 0; 
+            background-color: gris !important; 
+        }
+
+        #toggleButton {
+            margin-left: 20px;
+            margin-right: 20px;
+            background-color: #D70B0B; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            padding: 10px; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #toggleButton:hover {
+            background-color: #b50a0a; 
+        }
+
+        /* Rotación del engranaje */
+        .gear {
+            transition: transform 0.3s ease;
+        }
+        .collapsed .gear {
+            transform: rotate(0deg);
+        }
+        .expanded .gear {
+            transform: rotate(90deg);
+        }
+
     </style>
 </head>
 <body class="sb-nav-fixed">
@@ -76,6 +130,12 @@
     <a href="<?php echo base_url; ?>Principal" style="display: inline-block; cursor: pointer; margin-left: 60px;">
         <img src="Assets/img/Claro03.png" alt="Logo" style="width: 90px; border-radius: 50%;">
     </a>
+
+    <!-- Botón para plegar/desplegar -->
+    <button id="toggleButton" data-state="collapsed">
+        <i class="fas fa-cog gear"></i>
+    </button>
+
     <h1 style="color: red; width: 750px; height: 50px; margin: auto; padding: 2px; text-align: center; display: flex; justify-content: center; align-items: center;">
         SISTEMA GESTOR DE PROMOTORES
     </h1>
@@ -135,7 +195,30 @@
             </div>
         </nav>
     </div>
-    <div id="layoutSidenav_content" style="background-color: gris !important;">
-        <main style="background-color: #D70B0B !important;">
-            <div class="container-fluid mt-5">
-                <!-- Contenido -->
+    <div id="layoutSidenav_content">
+    <main style="background-color: #D70B0B !important; flex-grow: 1; margin-left: -130px; margin-top: -30px;">
+        <div class="container-fluid">
+            <!-- Contenido -->
+      
+</div>
+
+<script>
+    const toggleButton = document.getElementById('toggleButton');
+    const sidenav = document.getElementById('layoutSidenav_nav');
+
+    toggleButton.addEventListener('click', () => {
+        if (sidenav.style.transform === 'translateX(0px)') {
+            sidenav.style.transform = 'translateX(-225px)'; // Plegar
+            toggleButton.setAttribute('data-state', 'collapsed');
+            toggleButton.classList.remove('expanded');
+            toggleButton.classList.add('collapsed');
+        } else {
+            sidenav.style.transform = 'translateX(0px)'; // Desplegar
+            toggleButton.setAttribute('data-state', 'expanded');
+            toggleButton.classList.remove('collapsed');
+            toggleButton.classList.add('expanded');
+        }
+    });
+</script>
+</body>
+</html>
