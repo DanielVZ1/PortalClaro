@@ -3,6 +3,11 @@ include 'views/templates/header.php';
 getModal('modalsRoles', $data)
 
  ?>
+
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
 <div id="contentAjax"></div>
 <main class="app-content">
     <div class="app-title">
@@ -18,27 +23,28 @@ getModal('modalsRoles', $data)
     </div>
 
     <div class="row">
-        <div class="col-md-12">
-            <div class="tile">
-                <div class="table-responsive">
-                    <table class="table table-light" id="tableRoles">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>NOMBRE</th>
-                                <th>DESCRIPCIÓN</th>
-                                <th>ESTADO</th>
-                                <th>ACCIONES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Los datos serán cargados dinámicamente por DataTables -->
-                        </tbody>
-                    </table>
-                </div>
-            </div> 
-        </div>       
-    </div>
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="table-responsive">
+                <table class="table table-light" id="tableRoles">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><i class="fas fa-id-badge"></i> ID</th>
+                            <th><i class="fas fa-user-tag"></i> NOMBRE</th>
+                            <th><i class="fas fa-file-alt"></i> DESCRIPCIÓN</th>
+                            <th><i class="fas fa-check-circle"></i> ESTADO</th>
+                            <th><i class="fas fa-cogs"></i> ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos serán cargados dinámicamente por DataTables -->
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    </div>       
+</div>
+
 </main>
 
 

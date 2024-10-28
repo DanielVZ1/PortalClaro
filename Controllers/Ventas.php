@@ -11,8 +11,11 @@
           if (empty($_SESSION['activo'])){
             header("location:".base_url);
           }
-      
-          $this->views->getView($this,"index");
+          $data['page_id'] = 7;
+          $data['page_tag'] = "Ventas";
+          $data['page_name'] = "Lista_Ventas";
+          $data['page_title'] = "Ventas <small> </small>";
+          $this->views->getView($this,"index", $data);
           
         } 
 

@@ -12,7 +12,11 @@ class Asistencia extends Controller
 
   public function index()
   {
-    $this->views->getView($this, "index");
+    $data['page_id'] = 6;
+    $data['page_tag'] = "Asistencias";
+    $data['page_name'] = "asistencias_prom";
+    $data['page_title'] = "Asistencias <small> </small>";
+    $this->views->getView($this, "index", $data);
   }
 
   public function listar()

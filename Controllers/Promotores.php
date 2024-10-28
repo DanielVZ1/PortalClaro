@@ -9,6 +9,10 @@
           if (empty($_SESSION['activo'])){
             header("location:".base_url);
           }
+          $data['page_id'] = 4;
+          $data['page_tag'] = "Promotores";
+          $data['page_name'] = "promotores";
+          $data['page_title'] = "Promotores <small> </small>";
           $data['estados_civiles'] = $this->model->getEstados_Civiles();
           $data['generos'] = $this->model->getGeneros();
           $data['zonas'] = $this->model->getZonas();

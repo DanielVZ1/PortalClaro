@@ -1,41 +1,47 @@
 <!-- views/promotores/index.php -->
 <?php include "Views/Templates/header.php"; ?>
 
-<ol class="breadcrumb mb-4 bg-primary">
-    <li class="breadcrumb-item active text-white">
-        <h4 style="color:red">Registro de Promotores</h4>
-    </li>
-</ol>
-
-<!-- Botón para abrir el formulario modal -->
-<button class="btn btn-primary mb-2" type="button" onclick="frmPromotor()"><i class="fas fa-plus"></i></button>
+<div id="contentAjax"></div>
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fas fa-users"></i> <?= $data['page_title'] ?> <button class="btn btn-primary mb-2" type="button" onclick="frmPromotor()"><i class="fas fa-plus"></i></button>
+            
+         </div>
+        <!--<ul  class="app-breadcrumb breadcrumb">
+           <li  class="breadcrumb-item"><i  class="fa fa-home fa-lg"></i></li>
+           <li class="breadcrumb-item"><a href="<?php echo base_url;?>Roles"><?= $data['page_title'] ?></a></li>
+        </ul>-->
+    </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <!-- Tabla para listar los promotores -->
 <table class="table table-light" id="tblPromotores">
     <thead class="thead-dark">
         <tr>
-            <th>ID</th>
-            <th>Foto</th>
-            <th>Código Maestro</th>
-            <th>DNI</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Teléfono</th>
-            <th>Profesión</th>
-            <th>Estado Civil</th>
-            <th>Género</th>
-            <th>Dirección</th>
-            <th>Zona</th>
-            <th>Departamento</th>
-            <th>Municipio</th>
-            <th>Gerencia</th>
-            <th>Canal</th>
-            <th>Proyecto</th>
-            <th>Cargo</th>
-            <th>Curriculum Vitae</th>
-            <th>Antecedentes</th>
-            <th>Contrato</th>
-            <th>Estado</th>
+            <th><i class="fas fa-id-badge"></i> ID</th>
+            <th><i class="fas fa-image"></i> Foto</th>
+            <th><i class="fas fa-code-branch"></i> Código Maestro</th>
+            <th><i class="fas fa-id-card"></i> DNI</th>
+            <th><i class="fas fa-user"></i> Nombres</th>
+            <th><i class="fas fa-user"></i> Apellidos</th>
+            <th><i class="fas fa-phone"></i> Teléfono</th>
+            <th><i class="fas fa-user-graduate"></i> Profesión</th>
+            <th><i class="fas fa-venus-mars"></i> Estado Civil</th>
+            <th><i class="fas fa-venus-mars"></i> Género</th>
+            <th><i class="fas fa-home"></i> Dirección</th>
+            <th><i class="fas fa-map"></i> Zona</th>
+            <th><i class="fas fa-map-marker-alt"></i> Departamento</th>
+            <th><i class="fas fa-map-marker"></i> Municipio</th>
+            <th><i class="fas fa-building"></i> Gerencia</th>
+            <th><i class="fas fa-sitemap"></i> Canal</th>
+            <th><i class="fas fa-project-diagram"></i> Proyecto</th>
+            <th><i class="fas fa-briefcase"></i> Cargo</th>
+            <th><i class="fas fa-file-alt"></i> Curriculum Vitae</th>
+            <th><i class="fas fa-file-invoice"></i> Antecedentes</th>
+            <th><i class="fas fa-file-contract"></i> Contrato</th>
+            <th><i class="fas fa-check-circle"></i> Estado</th>
             <th></th>
         </tr>
     </thead>
@@ -43,6 +49,7 @@
         <!-- Aquí se llenará con los datos de promotores -->
     </tbody>
 </table>
+
 
 <!-- Modal para registrar o modificar un promotor -->
 <div id="nuevo_promotor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
@@ -60,33 +67,32 @@
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label style="color: black;">Foto</label>
+                            <label style="color: black;"><i class="fas fa-image"></i> Foto</label>
                             <div class="card border-primary">
                                 <div class="card-body">
-                                    <label for="imagen" id="icon-image"class="btn btn-primary"><i class="fas fa-image"></i></label>
-                                    <span id = "icon-cerrar" ></span>
+                                    <label for="imagen" id="icon-image" class="btn btn-primary"><i class="fas fa-image"></i></label>
+                                    <span id="icon-cerrar"></span>
                                     <input id="imagen" class="d-none" type="file" name="imagen" onchange="preview(event)">
-                                    <input type="hidden" id = "foto_actual" name = "foto_actual">
+                                    <input type="hidden" id="foto_actual" name="foto_actual">
                                     <img class="img-thumbnail" id="img-preview">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="codigo" style="color: black;">Código Maestro</label>
+                                <label for="codigo" style="color: black;"><i class="fas fa-id-card"></i> Código Maestro</label>
                                 <input id="codigo" class="form-control" type="text" name="codigo" placeholder="Ingrese el código maestro" maxlength="13" minlength="13" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" oncopy="return false" onpaste="return false">
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="dni" style="color: black;">DNI</label>
-                                <input id="dni" class="form-control" type="text" name="dni" placeholder="Ingrese el número de DNI" maxlength="15"
-                                        oninput="formatDNI(this)" onkeypress="return isNumber(event)" oncopy="return false" onpaste="return false">
-                             </div>
+                                <label for="dni" style="color: black;"><i class="fas fa-user"></i> DNI</label>
+                                <input id="dni" class="form-control" type="text" name="dni" placeholder="Ingrese el número de DNI" maxlength="15" oninput="formatDNI(this)" onkeypress="return isNumber(event)" oncopy="return false" onpaste="return false">
+                            </div>
                             <span id="errorDNI" class='text-danger'></span>
                         </div>
                     </div>
@@ -94,14 +100,14 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="nombre" style="color: black;">Nombres</label>
+                                <label for="nombre" style="color: black;"><i class="fas fa-user-alt"></i> Nombres</label>
                                 <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Ingrese el nombre completo" maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)">
                             </div>
                         </div>
                         
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="apellido" style="color: black;">Apellidos</label>
+                                <label for="apellido" style="color: black;"><i class="fas fa-user-tag"></i> Apellidos</label>
                                 <input id="apellido" class="form-control" type="text" name="apellido" placeholder="Ingrese el apellido completo" maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)">
                             </div>
                         </div>
@@ -110,14 +116,14 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="telefono" style="color: black;">Teléfono</label>
+                                <label for="telefono" style="color: black;"><i class="fas fa-phone"></i> Teléfono</label>
                                 <input id="telefono" class="form-control" type="text" name="telefono" placeholder="Ingrese el número de teléfono" maxlength="8" minlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" oncopy="return false" onpaste="return false">
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="profesion" style="color: black;">Profesión</label>
+                                <label for="profesion" style="color: black;"><i class="fas fa-briefcase"></i> Profesión</label>
                                 <input id="profesion" class="form-control" type="text" name="profesion" placeholder="Ingrese la profesión" maxlength="50" oninput="formatInput(this)" onkeyup="formatInput(this)">
                             </div>
                         </div>
@@ -126,7 +132,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="estado_civil" style="color: black;">Estado Civil</label>
+                                <label for="estado_civil" style="color: black;"><i class="fas fa-heart"></i> Estado Civil</label>
                                 <select id="estado_civil" class="form-control" name="estado_civil">
                                     <?php foreach ($data['estados_civiles'] as $row) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['estado_civil']; ?></option>
@@ -137,7 +143,7 @@
                    
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="genero" style="color: black;">Género</label>
+                                <label for="genero" style="color: black;"><i class="fas fa-venus-mars"></i> Género</label>
                                 <select id="genero" class="form-control" name="genero">
                                     <?php foreach ($data['generos'] as $row) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['genero']; ?></option>
@@ -146,19 +152,18 @@
                             </div>
                         </div>
                     </div>
-              
 
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="direccion" style="color: black;">Dirección</label>
+                                <label for="direccion" style="color: black;"><i class="fas fa-map-marker-alt"></i> Dirección</label>
                                 <input id="direccion" class="form-control" type="text" name="direccion" placeholder="Ingrese la dirección domiciliar">
                             </div>
                         </div>
                     
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="zona" style="color: black;">Zonas</label>
+                                <label for="zona" style="color: black;"><i class="fas fa-th"></i> Zonas</label>
                                 <select id="zona" class="form-control" name="zona">
                                     <?php foreach ($data['zonas'] as $row) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['zona']; ?></option>
@@ -166,12 +171,12 @@
                                 </select>
                             </div>
                         </div>
-                    </div>   
+                    </div>
 
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="departamento" style="color: black;">Departamentos</label>
+                                <label for="departamento" style="color: black;"><i class="fas fa-building"></i> Departamentos</label>
                                 <select id="departamento" class="form-control" name="departamento">
                                     <?php foreach ($data['departamentos'] as $row) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['departamento']; ?></option>
@@ -182,7 +187,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="municipio" style="color: black;">Municipios</label>
+                                <label for="municipio" style="color: black;"><i class="fas fa-city"></i> Municipios</label>
                                 <select id="municipio" class="form-control" name="municipio">
                                     <?php foreach ($data['municipios'] as $row) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['municipio']; ?></option>
@@ -195,7 +200,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="gerencia" style="color: black;">Gerencia</label>
+                                <label for="gerencia" style="color: black;"><i class="fas fa-sitemap"></i> Gerencia</label>
                                 <select id="gerencia" class="form-control" name="gerencia">
                                     <?php foreach ($data['gerencias'] as $row) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['gerencia']; ?></option>
@@ -206,7 +211,7 @@
                     
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="canal" style="color: black;">Canal</label>
+                                <label for="canal" style="color: black;"><i class="fas fa-share-alt"></i> Canal</label>
                                 <select id="canal" class="form-control" name="canal">
                                     <?php foreach ($data['canales'] as $row) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['canal']; ?></option>
@@ -219,7 +224,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="proyecto" style="color: black;">Proyecto</label>
+                                <label for="proyecto" style="color: black;"><i class="fas fa-project-diagram"></i> Proyecto</label>
                                 <select id="proyecto" class="form-control" name="proyecto">
                                     <?php foreach ($data['proyectos'] as $row) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['proyecto']; ?></option>
@@ -230,7 +235,7 @@
                     
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="cargo" style="color: black;">Cargo</label>
+                                <label for="cargo" style="color: black;"><i class="fas fa-user-tag"></i> Cargo</label>
                                 <select id="cargo" class="form-control" name="cargo">
                                     <?php foreach ($data['cargos'] as $row) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['cargo']; ?></option>
@@ -240,27 +245,13 @@
                         </div>
                     </div>
 
-                    <form action="tu_accion.php" method="post" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label style="color: black;">Curriculum Vitae</label>
-                                    <div class="card border-primary">
-                                        <div class="card-body">
-                                            <input style="color: black;" id="fileupload" type="file" name="fileupload" accept=".pdf,.doc,.docx">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label style="color: black;">Antecedentes Penales y Oficiales</label>
-                                    <div class="card border-primary">
-                                        <div class="card-body">
-                                            <label for = "fileupload"></label>
-                                            <input  style="color: black;" id="fileupload; color:red;" type="file" name="fileupload" > 
-                                        </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label style="color: black;"><i class="fas fa-file-alt"></i> Curriculum Vitae</label>
+                                <div class="card border-primary">
+                                    <div class="card-body">
+                                        <input style="color: black;" id="fileupload_cv" type="file" name="fileupload_cv" accept=".pdf,.doc,.docx">
                                     </div>
                                 </div>
                             </div>
@@ -268,24 +259,36 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label style="color: black;">Contrato</label>
+                                <label style="color: black;"><i class="fas fa-file"></i> Antecedentes Penales y Oficiales</label>
                                 <div class="card border-primary">
                                     <div class="card-body">
-                                        <label for = "fileupload"></label>
-                                        <input  style="color: black;" id="fileupload; color:red;" type="file" name="fileupload" > 
+                                        <input style="color: black;" id="fileupload_antecedentes" type="file" name="fileupload_antecedentes"> 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <button class = "btn btn-primary" type="button" onclick="registrarPromotor(event)" id="btnAccion">Registrar</button>
-                    <button class = "btn bg-danger" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label style="color: black;"><i class="fas fa-file-contract"></i> Contrato</label>
+                                <div class="card border-primary">
+                                    <div class="card-body">
+                                        <input style="color: black;" id="fileupload_contrato" type="file" name="fileupload_contrato"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" type="button" onclick="registrarPromotor(event)" id="btnAccion">Registrar</button>
+                    <button class="btn bg-danger" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
                     
-                   </form>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 
 <script>
     function formatInput(input) {
