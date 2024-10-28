@@ -15,29 +15,37 @@ class Roles extends Controller
         $this->views->getView($this, 'roles', $data);
     }
 
-    public function getRoles(){
+    public function getRoles() {
         $arrData = $this->model->selectRoles();
     
-        for($i = 0; $i < count($arrData); $i++){
-    
-            if($arrData[$i]['status'] == 1) {
+        for ($i = 0; $i < count($arrData); $i++) {
+            if ($arrData[$i]['status'] == 1) {
                 $arrData[$i]['status'] = '<span class="badge badge-success" style="color: green">Activo</span>';
             } else {
                 $arrData[$i]['status'] = '<span class="badge badge-danger" style="color:red">Inactivo</span>';
             }
-
-            $arrData[$i]['options'] = '<div class="text-center">
-                <button class="btn btn-secondary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Permisos"><i class="fas fa-key"></i></button>
-                <button class="btn btn-primary btn-sm btnEditRol" rl="'.$arrData[$i]['id'].'" title="Editar"><i class="fas fa-pencil-alt"></i></button>
-                <button class="btn btn-danger" type="button" onclick="btnDelRol('.$arrData[$i]['id'].');" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
-            </div>';
+    
+            // Condición para evitar acciones en el rol con id 1
+            if ($arrData[$i]['id'] == 1) {
+                $arrData[$i]['options'] = '<div class="text-center">
+                    <button class="btn btn-secondary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Permisos"><i class="fas fa-key"></i></button>
+                    <button class="btn btn-primary btn-sm" disabled title="Editar"><i class="fas fa-pencil-alt"></i></button>
+                    <button class="btn btn-danger" type="button" disabled title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+                </div>';
+            } else {
+                $arrData[$i]['options'] = '<div class="text-center">
+                    <button class="btn btn-secondary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Permisos"><i class="fas fa-key"></i></button>
+                    <button class="btn btn-primary btn-sm btnEditRol" rl="'.$arrData[$i]['id'].'" title="Editar"><i class="fas fa-pencil-alt"></i></button>
+                    <button class="btn btn-danger" type="button" onclick="btnDelRol('.$arrData[$i]['id'].');" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+                </div>';
+            }
         }
     
-
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         die();
     }
-
+    
+    
     public function getRol(int $idrol)
     {
         $intIdrol = intval(strClean($idrol));

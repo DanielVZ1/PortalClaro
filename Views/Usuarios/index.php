@@ -28,7 +28,8 @@
             <th><i class="fas fa-envelope"></i> Email</th>
             <th><i class="fas fa-user-tag"></i> Rol</th>
             <th><i class="fas fa-check-circle"></i> Estado</th>
-            <th></th>
+           <!-- <th><i class="fas fa-cogs"></i> Acciones</th> -->
+           <th><i class="fas fa-cogs"></i> Acciones</th>
         </tr>
     </thead>
     <tbody>

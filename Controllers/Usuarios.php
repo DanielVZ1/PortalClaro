@@ -15,26 +15,36 @@
       } 
 
 
-    public function listar() {
-      $data = $this->model->getUsuarios();
-      for ($i = 0; $i < count($data); $i++) {  
-          if ($data[$i]['estado'] == 1) {
-              $data[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
-              $data[$i]['acciones'] = '<div>
-                  <button class="btn btn-primary" onclick="btnEditarUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-danger" onclick="btnEliminarUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
-              </div>';
-          } else {
-              $data[$i]['estado'] = '<span class="badge badge-danger"style="color: red">Inactivo</span>';
-              $data[$i]['acciones'] = '<div>
-                  <button class="btn btn-success" onclick="btnReingresarUser('.$data[$i]['id'].');"><i class="fas fa-sync-alt"></i></button>
-              </div>';
-          }
-      }
-      header('Content-Type: application/json');
-      echo json_encode($data, JSON_UNESCAPED_UNICODE);
-      die();
-  }
+      public function listar() {
+        $data = $this->model->getUsuarios();
+        for ($i = 0; $i < count($data); $i++) {  
+            if ($data[$i]['estado'] == 1) {
+                $data[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
+                // Condición para evitar acciones en el usuario con id 1
+                if ($data[$i]['id'] == 1) {
+                    $data[$i]['estado'] = '<span class="badge badge-success" style="color: gray">ADMINISTRADOR</span>';
+                    $data[$i]['acciones'] = '<div>
+                        <button class="btn btn-primary" disabled><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger" disabled><i class="fas fa-trash-alt"></i></button>
+                    </div>';
+                } else {
+                    $data[$i]['acciones'] = '<div>
+                        <button class="btn btn-primary" onclick="btnEditarUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger" onclick="btnEliminarUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
+                    </div>';
+                }
+            } else {
+                $data[$i]['estado'] = '<span class="badge badge-danger" style="color: red">Inactivo</span>';
+                $data[$i]['acciones'] = '<div>
+                    <button class="btn btn-success" onclick="btnReingresarUser('.$data[$i]['id'].');"><i class="fas fa-sync-alt"></i></button>
+                </div>';
+            }
+        }
+        header('Content-Type: application/json');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+    
   
 
 
@@ -133,5 +143,9 @@
         session_destroy();
         header("location: ".base_url);
       }
+
+      
     }
+
+    
 ?>

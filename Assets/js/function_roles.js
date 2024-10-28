@@ -138,7 +138,7 @@ function fntEditRol(button) {
 
 function btnDelRol(idrol) {
     Swal.fire({
-        title: '¿Está seguro de Rol?',
+        title: '¿Está seguro de eliminar el Rol?',
         text: "¡El rol se eliminara de forma permanente!",
         icon: 'warning',
         showCancelButton: true,
