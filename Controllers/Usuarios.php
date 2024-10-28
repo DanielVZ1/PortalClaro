@@ -19,13 +19,13 @@
       $data = $this->model->getUsuarios();
       for ($i = 0; $i < count($data); $i++) {  
           if ($data[$i]['estado'] == 1) {
-              $data[$i]['estado'] = '<span class="badge badge-success">Activo</span>';
+              $data[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
               $data[$i]['acciones'] = '<div>
                   <button class="btn btn-primary" onclick="btnEditarUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                   <button class="btn btn-danger" onclick="btnEliminarUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
               </div>';
           } else {
-              $data[$i]['estado'] = '<span class="badge badge-danger">Inactivo</span>';
+              $data[$i]['estado'] = '<span class="badge badge-danger"style="color: red">Inactivo</span>';
               $data[$i]['acciones'] = '<div>
                   <button class="btn btn-success" onclick="btnReingresarUser('.$data[$i]['id'].');"><i class="fas fa-sync-alt"></i></button>
               </div>';
