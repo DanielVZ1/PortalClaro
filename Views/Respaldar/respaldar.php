@@ -1,10 +1,21 @@
 <?php include_once 'views/templates/header.php'; ?>
 
-<ol class="breadcrumb mb-4 bg-primary">
-    <li class="breadcrumb-item active text-white">
-        <h4 style="color:red">Gestión de Respaldos</h4>
-    </li>
-</ol>
+<div id="contentAjax"></div>
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fas fa-database"></i> <?= $data['page_title'] ?>
+            
+         </div>
+        <!--<ul  class="app-breadcrumb breadcrumb">
+           <li  class="breadcrumb-item"><i  class="fa fa-home fa-lg"></i></li>
+           <li class="breadcrumb-item"><a href="<?php echo base_url;?>Roles"><?= $data['page_title'] ?></a></li>
+        </ul>-->
+    </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
 
 <div>
     <div class="row">
