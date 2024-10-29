@@ -125,11 +125,7 @@
             height: 100vh; /* Asegura que cubra toda la altura */
             z-index: -1;
         }
-        main {
-            position: relative;
-            z-index: 1;
-            background-color: transparent !important;
-        }
+  
     </style>
 </head>
 <body class="sb-nav-fixed">
