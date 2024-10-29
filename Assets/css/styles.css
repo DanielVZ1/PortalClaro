@@ -89,7 +89,7 @@ body {
   line-height: var(--bs-body-line-height);
   color: #ffffff !important;
   text-align: var(--bs-body-text-align);
-  background-color: #d70b0b !important;
+  background-color: #D70B0B !important;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -1738,12 +1738,16 @@ progress {
   --bs-table-active-bg: rgba(0, 0, 0, 0.1);
   --bs-table-hover-color: var(--bs-body-color);
   --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
-  width: 400%;
+  width: auto; /* Ajusta el ancho automáticamente */
+  min-width: 100%; /* Opcional: Asegura que la tabla ocupe el 100% del contenedor */
   margin-bottom: 1rem;
   color: var(--bs-table-color);
   vertical-align: top;
   border-color: var(--bs-table-border-color);
+  table-layout: auto; /* Permite que las columnas se ajusten al contenido */
+  white-space: nowrap; /* Evita que el texto se ajuste en varias líneas dentro de celdas */
 }
+
 .table > :not(caption) > * > *, .datatable-table > :not(caption) > * > * {
   padding: 0.5rem 0.5rem;
   background-color: var(--bs-table-bg);
