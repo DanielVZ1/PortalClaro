@@ -7,7 +7,8 @@ $id = $_SESSION['usuario'];
 
 <div id="layoutSidenav_content" style="background-color: #D70B0B;">
     <main class="animated-background">
-        <div style="text-align: center; padding-top: 50px; margin-left: -180px;"> <!-- Ajusta el margin-left aquí -->
+        <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+        <div style="text-align: center; padding-top: 50px; margin-left: -180px; position: relative; z-index: 1;"> <!-- Cuadro de contenido -->
             <form action="#" method="post">
                 <style>
                     /* Fondo animado */
@@ -52,3 +53,71 @@ $id = $_SESSION['usuario'];
 <?php 
 include "Views/Templates/footer.php"; 
 ?>
+
+<!-- Particles.js -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    particlesJS("particles-js", {
+        "particles": {
+            "number": {
+                "value": 80,
+                "density": {
+                    "enable": true,
+                    "value_area": 800
+                }
+            },
+            "color": {
+                "value": "#FFFFFF"
+            },
+            "shape": {
+                "type": "circle",
+                "stroke": {
+                    "width": 0,
+                    "color": "#000000"
+                },
+                "polygon": {
+                    "nb_sides": 5
+                }
+            },
+            "opacity": {
+                "value": 0.5,
+                "random": false
+            },
+            "size": {
+                "value": 3,
+                "random": true
+            },
+            "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#FFFFFF",
+                "opacity": 0.9,
+                "width": 1
+            },
+            "move": {
+                "enable": true,
+                "speed": 6,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": true,
+                    "mode": "repulse"
+                },
+                "onclick": {
+                    "enable": true,
+                    "mode": "push"
+                },
+                "resize": true
+            }
+        },
+        "retina_detect": true
+    });
+</script>
