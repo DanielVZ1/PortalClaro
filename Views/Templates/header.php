@@ -5,12 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="icon" href="<?php echo base_url; ?>assets/img/Claro03.png" type="image/png" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <title>Sistema Gestor de Promotores</title> 
     <link href="<?php echo base_url;?>/Assets/css/styles.css" rel="stylesheet" />
     <link href="<?php echo base_url;?>/Assets/css/estilosPrincipal.Css" rel="stylesheet">
     <link href="<?php echo base_url;?>/Assets/css/estiloscheck.Css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+      
+
         /* Estilos personalizados */
         .menu-container {
             position: relative;
@@ -114,9 +118,11 @@
             transform: rotate(90deg);
         }
         #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            position: fixed; /* Cambiado a fixed */
+            top: 0; /* Asegura que cubra desde la parte superior */
+            left: 0; /* Asegura que cubra desde la parte izquierda */
+            width: 100vw; /* Asegura que cubra todo el ancho */
+            height: 100vh; /* Asegura que cubra toda la altura */
             z-index: -1;
         }
         main {
@@ -195,81 +201,75 @@
             </nav>
         </div>
         <div id="layoutSidenav_content">
-            <main style="flex-grow: 1; margin-left: -130px; margin-top: -30px;">
+        <main style="flex-grow: 1; margin-left: -130px; margin-top: -30px;">
                 <div class="container-fluid">
                     <!-- Contenido -->
-             
+         
     </div>
 
-    <!-- Particles.js -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#FFFFFF"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
+        $(document).ready(function() {
+            // Inicializar partículas
+            particlesJS("particles-js", {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#ffffff" },
+                    shape: {
+                        type: "circle",
+                        stroke: { width: 0, color: "#000000" },
+                        polygon: { nb_sides: 5 },
                     },
-                    "polygon": {
-                        "nb_sides": 5
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false
-                },
-                "size": {
-                    "value": 3,
-                    "random": true
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#FFFFFF",
-                    "opacity": 0.9,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "repulse"
+                    opacity: {
+                        value: 0.5,
+                        random: false,
+                        anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false },
                     },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
+                    size: {
+                        value: 5,
+                        random: true,
+                        anim: { enable: false, speed: 40, size_min: 0.1, sync: false },
                     },
-                    "resize": true
-                }
-            },
-            "retina_detect": true
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#ffffff",
+                        opacity: 0.4,
+                        width: 1,
+                    },
+                    move: {
+                        enable: true,
+                        speed: 6,
+                        direction: "none",
+                        random: false,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false,
+                        attract: { enable: false, rotateX: 600, rotateY: 1200 },
+                    },
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" },
+                        resize: true,
+                    },
+                    modes: {
+                        grab: { distance: 400, line_linked: { opacity: 1 } },
+                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                        repulse: { distance: 200, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                        remove: { particles_nb: 2 },
+                    },
+                },
+                retina_detect: true,
+            });
         });
-    </script>
-    <script>
-    const toggleButton = document.getElementById('toggleButton');
+
+        // Código para el botón de colapsar/expandir el menú
+        const toggleButton = document.getElementById('toggleButton');
     const sidenav = document.getElementById('layoutSidenav_nav');
 
     toggleButton.addEventListener('click', () => {
@@ -284,7 +284,7 @@
             toggleButton.classList.remove('collapsed');
             toggleButton.classList.add('expanded');
         }
-    });
-</script>
+        });
+    </script>
 </body>
 </html>
