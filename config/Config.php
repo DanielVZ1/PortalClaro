@@ -1,9 +1,5 @@
 <?php
-<<<<<<< HEAD
- const base_url= "http://172.28.24.11:8080/PortalClaro/";
-=======
- const base_url= "http://localhost/PortalClaro/";
->>>>>>> 56a5e6c0c99a75fcff6ce9fb65a93f15958f7885
+ const base_url= "http://192.168.1.79:8080/PortalClaro/";
  const host="localhost";
  const user="root";
  const pass="";

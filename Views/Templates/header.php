@@ -133,9 +133,6 @@
     <div id="particles-js"></div>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: white !important; height: 123px;">
-        <a href="<?php echo base_url; ?>Principal" style="display: inline-block; cursor: pointer; margin-left: 60px;">
-            <img src="Assets/img/Claro03.png" alt="Logo" style="width: 90px; border-radius: 50%;">
-        </a>
         <button id="toggleButton" data-state="collapsed">
             <i class="fas fa-cog gear"></i>
         </button>
@@ -144,12 +141,11 @@
         </h1>
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" height="200">
             <div class="menu-container" style="margin: auto; padding: 30px;">
-                <div class="circle">
-                    <img src="Assets/img/Salir.png" alt="Imagen del menú">
-                </div>
-                <div class="menu-content">
-                    <a href="<?php echo base_url; ?>Usuarios/salir">Cerrar Sesión</a>
-                </div>
+
+                <a href="<?php echo base_url; ?>Principal" style="display: inline-block; cursor: pointer; margin-left: 60px;">
+                     <img src="Assets/img/Claro03.png" alt="Logo" style="width: 90px; border-radius: 50%;">
+                </a>
+                
             </div>
         </ul>
     </nav>
@@ -172,7 +168,6 @@
                             </div>
                             <div class="menu-content">
                                 <li><a href="<?php echo base_url;?>Roles">Roles</a></li>
-                                <li><a href="<?php echo base_url;?>Permisos">Permisos</a></li>
                                 <li><a href="<?php echo base_url;?>Respaldar">Restauración de BD</a></li>
                             </div>
                         </div>
@@ -186,11 +181,14 @@
                                 <li><a href="<?php echo base_url;?>Ventas">Ventas</a></li>
                             </div>
                         </div>
-                        <a href="Views/email/index.html" class="nav-link active" aria-current="page" style="margin: auto; padding: 10px; position: relative; top: -20px;">
-                            <div class="circle">
-                                <img src="Assets/img/email.png" alt="Logo">
+                            <div class="menu-container" style="margin: auto; padding: 10px; position: relative; top: -10px;">
+                                <a href="<?php echo base_url; ?>Usuarios/salir" class="nav-link active" aria-current="page" style="margin: auto; padding: 10px; position: relative; top: 5px;">
+                                    <div class="circle">
+                                        <img src="Assets/img/Salir.png" alt="Logo">
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                        </ul>
                         <hr>
                     </div>
                 </div>
