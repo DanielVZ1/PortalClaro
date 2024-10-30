@@ -5,7 +5,7 @@ $id = $_SESSION['usuario'];
 
 <input type="hidden" value="<?php echo $id; ?>" class="text" id="id_usuario">
 
-<div id="layoutSidenav_content" style="background-color: #D70B0B;">
+
     <main class="animated-background">
         <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
         <div style="text-align: center; padding-top: 50px; margin-left: -180px; position: relative; z-index: 1;"> <!-- Cuadro de contenido -->
@@ -42,13 +42,10 @@ $id = $_SESSION['usuario'];
                 <div class="reloj red-background" id="reloj" style="color: aliceblue; font-size: 1.5rem; margin-top: 20px;"></div>
                 <script src="Views/Reloj/Reloj.js"></script>
 
-                <div class="d-flex flex-column flex-shrink-0 p-3" style="float: right;">
-                    <svg class="bi pe-none me-2" width="40" height="32"></svg>
-                </div>
             </form>
         </div>
     </main>
-</div>
+
 
 <?php 
 include "Views/Templates/footer.php"; 
