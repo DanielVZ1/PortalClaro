@@ -61,6 +61,29 @@ public function insertPermisos(int $idrol, int $idmodulo, int $r, int $w, int $u
     return  $request_insert;
 }
 
+public function permisosModulo(int $idrol) {
+    $this->intRolid = $idrol;
+    $sql = "SELECT p.rolid,
+                p.moduloid,
+                m.titulo as modulo,
+                p.r,
+                p.w,
+                p.u,
+                p.d
+            FROM permisos p
+            INNER JOIN modulo m ON p.moduloid = m.idmodulo
+            WHERE p.rolid = $this->intRolid";
+    $request = $this->selectAll($sql); // Se espera que esto retorne un array
+
+    $arrPermisos = array(); // Inicializa el array vacío
+    for ($i = 0; $i < count($request); $i++) {
+        $arrPermisos[$request[$i]['moduloid']] = $request[$i]; // Asigna cada permiso
+    }
+    
+    return $arrPermisos; // Devuelve el array de permisos
+}
+
+
 }
 
 ?>
