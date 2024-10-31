@@ -1,4 +1,3 @@
-<!-- views/promotores/index.php -->
 <?php include "Views/Templates/header.php"; ?>
 
 <div id="contentAjax"></div>
