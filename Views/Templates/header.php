@@ -133,9 +133,9 @@
     <div id="particles-js"></div>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: white !important; height: 123px;">
-        <button id="toggleButton" data-state="collapsed">
-            <i class="fas fa-cog gear"></i>
-        </button>
+    <button id="toggleButton" data-state="collapsed">
+    <i class="fas fa-cog gear" style="margin-right: 5px;"></i> Menu</button>
+
         <h1 style="color: red; width: 750px; height: 50px; margin: auto; padding: 2px; text-align: center; display: flex; justify-content: center; align-items: center;">
             SISTEMA GESTOR DE PROMOTORES
         </h1>
@@ -181,7 +181,7 @@
                                 <li><a href="<?php echo base_url;?>Ventas">Ventas</a></li>
                             </div>
                         </div>
-                            <div class="menu-container" style="margin: auto; padding: 10px; position: relative; top: -10px;">
+                            <div class="menu-container" style="margin: auto;  position: relative; top: -10px;">
                                 <a href="<?php echo base_url; ?>Usuarios/salir" class="nav-link active" aria-current="page" style="margin: auto; padding: 10px; position: relative; top: 5px;">
                                     <div class="circle">
                                         <img src="Assets/img/Salir.png" alt="Logo">

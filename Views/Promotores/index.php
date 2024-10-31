@@ -5,7 +5,8 @@
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="fas fa-users"></i> <?= $data['page_title'] ?> <button class="btn btn-primary mb-2" type="button" onclick="frmPromotor()"><i class="fas fa-plus"></i></button>
+            <h1><i class="fas fa-users"></i> <?= $data['page_title'] ?></h1>
+            <button class="btn btn-primary mb-2" type="button" onclick="frmPromotor()"><i class="fas fa-plus" style="margin-right: 5px;"></i>Registro de Promotor</button>
             
          </div>
         <!--<ul  class="app-breadcrumb breadcrumb">

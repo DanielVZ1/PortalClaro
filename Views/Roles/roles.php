@@ -12,8 +12,8 @@ getModal('modalsRoles', $data)
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="fas fa-tag"></i> <?= $data['page_title'] ?> <button class="btn btn-primary" type="button" onclick="openModal();">
-            <i class="fas fa-plus"></i></button></h1>
+            <h1><i class="fas fa-tag"></i> <?= $data['page_title'] ?> </h1>
+            <button class="btn btn-primary" type="button" onclick="openModal();"><i class="fas fa-plus" style="margin-right: 5px;"></i>Nuevo</button>
             
          </div>
         <!--<ul  class="app-breadcrumb breadcrumb">
