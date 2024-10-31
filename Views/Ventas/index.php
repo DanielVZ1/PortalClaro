@@ -5,14 +5,32 @@
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="fas fa-dollar-sign"></i> <?= $data['page_title'] ?> <button class="btn btn-primary mb-2" type="button" onclick="frmVentas()"><i class="fas fa-plus"></i></button>
-            
-         </div>
+            <h1><i class="fas fa-dollar-sign"></i> <?= $data['page_title'] ?></h1>
+            <div style="display: flex; align-items: center;">
+            <!-- Botón Nueva Venta -->
+                <button class="btn btn-primary mb-2" type="button" onclick="frmVentas()" style="margin-right: 10px;">
+                    <i class="fas fa-plus" style="margin-right: 5px;"></i> Nueva Venta
+                </button>
+
+            <!-- Botón Subir Archivo -->
+            <div class="file-input" style="margin-right: 10px;">
+                <label class="btn btn-primary mb-2" for="file-upload">
+                    <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
+                </label>
+                <input id="file-upload" type="file" style="display: none;" onchange="handleFileUpload(this)">
+            </div>
+
+            <!-- Botón Subir Excel -->
+            <input type="submit" name="subir" class="btn-enviar btn btn-primary mb-2" value="Subir Excel"/>
+            </div>
+
+        </div>
         <!--<ul  class="app-breadcrumb breadcrumb">
            <li  class="breadcrumb-item"><i  class="fa fa-home fa-lg"></i></li>
            <li class="breadcrumb-item"><a href="<?php echo base_url;?>Roles"><?= $data['page_title'] ?></a></li>
         </ul>-->
     </div>
+    
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -45,6 +63,7 @@
         </tr>
     </thead>
     <tbody>
+    
         <!-- Aquí se llenará con los datos de promotores -->
     </tbody>
 </table>
