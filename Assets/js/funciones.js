@@ -395,7 +395,6 @@ function btnEditarPromotor(id) {
             document.getElementById("proyecto").value = res.id_proyecto;
             document.getElementById("cargo").value = res.id_cargo;
             document.getElementById("img-preview").src = base_url + 'Assets/imgBD/' + res.foto;
-
             // Habilitar los campos
             disableFormFields(false);
 
@@ -506,7 +505,7 @@ function btnVerPromotor(id) {
             document.getElementById("canal").value = res.id_canal;
             document.getElementById("proyecto").value = res.id_proyecto;
             document.getElementById("cargo").value = res.id_cargo;
-            document.getElementById("img-preview").src = base_url + 'Assets/img/' + res.foto;
+            document.getElementById("img-preview").src = base_url + 'Assets/imgBD/' + res.foto;
 
             // Deshabilitar todos los campos del formulario
             disableFormFields(true);
