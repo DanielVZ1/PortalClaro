@@ -116,114 +116,266 @@
         }
 
         #checkbox {
-  display: none;
+            display: none;
+        }
+
+        .switch {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            background-color: rgb(200, 50, 50);
+            /* Color rojo */
+            border-radius: 50%;
+            z-index: 0;
+            /* Asegúrate de que esté detrás */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgb(126, 126, 126);
+            box-shadow: 0px 0px 3px rgb(2, 2, 2) inset;
+        }
+
+        .switch svg {
+            width: 1.2em;
+        }
+
+        .switch svg path {
+            fill: rgb(255, 255, 255);
+            /* Blanco para contraste */
+        }
+
+        /* Efecto al pasar el cursor */
+        .switch:hover {
+            box-shadow: 0px 0px 1px rgb(255, 100, 100) inset,
+                0px 0px 2px rgb(255, 100, 100) inset,
+                0px 0px 10px rgb(255, 100, 100) inset,
+                0px 0px 40px rgb(255, 100, 100),
+                0px 0px 100px rgb(255, 100, 100),
+                0px 0px 5px rgb(255, 100, 100);
+            border: 2px solid rgb(255, 255, 255);
+            background-color: rgb(255, 70, 70);
+            /* Color más claro al pasar el cursor */
+        }
+
+        #checkbox:checked+.switch {
+            box-shadow: 0px 0px 1px rgb(255, 100, 100) inset,
+                0px 0px 2px rgb(255, 100, 100) inset,
+                0px 0px 10px rgb(255, 100, 100) inset,
+                0px 0px 40px rgb(255, 100, 100),
+                0px 0px 100px rgb(255, 100, 100),
+                0px 0px 5px rgb(255, 100, 100);
+            border: 2px solid rgb(255, 255, 255);
+            background-color: rgb(255, 70, 70);
+            /* Color más claro al estar activado */
+        }
+
+        #checkbox:checked+.switch svg {
+            filter: drop-shadow(0px 0px 5px rgb(255, 100, 100));
+        }
+
+        #checkbox:checked+.switch svg path {
+            fill: rgb(255, 255, 255);
+        }
+
+        /* From Uiverse.io by gagan-gv */
+        .btn1 {
+            width: 150px;
+            height: 50px;
+            border-radius: 5px;
+            border: none;
+            transition: all 0.5s ease-in-out;
+            font-size: 20px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            background: #ff3b30;
+            /* Rojo */
+            color: #f5f5f5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn1:hover {
+            background: #c62828;
+            /* Rojo más oscuro */
+            box-shadow: 0 0 20px rgba(46, 46, 46, 0.3);
+        }
+
+        .btn1 .icon {
+            position: absolute;
+            height: 40px;
+            width: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s;
+        }
+
+        .btn1 .text {
+            transform: translateX(55px);
+        }
+
+        .btn1:hover .icon {
+            width: 175px;
+        }
+
+        .btn1:hover .text {
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .btn1:focus {
+            outline: none;
+        }
+
+        .btn1:active .icon {
+            transform: scale(0.85);
+        }
+
+/* From Uiverse.io by gharsh11032000 */
+.menu {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #000000;
+    width: fit-content;
+    display: flex;
+    list-style: none;
+    background-color: #ffffff; /* Fondo blanco para el menú */
+    padding: 10px; /* Opcional: padding para el menú */
+    border-radius: 16px; /* Opcional: bordes redondeados */
 }
 
-.switch {
-  position: relative;
-  width: 70px;
-  height: 70px;
-  background-color: rgb(200, 50, 50); /* Color rojo */
-  border-radius: 50%;
-  z-index: 0; /* Asegúrate de que esté detrás */
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid rgb(126, 126, 126);
-  box-shadow: 0px 0px 3px rgb(2, 2, 2) inset;
+.menu a {
+    text-decoration: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
 }
 
-.switch svg {
-  width: 1.2em;
+.menu .link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 36px;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.switch svg path {
-  fill: rgb(255, 255, 255); /* Blanco para contraste */
+.menu .link::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #7d7d7d; /* Color gris */
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Efecto al pasar el cursor */
-.switch:hover {
-  box-shadow: 0px 0px 1px rgb(255, 100, 100) inset,
-              0px 0px 2px rgb(255, 100, 100) inset, 
-              0px 0px 10px rgb(255, 100, 100) inset,
-              0px 0px 40px rgb(255, 100, 100), 
-              0px 0px 100px rgb(255, 100, 100),
-              0px 0px 5px rgb(255, 100, 100);
-  border: 2px solid rgb(255, 255, 255);
-  background-color: rgb(255, 70, 70); /* Color más claro al pasar el cursor */
+.menu .link svg {
+    width: 14px;
+    height: 14px;
+    fill: #000000;
+    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-#checkbox:checked + .switch {
-  box-shadow: 0px 0px 1px rgb(255, 100, 100) inset,
-              0px 0px 2px rgb(255, 100, 100) inset, 
-              0px 0px 10px rgb(255, 100, 100) inset,
-              0px 0px 40px rgb(255, 100, 100), 
-              0px 0px 100px rgb(255, 100, 100),
-              0px 0px 5px rgb(255, 100, 100);
-  border: 2px solid rgb(255, 255, 255);
-  background-color: rgb(255, 70, 70); /* Color más claro al estar activado */
+.menu .item {
+    position: relative;
 }
 
-#checkbox:checked + .switch svg {
-  filter: drop-shadow(0px 0px 5px rgb(255, 100, 100));
+.menu .item .submenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 100%;
+    border-radius: 0 0 16px 16px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid #cccccc;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
+    pointer-events: none;
+    list-style: none;
+    background-color: #ffffff; /* Fondo blanco para el submenú */
 }
 
-#checkbox:checked + .switch svg path {
-  fill: rgb(255, 255, 255);
-}
-/* From Uiverse.io by gagan-gv */ 
-.btn1 {
-  width: 150px;
-  height: 50px;
-  border-radius: 5px;
-  border: none;
-  transition: all 0.5s ease-in-out;
-  font-size: 20px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  background: #ff3b30; /* Rojo */
-  color: #f5f5f5;
-  position: relative;
-  overflow: hidden;
+.menu .item:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    border-top: transparent;
+    border-color: #7d7d7d; /* Color gris */
 }
 
-.btn1:hover {
-  background: #c62828; /* Rojo más oscuro */
-  box-shadow: 0 0 20px rgba(46, 46, 46, 0.3);
+.menu .item:hover .link {
+    color: #ffffff;
+    border-radius: 16px 16px 0 0;
 }
 
-.btn1 .icon {
-  position: absolute;
-  height: 40px;
-  width: 70px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.5s;
+.menu .item:hover .link::after {
+    transform: scaleX(1);
+    transform-origin: right;
 }
 
-.btn1 .text {
-  transform: translateX(55px);
+.menu .item:hover .link svg {
+    fill: #ffffff;
+    transform: rotate(-180deg);
 }
 
-.btn1:hover .icon {
-  width: 175px;
+.submenu .submenu-item {
+    width: 100%;
+    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.btn1:hover .text {
-  transition: all 0.5s;
-  opacity: 0;
+.submenu .submenu-link {
+    display: block;
+    padding: 12px 24px;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.btn1:focus {
-  outline: none;
+.submenu .submenu-item:last-child .submenu-link {
+    border-bottom: none;
 }
 
-.btn1:active .icon {
-  transform: scale(0.85);
+.submenu .submenu-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scaleX(0);
+    width: 100%;
+    height: 100%;
+    background-color: #7d7d7d; /* Color gris */
+    z-index: -1;
+    transform-origin: left;
+    transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.submenu .submenu-link:hover:before {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+.submenu .submenu-link:hover {
+    color: #ffffff;
 }
 
 
@@ -234,25 +386,25 @@
     <!-- Contenedor de partículas -->
     <div id="particles-js"></div>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: white !important; height: 123px;">
-    <button class="btn1" id="btn1" data-state="collapsed">
-        <span class="icon">
-            <i class="fas fa-cog" style="font-size: 20px; color: #f0f0f0;"></i>
-        </span>
-        <span class="text">Menu</span>
-    </button>
+        <button class="btn1" id="btn1" data-state="collapsed">
+            <span class="icon">
+                <i class="fas fa-cog" style="font-size: 20px; color: #f0f0f0;"></i>
+            </span>
+            <span class="text">Menu</span>
+        </button>
 
-    <h1 style="color: red; width: 750px; height: 50px; margin: auto; padding: 2px; text-align: center; display: flex; justify-content: center; align-items: center;">
-        SISTEMA GESTOR DE PROMOTORES
-    </h1>
-    
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" height="200">
-        <div class="menu-container" style="margin: auto; padding: 30px;">
-            <a href="<?php echo base_url; ?>Principal" style="display: inline-block; cursor: pointer; margin-left: 60px;">
-                <img src="Assets/img/Claro03.png" alt="Logo" style="width: 90px; border-radius: 50%;">
-            </a>
-        </div>
-    </ul>
-</nav>
+        <h1 style="color: red; width: 750px; height: 50px; margin: auto; padding: 2px; text-align: center; display: flex; justify-content: center; align-items: center;">
+            SISTEMA GESTOR DE PROMOTORES
+        </h1>
+
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" height="200">
+            <div class="menu-container" style="margin: auto; padding: 30px;">
+                <a href="<?php echo base_url; ?>Principal" style="display: inline-block; cursor: pointer; margin-left: 60px;">
+                    <img src="Assets/img/Claro03.png" alt="Logo" style="width: 90px; border-radius: 50%;">
+                </a>
+            </div>
+        </ul>
+    </nav>
 
 
     <div id="layoutSidenav">
@@ -267,26 +419,62 @@
                                 <img src="Assets/img/Usuario.png" alt="Logo">
                             </div>
                         </a>
-                        <div class="menu-container" style="margin: auto; padding: 10px; position: relative; top: -10px;">
-                            <div class="circle">
-                                <img src="Assets/img/ClaroConfig2.png" alt="Logo">
-                            </div>
-                            <div class="menu-content">
-                                <li><a href="<?php echo base_url; ?>Roles">Roles</a></li>
-                                <li><a href="<?php echo base_url; ?>Respaldar">Restauración de BD</a></li>
+                        <div class="menu">
+                            <div class="item">
+                                <a href="#" class="link">
+                                    <div class="circle">
+                                        <img src="Assets/img/ClaroConfig2.png" alt="Logo" style="width: 60px">
+                                    </div>
+                                    <!-- Se eliminó el span con el texto "Our Services" -->
+                                    <svg viewBox="0 0 360 360" xml:space="preserve">
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                id="XMLID_225_"
+                                                d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path>
+                                        </g>
+                                    </svg>
+                                </a>
+                                <div class="submenu">
+                                    <div class="submenu-item">
+                                        <a href="<?php echo base_url; ?>Roles" class="submenu-link">Roles</a>
+                                    </div>
+                                    <div class="submenu-item">
+                                        <a href="<?php echo base_url; ?>Respaldar" class="submenu-link">Gestión de Respaldos</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="menu-container" style="margin: auto; padding: 10px; position: relative; top: -10px;">
-                            <div class="circle">
-                                <img src="Assets/img/Comunidad.png" alt="Logo" style="width: 85px">
-                            </div>
-                            <div class="menu-content">
-                                <li><a href="<?php echo base_url; ?>Promotores">Registro de Promotores</a></li>
-                                <li><a href="<?php echo base_url; ?>Asistencia">Asistencia</a></li>
-                                <li><a href="<?php echo base_url; ?>Ventas">Ventas</a></li>
+
+                        <div class="menu">
+                            <div class="item">
+                                <a href="#" class="link">
+                                    <div class="circle">
+                                        <img src="Assets/img/Comunidad.png" alt="Logo" style="width: 85px">
+                                    </div>
+                                    <!-- Se eliminó el span con el texto "Our Services" -->
+                                    <svg viewBox="0 0 360 360" xml:space="preserve">
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                id="XMLID_225_"
+                                                d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path>
+                                        </g>
+                                    </svg>
+                                </a>
+                                <div class="submenu">
+                                    <div class="submenu-item">
+                                        <a href="<?php echo base_url; ?>Promotores" class="submenu-link">Registro de Promotores</a>
+                                    </div>
+                                    <div class="submenu-item">
+                                        <a href="<?php echo base_url; ?>Asistencia" class="submenu-link">Asistencia</a>
+                                    </div>
+                                    <div class="submenu-item">
+                                        <a href="<?php echo base_url; ?>Ventas" class="submenu-link">Ventas</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="menu-container" style="margin: auto; position: relative; top: -10px;">
+
+                        <div class="menu-container" style="margin: auto; position: relative; top: 20px;">
                             <input id="checkbox" type="checkbox" style="display: none;" onclick="window.location.href='<?php echo base_url; ?>Usuarios/salir';" />
                             <label class="switch" for="checkbox" style="cursor: pointer; padding: 10px; position: relative; top: 5px;">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="slider">
