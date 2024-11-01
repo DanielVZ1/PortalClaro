@@ -95,107 +95,139 @@
 </head>
 
 <body>
-    <div id="particles-js"></div>
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="form-container card p-4">
-            <div class="text-center mb-4">
-                <img src="<?php echo base_url; ?>Assets/img/Claro03.png" alt="Logo" style="width: 120px;">
-            </div>
-            <h2 class="text-center mb-4">Formulario de Asistencia</h2>
-            <form id="asistenciaForm" action="<?php echo base_url; ?>AsistenciaPromotores/guardarAsistencia" method="post" enctype="multipart/form-data">
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="codigo" class="form-label"><i class="fas fa-user"></i> Código Maestro:</label>
-                        <input class="form-control" id="codigo" name="CodigoMaestro" type="text" value="<?php echo isset($codigo) ? $codigo : ''; ?>" readonly required>
-                    </div>
-                    <div class="col">
-                        <label for="dni" class="form-label"><i class="fas fa-id-card"></i> DNI:</label>
-                        <input class="form-control" id="dni" name="dni" type="text" value="<?php echo isset($dni) ? $dni : ''; ?>" readonly required>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="nombres" class="form-label"><i class="fas fa-user-circle"></i> Nombres:</label>
-                        <input class="form-control" id="nombres" name="nombres" type="text" value="<?php echo isset($nombres) ? $nombres : ''; ?>" readonly required>
-                    </div>
-                    <div class="col">
-                        <label for="apellidos" class="form-label"><i class="fas fa-user-circle"></i> Apellidos:</label>
-                        <input class="form-control" id="apellidos" name="apellidos" type="text" value="<?php echo isset($apellidos) ? $apellidos : ''; ?>" readonly required>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="puesto" class="form-label"><i class="fas fa-briefcase"></i> Puesto de Trabajo:</label>
-                        <input class="form-control" id="puesto" name="puesto" type="text" value="<?php echo isset($puesto) ? $puesto : ''; ?>" readonly required>
-                    </div>
-                    <div class="col">
-                        <label for="zona" class="form-label"><i class="fas fa-map"></i> Zona:</label>
-                        <input class="form-control" id="zona" name="zona" type="text" value="<?php echo isset($zona) ? $zona : ''; ?>" readonly required>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="proveedor" class="form-label"><i class="fas fa-store"></i> Proveedor:</label>
-                        <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
-                    </div>
-                    <div class="col">
-                        <label for="supervisor" class="form-label"><i class="fas fa-user-tie"></i> Supervisor:</label>
-                        <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="coordinador" class="form-label"><i class="fas fa-users"></i> Coordinador del Proyecto:</label>
-                        <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label style="color: black;"><i class="fas fa-upload"></i> Foto:</label>
-                            <div class="card border-primary">
-                                <div class="card-body text-center">
-                                    <label for="imagen" id="icon-image" class="btn btn-primary btn-lg" style="padding: 15px 25px; cursor: pointer; transition: background-color 0.3s; border-radius: 5px;" <?php echo $isSecondEntry ? 'style="pointer-events: none; opacity: 0.5;"' : ''; ?>>
-                                        <i class="fas fa-image"></i>
-                                    </label>
-                                    <input id="imagen" class="d-none" type="file" name="imagen" onchange="preview(event)" <?php echo $isSecondEntry ? 'disabled' : 'required'; ?>>
-                                    <input type="hidden" id="foto_actual" name="foto_actual" value="<?= isset($foto) ? $foto : ''; ?>">
-                                    <img class="img-thumbnail mt-3" id="img-preview" src="<?= isset($foto) ? $foto : base_url . 'Assets/img/default.png'; ?>" style="display: <?= isset($foto) ? 'block' : 'none'; ?>; max-width: 100%; height: auto;">
-                                </div>
-                            </div>
-                            <?php if ($isSecondEntry): ?>
-                                <small class="text-muted">Foto Validada.</small>
-                            <?php else: ?>
-                                <small class="text-danger">Campo obligatorio.</small>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="fechaHoraEntrada" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
-                        <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo isset($horaEntrada) ? $horaEntrada : ''; ?>" readonly required>
-                    </div>
-                    <div class="col">
-                        <label for="horaSalida" class="form-label"><i class="fas fa-calendar-alt"></i> Fecha y Hora de Salida:</label>
-                        <input class="form-control" id="horaSalida" name="horaSalida" type="datetime-local" value="<?php echo isset($horaSalida) ? $horaSalida : ''; ?>" readonly>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="ubicacion" class="form-label"><i class="fas fa-map-marker-alt"></i> Ubicación:</label>
-                        <input class="form-control" id="ubicacion" name="ubicacion" type="text" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?>required>
-                        <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
-                        <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Enviar</button>
-                    <a href="<?php echo base_url; ?>" class="btn btn-light">Cancelar</a>
-                </div>
-            </form>
+<div id="particles-js"></div>
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="form-container card p-4">
+        <div class="text-center mb-4">
+            <img src="<?php echo base_url; ?>Assets/img/Claro03.png" alt="Logo" style="width: 120px;">
         </div>
+        <h2 class="text-center mb-4">Formulario de Asistencia</h2>
+        <form id="asistenciaForm" action="<?php echo base_url; ?>AsistenciaPromotores/guardarAsistencia" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="codigo" class="form-label"><i class="fas fa-user"></i> Código Maestro:</label>
+                    <input class="form-control" id="codigo" name="CodigoMaestro" type="text" value="<?php echo isset($codigo) ? $codigo : ''; ?>" readonly required>
+                </div>
+                <div class="col">
+                    <label for="dni" class="form-label"><i class="fas fa-id-card"></i> DNI:</label>
+                    <input class="form-control" id="dni" name="dni" type="text" value="<?php echo isset($dni) ? $dni : ''; ?>" readonly required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="nombres" class="form-label"><i class="fas fa-user-circle"></i> Nombres:</label>
+                    <input class="form-control" id="nombres" name="nombres" type="text" value="<?php echo isset($nombres) ? $nombres : ''; ?>" readonly required>
+                </div>
+                <div class="col">
+                    <label for="apellidos" class="form-label"><i class="fas fa-user-circle"></i> Apellidos:</label>
+                    <input class="form-control" id="apellidos" name="apellidos" type="text" value="<?php echo isset($apellidos) ? $apellidos : ''; ?>" readonly required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="puesto" class="form-label"><i class="fas fa-briefcase"></i> Puesto de Trabajo:</label>
+                    <input class="form-control" id="puesto" name="puesto" type="text" value="<?php echo isset($puesto) ? $puesto : ''; ?>" readonly required>
+                </div>
+                <div class="col">
+                    <label for="zona" class="form-label"><i class="fas fa-map"></i> Zona:</label>
+                    <input class="form-control" id="zona" name="zona" type="text" value="<?php echo isset($zona) ? $zona : ''; ?>" readonly required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="proveedor" class="form-label"><i class="fas fa-store"></i> Proveedor:</label>
+                    <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)">
+                </div>
+                <div class="col">
+                    <label for="supervisor" class="form-label"><i class="fas fa-user-tie"></i> Supervisor:</label>
+                    <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="coordinador" class="form-label"><i class="fas fa-users"></i> Coordinador del Proyecto:</label>
+                    <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label style="color: black;"><i class="fas fa-upload"></i> Foto:</label>
+                        <div class="card border-primary">
+                            <div class="card-body text-center">
+                                <label for="imagen" id="icon-image" class="btn btn-primary btn-lg" style="padding: 15px 25px; cursor: pointer; transition: background-color 0.3s; border-radius: 5px;" <?php echo $isSecondEntry ? 'style="pointer-events: none; opacity: 0.5;"' : ''; ?>>
+                                    <i class="fas fa-image"></i>
+                                </label>
+                                <input id="imagen" class="d-none" type="file" name="imagen" onchange="preview(event)" <?php echo $isSecondEntry ? 'disabled' : 'required'; ?>>
+                                <input type="hidden" id="foto_actual" name="foto_actual" value="<?= isset($foto) ? $foto : ''; ?>">
+                                <img class="img-thumbnail mt-3" id="img-preview" src="<?= isset($foto) ? $foto : base_url . 'Assets/img/default.png'; ?>" style="display: <?= isset($foto) ? 'block' : 'none'; ?>; max-width: 100%; height: auto;">
+                            </div>
+                        </div>
+                        <?php if ($isSecondEntry): ?>
+                            <small class="text-muted">Foto Validada.</small>
+                        <?php else: ?>
+                            <small class="text-danger">Campo obligatorio.</small>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="fechaHoraEntrada" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
+                    <input class="form-control" id="fechaHoraEntrada" name="fechaHora" type="datetime-local" value="<?php echo isset($horaEntrada) ? $horaEntrada : ''; ?>" readonly required>
+                </div>
+                <div class="col">
+                    <label for="horaSalida" class="form-label"><i class="fas fa-calendar-alt"></i> Fecha y Hora de Salida:</label>
+                    <input class="form-control" id="horaSalida" name="horaSalida" type="datetime-local" value="<?php echo isset($horaSalida) ? $horaSalida : ''; ?>" readonly>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="ubicacion" class="form-label"><i class="fas fa-map-marker-alt"></i> Ubicación:</label>
+                    <input class="form-control" id="ubicacion" name="ubicacion" type="text" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this, true)" required>
+                    <a id="ubicacionLink" href="#" target="_blank" class="mt-2 d-none">Ver en el Mapa</a>
+                    <button type="button" class="btn btn-secondary mt-2" id="getLocation">Obtener Ubicación</button>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <a href="<?php echo base_url; ?>" class="btn btn-light">Cancelar</a>
+            </div>
+        </form>
     </div>
+</div>
+
+<script>
+function validateInput(input, isUbicacion = false) {
+    let value = input.value;
+
+    // Si es el campo de ubicación, permite '.', '-' y letras/números
+    if (isUbicacion) {
+        const regex = /^[a-zA-Z0-9.\s-]*$/;
+        if (!regex.test(value)) {
+            input.value = value.slice(0, -1); // Elimina el último caracter no válido
+        }
+    } else {
+        // Para otros campos, solo letras y números
+        const regex = /^[a-zA-Z0-9\s]*$/;
+        if (!regex.test(value)) {
+            input.value = value.slice(0, -1); // Elimina el último caracter no válido
+        }
+    }
+}
+
+function validateForm() {
+    const fields = ['proveedor', 'supervisor', 'coordinador', 'ubicacion'];
+    for (let field of fields) {
+        const input = document.getElementById(field);
+        if (input && input.value.length > 50) {
+            alert(`El campo ${field.charAt(0).toUpperCase() + field.slice(1)} debe tener una longitud máxima de 50 caracteres.`);
+            return false;
+        }
+    }
+    return true;
+}
+</script>
 
     <!-- JS -->
     <script src="<?php echo base_url; ?>Assets/js/jquery-3.3.1.min.js"></script>
