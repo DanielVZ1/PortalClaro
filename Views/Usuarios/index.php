@@ -53,30 +53,30 @@
                     
                     <div class="form-group">
                         <label for="usuario" style="color: black;"><i class="fas fa-user-circle"></i> Usuario</label>
-                        <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Usuario">
+                        <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Usuario" maxlength="20" oninput="formatInput(this)">
                     </div>
                     
                     <div class="form-group">
                         <label for="nombre" style="color: black;"><i class="fas fa-id-badge"></i> Nombre</label>
-                        <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre">
+                        <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre" maxlength="50" oninput="formatInput(this)">
                     </div>
 
                     <div class="form-group">
                         <label for="email" style="color: black;"><i class="fas fa-envelope"></i> Email</label>
-                        <input id="email" class="form-control" type="text" name="email" placeholder="Email">
+                        <input id="email" class="form-control" type="email" name="email" placeholder="Email" maxlength="50" onblur="validateEmail(this)">
                     </div>
 
                     <div class="row" id="claves">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="clave" style="color: black;"><i class="fas fa-lock"></i> Contraseña</label>
-                                <input id="clave" class="form-control" type="password" name="clave" placeholder="Contraseña">
+                                <input id="clave" class="form-control" type="password" name="clave" placeholder="Contraseña" minlength="6" maxlength="50" onblur="validatePassword(this)">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="confirmar" style="color: black;"><i class="fas fa-lock"></i> Confirmar Contraseña</label>
-                                <input id="confirmar" class="form-control" type="password" name="confirmar" placeholder="Confirmar Contraseña">
+                                <input id="confirmar" class="form-control" type="password" name="confirmar" placeholder="Confirmar Contraseña" minlength="6" maxlength="50" required>
                             </div>
                         </div>
                     </div>
@@ -97,6 +97,62 @@
         </div>
     </div>
 </div>
+<script>
+    function formatInput(input) {
+        // Obtener el valor actual del campo
+        let value = input.value;
+
+        // Eliminar caracteres no permitidos (números y caracteres especiales)
+        value = value.replace(/[^a-zA-Z\s]/g, '');
+
+        // Convertir el texto a minúsculas
+        value = value.toLowerCase();
+
+        // Capitalizar la primera letra de cada palabra
+        value = value.replace(/\b\w/g, function(match) {
+            return match.toUpperCase();
+        });
+
+        // Reemplazar secuencias de espacios múltiples con un solo espacio
+        value = value.replace(/\s{2,}/g, ' ');
+
+        // Establecer el valor formateado de nuevo en el campo
+        input.value = value;
+    }
+
+    function validateEmail(input) {
+        // Eliminar caracteres no permitidos, excepto arroba
+        let value = input.value.replace(/[^a-zA-Z0-9@.]/g, '');
+        input.value = value;
+
+        const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
+        const isValid = emailPattern.test(input.value);
+        if (!isValid) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Ingrese un email válido.',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+    }
+
+    function validatePassword(input) {
+        const clavePattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,50}$/;
+        const isValid = clavePattern.test(input.value);
+        if (!isValid) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'La contraseña debe tener al menos 6 caracteres, incluyendo una mayúscula, un número y un carácter especial.',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+    }
+</script>
+
 
 <?php 
     //print_r($_SESSION)
