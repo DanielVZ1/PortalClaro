@@ -19,10 +19,10 @@
 
                 <!-- Botón Subir Archivo -->
                 <div class="file-input" style="margin-right: 10px;">
-                    <label class="button">
-                        <span class="button_lg">
-                            <span class="button_sl"></span>
-                            <span class="button_text">
+                    <label class="button1">
+                        <span class="button1_lg">
+                            <span class="button1_sl"></span>
+                            <span class="button1_text">
                                 <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
                             </span>
                         </span>
@@ -31,10 +31,10 @@
                 </div>
 
                 <!-- Botón Subir Excel -->
-                <button type="submit" class="button">
-                    <span class="button_lg">
-                        <span class="button_sl"></span>
-                        <span class="button_text">Subir Excel</span>
+                <button type="submit" class="button2">
+                    <span class="button2_lg">
+                        <span class="button2_sl"></span>
+                        <span class="button2_text">Subir Excel</span>
                     </span>
                 </button>
             </div>
@@ -199,12 +199,130 @@
         .button:hover .button_sl {
             width: calc(100% + 15px);
         }
+        .button1:hover .button1_sl {
+            width: calc(100% + 15px);
+        }
 
-        .button:hover .button_lg::after {
+        .button1 {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            border: none;
+            background: none;
+            color: #0f1923;
+            cursor: pointer;
+            position: relative;
+            padding: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all .15s ease;
+        }
+
+        .button1::before,
+        .button1::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            left: 0;
+            height: calc(50% - 5px);
+            border: 1px solid #7D8082;
+            transition: all .15s ease;
+        }
+
+        .button1::before {
+            top: 0;
+            border-bottom-width: 0;
+        }
+
+        .button1::after {
+            bottom: 0;
+            border-top-width: 0;
+        }
+
+        .button1:active,
+        .button1:focus {
+            outline: none;
+        }
+
+        .button1:active::before,
+        .button1:active::after {
+            right: 3px;
+            left: 3px;
+        }
+
+        .button1:active::before {
+            top: 3px;
+        }
+
+        .button1:active::after {
+            bottom: 3px;
+        }
+
+        .button1_lg {
+            position: relative;
+            display: block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #0f1923;
+            overflow: hidden;
+            box-shadow: inset 0px 0px 0px 1px transparent;
+        }
+
+        .button1_lg::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 2px;
+            background-color: #0f1923;
+        }
+
+        .button1_lg::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 4px;
+            height: 4px;
+            background-color: #0f1923;
+            transition: all .2s ease;
+        }
+
+        .button1_sl {
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: -1px;
+            left: -8px;
+            width: 0;
+            background-color: #007BFF;
+            transform: skew(-15deg);
+            transition: all .2s ease;
+        }
+
+        .button1_text {
+            position: relative;
+        }
+
+        .button1:hover {
+            color: #0f1923;
+        }
+
+        .button1:hover .button1_sl {
+            width: calc(100% + 15px);
+        }
+
+        .button1:hover .button1_lg::after {
             background-color: #fff;
         }
 
-        /* From Uiverse.io by mrhyddenn */ 
+ 
 .shadow__btn {
   padding: 5px 10px;
   border: none;
@@ -255,6 +373,124 @@
               0 0 50px rgb(255,0,0), /* Rojo */
               0 0 100px rgb(255,0,0); /* Rojo */
 }
+.button2 {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            border: none;
+            background: none;
+            color: #0f1923;
+            cursor: pointer;
+            position: relative;
+            padding: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all .15s ease;
+        }
+
+        .button2::before,
+        .button2::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            left: 0;
+            height: calc(50% - 5px);
+            border: 1px solid #7D8082;
+            transition: all .15s ease;
+        }
+
+        .button2::before {
+            top: 0;
+            border-bottom-width: 0;
+        }
+
+        .button2::after {
+            bottom: 0;
+            border-top-width: 0;
+        }
+
+        .button2:active,
+        .button2:focus {
+            outline: none;
+        }
+
+        .button2:active::before,
+        .button2:active::after {
+            right: 3px;
+            left: 3px;
+        }
+
+        .button2:active::before {
+            top: 3px;
+        }
+
+        .button2:active::after {
+            bottom: 3px;
+        }
+
+        .button2_lg {
+            position: relative;
+            display: block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #0f1923;
+            overflow: hidden;
+            box-shadow: inset 0px 0px 0px 1px transparent;
+        }
+
+        .button2_lg::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 2px;
+            background-color: #0f1923;
+        }
+
+        .button2_lg::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 4px;
+            height: 4px;
+            background-color: #0f1923;
+            transition: all .2s ease;
+        }
+
+        .button2_sl {
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: -1px;
+            left: -8px;
+            width: 0;
+            background-color: #4CAF50;
+            transform: skew(-15deg);
+            transition: all .2s ease;
+        }
+
+        .button2_text {
+            position: relative;
+        }
+
+        .button2:hover {
+            color: #0f1923;
+        }
+
+        .button2:hover .button2_sl {
+            width: calc(100% + 15px);
+        }
+
+        .button2:hover .button2_lg::after {
+            background-color: #fff;
+        }
 
     </style>
 

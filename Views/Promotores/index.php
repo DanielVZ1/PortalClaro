@@ -6,8 +6,14 @@
     <div class="app-title">
         <div>
             <h1><i class="fas fa-users"></i> <?= $data['page_title'] ?></h1>
-            <button class="btn btn-primary mb-2" type="button" onclick="frmPromotor()"><i class="fas fa-plus" style="margin-right: 5px;"></i>Registro de Promotor</button>
-            
+            <button class="button" onclick="frmPromotor()">
+                    <span class="button_lg">
+                        <span class="button_sl"></span>
+                        <span class="button_text" style="cursor: pointer;">
+                            <i class="fas fa-plus" style="margin-right: 5px;"></i> Registro de Promotor
+                        </span>
+                    </span>
+                </button>
          </div>
         <!--<ul  class="app-breadcrumb breadcrumb">
            <li  class="breadcrumb-item"><i  class="fa fa-home fa-lg"></i></li>
@@ -50,7 +56,177 @@
         <!-- Aquí se llenará con los datos de promotores -->
     </tbody>
 </table>
+<style>
+    .button {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            border: none;
+            background: none;
+            color: #0f1923;
+            cursor: pointer;
+            position: relative;
+            padding: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all .15s ease;
+        }
 
+        .button::before,
+        .button::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            left: 0;
+            height: calc(50% - 5px);
+            border: 1px solid #7D8082;
+            transition: all .15s ease;
+        }
+
+        .button::before {
+            top: 0;
+            border-bottom-width: 0;
+        }
+
+        .button::after {
+            bottom: 0;
+            border-top-width: 0;
+        }
+
+        .button:active,
+        .button:focus {
+            outline: none;
+        }
+
+        .button:active::before,
+        .button:active::after {
+            right: 3px;
+            left: 3px;
+        }
+
+        .button:active::before {
+            top: 3px;
+        }
+
+        .button:active::after {
+            bottom: 3px;
+        }
+
+        .button_lg {
+            position: relative;
+            display: block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #0f1923;
+            overflow: hidden;
+            box-shadow: inset 0px 0px 0px 1px transparent;
+        }
+
+        .button_lg::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 2px;
+            background-color: #0f1923;
+        }
+
+        .button_lg::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 4px;
+            height: 4px;
+            background-color: #0f1923;
+            transition: all .2s ease;
+        }
+
+        .button_sl {
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: -1px;
+            left: -8px;
+            width: 0;
+            background-color: #ff4655;
+            transform: skew(-15deg);
+            transition: all .2s ease;
+        }
+
+        .button_text {
+            position: relative;
+        }
+
+        .button:hover {
+            color: #0f1923;
+        }
+
+        .button:hover .button_sl {
+            width: calc(100% + 15px);
+        }
+
+        .button:hover .button_lg::after {
+            background-color: #fff;
+        }
+
+    .shadow__btn {
+  padding: 5px 10px;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+}
+
+.shadow__btn {
+  background: rgb(0,140,255);
+  box-shadow: 0 0 25px rgb(0,140,255);
+}
+
+.shadow__btn:hover {
+  box-shadow: 0 0 5px rgb(0,140,255),
+              0 0 25px rgb(0,140,255),
+              0 0 50px rgb(0,140,255),
+              0 0 100px rgb(0,140,255);
+}
+
+/* From Uiverse.io by mrhyddenn */
+.shadow__btn--red {
+  padding: 5px 10px;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+}
+
+.shadow__btn--red {
+  background: rgb(255,0,0); /* Rojo */
+  box-shadow: 0 0 25px rgb(255,0,0); /* Rojo */
+}
+
+.shadow__btn--red:hover {
+  box-shadow: 0 0 5px rgb(255,0,0), /* Rojo */
+              0 0 25px rgb(255,0,0), /* Rojo */
+              0 0 50px rgb(255,0,0), /* Rojo */
+              0 0 100px rgb(255,0,0); /* Rojo */
+}
+</style>
 
 <!-- Modal para registrar o modificar un promotor -->
 <div id="nuevo_promotor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
@@ -280,9 +456,12 @@
                             </div>
                         </div>
                     </div>
+                    <div style="margin-top: 20px;  gap: 15px;">
+                    <button class="shadow__btn" type="button" onclick="registrarPromotor(event)" id="btnAccion">Registrar</button>
+                    <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
+                    </div>
 
-                    <button class="btn btn-primary" type="button" onclick="registrarPromotor(event)" id="btnAccion">Registrar</button>
-                    <button class="btn bg-danger" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
+                    
                     
                 </form>
             </div>
