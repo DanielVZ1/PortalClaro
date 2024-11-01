@@ -1,6 +1,6 @@
 <?php
 
- const base_url= "http://localhost/PortalClaro/";
+ const base_url= "http://192.168.1.79:8080/PortalClaro/";
  const host="localhost";
  const user="root";
  const pass="";

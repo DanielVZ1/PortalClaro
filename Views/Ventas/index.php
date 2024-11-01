@@ -6,38 +6,38 @@
         <div>
             <h1><i class="fas fa-dollar-sign"></i> <?= $data['page_title'] ?></h1>
             <div style="display: flex; align-items: center;">
-                <!-- Botón Nueva Venta -->
-                <button class="button" onclick="frmVentas()">
-                    <span class="button_lg">
-                        <span class="button_sl"></span>
-                        <span class="button_text" style="cursor: pointer;">
-                            <i class="fas fa-plus" style="margin-right: 5px;"></i> Nueva Venta
-                        </span>
-                    </span>
-                </button>
+    <!-- Botón Nueva Venta -->
+    <button class="button" onclick="frmVentas()" style="margin-right: 10px;">
+        <span class="button_lg">
+            <span class="button_sl"></span>
+            <span class="button_text" style="cursor: pointer;">
+                <i class="fas fa-plus" style="margin-right: 5px;"></i> Nueva Venta
+            </span>
+        </span>
+    </button>
 
+    <!-- Botón Subir Archivo -->
+    <div class="file-input" style="margin-right: 10px;">
+        <label class="button1">
+            <span class="button1_lg">
+                <span class="button1_sl"></span>
+                <span class="button1_text">
+                    <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
+                </span>
+            </span>
+            <input id="file-upload" type="file" style="display: none;" onchange="handleFileUpload(this)">
+        </label>
+    </div>
 
-                <!-- Botón Subir Archivo -->
-                <div class="file-input" style="margin-right: 10px;">
-                    <label class="button1">
-                        <span class="button1_lg">
-                            <span class="button1_sl"></span>
-                            <span class="button1_text">
-                                <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
-                            </span>
-                        </span>
-                        <input id="file-upload" type="file" style="display: none;" onchange="handleFileUpload(this)">
-                    </label>
-                </div>
+    <!-- Botón Subir Excel -->
+    <button type="submit" class="button2">
+        <span class="button2_lg">
+            <span class="button2_sl"></span>
+            <span class="button2_text">Subir Excel</span>
+        </span>
+    </button>
+</div>
 
-                <!-- Botón Subir Excel -->
-                <button type="submit" class="button2">
-                    <span class="button2_lg">
-                        <span class="button2_sl"></span>
-                        <span class="button2_text">Subir Excel</span>
-                    </span>
-                </button>
-            </div>
         </div>
 
         <!--<ul  class="app-breadcrumb breadcrumb">
@@ -668,8 +668,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div style="margin-top: 20px;  gap: 15px;">
+                        <div style="margin-top: 20px;  display: flex; gap: 15px;">
                         <button class="shadow__btn" type="button" onclick="registrarVentas(event)" id="btnAccion">Registrar</button>
                         <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
                     </div>

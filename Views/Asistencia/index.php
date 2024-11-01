@@ -17,6 +17,33 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+<style>
+    .shadow__btn--red {
+  padding: 5px 10px;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+}
+
+.shadow__btn--red {
+  background: rgb(255,0,0); /* Rojo */
+  box-shadow: 0 0 25px rgb(255,0,0); /* Rojo */
+}
+
+.shadow__btn--red:hover {
+  box-shadow: 0 0 5px rgb(255,0,0), /* Rojo */
+              0 0 25px rgb(255,0,0), /* Rojo */
+              0 0 50px rgb(255,0,0), /* Rojo */
+              0 0 100px rgb(255,0,0); /* Rojo */
+}
+</style>
+
 <div class="row mb-4">
     <div class="col-md-6">
         <select id="filtroAsistencias" class="form-control">
@@ -218,8 +245,9 @@ $(document).ready(function() {
                             <a id="map-link" href="#" target="_blank" style="color: blue;"><i class="fas fa-map"></i> Ver en el mapa</a>
                         </div>
                     </div>
-
-                    <button class="btn btn-danger" type="button" data-dismiss="modal" style="color:white">Cerrar</button>
+                    <div style="margin-top: 20px;">
+                        <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
+                    </div>
                 </form>
             </div>
         </div>

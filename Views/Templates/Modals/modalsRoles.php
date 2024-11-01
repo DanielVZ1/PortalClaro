@@ -6,7 +6,58 @@
         }
     </style>
 </head>
+<style>
+    .shadow__btn {
+  padding: 5px 10px;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+}
 
+.shadow__btn {
+  background: rgb(0,140,255);
+  box-shadow: 0 0 25px rgb(0,140,255);
+}
+
+.shadow__btn:hover {
+  box-shadow: 0 0 5px rgb(0,140,255),
+              0 0 25px rgb(0,140,255),
+              0 0 50px rgb(0,140,255),
+              0 0 100px rgb(0,140,255);
+}
+
+/* From Uiverse.io by mrhyddenn */
+.shadow__btn--red {
+  padding: 5px 10px;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+}
+
+.shadow__btn--red {
+  background: rgb(255,0,0); /* Rojo */
+  box-shadow: 0 0 25px rgb(255,0,0); /* Rojo */
+}
+
+.shadow__btn--red:hover {
+  box-shadow: 0 0 5px rgb(255,0,0), /* Rojo */
+              0 0 25px rgb(255,0,0), /* Rojo */
+              0 0 50px rgb(255,0,0), /* Rojo */
+              0 0 100px rgb(255,0,0); /* Rojo */
+}
+</style>
 <div class="modal fade" id="modalFormRol" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -45,14 +96,17 @@
                             </div>
                             <!-- Modal Footer -->
                             <div class="tile-footer">
-                                <button id="btnActionForm" class="btn btn-primary" type="submit">
-                                    <i class="fa fa-fw fa-lg fa-check-circle"></i>
-                                    <span id="btnText">Guardar</span>
-                                </button>&nbsp;&nbsp;&nbsp;
-                                <a class="btn btn-danger" href="#" data-dismiss="modal">
-                                    <i class="fa fa-fw fa-lg fa-times-circle"></i> Cancelar
-                                </a>
-                            </div>
+    <div style="margin-top: 20px; display: flex; gap: 15px;">
+        <button class="shadow__btn" type="submit" id="btnAccion" onclick="document.getElementById('btnActionForm').click();">
+            <i class="fa fa-fw fa-lg fa-check-circle"></i>
+            <span id="btnText">Guardar</span>
+        </button>
+        <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">
+            <i class="fa fa-fw fa-lg fa-times-circle"></i> Cancelar
+        </button>
+    </div>
+</div>
+
                         </form>
                     </div>
                 </div>
