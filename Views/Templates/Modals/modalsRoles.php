@@ -23,17 +23,17 @@
                 <div class="tile">
                     <div class="tile-body">
                         <!-- Formulario -->
-                        <form id="formRol" name="formRol">
+                        <form id="formRol" name="formRol" onsubmit="return validateForm(event)">
                             <!-- Nombre del Rol -->
                             <input type="hidden" id="idRol" name="idRol" value="">
                             <div class="form-group">
                                 <label class="control-label"><i class="fas fa-user-tag"></i> Nombre Rol</label>
-                                <input class="form-control" id="txtNombre" name="txtNombre" type="text" placeholder="Nombre del Rol" required>
+                                <input class="form-control" id="txtNombre" name="txtNombre" type="text" placeholder="Nombre del Rol" maxlength="50" required oninput="validateInput(this, 50)">
                             </div>
                             <!-- Descripción -->
                             <div class="form-group">
                                 <label class="control-label"><i class="fas fa-file-alt"></i> Descripción</label>
-                                <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripción del Rol" required></textarea>
+                                <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripción del Rol" maxlength="200" required oninput="validateInput(this, 200)"></textarea>
                             </div>
                             <!-- Estado -->
                             <div class="form-group">
@@ -60,3 +60,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    function validateInput(input, maxLength) {
+        // Permitir solo letras, números y espacios
+        let value = input.value;
+        value = value.replace(/[^a-zA-Z0-9\s]/g, '');
+        
+        // Limitar la longitud
+        if (value.length > maxLength) {
+            value = value.slice(0, maxLength);
+        }
+        
+        input.value = value;
+    }
+
+    function validateForm(event) {
+        const nombre = document.getElementById('txtNombre').value;
+        const descripcion = document.getElementById('txtDescripcion').value;
+
+        if (nombre.length > 50 || descripcion.length > 200) {
+            alert('Por favor, asegúrese de que el nombre no exceda 50 caracteres y la descripción no exceda 200 caracteres.');
+            event.preventDefault(); // Prevenir el envío del formulario
+            return false;
+        }
+
+        return true; // Permitir el envío del formulario
+    }
+</script>
