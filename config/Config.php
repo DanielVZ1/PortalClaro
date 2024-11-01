@@ -1,5 +1,4 @@
 <?php
-
  const base_url= "http://172.28.24.11:8080/PortalClaro/";
  const host="localhost";
  const user="root";

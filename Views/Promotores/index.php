@@ -456,7 +456,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="margin-top: 20px;  gap: 15px;">
+                    <div style="margin-top: 20px;  display: flex; gap: 15px;">
                     <button class="shadow__btn" type="button" onclick="registrarPromotor(event)" id="btnAccion">Registrar</button>
                     <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
                     </div>

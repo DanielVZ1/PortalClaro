@@ -44,29 +44,27 @@
                     </span>
                 </button>
 
-                <!-- Formulario para subir archivo Excel -->
-                <form action="<?php echo base_url; ?>UploadController" method="post" enctype="multipart/form-data" style="display: flex; align-items: center;">
-                    <!-- Botón Subir Archivo -->
-                    <div class="file-input" style="margin-right: 10px;">
-                        <label class="button1">
-                            <span class="button1_lg">
-                                <span class="button1_sl"></span>
-                                <span class="button1_text">
-                                    <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
-                                </span>
-                            </span>
-                            <input id="file-upload" type="file" name="dataExcel" style="display: none;" accept=".xlsx, .xls">
-                        </label>
-                    </div>
 
-                    <!-- Botón Subir Excel -->
-                    <button type="submit" class="button2">
-                        <span class="button2_lg">
-                            <span class="button2_sl"></span>
-                            <span class="button2_text">Subir Excel</span>
+                <!-- Botón Subir Archivo -->
+                <div class="file-input" style="margin-right: 10px;">
+                    <label class="button1">
+                        <span class="button1_lg">
+                            <span class="button1_sl"></span>
+                            <span class="button1_text">
+                                <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
+                            </span>
                         </span>
-                    </button>
-                </form>
+                        <input id="file-upload" type="file" style="display: none;" onchange="handleFileUpload(this)">
+                    </label>
+                </div>
+
+                <!-- Botón Subir Excel -->
+                <button type="submit" class="button2">
+                    <span class="button2_lg">
+                        <span class="button2_sl"></span>
+                        <span class="button2_text">Subir Excel</span>
+                    </span>
+                </button>
             </div>
         </div>
 
@@ -698,8 +696,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div style="margin-top: 20px;  gap: 15px;">
+                        <div style="margin-top: 20px;  display: flex; gap: 15px;">
                         <button class="shadow__btn" type="button" onclick="registrarVentas(event)" id="btnAccion">Registrar</button>
                         <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
                     </div>

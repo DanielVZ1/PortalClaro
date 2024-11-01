@@ -111,16 +111,14 @@ function fntRolesUsuarios() {
 
 function registrarUser(e) {
     e.preventDefault();
-    
     const usuario = document.getElementById("usuario");
     const nombre = document.getElementById("nombre");
     const clave = document.getElementById("clave");
     const confirmar = document.getElementById("confirmar");
-    const rol = document.getElementById("rol");
+    const rol = document.getElementById("rol"); // Cambiado a 'rol'
     const email = document.getElementById("email");
 
-    // Validar campos vacíos
-    if (usuario.value === "" || nombre.value === "" || rol.value === "" || email.value === "") {
+    if (usuario.value == "" || nombre.value == "" || rol.value == "" || email.value == "") {
         Swal.fire({
             position: 'top-end',
             icon: 'error',
@@ -128,146 +126,48 @@ function registrarUser(e) {
             showConfirmButton: false,
             timer: 3000
         });
-        return;
-    }
-
-    // Validar longitud del usuario y nombre
-    if (usuario.value.length > 20) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'El usuario debe tener un máximo de 20 caracteres.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return;
-    }
-    if (nombre.value.length > 50) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'El nombre debe tener un máximo de 50 caracteres.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return;
-    }
-
-    // Validar que solo contenga letras y espacios
-    const namePattern = /^[A-Za-z\s]+$/;
-    if (!namePattern.test(usuario.value)) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'El usuario solo puede contener letras y espacios.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return;
-    }
-    if (!namePattern.test(nombre.value)) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'El nombre solo puede contener letras y espacios.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return;
-    }
-
-    // Validar formato del email
-    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
-    if (!emailPattern.test(email.value)) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Por favor, ingrese un email válido.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return;
-    }
-
-    // Validar que no contenga espacios en el email
-    if (/\s/.test(email.value)) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'El email no puede contener espacios.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return;
-    }
-
-    // Validar coincidencia de contraseñas
-    if (clave.value !== confirmar.value) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Las contraseñas no coinciden.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return;
-    }
-
-    // Validar la contraseña
-    const clavePattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,50}$/;
-    if (!clavePattern.test(clave.value)) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'La contraseña debe tener al menos 6 caracteres, incluyendo al menos una mayúscula, un número, un carácter especial y no puede contener espacios.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return;
-    }
-
-    // Si todas las validaciones pasan, enviar el formulario
-    const url = base_url + "Usuarios/registrar";
-    const frm = document.getElementById("frmUsuario");
-    const http = new XMLHttpRequest();
-    http.open("POST", url, true);
-    http.send(new FormData(frm));
-    
-    http.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            const res = JSON.parse(this.responseText);
-            if (res === "si") {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Usuario registrado con éxito',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-                frm.reset();
-                $("#nuevo_usuario").modal("hide");
-                tblUsuarios.ajax.reload();
-            } else if (res === "modificado") {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Usuario modificado correctamente',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-                $("#nuevo_usuario").modal("hide");
-                tblUsuarios.ajax.reload();
-            } else {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: res,
-                    showConfirmButton: false,
-                    timer: 3000
-                });
+    } else {
+        const url = base_url + "Usuarios/registrar";
+        const frm = document.getElementById("frmUsuario");
+        const http = new XMLHttpRequest();
+        http.open("POST", url, true);
+        http.send(new FormData(frm));
+        http.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                const res = JSON.parse(this.responseText);
+                if (res == "si") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Usuario registrado con éxito',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                    frm.reset();
+                    $("#nuevo_usuario").modal("hide");
+                    tblUsuarios.ajax.reload();
+                } else if (res == "modificado") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Usuario modificado correctamente',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                    $("#nuevo_usuario").modal("hide");
+                    tblUsuarios.ajax.reload();
+                } else {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: res,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
             }
-        }
-    };
+        };
+    }
 }
 
 function btnEditarUser(id) {
