@@ -38,7 +38,9 @@ class UploadController {
 
                 $datos = [];
                 foreach ($cellIterator as $cell) {
-                    $datos[] = mysqli_real_escape_string($this->con, $cell->getValue());
+                    // Asegurarse de que el valor no sea null y sea tratado como string
+                    $valor = $cell->getValue();
+                    $datos[] = mysqli_real_escape_string($this->con, $valor !== null ? (string)$valor : '');
                 }
 
                 // Verificar si el registro ya existe
