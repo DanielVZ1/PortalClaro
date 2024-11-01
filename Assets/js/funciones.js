@@ -818,7 +818,7 @@ function btnEliminarVentas(id) {
                             'Venta eliminada con éxito',
                             'success'
                         )
-                        tblVentas.ajax.reload();
+                        tblAsistencia.ajax.reload();
                     } else {
                         Swal.fire(
                             'Mensaje',
@@ -831,8 +831,6 @@ function btnEliminarVentas(id) {
         }
     })
 }
-
-
 //Fin Ventas
 //-----------------------------------Permisos--------------------------------------------------
 function registrarPermisos(e){
