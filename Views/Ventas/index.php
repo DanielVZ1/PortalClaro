@@ -1,3 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivo Excel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .button1, .button2 {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .button1:hover, .button2:hover {
+            background-color: #0056b3;
+        }
+        .file-input {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
 <?php include "Views/Templates/header.php"; ?>
 
 <div id="contentAjax"></div>
@@ -16,27 +44,29 @@
                     </span>
                 </button>
 
-
-                <!-- Botón Subir Archivo -->
-                <div class="file-input" style="margin-right: 10px;">
-                    <label class="button1">
-                        <span class="button1_lg">
-                            <span class="button1_sl"></span>
-                            <span class="button1_text">
-                                <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
+                <!-- Formulario para subir archivo Excel -->
+                <form action="<?php echo base_url; ?>UploadController" method="post" enctype="multipart/form-data" style="display: flex; align-items: center;">
+                    <!-- Botón Subir Archivo -->
+                    <div class="file-input" style="margin-right: 10px;">
+                        <label class="button1">
+                            <span class="button1_lg">
+                                <span class="button1_sl"></span>
+                                <span class="button1_text">
+                                    <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
+                                </span>
                             </span>
-                        </span>
-                        <input id="file-upload" type="file" style="display: none;" onchange="handleFileUpload(this)">
-                    </label>
-                </div>
+                            <input id="file-upload" type="file" name="dataExcel" style="display: none;" accept=".xlsx, .xls">
+                        </label>
+                    </div>
 
-                <!-- Botón Subir Excel -->
-                <button type="submit" class="button2">
-                    <span class="button2_lg">
-                        <span class="button2_sl"></span>
-                        <span class="button2_text">Subir Excel</span>
-                    </span>
-                </button>
+                    <!-- Botón Subir Excel -->
+                    <button type="submit" class="button2">
+                        <span class="button2_lg">
+                            <span class="button2_sl"></span>
+                            <span class="button2_text">Subir Excel</span>
+                        </span>
+                    </button>
+                </form>
             </div>
         </div>
 
