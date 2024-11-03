@@ -197,6 +197,190 @@
               0 0 50px rgb(255,0,0), /* Rojo */
               0 0 100px rgb(255,0,0); /* Rojo */
 }
+
+     /* From Uiverse.io by aaronross1 */
+.delete-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: relative;
+}
+
+.delete-svgIcon {
+    width: 15px;
+    transition-duration: 0.3s;
+}
+
+.delete-svgIcon path {
+    fill: white; /* Asegúrate de que el ícono sea blanco */
+}
+
+.delete-button:hover {
+    width: 100px;
+    border-radius: 50px;
+    transition-duration: 0.3s;
+    background-color: rgb(255, 69, 69);
+    align-items: center;
+}
+
+.delete-button:hover .delete-svgIcon {
+    width: 20px;
+    transition-duration: 0.3s;
+    transform: translateY(60%);
+    transform: rotate(360deg); /* Simplificado */
+}
+
+.delete-button::before {
+    display: none;
+    content: "Desactivar";
+    color: white;
+    transition-duration: 0.3s;
+    font-size: 2px;
+}
+
+.delete-button:hover::before {
+    display: block;
+    padding-right: 10px;
+    font-size: 13px;
+    opacity: 1;
+    transform: translateY(0px);
+    transition-duration: 0.3s;
+}
+
+/* From Uiverse.io by aaronross1 */
+.edit-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.edit-svgIcon {
+  width: 17px;
+  transition-duration: 0.3s;
+}
+
+.edit-svgIcon path {
+  fill: white;
+}
+
+.edit-button:hover {
+  width: 120px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(0, 123, 255); /* Color azul */
+  align-items: center;
+}
+
+.edit-button:hover .edit-svgIcon {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.edit-button::before {
+  display: none;
+  content: "Editar";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.edit-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}
+
+/* Estilo para el botón de activar usuario */
+.activate-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20); /* Color de fondo predeterminado */
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: relative;
+}
+
+.activate-svgIcon {
+    width: 15px;
+    transition-duration: 0.3s;
+}
+
+.activate-svgIcon path {
+    fill: white; /* Asegúrate de que el ícono sea blanco */
+}
+
+.activate-button:hover {
+    width: 95px;
+    border-radius: 50px;
+    transition-duration: 0.3s;
+    background-color: rgb(0, 200, 0); /* Color más claro al hacer hover */
+    align-items: center;
+}
+
+.activate-button:hover .activate-svgIcon {
+    width: 20px;
+    transition-duration: 0.3s;
+    transform: translateY(60%);
+    transform: rotate(360deg); /* Simplificado */
+}
+
+.activate-button::before {
+    display: none;
+    content: "Activar";
+    color: white;
+    transition-duration: 0.3s;
+    font-size: 2px;
+}
+
+.activate-button:hover::before {
+    display: block;
+    padding-right: 10px;
+    font-size: 13px;
+    opacity: 1;
+    transform: translateY(0px);
+    transition-duration: 0.3s;
+}
+
+
 </style>
 <table class="table table-light" id="tblUsuarios">
     <thead class="thead-dark">
