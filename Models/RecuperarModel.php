@@ -1,22 +1,24 @@
 <?php
-class RecuperarModel extends Query{
-    public function __construct() {
+class RecuperarModel extends Query
+{
+    public function __construct()
+    {
         parent::__construct();
     }
-    public function verificarCorreo($correo) 
+    public function verificarCorreo($correo)
     {
         $sql = "SELECT id FROM usuarios WHERE email = '$correo'";
         return $this->select($sql);
     }
 
-    public function registrarToken($token, $correo) 
+    public function registrarToken($token, $correo)
     {
         $sql = "UPDATE usuarios SET RESETEO_CLANZ = ? WHERE email = ? ";
         $array = array($token, $correo);
         return $this->save($sql, $array);
     }
 
-    public function verificarToken($token) 
+    public function verificarToken($token)
     {
         $sql = "SELECT id, RESETEO_CLANZ  FROM usuarios WHERE RESETEO_CLANZ = '$token'";
         return $this->select($sql);
@@ -43,13 +45,11 @@ class RecuperarModel extends Query{
         $array = array($clave, null, $token);
         return $this->save($sql, $array);
     }
-    
-    
+
+
     public function getUsuario($token)
     {
         $sql = "SELECT id, usuario, nombre, clave, email, id_caja, estado FROM usuarios WHERE RESETEO_CLANZ = '$token'";
         return $this->select($sql);
     }
-
-    
 }

@@ -1,10 +1,12 @@
 <?php
-    class PromotoresModel extends Query{
-        private $codigo, $dni, $nombre, $apellido, $telefono,$profesion, $id_estado_civil, $id_genero, $direccion, 
-        $id_zona,$id_departamento, $id_municipio, $id_gerencia, $id_canal,$id_proyecto, $id_cargo, $id, $estado, $img;
-        public function __construct(){
-           parent::__construct();        
-        }
+class PromotoresModel extends Query
+{
+    private $codigo, $dni, $nombre, $apellido, $telefono, $profesion, $id_estado_civil, $id_genero, $direccion,
+        $id_zona, $id_departamento, $id_municipio, $id_gerencia, $id_canal, $id_proyecto, $id_cargo, $id, $estado, $img;
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function getEstados_Civiles()
     {
@@ -68,7 +70,7 @@
         $data = $this->selectAll($sql);
         return $data;
     }
-    
+
 
     public function getPromotores()
     {
@@ -95,10 +97,25 @@
         return $data;
     }
 
-    public function registrarPromotor(string $codigo, string $dni, string $nombre, string $apellido, string $telefono,
-    string $profesion, int $id_estado_civil, int $id_genero, string $direccion, int $id_zona, int $id_departamento,
-    int $id_municipio, int $id_gerencia, int $id_canal, int $id_proyecto, int $id_cargo, string $img)
-    {
+    public function registrarPromotor(
+        string $codigo,
+        string $dni,
+        string $nombre,
+        string $apellido,
+        string $telefono,
+        string $profesion,
+        int $id_estado_civil,
+        int $id_genero,
+        string $direccion,
+        int $id_zona,
+        int $id_departamento,
+        int $id_municipio,
+        int $id_gerencia,
+        int $id_canal,
+        int $id_proyecto,
+        int $id_cargo,
+        string $img
+    ) {
         $this->codigo = $codigo;
         $this->dni = $dni;
         $this->nombre = $nombre;
@@ -116,31 +133,63 @@
         $this->id_proyecto = $id_proyecto;
         $this->id_cargo = $id_cargo;
         $this->img = $img;
-            $verificar = "SELECT * FROM promotores WHERE codigo = '$this->codigo'";
-            $existe = $this->select($verificar);
-            if (empty($existe)) {
+        $verificar = "SELECT * FROM promotores WHERE codigo = '$this->codigo'";
+        $existe = $this->select($verificar);
+        if (empty($existe)) {
             $sql = "INSERT INTO promotores(codigo, dni, nombre, apellido, telefono, profesion, id_estado_civil, 
                     id_genero, direccion, id_zona, id_departamento, id_municipio, id_gerencia, id_canal, id_proyecto, id_cargo, foto) 
                     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            $datos = array($this->codigo, $this->dni, $this->nombre, $this->apellido, $this->telefono,  $this->profesion,
-                    $this->id_estado_civil, $this->id_genero, $this->direccion, $this->id_zona,  $this->id_departamento,  $this->id_municipio,
-                    $this->id_gerencia,  $this->id_canal,  $this->id_proyecto,  $this->id_cargo, $this->img);
+            $datos = array(
+                $this->codigo,
+                $this->dni,
+                $this->nombre,
+                $this->apellido,
+                $this->telefono,
+                $this->profesion,
+                $this->id_estado_civil,
+                $this->id_genero,
+                $this->direccion,
+                $this->id_zona,
+                $this->id_departamento,
+                $this->id_municipio,
+                $this->id_gerencia,
+                $this->id_canal,
+                $this->id_proyecto,
+                $this->id_cargo,
+                $this->img
+            );
             $data = $this->save($sql, $datos);
             if ($data == 1) {
                 $res = "ok";
-            }else{
+            } else {
                 $res = "error";
-           }
-            }else{
+            }
+        } else {
             $res = "existe";
-           }
-            return $res;
         }
+        return $res;
+    }
 
-     public function modificarPromotor(string $codigo, string $dni, string $nombre, string $apellido, string $telefono,
-     string $profesion, int $id_estado_civil, int $id_genero, string $direccion, int $id_zona, int $id_departamento,
-     int $id_municipio, int $id_gerencia, int $id_canal, int $id_proyecto, int $id_cargo, string $img, int $id)
-    {
+    public function modificarPromotor(
+        string $codigo,
+        string $dni,
+        string $nombre,
+        string $apellido,
+        string $telefono,
+        string $profesion,
+        int $id_estado_civil,
+        int $id_genero,
+        string $direccion,
+        int $id_zona,
+        int $id_departamento,
+        int $id_municipio,
+        int $id_gerencia,
+        int $id_canal,
+        int $id_proyecto,
+        int $id_cargo,
+        string $img,
+        int $id
+    ) {
         $this->codigo = $codigo;
         $this->dni = $dni;
         $this->nombre = $nombre;
@@ -162,18 +211,35 @@
         $sql = "UPDATE promotores SET codigo = ?, dni = ?, nombre = ?, apellido = ?, telefono = ?, profesion = ?, id_estado_civil = ?, 
                                       id_genero = ?, direccion = ?, id_zona = ?, id_departamento = ?, id_municipio = ?, id_gerencia = ?, 
                                       id_canal = ?, id_proyecto = ?, id_cargo = ?, foto = ? WHERE id = ?";
-        $datos = array($this->codigo, $this->dni, $this->nombre, $this->apellido, $this->telefono,  $this->profesion,
-                       $this->id_estado_civil, $this->id_genero, $this->direccion, $this->id_zona,  $this->id_departamento,  
-                       $this->id_municipio, $this->id_gerencia,  $this->id_canal,  $this->id_proyecto,  $this->id_cargo, $this->img, $this->id);
+        $datos = array(
+            $this->codigo,
+            $this->dni,
+            $this->nombre,
+            $this->apellido,
+            $this->telefono,
+            $this->profesion,
+            $this->id_estado_civil,
+            $this->id_genero,
+            $this->direccion,
+            $this->id_zona,
+            $this->id_departamento,
+            $this->id_municipio,
+            $this->id_gerencia,
+            $this->id_canal,
+            $this->id_proyecto,
+            $this->id_cargo,
+            $this->img,
+            $this->id
+        );
         $data = $this->save($sql, $datos);
-        if ($data == 1 ) {
+        if ($data == 1) {
             $res = "modificado";
         } else {
             $res = "error";
-        }   
+        }
         return $res;
     }
-    
+
 
     public function editarPromotor(int $id)
     {
@@ -188,18 +254,16 @@
         $this->estado = $estado;
         $sql = "UPDATE promotores SET estado = ? WHERE id = ?";
         $datos = array($this->estado, $this->id);
-        $data = $this->save($sql,$datos);
+        $data = $this->save($sql, $datos);
         //$sql = "DELETE  FROM Promotors WHERE id = $id";
         //$data = $this->select($sql);
         return $data;
     }
-    
+
     public function verPromotor(int $id)
     {
         $sql = "SELECT * FROM promotores WHERE id = $id";
         $data = $this->select($sql);
         return $data;
     }
-
-} 
-?>
+}

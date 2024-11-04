@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -14,7 +15,7 @@ class Recuperar extends Controller
     public function forgot()
     {
         $data['title'] = 'Olvidaste tu Contraseña';
-        $this->views->getView1('Password', 'forgot',$data);
+        $this->views->getView1('Password', 'forgot', $data);
     }
     public function reset($token)
     {
@@ -27,61 +28,60 @@ class Recuperar extends Controller
         $this->views->getView1('Password', 'reset', $data);
     }
     public function enviarCorreo($correo)
-{
-    // Verificar si el correo está registrado
-    $verificar = $this->model->verificarCorreo($correo);
-    if (!empty($verificar)) {
-        $mail = new PHPMailer(true);
-        $fecha = date('YmdHis');
-        $token = md5($fecha);
-        try {
-            // Configuraciones del servidor SMTP
-            $mail->SMTPDebug = 0; // Desactivar depuración
-            $mail->isSMTP(); // Usar SMTP
-            $mail->Host       = HOST_SMTP; // Servidor SMTP
-            $mail->SMTPAuth   = true; // Autenticación SMTP
-            $mail->Username   = USER_SMTP; // Usuario SMTP
-            $mail->Password   = CLAVE_SMTP; // Contraseña SMTP
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Cifrado TLS
-            $mail->Port       = PUERTO_SMTP; // Puerto SMTP
+    {
+        // Verificar si el correo está registrado
+        $verificar = $this->model->verificarCorreo($correo);
+        if (!empty($verificar)) {
+            $mail = new PHPMailer(true);
+            $fecha = date('YmdHis');
+            $token = md5($fecha);
+            try {
+                // Configuraciones del servidor SMTP
+                $mail->SMTPDebug = 0; // Desactivar depuración
+                $mail->isSMTP(); // Usar SMTP
+                $mail->Host       = HOST_SMTP; // Servidor SMTP
+                $mail->SMTPAuth   = true; // Autenticación SMTP
+                $mail->Username   = USER_SMTP; // Usuario SMTP
+                $mail->Password   = CLAVE_SMTP; // Contraseña SMTP
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Cifrado TLS
+                $mail->Port       = PUERTO_SMTP; // Puerto SMTP
 
-            // Configuración del destinatario
-            $mail->setFrom('Claro@gmail.com', 'Claro');
-            $mail->addAddress($correo);
+                // Configuración del destinatario
+                $mail->setFrom('Claro@gmail.com', 'Claro');
+                $mail->addAddress($correo);
 
-            // Contenido del correo
-            $mail->isHTML(true);
-            $mail->CharSet = 'UTF-8'; // Codificación
-            $mail->Subject = 'Restablecer Contraseña - ' . TITLE;
-            $template = file_get_contents(__DIR__.'/../views/templates/email.html');
-            $template = str_replace('[titulo]', 'Restablecer Contraseña', $template);
-            $template = str_replace('[mensaje]', '<p>Has solicitado restablecer tu contraseña, si no has sido tú omite este mensaje
-            </p><p>Para cambiar <a href="'.base_url.'Recuperar/reset/'.$token.'">CLICK AQUÍ</a></p>', $template);
-            $mail->msgHTML($template);
+                // Contenido del correo
+                $mail->isHTML(true);
+                $mail->CharSet = 'UTF-8'; // Codificación
+                $mail->Subject = 'Restablecer Contraseña - ' . TITLE;
+                $template = file_get_contents(__DIR__ . '/../views/templates/email.html');
+                $template = str_replace('[titulo]', 'Restablecer Contraseña', $template);
+                $template = str_replace('[mensaje]', '<p>Has solicitado restablecer tu contraseña, si no has sido tú omite este mensaje
+            </p><p>Para cambiar <a href="' . base_url . 'Recuperar/reset/' . $token . '">CLICK AQUÍ</a></p>', $template);
+                $mail->msgHTML($template);
 
-            // Enviar correo
-            $mail->send();
+                // Enviar correo
+                $mail->send();
 
-            // Registrar token
-            $verificarToken = $this->model->registrarToken($token, $correo);
-            if ($verificarToken == 1) {
-                $res = array('msg' => 'CORREO ENVIADO CON UN TOKEN DE SEGURIDAD', 'type' => 'success');
-            } else {
-                $res = array('msg' => 'ERROR AL REGISTRAR EL TOKEN', 'type' => 'error');
+                // Registrar token
+                $verificarToken = $this->model->registrarToken($token, $correo);
+                if ($verificarToken == 1) {
+                    $res = array('msg' => 'CORREO ENVIADO CON UN TOKEN DE SEGURIDAD', 'type' => 'success');
+                } else {
+                    $res = array('msg' => 'ERROR AL REGISTRAR EL TOKEN', 'type' => 'error');
+                }
+            } catch (Exception $e) {
+                // Manejo de errores
+                $res = array('msg' => 'ERROR AL ENVIAR EL CORREO: ' . $mail->ErrorInfo, 'type' => 'error');
             }
-
-        } catch (Exception $e) {
-            // Manejo de errores
-            $res = array('msg' => 'ERROR AL ENVIAR EL CORREO: ' . $mail->ErrorInfo, 'type' => 'error');
+        } else {
+            $res = array('msg' => 'EL CORREO NO ESTÁ REGISTRADO', 'type' => 'warning');
         }
-    } else {
-        $res = array('msg' => 'EL CORREO NO ESTÁ REGISTRADO', 'type' => 'warning');
-    }
 
-    // Enviar respuesta en formato JSON
-    echo json_encode($res, JSON_UNESCAPED_UNICODE);
-    die();
-}
+        // Enviar respuesta en formato JSON
+        echo json_encode($res, JSON_UNESCAPED_UNICODE);
+        die();
+    }
 
     public function cambiarClave()
     {
@@ -124,9 +124,8 @@ class Recuperar extends Controller
                 $res = array('msg' => 'ERROR AL MODIFICAR', 'type' => 'error');
             }
         }
-    
+
         echo json_encode($res, JSON_UNESCAPED_UNICODE);
         die();
     }
-    
 }

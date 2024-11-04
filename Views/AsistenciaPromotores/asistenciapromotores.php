@@ -100,17 +100,19 @@
             color: #000;
             font-size: 1.2rem;
             margin-bottom: 10px;
-            z-index: 2; /* Asegura que esté encima del fondo */
-            position: relative; /* Asegura que mantenga su posición relativa al resto del contenido */
+            z-index: 2;
+            /* Asegura que esté encima del fondo */
+            position: relative;
+            /* Asegura que mantenga su posición relativa al resto del contenido */
         }
     </style>
 </head>
 
 <body>
-<?php
+    <?php
     session_start();
     if (isset($_SESSION['mensaje'])) {
-        echo "<div class='alert alert-success text-center'>".$_SESSION['mensaje']."</div>";
+        echo "<div class='alert alert-success text-center'>" . $_SESSION['mensaje'] . "</div>";
         unset($_SESSION['mensaje']); // Elimina el mensaje después de mostrarlo
     }
     ?>
@@ -139,7 +141,15 @@
     <script>
         function updateDateTime() {
             const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
             document.getElementById('dateTime').innerText = now.toLocaleDateString('es-ES', options);
         }
 

@@ -3,10 +3,12 @@ require __DIR__ . '/../vendor/autoload.php'; // Asegúrate de que la ruta sea co
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-class UploadController {
+class UploadController
+{
     private $con;
 
-    public function __construct() {
+    public function __construct()
+    {
         // Conexión a la base de datos
         $this->con = mysqli_connect('localhost', 'root', '', 'sistema');
         if (!$this->con) {
@@ -15,7 +17,8 @@ class UploadController {
         mysqli_query($this->con, "SET SESSION collation_connection ='utf8_unicode_ci'");
     }
 
-    public function uploadExcel() {
+    public function uploadExcel()
+    {
         // Verifica si se ha enviado un archivo
         if (!isset($_FILES['dataExcel']) || $_FILES['dataExcel']['error'] !== UPLOAD_ERR_OK) {
             $this->showAlert('Error al cargar el archivo.', 'danger');
@@ -98,7 +101,8 @@ class UploadController {
         mysqli_close($this->con);
     }
 
-    private function showAlert($message, $type) {
+    private function showAlert($message, $type)
+    {
         echo "<div class='alert alert-$type' role='alert'>$message</div>";
     }
 }
@@ -106,4 +110,3 @@ class UploadController {
 // Instancia del controlador y llamada al método
 $uploadController = new UploadController();
 $uploadController->uploadExcel();
-?>

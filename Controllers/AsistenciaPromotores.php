@@ -14,22 +14,23 @@ class AsistenciaPromotores extends Controller
         $this->views->getView1('AsistenciaPromotores', 'asistenciapromotores', $data);
     }
 
-    public function VerificarCodigo($codigo) {
+    public function VerificarCodigo($codigo)
+    {
         if (empty($codigo)) {
             echo json_encode(['msg' => 'CÓDIGO NO PUEDE ESTAR VACÍO', 'type' => 'error']);
             return;
         }
-    
+
         try {
             $verificar = $this->model->verificarCodigo($codigo);
-            
+
             if (!empty($verificar)) {
                 // Verifica el estado
                 if ($verificar['estado'] != 1) {
                     echo json_encode(['msg' => 'EL PROMOTOR ESTÁ INACTIVO', 'type' => 'error']);
                     return;
                 }
-    
+
                 $asistenciaHoy = $this->model->verificarAsistenciaHoy($codigo);
                 if ($asistenciaHoy) {
                     if ($asistenciaHoy['hora_salida'] !== null) {
@@ -66,7 +67,7 @@ class AsistenciaPromotores extends Controller
             error_log($e->getMessage() . ' - Código: ' . $codigo);
         }
     }
-    
+
 
     public function mostrarFormulario($codigo)
     {

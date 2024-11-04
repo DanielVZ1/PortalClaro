@@ -29,8 +29,10 @@
 
     <style>
         body {
-            background-color: transparent; /* Fondo transparente para que el fondo animado sea visible */
-            overflow: hidden; /* Evita el desplazamiento */
+            background-color: transparent;
+            /* Fondo transparente para que el fondo animado sea visible */
+            overflow: hidden;
+            /* Evita el desplazamiento */
             margin: 0;
             padding: 0;
             position: relative;
@@ -42,7 +44,8 @@
             height: 100%;
             top: 0;
             left: 0;
-            z-index: -1; /* Asegúrate de que el fondo esté detrás del contenido */
+            z-index: -1;
+            /* Asegúrate de que el fondo esté detrás del contenido */
         }
 
         .sample-div {
@@ -55,11 +58,13 @@
         .wrap-login {
             width: 100%;
             max-width: 400px;
-            background: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente para la forma */
+            background: rgba(255, 255, 255, 0.8);
+            /* Fondo blanco semi-transparente para la forma */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative; /* Para asegurarse de que el contenido esté encima del fondo animado */
+            position: relative;
+            /* Para asegurarse de que el contenido esté encima del fondo animado */
             z-index: 1;
         }
 
@@ -130,24 +135,24 @@
                     <div class="input-group">
                         <input class="form-control py-4" id="clave" name="clave" type="password" placeholder="Ingrese Contraseña" />
                     </div>
-                    </div>
-                        <div class="col-md-12 text-end"> <a href="<?php echo base_url . 'Recuperar/forgot' ?>">Olvidaste tu contraseña?</a>
-                    </div>
-                        <div class="col-md-12 text-end"> <a href="<?php echo base_url . 'AsistenciaPromotores/asistenciapromotores' ?>">Asistencia Promotor</a>
-                    </div>
-                    <label class="small mb-1" for="clave"></label>
-                    <div class="alert alert-danger text-center d-none" id="alerta" role="alert"></div>
-                    <div class="container-login-form-btn">
-                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                            <div class="wrap-login-form-btn">
-                                <div class="login-form-bgbtn"></div>
-                                <button class="login-form-btn" type="submit" onclick="frmLogin(event)">Iniciar Sesión</button>
-                            </div>
+                </div>
+                <div class="col-md-12 text-end"> <a href="<?php echo base_url . 'Recuperar/forgot' ?>">Olvidaste tu contraseña?</a>
+                </div>
+                <div class="col-md-12 text-end"> <a href="<?php echo base_url . 'AsistenciaPromotores/asistenciapromotores' ?>">Asistencia Promotor</a>
+                </div>
+                <label class="small mb-1" for="clave"></label>
+                <div class="alert alert-danger text-center d-none" id="alerta" role="alert"></div>
+                <div class="container-login-form-btn">
+                    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                        <div class="wrap-login-form-btn">
+                            <div class="login-form-bgbtn"></div>
+                            <button class="login-form-btn" type="submit" onclick="frmLogin(event)">Iniciar Sesión</button>
                         </div>
                     </div>
                 </div>
-            </form>
         </div>
+        </form>
+    </div>
     </div>
 
     <!-- Script JS adicional -->

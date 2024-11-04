@@ -1,12 +1,15 @@
 <?php
-class ImportadorVentas {
+class ImportadorVentas
+{
     private $conexion;
 
-    public function __construct($host, $user, $pass, $db) {
+    public function __construct($host, $user, $pass, $db)
+    {
         $this->conexion = $this->conectar($host, $user, $pass, $db);
     }
 
-    private function conectar($host, $user, $pass, $db) {
+    private function conectar($host, $user, $pass, $db)
+    {
         $con = mysqli_connect($host, $user, $pass, $db);
         if (!$con) {
             die("No se ha podido conectar al Servidor: " . mysqli_connect_error());
@@ -15,7 +18,8 @@ class ImportadorVentas {
         return $con;
     }
 
-    public function importarDatosDesdeExcel($archivoExcel) {
+    public function importarDatosDesdeExcel($archivoExcel)
+    {
         $tipo = $archivoExcel['type'];
         $tamanio = $archivoExcel['size'];
         $archivotmp = $archivoExcel['tmp_name'];
@@ -50,7 +54,8 @@ class ImportadorVentas {
         $this->cerrarConexion();
     }
 
-    private function insertarDatos($datos) {
+    private function insertarDatos($datos)
+    {
         // Extracción y limpieza de datos
         $id = !empty($datos[0]) ? mysqli_real_escape_string($this->conexion, $datos[0]) : '';
         $telefono = !empty($datos[1]) ? mysqli_real_escape_string($this->conexion, $datos[1]) : '';
@@ -93,7 +98,8 @@ class ImportadorVentas {
         return ['error' => false];
     }
 
-    private function cerrarConexion() {
+    private function cerrarConexion()
+    {
         mysqli_close($this->conexion);
     }
 }
@@ -103,4 +109,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['dataExcel'])) {
     $importador = new ImportadorVentas('localhost', 'root', '', 'sistema');
     $importador->importarDatosDesdeExcel($_FILES['dataExcel']);
 }
-?>

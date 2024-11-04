@@ -29,8 +29,10 @@
 
     <style>
         body {
-            background-color: transparent; /* Fondo transparente para que el fondo animado sea visible */
-            overflow: hidden; /* Evita el desplazamiento */
+            background-color: transparent;
+            /* Fondo transparente para que el fondo animado sea visible */
+            overflow: hidden;
+            /* Evita el desplazamiento */
             margin: 0;
             padding: 0;
             position: relative;
@@ -42,7 +44,8 @@
             height: 100%;
             top: 0;
             left: 0;
-            z-index: -1; /* Asegúrate de que el fondo esté detrás del contenido */
+            z-index: -1;
+            /* Asegúrate de que el fondo esté detrás del contenido */
         }
 
         .form-container {
@@ -51,9 +54,11 @@
             padding: 20px;
             max-width: 400px;
             width: 100%;
-            position: relative; /* Para asegurarse de que el contenido esté encima del fondo animado */
+            position: relative;
+            /* Para asegurarse de que el contenido esté encima del fondo animado */
             z-index: 1;
-            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente para la forma */
+            background-color: rgba(255, 255, 255, 0.8);
+            /* Fondo blanco semi-transparente para la forma */
         }
 
         .form-container h2 {

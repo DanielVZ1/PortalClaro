@@ -19,16 +19,16 @@ class Usuarios extends Controller
 
   public function listar()
   {
-      $data = $this->model->getUsuarios();
-      for ($i = 0; $i < count($data); $i++) {
-          if ($data[$i]['estado'] == 1) {
-              $data[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
-              // Condición para evitar acciones en el usuario con id 1
-              if ($data[$i]['id'] == 1) {
-                  $data[$i]['estado'] = '<span class="badge badge-success" style="color: gray">ADMINISTRADOR</span>';
-                  $data[$i]['acciones'] = '<div></div>';
-              } else {
-                  $data[$i]['acciones'] = '<div style="display: flex; align-items: center;">
+    $data = $this->model->getUsuarios();
+    for ($i = 0; $i < count($data); $i++) {
+      if ($data[$i]['estado'] == 1) {
+        $data[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
+        // Condición para evitar acciones en el usuario con id 1
+        if ($data[$i]['id'] == 1) {
+          $data[$i]['estado'] = '<span class="badge badge-success" style="color: gray">ADMINISTRADOR</span>';
+          $data[$i]['acciones'] = '<div></div>';
+        } else {
+          $data[$i]['acciones'] = '<div style="display: flex; align-items: center;">
                       <button class="edit-button" onclick="btnEditarUser(' . $data[$i]['id'] . ');" style="margin-right: 5px;">
                           <svg class="edit-svgIcon" viewBox="0 0 512 512" style="width: 1em; height: 1em; fill: currentColor;">
                               <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
@@ -40,25 +40,25 @@ class Usuarios extends Controller
                           </svg>
                       </button>
                   </div>';
-              }
-          } else {
-              $data[$i]['estado'] = '<span class="badge badge-danger" style="color: red">Inactivo</span>';
-            $data[$i]['acciones'] = '<div style="display: flex; align-items: center;">
+        }
+      } else {
+        $data[$i]['estado'] = '<span class="badge badge-danger" style="color: red">Inactivo</span>';
+        $data[$i]['acciones'] = '<div style="display: flex; align-items: center;">
                 <button class="activate-button" onclick="btnReingresarUser(' . $data[$i]['id'] . ');" style="margin-right: 5px;">
                     <svg class="activate-svgIcon" viewBox="0 0 512 512" style="width: 1em; height: 1em;">
                         <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 480c-123.7 0-224-100.3-224-224S132.3 32 256 32s224 100.3 224 224-100.3 224-224 224zm112-256c0 13.3-10.7 24-24 24h-40v40c0 13.3-10.7 24-24 24s-24-10.7-24-24v-40h-40c-13.3 0-24-10.7-24-24s10.7-24 24-24h40v-40c0-13.3 10.7-24 24-24s24 10.7 24 24v40h40c13.3 0 24 10.7 24 24z" fill="white"></path>
                     </svg>
                 </button>
             </div>';
-          }
       }
-      header('Content-Type: application/json');
-      echo json_encode($data, JSON_UNESCAPED_UNICODE);
-      die();
+    }
+    header('Content-Type: application/json');
+    echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    die();
   }
-  
-  
-  
+
+
+
   public function validar()
   {
     if (empty($_POST['usuario']) || empty($_POST['clave'])) {

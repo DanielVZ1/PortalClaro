@@ -1,6 +1,7 @@
 <?php
 // Función para obtener el nombre de la base de datos (debe ser reemplazada con tu lógica real)
-function obtenerNombreBaseDatos() {
+function obtenerNombreBaseDatos()
+{
     // Podrías recuperarlo de una variable global, de una configuración, o realizar una consulta a la base de datos para obtenerlo
     $nombreBaseDatos = "nombre_base_de_datos"; // Reemplaza esto con la forma en que obtienes el nombre
 
@@ -35,4 +36,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archivo'])) {
 http_response_code(400); // Establecer código de error 400 (Solicitud incorrecta)
 echo json_encode(['success' => false, 'error' => 'Error al procesar la solicitud']);
 exit; // Finalizar la ejecución después de enviar la respuesta de error
-?>

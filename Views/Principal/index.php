@@ -1,54 +1,72 @@
-<?php 
-include "Views/Templates/header.php"; 
+<?php
+include "Views/Templates/header.php";
 $id = $_SESSION['usuario'];
 ?>
 
 <input type="hidden" value="<?php echo $id; ?>" class="text" id="id_usuario">
 
 
-    <main class="animated-background">
-        <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
-        <div style="text-align: center; padding-top: 50px; margin-left: -180px; position: relative; z-index: 1;"> <!-- Cuadro de contenido -->
-            <form action="#" method="post">
-                <style>
-                    /* Fondo animado */
-                    .animated-background {
-                        background: linear-gradient(270deg, #D70B0B, #FF0000);
-                        background-size: 400% 400%;
-                        animation: gradient 10s ease infinite;
-                        font-family: 'Roboto', sans-serif;
-                        padding: 50px;
-                        border-radius: 10px; /* Opcional: para bordes redondeados */
+<main class="animated-background">
+    <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+    <div style="text-align: center; padding-top: 50px; margin-left: -180px; position: relative; z-index: 1;"> <!-- Cuadro de contenido -->
+        <form action="#" method="post">
+            <style>
+                /* Fondo animado */
+                .animated-background {
+                    background: linear-gradient(270deg, #D70B0B, #FF0000);
+                    background-size: 400% 400%;
+                    animation: gradient 10s ease infinite;
+                    font-family: 'Roboto', sans-serif;
+                    padding: 50px;
+                    border-radius: 10px;
+                    /* Opcional: para bordes redondeados */
+                }
+
+                @keyframes gradient {
+                    0% {
+                        background-position: 100% 50%;
                     }
 
-                    @keyframes gradient {
-                        0% { background-position: 100% 50%; } /* Empieza desde la derecha */
-                        50% { background-position: 0% 50%; }   /* Se mueve a la izquierda */
-                        100% { background-position: 100% 50%; } /* Vuelve a la derecha */
+                    /* Empieza desde la derecha */
+                    50% {
+                        background-position: 0% 50%;
                     }
-                </style>
 
-                <label class="red-background" style="color: white; font-size: 2rem;">
-                    BIENVENIDO: <?php echo htmlspecialchars($_SESSION['usuario']); ?>
-                </label>
+                    /* Se mueve a la izquierda */
+                    100% {
+                        background-position: 100% 50%;
+                    }
 
-                <div id="current_date" class="red-background" style="color: aliceblue; font-size: 1.5rem; margin-top: 20px;">
-                    <script>
-                        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                        document.getElementById("current_date").innerHTML = new Date().toLocaleDateString('es-ES', options);
-                    </script>
-                </div>
+                    /* Vuelve a la derecha */
+                }
+            </style>
 
-                <div class="reloj red-background" id="reloj" style="color: aliceblue; font-size: 1.5rem; margin-top: 20px;"></div>
-                <script src="Views/Reloj/Reloj.js"></script>
+            <label class="red-background" style="color: white; font-size: 2rem;">
+                BIENVENIDO: <?php echo htmlspecialchars($_SESSION['usuario']); ?>
+            </label>
 
-            </form>
-        </div>
-    </main>
+            <div id="current_date" class="red-background" style="color: aliceblue; font-size: 1.5rem; margin-top: 20px;">
+                <script>
+                    const options = {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    };
+                    document.getElementById("current_date").innerHTML = new Date().toLocaleDateString('es-ES', options);
+                </script>
+            </div>
+
+            <div class="reloj red-background" id="reloj" style="color: aliceblue; font-size: 1.5rem; margin-top: 20px;"></div>
+            <script src="Views/Reloj/Reloj.js"></script>
+
+        </form>
+    </div>
+</main>
 
 
-<?php 
-include "Views/Templates/footer.php"; 
+<?php
+include "Views/Templates/footer.php";
 ?>
 
 <!-- Particles.js -->

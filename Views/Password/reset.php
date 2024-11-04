@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Confirmar Nueva Contraseña <span class="text-danger fw-bold">*</span></label>
-                                            <input type="password" onkeydown="return /^\S+$/i.test(event.key)" maxlength="80" class="form-control" id="confirmar_Clave" placeholder="Confirmar contraseña" />                                            
+                                            <input type="password" onkeydown="return /^\S+$/i.test(event.key)" maxlength="80" class="form-control" id="confirmar_Clave" placeholder="Confirmar contraseña" />
                                         </div>
                                         <div class="d-flex gap-2">
                                             <button type="button" class="btn btn-primary flex-grow-1" id="btnAccion">Cambiar la contraseña</button>
@@ -64,13 +64,13 @@
     <script>
         const base_url = '<?php echo base_url; ?>';
     </script>
-    
+
     <script src="<?php echo base_url; ?>assets/js/sweetalert2.all.min.js"></script>
-    
+
     <!-- Bootstrap 5 Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo base_url . 'assets/js/Restablecer.js?'; ?><?php echo time(); ?>"></script>
-    
+
 </body>
 
 </html>

@@ -7,7 +7,8 @@ class RolesModel extends Query
     public $intStatus;
 
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -26,7 +27,8 @@ class RolesModel extends Query
         return $request;
     }
 
-    public function insertRol(string $rol, string $descripcion, int $status){
+    public function insertRol(string $rol, string $descripcion, int $status)
+    {
         $return = "";
         $this->strRol =  $rol;
         $this->strDescripcion = $descripcion;
@@ -39,13 +41,14 @@ class RolesModel extends Query
             $arrData = array($this->strRol, $this->strDescripcion, $this->intStatus);
             $request_insert = $this->insertar($query_insert, $arrData);
             $return = $request_insert;
-        }else{
+        } else {
             $return = "exist";
         }
         return $return;
     }
 
-    public function updateRol(int $idrol, string $rol, string $descripcion, int $status){
+    public function updateRol(int $idrol, string $rol, string $descripcion, int $status)
+    {
         $this->intIdrol =  $idrol;
         $this->strRol =  $rol;
         $this->strDescripcion = $descripcion;
@@ -53,23 +56,20 @@ class RolesModel extends Query
         $sql = "SELECT * FROM rol  WHERE nombrerol = '$this->strRol' AND id != $this->intIdrol";
         $request = $this->selectAll($sql);
 
-        if(empty($request))
-        {
+        if (empty($request)) {
             $sql = "UPDATE rol SET nombrerol = ?, descripcion = ?, status = ? WHERE id = $this->intIdrol ";
-            $arrData = array($this->strRol,$this->strDescripcion,$this->intStatus );
-            $request = $this->save($sql,$arrData);
-        }else{
+            $arrData = array($this->strRol, $this->strDescripcion, $this->intStatus);
+            $request = $this->save($sql, $arrData);
+        } else {
             $request = "exist";
         }
         return $request;
     }
 
-    public function DeleteRol($idrol) {
+    public function DeleteRol($idrol)
+    {
         $sql = "DELETE FROM rol WHERE id = :id";
         $params = [":id" => $idrol];
         return $this->insert($sql, $params); // Asumiendo que insert es el método para ejecutar consultas con parámetros
     }
-
-    
 }
-?>
