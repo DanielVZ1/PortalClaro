@@ -1,3 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivo Excel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <style>
+        .button1, .button2 {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .button1:hover, .button2:hover {
+            background-color: #0056b3;
+        }
+        .file-input {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
 <?php include "Views/Templates/header.php"; ?>
 
 <div id="contentAjax"></div>
@@ -6,48 +35,43 @@
         <div>
             <h1><i class="fas fa-dollar-sign"></i> <?= $data['page_title'] ?></h1>
             <div style="display: flex; align-items: center;">
-                <!-- Botón Nueva Venta -->
-                <button class="button" onclick="frmVentas()" style="margin-right: 10px;">
-                    <span class="button_lg">
-                        <span class="button_sl"></span>
-                        <span class="button_text" style="cursor: pointer;">
-                            <i class="fas fa-plus" style="margin-right: 5px;"></i> Nueva Venta
-                        </span>
-                    </span>
-                </button>
+    <!-- Botón Nueva Venta -->
+    <button class="button" onclick="frmVentas()" style="margin-right: 10px;">
+        <span class="button_lg">
+            <span class="button_sl"></span>
+            <span class="button_text" style="cursor: pointer;">
+                <i class="fas fa-plus" style="margin-right: 5px;"></i> Nueva Venta
+            </span>
+        </span>
+    </button>
 
-                <!-- Botón Subir Archivo -->
-                <div class="file-input" style="margin-right: 10px;">
-                    <label class="button1">
-                        <span class="button1_lg">
-                            <span class="button1_sl"></span>
-                            <span class="button1_text">
-                                <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
-                            </span>
-                        </span>
-                        <input id="file-upload" type="file" style="display: none;" onchange="handleFileUpload(this)">
-                    </label>
-                </div>
-
-                <!-- Botón Subir Excel -->
-                <button type="submit" class="button2">
-                    <span class="button2_lg">
-                        <span class="button2_sl"></span>
-                        <span class="button2_text">Subir Excel</span>
-                    </span>
-                </button>
-            </div>
-
-        </div>
-
-        <!--<ul  class="app-breadcrumb breadcrumb">
-           <li  class="breadcrumb-item"><i  class="fa fa-home fa-lg"></i></li>
-           <li class="breadcrumb-item"><a href="<?php echo base_url; ?>Roles"><?= $data['page_title'] ?></a></li>
-        </ul>-->
+    <!-- Botón Subir Archivo -->
+    <div class="file-input" style="margin-right: 10px;">
+        <label class="button1">
+            <span class="button1_lg">
+                <span class="button1_sl"></span>
+                <span class="button1_text">
+                    <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
+                </span>
+            </span>
+            <input id="file-upload" type="file" style="display: none;" onchange="handleFileUpload(this)">
+        </label>
     </div>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Botón Subir Excel -->
+    <button type="submit" class="button2">
+        <span class="button2_lg">
+            <span class="button2_sl"></span>
+            <span class="button2_text">Subir Excel</span>
+        </span>
+    </button>
+</div>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Tabla para listar los promotores -->
     <table class="table table-light" id="tblVentas">
@@ -802,9 +826,9 @@
                             </div>
                         </div>
                         <div style="margin-top: 20px;  display: flex; gap: 15px;">
-                            <button class="shadow__btn" type="button" onclick="registrarVentas(event)" id="btnAccion">Registrar</button>
-                            <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
-                        </div>
+                        <button class="shadow__btn" type="button" onclick="registrarVentas(event)" id="btnAccion">Registrar</button>
+                        <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
+                    </div>
                     </form>
                 </div>
             </div>
@@ -843,6 +867,50 @@
             event.preventDefault(); // Evitar el comportamiento por defecto del botón
             // Aquí puedes agregar la lógica para enviar el formulario
             alert("Ventas registradas");
+        }
+        function showFileAlert() {
+            swal({
+                title: "Archivo Seleccionado",
+                text: "¡Has seleccionado un archivo para subir!",
+                icon: "info",
+                timer: 2000,
+                buttons: false
+            });
+        }
+
+        function uploadFile() {
+            var formData = new FormData(document.getElementById("uploadForm"));
+
+            showUploadAlert();
+
+            $.ajax({
+                url: 'Controllers/UploadController.php', // Asegúrate de que la ruta sea correcta
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        swal("Éxito", response.message, "success").then(() => {
+                            location.reload(); // Recarga la página solo si la carga fue exitosa
+                        });
+                    } else {
+                        swal("Error", response.message, "error");
+                    }
+                },
+                error: function() {
+                    swal("Error", "Hubo un problema al subir el archivo.", "error");
+                }
+            });
+        }
+
+        function showUploadAlert() {
+            swal({
+                title: "Subiendo Archivo",
+                text: "¡Tu archivo se está subiendo!",
+                icon: "info",
+                buttons: false
+            });
         }
     </script>
 
