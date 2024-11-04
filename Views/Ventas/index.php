@@ -35,28 +35,20 @@
         <div>
             <h1><i class="fas fa-dollar-sign"></i> <?= $data['page_title'] ?></h1>
             <div style="display: flex; align-items: center;">
-    <!-- Botón Nueva Venta -->
-    <button class="button" onclick="frmVentas()" style="margin-right: 10px;">
-        <span class="button_lg">
-            <span class="button_sl"></span>
-            <span class="button_text" style="cursor: pointer;">
-                <i class="fas fa-plus" style="margin-right: 5px;"></i> Nueva Venta
-            </span>
-        </span>
-    </button>
-
-    <!-- Botón Subir Archivo -->
-    <div class="file-input" style="margin-right: 10px;">
-        <label class="button1">
-            <span class="button1_lg">
-                <span class="button1_sl"></span>
-                <span class="button1_text">
-                    <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
-                </span>
-            </span>
-            <input id="file-upload" type="file" style="display: none;" onchange="handleFileUpload(this)">
-        </label>
-    </div>
+                <!-- Formulario para subir archivo Excel -->
+                <form id="uploadForm" enctype="multipart/form-data" style="display: flex; align-items: center;">
+                    <!-- Botón Subir Archivo -->
+                    <div class="file-input" style="margin-right: 10px;">
+                        <label class="button1">
+                            <span class="button1_lg">
+                                <span class="button1_sl"></span>
+                                <span class="button1_text">
+                                    <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
+                                </span>
+                            </span>
+                            <input id="file-upload" type="file" name="dataExcel" style="display: none;" accept=".xlsx, .xls" onchange="showFileAlert()">
+                        </label>
+                    </div>
 
     <!-- Botón Subir Excel -->
     <button type="submit" class="button2">
@@ -71,7 +63,48 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+  function showFileAlert() {
+    swal({
+        title: "Archivo Seleccionado",
+        text: "¡Has seleccionado un archivo para subir!",
+        icon: "info",
+        timer: 2000,
+        buttons: false
+    });
+}
+
+function uploadFile() {
+    const formData = new FormData(document.getElementById("uploadForm"));
+    showUploadAlert();
+
+    fetch('Controllers/UploadController.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Inserta la respuesta en el contenido Ajax (opcional)
+        document.getElementById("contentAjax").innerHTML = data;
+
+        // Recargar la página después de que se haya subido el archivo
+        location.reload();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        swal("Error", "Hubo un problema al subir el archivo.", "error");
+    });
+}
+
+function showUploadAlert() {
+    swal({
+        title: "Subiendo Archivo",
+        text: "¡Tu archivo se está subiendo!",
+        icon: "info",
+        buttons: false
+    });
+}
+    </script>
 
     <!-- Tabla para listar los promotores -->
     <table class="table table-light" id="tblVentas">
@@ -867,50 +900,6 @@
             event.preventDefault(); // Evitar el comportamiento por defecto del botón
             // Aquí puedes agregar la lógica para enviar el formulario
             alert("Ventas registradas");
-        }
-        function showFileAlert() {
-            swal({
-                title: "Archivo Seleccionado",
-                text: "¡Has seleccionado un archivo para subir!",
-                icon: "info",
-                timer: 2000,
-                buttons: false
-            });
-        }
-
-        function uploadFile() {
-            var formData = new FormData(document.getElementById("uploadForm"));
-
-            showUploadAlert();
-
-            $.ajax({
-                url: 'Controllers/UploadController.php', // Asegúrate de que la ruta sea correcta
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.success) {
-                        swal("Éxito", response.message, "success").then(() => {
-                            location.reload(); // Recarga la página solo si la carga fue exitosa
-                        });
-                    } else {
-                        swal("Error", response.message, "error");
-                    }
-                },
-                error: function() {
-                    swal("Error", "Hubo un problema al subir el archivo.", "error");
-                }
-            });
-        }
-
-        function showUploadAlert() {
-            swal({
-                title: "Subiendo Archivo",
-                text: "¡Tu archivo se está subiendo!",
-                icon: "info",
-                buttons: false
-            });
         }
     </script>
 
