@@ -95,7 +95,7 @@ function fntEditRol(button) {
     // Cambia el título y la apariencia del modal
     document.querySelector('#titleModal').innerHTML = "Actualizar Rol";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
-    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+    document.querySelector('#btnActionForm').classList.replace("edit-button", "btn-info");
     document.querySelector('#btnText').innerHTML = "Actualizar";
 
     var idRol = button.getAttribute("rl"); // Obtén el id del rol

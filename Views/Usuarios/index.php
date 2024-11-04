@@ -501,19 +501,7 @@
         }
     }
 
-    function validatePassword(input) {
-        const clavePattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,50}$/;
-        const isValid = clavePattern.test(input.value);
-        if (!isValid) {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: 'La contraseña debe tener al menos 6 caracteres, incluyendo una mayúscula, un número y un carácter especial.',
-                showConfirmButton: false,
-                timer: 3000
-            });
-        }
-    }
+ 
 </script>
 
 
