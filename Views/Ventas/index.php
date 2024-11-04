@@ -35,6 +35,16 @@
         <div>
             <h1><i class="fas fa-dollar-sign"></i> <?= $data['page_title'] ?></h1>
             <div style="display: flex; align-items: center;">
+                <!-- Botón Nueva Venta -->
+                <button class="button" onclick="frmVentas()">
+                    <span class="button_lg">
+                        <span class="button_sl"></span>
+                        <span class="button_text" style="cursor: pointer;">
+                            <i class="fas fa-plus" style="margin-right: 5px;"></i> Nueva Venta
+                        </span>
+                    </span>
+                </button>
+
                 <!-- Formulario para subir archivo Excel -->
                 <form id="uploadForm" enctype="multipart/form-data" style="display: flex; align-items: center;">
                     <!-- Botón Subir Archivo -->
@@ -50,15 +60,15 @@
                         </label>
                     </div>
 
-    <!-- Botón Subir Excel -->
-    <button type="submit" class="button2">
-        <span class="button2_lg">
-            <span class="button2_sl"></span>
-            <span class="button2_text">Subir Excel</span>
-        </span>
-    </button>
-</div>
-
+                    <!-- Botón Subir Excel -->
+                    <button type="button" class="button2" onclick="uploadFile()">
+                        <span class="button2_lg">
+                            <span class="button2_sl"></span>
+                            <span class="button2_text">Subir Excel</span>
+                        </span>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -131,7 +141,7 @@ function showUploadAlert() {
                 <th><i class="fas fa-store-alt"></i> Centro De Venta</th>
                 <th><i class="fas fa-exchange-alt"></i> Canal-Rediac</th>
                 <th><i class="fas fa-handshake"></i> Aliado</th>
-                <th><i class="fas fa-cogs"></i> Acciones</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -141,132 +151,6 @@ function showUploadAlert() {
     </table>
 
     <style>
-        /* From Uiverse.io by aaronross1 */
-        .delete-button {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgb(20, 20, 20);
-            border: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-            cursor: pointer;
-            transition-duration: 0.3s;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .delete-svgIcon {
-            width: 15px;
-            transition-duration: 0.3s;
-        }
-
-        .delete-svgIcon path {
-            fill: white;
-            /* Asegúrate de que el ícono sea blanco */
-        }
-
-        .delete-button:hover {
-            width: 100px;
-            border-radius: 50px;
-            transition-duration: 0.3s;
-            background-color: rgb(255, 69, 69);
-            align-items: center;
-        }
-
-        .delete-button:hover .delete-svgIcon {
-            width: 20px;
-            transition-duration: 0.3s;
-            transform: translateY(60%);
-            transform: rotate(360deg);
-            /* Simplificado */
-        }
-
-        .delete-button::before {
-            display: none;
-            content: "Eliminar";
-            color: white;
-            transition-duration: 0.3s;
-            font-size: 2px;
-        }
-
-        .delete-button:hover::before {
-            display: block;
-            padding-right: 10px;
-            font-size: 13px;
-            opacity: 1;
-            transform: translateY(0px);
-            transition-duration: 0.3s;
-        }
-
-        /* From Uiverse.io by aaronross1 */
-        .edit-button {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgb(20, 20, 20);
-            border: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-            cursor: pointer;
-            transition-duration: 0.3s;
-            overflow: hidden;
-            position: relative;
-            text-decoration: none !important;
-        }
-
-        .edit-svgIcon {
-            width: 17px;
-            transition-duration: 0.3s;
-        }
-
-        .edit-svgIcon path {
-            fill: white;
-        }
-
-        .edit-button:hover {
-            width: 120px;
-            border-radius: 50px;
-            transition-duration: 0.3s;
-            background-color: rgb(0, 123, 255);
-            /* Color azul */
-            align-items: center;
-        }
-
-        .edit-button:hover .edit-svgIcon {
-            width: 20px;
-            transition-duration: 0.3s;
-            transform: translateY(60%);
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-
-        .edit-button::before {
-            display: none;
-            content: "Editar";
-            color: white;
-            transition-duration: 0.3s;
-            font-size: 2px;
-        }
-
-        .edit-button:hover::before {
-            display: block;
-            padding-right: 10px;
-            font-size: 13px;
-            opacity: 1;
-            transform: translateY(0px);
-            transition-duration: 0.3s;
-        }
-
         /* From Uiverse.io by mrhyddenn */
         .button {
             -moz-appearance: none;
@@ -382,7 +266,6 @@ function showUploadAlert() {
         .button:hover .button_sl {
             width: calc(100% + 15px);
         }
-
         .button1:hover .button1_sl {
             width: calc(100% + 15px);
         }
@@ -506,65 +389,58 @@ function showUploadAlert() {
             background-color: #fff;
         }
 
+ 
+.shadow__btn {
+  padding: 5px 10px;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+}
 
-        .shadow__btn {
-            padding: 5px 10px;
-            border: none;
-            font-size: 12px;
-            color: #fff;
-            border-radius: 7px;
-            letter-spacing: 1px;
-            font-weight: 700;
-            text-transform: uppercase;
-            transition: 0.5s;
-            transition-property: box-shadow;
-        }
+.shadow__btn {
+  background: rgb(0,140,255);
+  box-shadow: 0 0 25px rgb(0,140,255);
+}
 
-        .shadow__btn {
-            background: rgb(0, 140, 255);
-            box-shadow: 0 0 25px rgb(0, 140, 255);
-        }
+.shadow__btn:hover {
+  box-shadow: 0 0 5px rgb(0,140,255),
+              0 0 25px rgb(0,140,255),
+              0 0 50px rgb(0,140,255),
+              0 0 100px rgb(0,140,255);
+}
 
-        .shadow__btn:hover {
-            box-shadow: 0 0 5px rgb(0, 140, 255),
-                0 0 25px rgb(0, 140, 255),
-                0 0 50px rgb(0, 140, 255),
-                0 0 100px rgb(0, 140, 255);
-        }
+/* From Uiverse.io by mrhyddenn */
+.shadow__btn--red {
+  padding: 5px 10px;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+}
 
-        /* From Uiverse.io by mrhyddenn */
-        .shadow__btn--red {
-            padding: 5px 10px;
-            border: none;
-            font-size: 12px;
-            color: #fff;
-            border-radius: 7px;
-            letter-spacing: 1px;
-            font-weight: 700;
-            text-transform: uppercase;
-            transition: 0.5s;
-            transition-property: box-shadow;
-        }
+.shadow__btn--red {
+  background: rgb(255,0,0); /* Rojo */
+  box-shadow: 0 0 25px rgb(255,0,0); /* Rojo */
+}
 
-        .shadow__btn--red {
-            background: rgb(255, 0, 0);
-            /* Rojo */
-            box-shadow: 0 0 25px rgb(255, 0, 0);
-            /* Rojo */
-        }
-
-        .shadow__btn--red:hover {
-            box-shadow: 0 0 5px rgb(255, 0, 0),
-                /* Rojo */
-                0 0 25px rgb(255, 0, 0),
-                /* Rojo */
-                0 0 50px rgb(255, 0, 0),
-                /* Rojo */
-                0 0 100px rgb(255, 0, 0);
-            /* Rojo */
-        }
-
-        .button2 {
+.shadow__btn--red:hover {
+  box-shadow: 0 0 5px rgb(255,0,0), /* Rojo */
+              0 0 25px rgb(255,0,0), /* Rojo */
+              0 0 50px rgb(255,0,0), /* Rojo */
+              0 0 100px rgb(255,0,0); /* Rojo */
+}
+.button2 {
             -moz-appearance: none;
             -webkit-appearance: none;
             appearance: none;
@@ -682,6 +558,7 @@ function showUploadAlert() {
         .button2:hover .button2_lg::after {
             background-color: #fff;
         }
+
     </style>
 
 
@@ -858,7 +735,8 @@ function showUploadAlert() {
                                 </div>
                             </div>
                         </div>
-                        <div style="margin-top: 20px;  display: flex; gap: 15px;">
+
+                        <div style="margin-top: 20px;  gap: 15px;">
                         <button class="shadow__btn" type="button" onclick="registrarVentas(event)" id="btnAccion">Registrar</button>
                         <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
                     </div>
