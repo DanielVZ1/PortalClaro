@@ -526,7 +526,7 @@
                     <!-- Contenido -->
 
                 </div>
-
+                <script src="Assets/js/inactividad.js"></script>  <!-- Ruta del archivo JS -->
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
                 <script>
