@@ -26,8 +26,7 @@ include "Views/Templates/header.php";
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<style>
+        <style>
     /* From Uiverse.io by mrhyddenn */
     .button {
         -moz-appearance: none;
@@ -394,6 +393,8 @@ include "Views/Templates/header.php";
         transition-duration: 0.3s;
     }
 </style>
+</head>
+
 <table class="table table-light" id="tblUsuarios">
     <thead class="thead-dark">
         <tr>

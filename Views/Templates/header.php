@@ -76,6 +76,30 @@
             transition: transform 0.3s ease;
         }
 
+        .circle1 {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    left: -10px; /* Desplaza el círculo hacia la izquierda */
+}
+
+
+        .circle1:hover {
+            border-color: #D70B0B;
+        }
+
+        .circle1 img {
+            width: 70%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
         #layoutSidenav {
             display: flex;
             height: 100vh;
@@ -263,7 +287,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: -10px;
             padding: 12px 36px;
             border-radius: 16px;
             overflow: hidden;
@@ -304,7 +328,7 @@
             top: 100%;
             border-radius: 0 0 16px 16px;
             left: 0;
-            width: 100%;
+            width: 80%;
             overflow: hidden;
             border: 1px solid #cccccc;
             opacity: 0;
@@ -427,8 +451,8 @@
                         <div class="menu">
                             <div class="item">
                                 <a href="#" class="link">
-                                    <div class="circle">
-                                        <img src="Assets/img/ClaroConfig2.png" alt="Logo" style="width: 60px">
+                                    <div class="circle1">
+                                        <img src="Assets/img/ClaroConfig2.png" alt="Logo" style="width: 55px; margin-left: -5px;" >
                                     </div>
                                     <!-- Se eliminó el span con el texto "Our Services" -->
                                     <svg viewBox="0 0 360 360" xml:space="preserve">
@@ -444,7 +468,7 @@
                                         <a href="<?php echo base_url; ?>Roles" class="submenu-link">Roles</a>
                                     </div>
                                     <div class="submenu-item">
-                                        <a href="<?php echo base_url; ?>Respaldar" class="submenu-link">Gestión de Respaldos</a>
+                                        <a href="<?php echo base_url; ?>Respaldar" class="submenu-link">Respaldos</a>
                                     </div>
                                 </div>
                             </div>
@@ -453,8 +477,8 @@
                         <div class="menu">
                             <div class="item">
                                 <a href="#" class="link">
-                                    <div class="circle">
-                                        <img src="Assets/img/Comunidad.png" alt="Logo" style="width: 85px">
+                                    <div class="circle1">
+                                    <img src="Assets/img/Comunidad.png" alt="Logo" style="width: 85px; margin-left: -5px;">
                                     </div>
                                     <!-- Se eliminó el span con el texto "Our Services" -->
                                     <svg viewBox="0 0 360 360" xml:space="preserve">
@@ -467,7 +491,7 @@
                                 </a>
                                 <div class="submenu">
                                     <div class="submenu-item">
-                                        <a href="<?php echo base_url; ?>Promotores" class="submenu-link">Registro de Promotores</a>
+                                        <a href="<?php echo base_url; ?>Promotores" class="submenu-link">Promotores</a>
                                     </div>
                                     <div class="submenu-item">
                                         <a href="<?php echo base_url; ?>Asistencia" class="submenu-link">Asistencia</a>
