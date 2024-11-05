@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function() {
             { 'data': 'canal' },
             { 'data': 'proyecto' },
             { 'data': 'cargo' },
+            { 'data': 'cv' },
+            { 'data': 'antecedentes' },
+            { 'data': 'contrato' },
             { 'data': 'estado' },
             { 'data': 'acciones' }
         ]
