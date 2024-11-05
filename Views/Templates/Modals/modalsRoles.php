@@ -5,10 +5,8 @@
       color: black;
       /* Cambia el color de los labels a negro */
     }
-  </style>
-</head>
-<style>
-  .shadow__btn {
+
+    .shadow__btn {
     padding: 5px 10px;
     border: none;
     font-size: 12px;
@@ -246,7 +244,9 @@
     transform: translateY(0px);
     transition-duration: 0.3s;
   }
-</style>
+  </style>
+</head>
+
 <div class="modal fade" id="modalFormRol" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">

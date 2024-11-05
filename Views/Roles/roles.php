@@ -6,9 +6,7 @@ getModal('modalsRoles', $data)
 
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-
-<style>
+    <style>
     .button {
         -moz-appearance: none;
         -webkit-appearance: none;
@@ -123,7 +121,14 @@ getModal('modalsRoles', $data)
     .button:hover .button_sl {
         width: calc(100% + 15px);
     }
+
+    .button:hover .button_lg::after {
+  background-color: #fff;
+}
 </style>
+</head>
+
+
 
 <div id="contentAjax"></div>
 <main class="app-content">

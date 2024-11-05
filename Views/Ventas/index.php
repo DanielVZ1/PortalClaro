@@ -398,6 +398,10 @@
                 width: calc(100% + 15px);
             }
 
+            .button:hover .button_lg::after {
+  background-color: #fff;
+}
+
             .button1:hover .button1_sl {
                 width: calc(100% + 15px);
             }
