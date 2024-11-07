@@ -1,6 +1,4 @@
-<!-- views/promotores/index.php -->
 <?php include "Views/Templates/header.php"; ?>
-
 
 <div id="contentAjax"></div>
 <main class="app-content">
@@ -15,15 +13,36 @@
                     </span>
                 </span>
             </button>
+            <!-- Botón de Exportar a Excel -->
+            <button id="exportBtn" class="button">
+                <span class="button_lg">
+                    <span class="button_sl"></span>
+                    <span class="button_text" style="cursor: pointer;">
+                        <i class="fas fa-file-excel" style="margin-right: 5px;"></i> Exportar a Excel
+                    </span>
+                </span>
+            </button>
         </div>
-        <!--<ul  class="app-breadcrumb breadcrumb">
-           <li  class="breadcrumb-item"><i  class="fa fa-home fa-lg"></i></li>
-           <li class="breadcrumb-item"><a href="<?php echo base_url; ?>Roles"><?= $data['page_title'] ?></a></li>
-        </ul>-->
     </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Función JavaScript para manejar el clic en el botón de exportación
+        $("#exportBtn").click(function () {
+            // Mostrar un mensaje de carga o algo similar
+            alert("Exportando a Excel...");
+            
+            // Crear un formulario dinámico con jQuery
+            var form = $('<form action="ExportarData.php" method="POST"></form>');
+            form.append('<input type="hidden" name="exportar" value="excel" />');
+            // Agregar el formulario a la página (sin mostrarlo)
+            $('body').append(form);
+            
+            // Enviar el formulario
+            form.submit();
+        });
+    </script>
     <!-- Tabla para listar los promotores -->
     <table class="table table-light" id="tblPromotores">
         <thead class="thead-dark">
