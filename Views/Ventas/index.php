@@ -39,6 +39,9 @@
 
 <div id="contentAjax"></div>
 <main class="app-content">
+
+    
+    
     <div class="app-title">
         <div>
             <h1><i class="fas fa-dollar-sign"></i> <?= $data['page_title'] ?></h1>
@@ -137,6 +140,59 @@ function showUploadAlert() {
     });
 }
     </script>
+<div class="row mb-4">
+    <div class="col-md-6">
+        <select id="filtroVentas" class="form-control">
+            <option value="todos">Todos</option>
+            <option value="hoy">Hoy</option>
+            <option value="ayer">Ayer</option>
+            <option value="semana">Esta Semana</option>
+            <option value="mes">Este Mes</option>
+            <option value="hace_semanas">Hace una Semana</option>
+            <option value="hace_meses">Hace un Mes</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <input type="date" id="fechaExacta" class="form-control" />
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#filtroVentas').change(function() {
+            const filtro = $(this).val();
+            const fecha = $('#fechaExacta').val();
+            filtrarVentas(filtro, fecha);
+        });
+
+        $('#fechaExacta').change(function() {
+            const fecha = $(this).val();
+            const filtro = $('#filtroVentas').val();
+            filtrarVentas(filtro, fecha);
+        });
+
+        function filtrarVentas(filtro, fecha) {
+            let url = base_url + "Ventas/listar";
+            const params = [];
+
+            if (filtro && filtro !== 'todos') {
+                params.push('filtro=' + filtro);
+            }
+
+            if (fecha) {
+                params.push('fecha=' + fecha);
+            }
+
+            if (params.length > 0) {
+                url += "?" + params.join("&");
+            }
+
+            tblVentas.ajax.url(url).load();
+        }
+    });
+</script>
+
 
     <!-- Tabla para listar los promotores -->
     <table class="table table-light" id="tblVentas">
