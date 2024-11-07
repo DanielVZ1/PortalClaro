@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
     <title>Subir Archivo Excel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
@@ -82,6 +84,8 @@
                 </form>
             </div>
         </div>
+        <button id="exportExcelBtn" class="btn btn-success">Exportar a Excel</button>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
@@ -448,6 +452,38 @@ function showUploadAlert() {
             alert("Ventas registradas");
         }
     </script>
+
+<script>
+    // Función para exportar los datos de la tabla a un archivo Excel
+    $('#exportExcelBtn').on('click', function() {
+        // Obtén los datos de la tabla DataTable
+        var table = $('#tblVentas').DataTable();
+        var data = table.rows().data();
+
+        // Crear una hoja de trabajo con los datos de la tabla
+        var ws_data = [];
+
+        // Agregar los encabezados de la tabla (puedes personalizar esto si es necesario)
+        var headers = table.columns().header().toArray().map(function (header) {
+            return $(header).text(); // Toma el texto del encabezado de cada columna
+        });
+        ws_data.push(headers);
+
+        // Agregar los datos de las filas
+        data.each(function (row) {
+            // Asegúrate de que cada fila sea un array
+            ws_data.push(Array.from(row));
+        });
+
+        // Crear el libro de trabajo de Excel
+        var ws = XLSX.utils.aoa_to_sheet(ws_data); // Convertir los datos a formato adecuado
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Ventas"); // Agregar la hoja al libro de trabajo
+
+        // Generar el archivo Excel y descargarlo
+        XLSX.writeFile(wb, "Reporte_Ventas.xlsx");
+    });
+</script>
 
 <?php include "Views/Ventas/estiloventas.php"; ?>
     <?php include "Views/Templates/footer.php"; ?>
