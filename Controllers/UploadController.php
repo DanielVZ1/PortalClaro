@@ -47,7 +47,18 @@ class UploadController
                 $datos[] = mysqli_real_escape_string($this->con, $valor !== null ? (string)$valor : '');
             }
 
-            // Verificar si el registro ya existe
+            // Verificar si el teléfono ya está registrado
+            $telefono = $datos[1]; // Suponemos que el teléfono está en la segunda columna
+            $checkTelefonoQuery = "SELECT * FROM ventas WHERE telefono = '$telefono'";
+            $resultTelefono = mysqli_query($this->con, $checkTelefonoQuery);
+
+            if (mysqli_num_rows($resultTelefono) > 0) {
+                // Si el teléfono ya está registrado, mostrar un mensaje y omitir el registro
+                $this->showAlert("El número de teléfono {$telefono} ya está registrado. No se guardará este registro.", 'warning');
+                continue; // No procesamos este registro
+            }
+
+            // Si el teléfono no está registrado, proceder con la inserción o actualización
             $id = $datos[0];
             $checkQuery = "SELECT * FROM ventas WHERE id = '$id'";
             $result = mysqli_query($this->con, $checkQuery);
@@ -61,7 +72,7 @@ class UploadController
                     punto_venta = '{$datos[10]}', departamento = '{$datos[11]}', zona = '{$datos[12]}', 
                     distribuidor = '{$datos[13]}', proveedor = '{$datos[14]}', producto = '{$datos[15]}', 
                     perfil_plan = '{$datos[16]}', tecnologia = '{$datos[17]}', centro_venta = '{$datos[18]}', 
-                    canal_rediac = '{$datos[19]}', aliado = '{$datos[20]}', estado = '{$datos[21]}'
+                    canal_rediac = '{$datos[19]}', aliado = '{$datos[20]}', estado = 1  -- Establecer estado en 1
                     WHERE id = '$id'";
 
                 if (!mysqli_query($this->con, $updateQuery)) {
@@ -70,7 +81,7 @@ class UploadController
                     $registros_importados++;
                 }
             } else {
-                // Insertar nuevo registro
+                // Insertar nuevo registro con estado = 1
                 $insertarData = "INSERT INTO ventas (
                     id, telefono, medio, subgerente, coordinador, supervisor, fecha, codigo, ubicacion, 
                     promotor, punto_venta, departamento, zona, distribuidor, proveedor, producto, 
@@ -80,7 +91,7 @@ class UploadController
                     '{$datos[5]}', '{$datos[6]}', '{$datos[7]}', '{$datos[8]}', '{$datos[9]}', 
                     '{$datos[10]}', '{$datos[11]}', '{$datos[12]}', '{$datos[13]}', '{$datos[14]}', 
                     '{$datos[15]}', '{$datos[16]}', '{$datos[17]}', '{$datos[18]}', '{$datos[19]}', 
-                    '{$datos[20]}', '{$datos[21]}'
+                    '{$datos[20]}', 1  -- Establecer estado en 1
                 )";
 
                 if (!mysqli_query($this->con, $insertarData)) {
@@ -103,7 +114,18 @@ class UploadController
 
     private function showAlert($message, $type)
     {
-        echo "<div class='alert alert-$type' role='alert'>$message</div>";
+        $alertId = 'alert_' . uniqid(); // Generar un ID único para la alerta
+        echo "<div class='alert alert-$type' id='$alertId' role='alert'>$message</div>";
+        // Incluir el script para desaparecer la alerta después de 5 segundos
+        echo "
+        <script>
+            setTimeout(function() {
+                var alert = document.getElementById('$alertId');
+                if (alert) {
+                    alert.style.display = 'none';
+                }
+            }, 180000); // 180000ms = 180 segundos
+        </script>";
     }
 }
 

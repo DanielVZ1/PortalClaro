@@ -9,12 +9,45 @@ class VentasModel extends Query
         parent::__construct();
     }
 
-    public function getVentas()
+    public function getVentas($filtro, $fecha)
     {
+        // Construir la consulta SQL con el filtro
         $sql = "SELECT * FROM ventas WHERE estado = 1";
+    
+        // Aplicar el filtro de fecha si es necesario
+        if ($filtro !== 'todos') {
+            switch ($filtro) {
+                case 'hoy':
+                    $sql .= " AND DATE(fecha) = CURDATE()";
+                    break;
+                case 'ayer':
+                    $sql .= " AND DATE(fecha) = CURDATE() - INTERVAL 1 DAY";
+                    break;
+                case 'semana':
+                    $sql .= " AND YEARWEEK(fecha, 1) = YEARWEEK(CURDATE(), 1)";
+                    break;
+                case 'mes':
+                    $sql .= " AND MONTH(fecha) = MONTH(CURDATE()) AND YEAR(fecha) = YEAR(CURDATE())";
+                    break;
+                case 'hace_semanas':
+                    $sql .= " AND fecha < CURDATE() - INTERVAL 1 WEEK";
+                    break;
+                case 'hace_meses':
+                    $sql .= " AND fecha < CURDATE() - INTERVAL 1 MONTH";
+                    break;
+            }
+        }
+    
+        // Filtrar por una fecha específica si se proporciona
+        if ($fecha) {
+            $sql .= " AND DATE(fecha) = '$fecha'";
+        }
+    
+        // Ejecutar la consulta SQL
         $data = $this->selectAll($sql);
         return $data;
     }
+    
 
     public function registrarVentas(
         string $telefono,
