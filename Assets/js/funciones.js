@@ -118,10 +118,10 @@ function registrarUser(e) {
     const nombre = document.getElementById("nombre");
     const clave = document.getElementById("clave");
     const confirmar = document.getElementById("confirmar");
-    const rol = document.getElementById("rol"); // Cambiado a 'rol'
+    const rol = document.getElementById("id_rol"); // Cambiado a 'rol'
     const email = document.getElementById("email");
 
-    if (usuario.value == "" || nombre.value == "" || rol.value == "" || email.value == "") {
+    if (usuario.value == "" || nombre.value == "" || id_rol.value == "" || email.value == "") {
         Swal.fire({
             position: 'top-end',
             icon: 'error',
@@ -180,7 +180,7 @@ function btnEditarUser(id) {
     const usuarioElement = document.getElementById("usuario");
     const nombreElement = document.getElementById("nombre");
     const emailElement = document.getElementById("email");
-    const rolElement = document.getElementById("rol");
+    const rolElement = document.getElementById("id_rol");
 
     titleElement.innerHTML = "Actualizar usuario";
     btnAccionElement.innerHTML = "Modificar";

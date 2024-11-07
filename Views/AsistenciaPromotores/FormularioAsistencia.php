@@ -136,17 +136,17 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="proveedor" class="form-label"><i class="fas fa-store"></i> Proveedor:</label>
-                        <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)">
+                        <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)"required>
                     </div>
                     <div class="col">
                         <label for="supervisor" class="form-label"><i class="fas fa-user-tie"></i> Supervisor:</label>
-                        <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)">
+                        <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)"required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="coordinador" class="form-label"><i class="fas fa-users"></i> Coordinador del Proyecto:</label>
-                        <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)">
+                        <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)"required>
                     </div>
                 </div>
                 <div class="row mb-3">
