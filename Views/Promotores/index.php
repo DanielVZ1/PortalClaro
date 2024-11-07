@@ -24,25 +24,49 @@
             </button>
         </div>
     </div>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Mensaje de carga (alerta de generación) -->
+    <div id="loadingMessage" style="display:none;">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i> Generando archivo...
+        </div>
+    </div>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         // Función JavaScript para manejar el clic en el botón de exportación
         $("#exportBtn").click(function () {
-            // Mostrar un mensaje de carga o algo similar
-            alert("Exportando a Excel...");
-            
-            // Crear un formulario dinámico con jQuery
-            var form = $('<form action="ExportarData.php" method="POST"></form>');
-            form.append('<input type="hidden" name="exportar" value="excel" />');
-            // Agregar el formulario a la página (sin mostrarlo)
-            $('body').append(form);
-            
-            // Enviar el formulario
-            form.submit();
+            // Mostrar el mensaje de carga y el spinner
+            $("#loadingMessage").show();
+
+            // Hacer la solicitud AJAX
+            $.ajax({
+                url: "<?= base_url ?>Controllers/ExportarData",  // URL para el controlador de exportación
+                method: "POST",
+                data: {
+                    exportar: "excel"  // Indicamos que se debe exportar a Excel
+                },
+                success: function (response) {
+                    // Crear un Blob del archivo Excel generado
+                    var blob = new Blob([response], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                    var link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = "promotores.xlsx";  // Nombre del archivo para descargar
+                    link.click();  // Activar la descarga
+
+                    // Ocultar el mensaje de carga después de que se haya completado la descarga
+                    $("#loadingMessage").hide();
+                },
+                error: function () {
+                    alert("Hubo un error al generar el archivo. Intente nuevamente.");
+                    $("#loadingMessage").hide();  // Ocultar el mensaje de carga en caso de error
+                }
+            });
         });
     </script>
+</main>
     <!-- Tabla para listar los promotores -->
     <table class="table table-light" id="tblPromotores">
         <thead class="thead-dark">

@@ -426,4 +426,33 @@
         transform: translateY(0px);
         transition-duration: 0.3s;
     }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Estilo para el mensaje de carga */
+    #loadingMessage {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    /* Estilo para el spinner */
+    #spinner {
+        margin-top: 10px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+    }
+
+
 </style>

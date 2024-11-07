@@ -91,13 +91,13 @@ class ExportarData {
             // Crear un objeto Writer para escribir el archivo Excel
             $writer = new Xlsx($spreadsheet);
 
-            // Establecer las cabeceras para descargar el archivo
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="promotores.xlsx"');
-            header('Cache-Control: max-age=0');
-
-            // Escribir el archivo a la salida (force download)
+            // Devolver el archivo como respuesta sin redirigir
+            ob_start();  // Iniciar buffer de salida
             $writer->save('php://output');
+            $fileContents = ob_get_clean();  // Obtener el contenido del buffer
+
+            // Retornar el contenido del archivo Excel generado
+            echo $fileContents;
         } else {
             echo "No hay datos para exportar.";
         }
