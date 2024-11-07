@@ -61,33 +61,40 @@ class Usuarios extends Controller
 
   public function validar()
   {
-    if (empty($_POST['usuario']) || empty($_POST['clave'])) {
-      $msg = "¡Los campos están vacíos!";
-    } else {
-      $usuario = $_POST['usuario'];
-      $clave = $_POST['clave'];
-
-      // Obtiene el usuario de la base de datos sin la contraseña
-      $data = $this->model->getUsuario($usuario);
-
-      if ($data) {
-        // Compara la contraseña ingresada con el hash almacenado
-        if (password_verify($clave, $data['clave'])) {
-          $_SESSION['id_usuario'] = $data['id'];
-          $_SESSION['usuario'] = $data['usuario'];
-          $_SESSION['nombre'] = $data['nombre'];
-          $_SESSION['activo'] = true;
-          $msg = "ok";
-        } else {
-          $msg = "¡Usuario o contraseña incorrecta!";
-        }
+      $msg = ""; // Mensaje de respuesta
+      if (empty($_POST['usuario']) || empty($_POST['clave'])) {
+          $msg = "¡Los campos están vacíos!";
       } else {
-        $msg = "¡Usuario o contraseña incorrecta!";
+          $usuario = $_POST['usuario'];
+          $clave = $_POST['clave'];
+  
+          // Obtener el usuario de la base de datos sin la contraseña
+          $data = $this->model->getUsuario($usuario);
+  
+          if ($data) {
+              // Verificar si el usuario está activo (estado = 1)
+              if ($data['estado'] == 0) {
+                  $msg = "¡El usuario está inactivo!";
+              } else {
+                  // Comparar la contraseña ingresada con el hash almacenado
+                  if (password_verify($clave, $data['clave'])) {
+                      $_SESSION['id_usuario'] = $data['id'];
+                      $_SESSION['usuario'] = $data['usuario'];
+                      $_SESSION['nombre'] = $data['nombre'];
+                      $_SESSION['activo'] = true;
+                      $msg = "ok"; // Respuesta de éxito
+                  } else {
+                      $msg = "¡Usuario o contraseña incorrecta!";
+                  }
+              }
+          } else {
+              $msg = "¡Usuario o contraseña incorrecta!";
+          }
       }
-    }
-    echo json_encode($msg, JSON_UNESCAPED_UNICODE);
-    die();
+      echo json_encode($msg, JSON_UNESCAPED_UNICODE); // Respuesta JSON
+      die(); // Terminar el script
   }
+  
 
 
   public function registrar()

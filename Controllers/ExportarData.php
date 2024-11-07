@@ -12,7 +12,7 @@ class ExportarData {
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "sistemas";  // Nombre de la base de datos
+        $dbname = "sistema";  // Nombre de la base de datos
 
         $conn = new mysqli($servername, $username, $password, $dbname);
 
