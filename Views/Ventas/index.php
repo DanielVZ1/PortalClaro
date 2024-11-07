@@ -84,7 +84,12 @@
                 </form>
             </div>
         </div>
-        <button id="exportExcelBtn" class="btn btn-success">Exportar a Excel</button>
+        <button type="button" id="exportExcelBtn" class="button">
+                        <span class="button_lg">
+                            <span class="button_sl"></span>
+                            <span class="button_text">Reporte Excel</span>
+                        </span>
+                    </button>
 
     </div>
 
