@@ -13,6 +13,7 @@
                     </span>
                 </span>
             </button>
+
             <!-- Botón de Exportar a Excel -->
             <button id="exportBtn" class="button">
                 <span class="button_lg">
@@ -25,10 +26,12 @@
         </div>
     </div>
 
-    <!-- Mensaje de carga (alerta de generación) -->
-    <div id="loadingMessage" style="display:none;">
-        <div class="loading-spinner">
-            <i class="fas fa-spinner fa-spin"></i> Generando archivo...
+    <!-- Mensaje de carga mientras se genera el archivo Excel -->
+    <div id="loadingMessage" style="display:none; text-align:center; padding: 20px; background-color: black; border-radius: 5px;">
+        <p>Generando el archivo Excel, por favor espere...</p>
+        <!-- Spinner de carga -->
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
     </div>
 
@@ -36,32 +39,32 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        // Función JavaScript para manejar el clic en el botón de exportación
+        // Función para manejar el clic en el botón de exportación
         $("#exportBtn").click(function () {
-            // Mostrar el mensaje de carga y el spinner
+            // Mostrar el mensaje de carga (spinner)
             $("#loadingMessage").show();
 
-            // Hacer la solicitud AJAX
+            // Realizar la solicitud AJAX para exportar a Excel
             $.ajax({
-                url: "<?= base_url ?>Controllers/ExportarData",  // URL para el controlador de exportación
+                url: "<?= base_url ?>Controllers/ExportarData",  // URL del controlador que maneja la exportación
                 method: "POST",
-                data: {
-                    exportar: "excel"  // Indicamos que se debe exportar a Excel
-                },
-                success: function (response) {
-                    // Crear un Blob del archivo Excel generado
-                    var blob = new Blob([response], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-                    var link = document.createElement("a");
+                data: { exportar: 'excel' },  // Enviar datos al controlador
+                xhrFields: { responseType: 'blob' },  // Configurar la respuesta como Blob para archivos binarios
+                success: function(response) {
+                    // Crear un objeto Blob a partir de la respuesta
+                    var blob = response;
+                    var link = document.createElement('a');
                     link.href = URL.createObjectURL(blob);
-                    link.download = "promotores.xlsx";  // Nombre del archivo para descargar
-                    link.click();  // Activar la descarga
+                    link.download = 'promotores.xlsx';  // Nombre del archivo de Excel
+                    link.click();  // Hacer clic en el enlace para descargar el archivo
 
-                    // Ocultar el mensaje de carga después de que se haya completado la descarga
+                    // Ocultar el mensaje de carga
                     $("#loadingMessage").hide();
                 },
-                error: function () {
-                    alert("Hubo un error al generar el archivo. Intente nuevamente.");
-                    $("#loadingMessage").hide();  // Ocultar el mensaje de carga en caso de error
+                error: function(xhr, status, error) {
+                    // Ocultar el mensaje de carga si ocurre un error
+                    $("#loadingMessage").hide();
+                    alert("Hubo un error al generar el archivo.");
                 }
             });
         });

@@ -12,7 +12,7 @@ class ExportarData {
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "sistemas";  // Aquí usamos el nombre de la base de datos correcta
+        $dbname = "sistemas";  // Nombre de la base de datos
 
         $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -84,20 +84,20 @@ class ExportarData {
                 $sheet->setCellValue('U' . $row, $row_data['contrato']);
                 $sheet->setCellValue('V' . $row, $row_data['id_asistencia']);
                 $sheet->setCellValue('W' . $row, $row_data['id_ventas']);
-                $sheet->setCellValue('X' . $row, $row_data['estado']);  // Corregido a 'estado'
+                $sheet->setCellValue('X' . $row, $row_data['estado']);
                 $row++;
             }
 
             // Crear un objeto Writer para escribir el archivo Excel
             $writer = new Xlsx($spreadsheet);
 
-            // Devolver el archivo como respuesta sin redirigir
-            ob_start();  // Iniciar buffer de salida
-            $writer->save('php://output');
-            $fileContents = ob_get_clean();  // Obtener el contenido del buffer
+            // Configurar el encabezado para la descarga del archivo Excel
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="promotores.xlsx"');
+            header('Cache-Control: max-age=0');
 
-            // Retornar el contenido del archivo Excel generado
-            echo $fileContents;
+            // Escribir el archivo a la salida
+            $writer->save('php://output');
         } else {
             echo "No hay datos para exportar.";
         }
@@ -108,7 +108,7 @@ class ExportarData {
 }
 
 // Verificar si se envió la solicitud para exportar
-if (isset($_POST['exportar']) && $_POST['exportar'] == 'excel') {
+if (isset($_GET['exportar']) && $_GET['exportar'] == 'excel') {
     $exportar = new ExportarData();
     $exportar->exportarPromotores();
 }
