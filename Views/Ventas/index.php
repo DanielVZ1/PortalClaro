@@ -454,31 +454,34 @@ function showUploadAlert() {
     </script>
 
 <script>
-    // Función para exportar los datos de la tabla a un archivo Excel
     $('#exportExcelBtn').on('click', function() {
-        // Obtén los datos de la tabla DataTable
         var table = $('#tblVentas').DataTable();
-        var data = table.rows().data();
+        var data = table.rows().data();  // Esto obtiene todas las filas de datos
 
-        // Crear una hoja de trabajo con los datos de la tabla
         var ws_data = [];
 
         // Agregar los encabezados de la tabla (puedes personalizar esto si es necesario)
         var headers = table.columns().header().toArray().map(function (header) {
             return $(header).text(); // Toma el texto del encabezado de cada columna
         });
-        ws_data.push(headers);
+        ws_data.push(headers); // Agregar los encabezados al array de datos
 
-        // Agregar los datos de las filas
+        // Agregar los datos de las filas, sin las acciones HTML
         data.each(function (row) {
-            // Asegúrate de que cada fila sea un array
-            ws_data.push(Array.from(row));
+            // Solo agregar los valores, no las acciones HTML
+            var rowData = [
+                row.id,row.telefono, row.medio, row.subgerente, row.coordinador, row.supervisor, row.fecha,
+                row.codigo, row.ubicacion, row.promotor, row.punto_venta, row.departamento,
+                row.zona, row.distribuidor, row.proveedor, row.producto, row.perfil_plan,
+                row.tecnologia, row.centro_venta, row.canal_rediac, row.aliado
+            ];
+            ws_data.push(rowData);  // Agregar cada fila de datos al array
         });
 
         // Crear el libro de trabajo de Excel
-        var ws = XLSX.utils.aoa_to_sheet(ws_data); // Convertir los datos a formato adecuado
+        var ws = XLSX.utils.aoa_to_sheet(ws_data);
         var wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Ventas"); // Agregar la hoja al libro de trabajo
+        XLSX.utils.book_append_sheet(wb, ws, "Ventas");
 
         // Generar el archivo Excel y descargarlo
         XLSX.writeFile(wb, "Reporte_Ventas.xlsx");
