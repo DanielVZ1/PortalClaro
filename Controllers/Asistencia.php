@@ -46,7 +46,7 @@ class Asistencia extends Controller
         $data[$i]['acciones'] = '<div>
               <button class="btn btn-secondary" type="button" onclick="btnVerAsistencia(' . $data[$i]['id'] . ');"><i class="fas fa-eye"></i></button>
               <button class="btn btn-danger" type="button" onclick="btnEliminarAsistencia(' . $data[$i]['id'] . ');"><i class="fas fa-trash-alt"></i></button>
-            <div/>';
+            </div>';
       }
       if ($data[$i]['hora_salida'] == null) {
         $data[$i]['hora_salida'] = 'Hora No Registrada';

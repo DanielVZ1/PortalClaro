@@ -16,6 +16,7 @@ include "Views/Templates/header.php";
     </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
 
 
@@ -62,6 +63,16 @@ include "Views/Templates/header.php";
             }
         });
     </script>
+
+    <div>
+    <button type="button" id="exportExcelBtn" class="button">
+                        <span class="button_lg">
+                            <span class="button_sl"></span>
+                            <span class="button_text">
+                            <i class="fas fa-file-excel" style="margin-right: 5px;"></i>Reporte Excel</span>
+                        </span>
+                    </button>
+    </div>
 
     <!-- Formulario de Búsqueda -->
 
@@ -228,7 +239,58 @@ include "Views/Templates/header.php";
             </div>
         </div>
     </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
+    <script>
+    $('#exportExcelBtn').on('click', function() {
+        var table = $('#tblAsistencia').DataTable();
+        var data = table.rows().data();  // Obtiene todas las filas de datos
+
+        var ws_data = [];
+
+        // Agregar los encabezados de la tabla (sin la columna de "Acciones")
+        var headers = table.columns().header().toArray().map(function (header, index) {
+            // Excluir la columna de "Acciones" (que es la última columna)
+            if (index !== table.columns().count() - 1) {
+                return $(header).text(); // Toma el texto del encabezado de cada columna
+            }
+        }).filter(function (header) { return header !== undefined; }); // Eliminar los elementos undefined
+        ws_data.push(headers); // Agregar los encabezados al array de datos
+
+        // Agregar los datos de las filas, sin las acciones HTML
+        data.each(function (row) {
+            // Asegúrate de que las propiedades del objeto "row" existan y no incluir la columna de "Acciones"
+            var rowData = [
+                row.id || '',           // Si la propiedad no existe, deja vacío
+                row.codigo || '',
+                row.dni || '',
+                row.nombre || '',
+                row.apellido || '',
+                row.puesto || '',
+                row.zona || '',
+                row.proveedor || '',
+                row.supervisor || '',
+                row.coordinador || '',
+                row.hora_entrada || '',
+                row.hora_salida || '',
+                row.foto || '',
+                row.ubicacion || '',
+                // Aquí extraemos solo el texto del estado, sin el HTML
+                $(row.estado).text() || ''  // Esto obtiene solo el texto de la etiqueta <span>
+            ];
+            ws_data.push(rowData);  // Agregar cada fila de datos al array
+        });
+
+        // Crear el libro de trabajo de Excel
+        var ws = XLSX.utils.aoa_to_sheet(ws_data);
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Asistencia");
+
+        // Generar el archivo Excel y descargarlo
+        XLSX.writeFile(wb, "Reporte_Asistencia.xlsx");
+    });
+</script>
 
     <?php
     include "Views/Asistencia/estiloasistencia.php";
