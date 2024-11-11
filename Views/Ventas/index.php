@@ -45,51 +45,57 @@
     
     
     <div class="app-title">
-        <div>
-            <h1><i class="fas fa-dollar-sign"></i> <?= $data['page_title'] ?></h1>
-            <div style="display: flex; align-items: center;">
-                <!-- Botón Nueva Venta -->
-                <button class="button" onclick="frmVentas()">
+    <div>
+    <h1><i class="fas fa-dollar-sign"></i> <?= $data['page_title'] ?></h1>
+    <div style="display: flex; align-items: center; gap: 20px;"> <!-- Se agregó gap para separar los botones -->
+        
+        <!-- Botón Nueva Venta -->
+        <button class="button" onclick="frmVentas()">
+            <span class="button_lg">
+                <span class="button_sl"></span>
+                <span class="button_text" style="cursor: pointer;">
+                    <i class="fas fa-plus" style="margin-right: 5px;"></i> Nueva Venta
+                </span>
+            </span>
+        </button>
+        
+        <!-- Formulario para subir archivo Excel -->
+        <form id="uploadForm" enctype="multipart/form-data" style="display: flex; align-items: center; gap: 20px;"> <!-- Se agregó gap dentro del formulario -->
+            
+            <!-- Botón Elegir Archivo -->
+            <div class="file-input">
+                <label class="button">
                     <span class="button_lg">
                         <span class="button_sl"></span>
-                        <span class="button_text" style="cursor: pointer;">
-                            <i class="fas fa-plus" style="margin-right: 5px;"></i> Nueva Venta
+                        <span class="button_text">
+                            <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
                         </span>
                     </span>
-                </button>
-                
-
-                <!-- Formulario para subir archivo Excel -->
-                <form id="uploadForm" enctype="multipart/form-data" style="display: flex; align-items: center;">
-                    <!-- Botón Subir Archivo -->
-                    <div class="file-input" style="margin-right: 10px;">
-                        <label class="button1">
-                            <span class="button1_lg">
-                                <span class="button1_sl"></span>
-                                <span class="button1_text">
-                                    <i class="fas fa-upload" style="margin-right: 5px;"></i> Elegir Archivo
-                                </span>
-                            </span>
-                            <input id="file-upload" type="file" name="dataExcel" style="display: none;" accept=".xlsx, .xls" onchange="showFileAlert()">
-                        </label>
-                    </div>
-
-                    <!-- Botón Subir Excel -->
-                    <button type="button" class="button2" onclick="uploadFile()">
-                        <span class="button2_lg">
-                            <span class="button2_sl"></span>
-                            <span class="button2_text">Subir Excel</span>
-                        </span>
-                    </button>
-                </form>
+                    <input id="file-upload" type="file" name="dataExcel" style="display: none;" accept=".xlsx, .xls" onchange="showFileAlert()">
+                </label>
             </div>
-        </div>
-        <button type="button" id="exportExcelBtn" class="button">
-                        <span class="button_lg">
-                            <span class="button_sl"></span>
-                            <span class="button_text">Reporte Excel</span>
-                        </span>
-                    </button>
+
+            <!-- Botón Subir Excel -->
+            <button type="button" class="button" onclick="uploadFile()">
+                <span class="button_lg">
+                    <span class="button_sl"></span>
+                    <span class="button_text">Subir Excel</span>
+                </span>
+            </button>
+            
+            <!-- Botón Exportar Excel -->
+            <button type="button" id="exportExcelBtn" class="button">
+    <span class="button_lg">
+        <span class="button_sl"></span>
+        <span class="button_text">Reporte Excel</span>
+    </span>
+</button>
+
+        </form>
+    </div>
+</div>
+
+       
 
     </div>
 

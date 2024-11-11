@@ -241,128 +241,132 @@
             width: calc(100% + 15px);
         }
 
-        .button1:hover .button1_sl {
-            width: calc(100% + 15px);
-        }
+/* Estilo general para el botón */
+.button1 {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    background: none;
+    color: #0f1923;
+    cursor: pointer;
+    position: relative;
+    padding: 8px 20px; /* Espaciado dentro del botón */
+    margin-bottom: 20px; /* Espacio inferior */
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all .15s ease; /* Transición suave para cambios */
+}
 
-        .button1 {
-            -moz-appearance: none;
-            -webkit-appearance: none;
-            appearance: none;
-            border: none;
-            background: none;
-            color: #0f1923;
-            cursor: pointer;
-            position: relative;
-            padding: 8px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 14px;
-            transition: all .15s ease;
-        }
+/* Efectos de bordes */
+.button1::before,
+.button1::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: calc(50% - 5px);
+    border: 1px solid #7D8082; /* Borde de color gris */
+    transition: all .15s ease;
+}
 
-        .button1::before,
-        .button1::after {
-            content: '';
-            display: block;
-            position: absolute;
-            right: 0;
-            left: 0;
-            height: calc(50% - 5px);
-            border: 1px solid #7D8082;
-            transition: all .15s ease;
-        }
+.button1::before {
+    top: 0;
+    border-bottom-width: 0; /* No hay borde inferior */
+}
 
-        .button1::before {
-            top: 0;
-            border-bottom-width: 0;
-        }
+.button1::after {
+    bottom: 0;
+    border-top-width: 0; /* No hay borde superior */
+}
 
-        .button1::after {
-            bottom: 0;
-            border-top-width: 0;
-        }
+/* Estilo cuando el botón está activo o enfocado */
+.button1:active,
+.button1:focus {
+    outline: none; /* Elimina el borde del foco */
+}
 
-        .button1:active,
-        .button1:focus {
-            outline: none;
-        }
+.button1:active::before,
+.button1:active::after {
+    right: 3px; /* Ajusta el borde activo */
+    left: 3px;
+}
 
-        .button1:active::before,
-        .button1:active::after {
-            right: 3px;
-            left: 3px;
-        }
+.button1:active::before {
+    top: 3px;
+}
 
-        .button1:active::before {
-            top: 3px;
-        }
+.button1:active::after {
+    bottom: 3px;
+}
 
-        .button1:active::after {
-            bottom: 3px;
-        }
+/* Estilo para la parte principal del botón */
+.button1_lg {
+    position: relative;
+    display: block;
+    padding: 10px 20px;
+    color: #fff; /* Texto en blanco */
+    background-color: #0f1923; /* Fondo oscuro */
+    overflow: hidden;
+    box-shadow: inset 0px 0px 0px 1px transparent; /* Caja interna */
+}
 
-        .button1_lg {
-            position: relative;
-            display: block;
-            padding: 10px 20px;
-            color: #fff;
-            background-color: #0f1923;
-            overflow: hidden;
-            box-shadow: inset 0px 0px 0px 1px transparent;
-        }
+/* Efectos de bordes adicionales del botón */
+.button1_lg::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 2px;
+    background-color: #0f1923; /* Borde de color */
+}
 
-        .button1_lg::before {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 2px;
-            height: 2px;
-            background-color: #0f1923;
-        }
+.button1_lg::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 4px;
+    height: 4px;
+    background-color: #0f1923; /* Borde adicional en la esquina */
+    transition: all .2s ease; /* Transición suave */
+}
 
-        .button1_lg::after {
-            content: '';
-            display: block;
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            width: 4px;
-            height: 4px;
-            background-color: #0f1923;
-            transition: all .2s ease;
-        }
+/* Estilo de la barra deslizante */
+.button1_sl {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: -1px;
+    left: -8px;
+    width: 0; /* Empieza desde un ancho de 0 */
+    background-color: #007BFF; /* Color azul para la barra */
+    transform: skew(-15deg); /* Ángulo de inclinación */
+    transition: all .2s ease; /* Transición suave */
+}
 
-        .button1_sl {
-            display: block;
-            position: absolute;
-            top: 0;
-            bottom: -1px;
-            left: -8px;
-            width: 0;
-            background-color: #007BFF;
-            transform: skew(-15deg);
-            transition: all .2s ease;
-        }
+/* Estilo del texto del botón */
+.button1_text {
+    position: relative;
+}
 
-        .button1_text {
-            position: relative;
-        }
+/* Estilo cuando se pasa el cursor por encima (hover) */
+.button1:hover {
+    color: #0f1923; /* Cambia el color del texto en hover */
+}
 
-        .button1:hover {
-            color: #0f1923;
-        }
+.button1:hover .button1_sl {
+    transform: skew(-15deg) scaleX(1.1); /* Efecto de expansión en el eje X */
+}
 
-        .button1:hover .button1_sl {
-            width: calc(100% + 15px);
-        }
-
-        .button1:hover .button1_lg::after {
-            background-color: #fff;
-        }
+.button1:hover .button1_lg::after {
+    background-color: #fff; /* Cambio de color del borde en hover */
+}
 
 
         .shadow__btn {
@@ -422,7 +426,8 @@
             /* Rojo */
         }
 
-        .button2 {
+         /* From Uiverse.io by mrhyddenn */
+         .button2 {
             -moz-appearance: none;
             -webkit-appearance: none;
             appearance: none;
@@ -537,7 +542,6 @@
             width: calc(100% + 15px);
         }
 
-        .button2:hover .button2_lg::after {
-            background-color: #fff;
-        }
+
+        
     </style>
