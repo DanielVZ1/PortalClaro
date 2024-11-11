@@ -15,7 +15,7 @@
             </button>
 
             <!-- Botón de Exportar a Excel -->
-            <button id="exportBtn" class="button">
+            <button id="exportExcelBtn" class="button">
                 <span class="button_lg">
                     <span class="button_sl"></span>
                     <span class="button_text" style="cursor: pointer;">
@@ -37,38 +37,64 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
     <script>
-        // Función para manejar el clic en el botón de exportación
-        $("#exportBtn").click(function () {
-            // Mostrar el mensaje de carga (spinner)
-            $("#loadingMessage").show();
+    $('#exportExcelBtn').on('click', function() {
+        var table = $('#tblPromotores').DataTable();
+        var data = table.rows().data();  // Obtiene todas las filas de datos
 
-            // Realizar la solicitud AJAX para exportar a Excel
-            $.ajax({
-                url: "<?= base_url ?>Controllers/ExportarData",  // URL del controlador que maneja la exportación
-                method: "POST",
-                data: { exportar: 'excel' },  // Enviar datos al controlador
-                xhrFields: { responseType: 'blob' },  // Configurar la respuesta como Blob para archivos binarios
-                success: function(response) {
-                    // Crear un objeto Blob a partir de la respuesta
-                    var blob = response;
-                    var link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = 'promotores.xlsx';  // Nombre del archivo de Excel
-                    link.click();  // Hacer clic en el enlace para descargar el archivo
+        var ws_data = [];
 
-                    // Ocultar el mensaje de carga
-                    $("#loadingMessage").hide();
-                },
-                error: function(xhr, status, error) {
-                    // Ocultar el mensaje de carga si ocurre un error
-                    $("#loadingMessage").hide();
-                    alert("Hubo un error al generar el archivo.");
-                }
-            });
+        // Agregar los encabezados de la tabla (sin la columna de "Acciones")
+        var headers = table.columns().header().toArray().map(function (header, index) {
+            // Excluir la columna de "Acciones" (que es la última columna)
+            if (index !== table.columns().count() - 1) {
+                return $(header).text(); // Toma el texto del encabezado de cada columna
+            }
+        }).filter(function (header) { return header !== undefined; }); // Eliminar los elementos undefined
+        ws_data.push(headers); // Agregar los encabezados al array de datos
+
+        // Agregar los datos de las filas, sin las acciones HTML
+        data.each(function (row) {
+            // Asegúrate de que las propiedades del objeto "row" existan y no incluir la columna de "Acciones"
+            var rowData = [
+                row.id || '', 
+                row.foto || '',          // Si la propiedad no existe, deja vacío
+                row.codigo || '',
+                row.dni || '',
+                row.nombre || '',
+                row.apellido || '',
+                row.telefono || '',
+                row.profesion || '',
+                row.estado_civil || '',
+                row.genero || '',
+                row.direccion || '',
+                row.zona || '',
+                row.departamento || '',
+                row.municipio || '',
+                row.gerencia || '',
+                row.canal || '',
+                row.proyecto || '',
+                row.cargo || '',
+                row.cv || '',
+                row.antecedentes || '',
+                row.contrato || '',
+                // Aquí extraemos solo el texto del estado, sin el HTML
+                $(row.estado).text() || ''  // Esto obtiene solo el texto de la etiqueta <span>
+            ];
+            ws_data.push(rowData);  // Agregar cada fila de datos al array
         });
-    </script>
+
+        // Crear el libro de trabajo de Excel
+        var ws = XLSX.utils.aoa_to_sheet(ws_data);
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Promotores");
+
+        // Generar el archivo Excel y descargarlo
+        XLSX.writeFile(wb, "Reporte_Promotores.xlsx");
+    });
+</script>
 </main>
     <!-- Tabla para listar los promotores -->
     <table class="table table-light" id="tblPromotores">
