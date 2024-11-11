@@ -227,7 +227,7 @@
   .lock-button:hover .lock-svgIcon {
     width: 20px;
     transition-duration: 0.3s;
-    -webkit-transform: rotate(360deg);
+  
   }
 
   .lock-button::before {
