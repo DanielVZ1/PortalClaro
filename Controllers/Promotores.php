@@ -32,6 +32,31 @@ class Promotores extends Controller
     $data = $this->model->getPromotores();
     for ($i = 0; $i < count($data); $i++) {
       $data[$i]['imagen'] = '<img class= "img-thumbnail" src ="' . base_url . "Assets/imgBD/" . $data[$i]['foto'] . '" width = "100">';
+       // Verificar si los documentos existen y generar enlaces
+        // Verificar si los documentos existen y generar enlaces con el nombre del archivo limpio
+        if (!empty($data[$i]['cv'])) {
+          // Eliminar la numeración al principio del nombre del archivo (por ejemplo, 6733d35e639f6-)
+          $cleanedCvName = preg_replace('/^\w{13}-/', '', $data[$i]['cv']); // Esto elimina la numeración
+          $data[$i]['cv'] = '<a href="' . base_url . 'Assets/Documents/CV/' . $data[$i]['cv'] . '" target="_blank">' . $cleanedCvName . '</a>';
+      } else {
+          $data[$i]['cv'] = 'No disponible';
+      }
+
+      if (!empty($data[$i]['antecedentes'])) {
+          // Eliminar la numeración al principio del nombre del archivo
+          $cleanedAntecedentesName = preg_replace('/^\w{13}-/', '', $data[$i]['antecedentes']);
+          $data[$i]['antecedentes'] = '<a href="' . base_url . 'Assets/Documents/Antecedentes/' . $data[$i]['antecedentes'] . '" target="_blank">' . $cleanedAntecedentesName . '</a>';
+      } else {
+          $data[$i]['antecedentes'] = 'No disponible';
+      }
+
+      if (!empty($data[$i]['contrato'])) {
+          // Eliminar la numeración al principio del nombre del archivo
+          $cleanedContratoName = preg_replace('/^\w{13}-/', '', $data[$i]['contrato']);
+          $data[$i]['contrato'] = '<a href="' . base_url . 'Assets/Documents/Contrato/' . $data[$i]['contrato'] . '" target="_blank">' . $cleanedContratoName . '</a>';
+      } else {
+          $data[$i]['contrato'] = 'No disponible';
+      }
       if ($data[$i]['estado'] == 1) {
         $data[$i]['estado'] = '<span class="badge badge-success" style="color: green">Activo</span>';
         $data[$i]['acciones'] = '<div style="display: flex; align-items: center;">
