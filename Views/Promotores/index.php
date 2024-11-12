@@ -140,7 +140,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="frmPromotor">
+                    <form method="post" id="frmPromotor" enctype="multipart/form-data">
                         <input type="hidden" id="id" name="id">
 
                         <div class="col-md-12">
@@ -329,7 +329,7 @@
                                     <label style="color: black;"><i class="fas fa-file-alt"></i> Curriculum Vitae</label>
                                     <div class="card border-primary">
                                         <div class="card-body">
-                                            <input style="color: black;" id="fileupload_cv" type="file" name="fileupload_cv" accept=".pdf,.doc,.docx">
+                                            <input style="color: black;" id="cv" type="file" name="cv" accept=".pdf,.doc,.docx">
                                         </div>
                                     </div>
                                 </div>
@@ -340,7 +340,7 @@
                                     <label style="color: black;"><i class="fas fa-file"></i> Antecedentes Penales y Oficiales</label>
                                     <div class="card border-primary">
                                         <div class="card-body">
-                                            <input style="color: black;" id="fileupload_antecedentes" type="file" name="fileupload_antecedentes">
+                                            <input style="color: black;" id="antecedentes" type="file" name="antecedentes">
                                         </div>
                                     </div>
                                 </div>
@@ -351,7 +351,7 @@
                                     <label style="color: black;"><i class="fas fa-file-contract"></i> Contrato</label>
                                     <div class="card border-primary">
                                         <div class="card-body">
-                                            <input style="color: black;" id="fileupload_contrato" type="file" name="fileupload_contrato">
+                                            <input style="color: black;" id="contrato" type="file" name="contrato">
                                         </div>
                                     </div>
                                 </div>

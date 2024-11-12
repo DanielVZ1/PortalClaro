@@ -2,7 +2,8 @@
 class PromotoresModel extends Query
 {
     private $codigo, $dni, $nombre, $apellido, $telefono, $profesion, $id_estado_civil, $id_genero, $direccion,
-        $id_zona, $id_departamento, $id_municipio, $id_gerencia, $id_canal, $id_proyecto, $id_cargo, $id, $estado, $img;
+        $id_zona, $id_departamento, $id_municipio, $id_gerencia, $id_canal, $id_proyecto, $id_cargo, $id, $estado, $img,
+        $cv, $antecedentes, $contrato;
     public function __construct()
     {
         parent::__construct();
@@ -114,7 +115,10 @@ class PromotoresModel extends Query
         int $id_canal,
         int $id_proyecto,
         int $id_cargo,
-        string $img
+        string $img,
+        string $cv,
+        string $antecedentes,
+        string $contrato
     ) {
         $this->codigo = $codigo;
         $this->dni = $dni;
@@ -133,12 +137,18 @@ class PromotoresModel extends Query
         $this->id_proyecto = $id_proyecto;
         $this->id_cargo = $id_cargo;
         $this->img = $img;
+        $this->cv = $cv;
+        $this->antecedentes = $antecedentes;
+        $this->contrato = $contrato;
+
         $verificar = "SELECT * FROM promotores WHERE codigo = '$this->codigo'";
         $existe = $this->select($verificar);
+
         if (empty($existe)) {
             $sql = "INSERT INTO promotores(codigo, dni, nombre, apellido, telefono, profesion, id_estado_civil, 
-                    id_genero, direccion, id_zona, id_departamento, id_municipio, id_gerencia, id_canal, id_proyecto, id_cargo, foto) 
-                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    id_genero, direccion, id_zona, id_departamento, id_municipio, id_gerencia, id_canal, id_proyecto, id_cargo, 
+                    foto, cv, antecedentes, contrato) 
+                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $datos = array(
                 $this->codigo,
                 $this->dni,
@@ -156,7 +166,10 @@ class PromotoresModel extends Query
                 $this->id_canal,
                 $this->id_proyecto,
                 $this->id_cargo,
-                $this->img
+                $this->img,
+                $this->cv,
+                $this->antecedentes,
+                $this->contrato
             );
             $data = $this->save($sql, $datos);
             if ($data == 1) {
@@ -188,6 +201,9 @@ class PromotoresModel extends Query
         int $id_proyecto,
         int $id_cargo,
         string $img,
+        string $cv,
+        string $antecedentes,
+        string $contrato,
         int $id
     ) {
         $this->codigo = $codigo;
@@ -207,10 +223,15 @@ class PromotoresModel extends Query
         $this->id_proyecto = $id_proyecto;
         $this->id_cargo = $id_cargo;
         $this->img = $img;
+        $this->cv = $cv;
+        $this->antecedentes = $antecedentes;
+        $this->contrato = $contrato;
         $this->id = $id;
+
         $sql = "UPDATE promotores SET codigo = ?, dni = ?, nombre = ?, apellido = ?, telefono = ?, profesion = ?, id_estado_civil = ?, 
-                                      id_genero = ?, direccion = ?, id_zona = ?, id_departamento = ?, id_municipio = ?, id_gerencia = ?, 
-                                      id_canal = ?, id_proyecto = ?, id_cargo = ?, foto = ? WHERE id = ?";
+                id_genero = ?, direccion = ?, id_zona = ?, id_departamento = ?, id_municipio = ?, id_gerencia = ?, 
+                id_canal = ?, id_proyecto = ?, id_cargo = ?, foto = ?, cv = ?, antecedentes = ?, contrato = ? 
+                WHERE id = ?";
         $datos = array(
             $this->codigo,
             $this->dni,
@@ -229,6 +250,9 @@ class PromotoresModel extends Query
             $this->id_proyecto,
             $this->id_cargo,
             $this->img,
+            $this->cv,
+            $this->antecedentes,
+            $this->contrato,
             $this->id
         );
         $data = $this->save($sql, $datos);

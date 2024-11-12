@@ -91,15 +91,25 @@ class Promotores extends Controller
     $cargo = $_POST['cargo'];
     $id = $_POST['id'];
     $img = $_FILES['imagen'];
+    $cv = $_FILES['cv'];  // Archivo curriculum
+    $antecedentes = $_FILES['antecedentes'];  // Archivo antecedentes
+    $contrato = $_FILES['contrato'];  // Archivo contrato
+
+    // Variables de imagen y archivos
     $name = $img['name'];
     $tmpname = $img['tmp_name'];
     $fecha = date("YmdHis");
+
+    $cvName = $antecedentesName = $contratoName = "";
+
+    // Validación de campos obligatorios
     if (
       empty($codigo) || empty($dni) || empty($nombre) || empty($apellido) || empty($telefono)
       || empty($profesion) || empty($direccion)
     ) {
       $msg = "Todos los campos son obligatorios";
     } else {
+      // Manejo de imagen
       if (!empty($name)) {
         $imgNombre = $fecha . ".png";
         $destino = "Assets/imgBD/" . $imgNombre;
@@ -108,7 +118,25 @@ class Promotores extends Controller
       } else {
         $imgNombre = "default.png";
       }
+
+      // Manejo de archivos
+      if (!empty($cv['name'])) {
+        $cvName = uniqid() . '-' . $cv['name'];
+        $cvDest = "Assets/Documents/CV/" . $cvName;
+      }
+
+      if (!empty($antecedentes['name'])) {
+        $antecedentesName = uniqid() . '-' . $antecedentes['name'];
+        $antecedentesDest = "Assets/Documents/Antecedentes/" . $antecedentesName;
+      }
+
+      if (!empty($contrato['name'])) {
+        $contratoName = uniqid() . '-' . $contrato['name'];
+        $contratoDest = "Assets/Documents/Contrato/" . $contratoName;
+      }
+
       if ($id == "") {
+        // Registrar Promotor
         $data =  $this->model->registrarPromotor(
           $codigo,
           $dni,
@@ -126,12 +154,26 @@ class Promotores extends Controller
           $canal,
           $proyecto,
           $cargo,
-          $imgNombre
+          $imgNombre,
+          $cvName,
+          $antecedentesName,
+          $contratoName
         );
+        
         if ($data == "ok") {
           if (!empty($name)) {
-            move_uploaded_file($tmpname, $destino); //Para la foto
+            move_uploaded_file($tmpname, $destino); // Para la foto
           }
+          if (!empty($cv['name'])) {
+            move_uploaded_file($cv['tmp_name'], $cvDest); // Para el CV
+          }
+          if (!empty($antecedentes['name'])) {
+            move_uploaded_file($antecedentes['tmp_name'], $antecedentesDest); // Para los antecedentes
+          }
+          if (!empty($contrato['name'])) {
+            move_uploaded_file($contrato['tmp_name'], $contratoDest); // Para el contrato
+          }
+
           $msg = "si";
         } else if ($data == "existe") {
           $msg = "El Promotor ya existe";
@@ -139,7 +181,6 @@ class Promotores extends Controller
           $msg = "Error al registrar el Promotor";
         }
       } else {
-        //if($_POST['foto_actual'] != $_POST['foto_delete']){
         $imgDelete = $this->model->editarPromotor($id);
         if ($imgDelete['foto'] != 'default.png' || $imgDelete['foto'] != "") {
           if (file_exists("Assets/imgBD/" . $imgDelete['foto'])) {
@@ -164,17 +205,30 @@ class Promotores extends Controller
           $proyecto,
           $cargo,
           $imgNombre,
+          $cvName,
+          $antecedentesName,
+          $contratoName,
           $id
         );
+        
         if ($data == "modificado") {
           if (!empty($name)) {
-            move_uploaded_file($tmpname, $destino); //Para la foto
+            move_uploaded_file($tmpname, $destino); // Para la foto
           }
+          if (!empty($cv['name'])) {
+            move_uploaded_file($cv['tmp_name'], $cvDest); // Para el CV
+          }
+          if (!empty($antecedentes['name'])) {
+            move_uploaded_file($antecedentes['tmp_name'], $antecedentesDest); // Para los antecedentes
+          }
+          if (!empty($contrato['name'])) {
+            move_uploaded_file($contrato['tmp_name'], $contratoDest); // Para el contrato
+          }
+
           $msg = "modificado";
         } else {
           $msg = "Error al modificar el Promotor";
         }
-        //}
       }
     }
     echo json_encode($msg, JSON_UNESCAPED_UNICODE);

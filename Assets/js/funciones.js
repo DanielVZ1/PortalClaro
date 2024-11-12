@@ -204,7 +204,7 @@ function btnEditarUser(id) {
 
 function btnEliminarUser(id) {
     Swal.fire({
-        title: '¿Está seguro de eliminar?',
+        title: '¿Está seguro de desactivar?',
         text: "¡El usuario no se eliminara de forma permanente, solo cambiará el estado a inactivo!",
         icon: 'warning',
         showCancelButton: true,
@@ -224,7 +224,7 @@ function btnEliminarUser(id) {
                     if (res == "ok") {
                         Swal.fire(
                             'Mensaje',
-                            'Usuario eliminado con éxito',
+                            'Usuario desactivado con éxito',
                             'success'
                         )
                       tblUsuarios.ajax.reload();
@@ -242,7 +242,7 @@ function btnEliminarUser(id) {
 
 function btnReingresarUser(id) {
     Swal.fire({
-        title: '¿Está seguro de reingresar?',
+        title: '¿Está seguro de activar?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -261,7 +261,7 @@ function btnReingresarUser(id) {
                     if (res == "ok") {
                         Swal.fire(
                             'Mensaje',
-                            'Usuario reingresado con éxito',
+                            'Usuario activado con éxito',
                             'success'
                         )
                       tblUsuarios.ajax.reload();
