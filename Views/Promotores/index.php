@@ -57,7 +57,11 @@
 
         // Agregar los datos de las filas, sin las acciones HTML
         data.each(function (row) {
-            // Asegúrate de que las propiedades del objeto "row" existan y no incluir la columna de "Acciones"
+            // Imprimir en consola para depuración
+            console.log('cv:', row.cv); // Ver lo que contiene 'cv'
+            console.log('antecedentes:', row.antecedentes); // Ver lo que contiene 'antecedentes'
+            console.log('contrato:', row.contrato); // Ver lo que contiene 'contrato'
+
             var rowData = [
                 row.id || '', 
                 row.foto || '',          // Si la propiedad no existe, deja vacío
@@ -77,11 +81,15 @@
                 row.canal || '',
                 row.proyecto || '',
                 row.cargo || '',
-                row.cv || '',
-                row.antecedentes || '',
-                row.contrato || '',
-                // Aquí extraemos solo el texto del estado, sin el HTML
-                $(row.estado).text() || ''  // Esto obtiene solo el texto de la etiqueta <span>
+
+                // Verificamos si cv contiene un enlace o solo el texto
+                row.cv ? extractUrlFromText(row.cv) : '',
+
+                row.antecedentes ? extractUrlFromText(row.antecedentes) : '',
+
+                row.contrato ? extractUrlFromText(row.contrato) : '',
+
+                $(row.estado).text() || '' 
             ];
             ws_data.push(rowData);  // Agregar cada fila de datos al array
         });
@@ -94,7 +102,19 @@
         // Generar el archivo Excel y descargarlo
         XLSX.writeFile(wb, "Reporte_Promotores.xlsx");
     });
+    
+    // Función para extraer URL de un texto si es un enlace
+    function extractUrlFromText(text) {
+        var match = text.match(/href="([^"]+)"/);
+        if (match) {
+            return match[1]; // Extrae la URL del href
+        }
+        return ''; // Si no hay enlace, devuelve una cadena vacía
+    }
 </script>
+
+
+
 </main>
     <!-- Tabla para listar los promotores -->
     <table class="table table-light" id="tblPromotores">
