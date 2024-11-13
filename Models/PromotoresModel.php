@@ -148,7 +148,7 @@ class PromotoresModel extends Query
             $sql = "INSERT INTO promotores(codigo, dni, nombre, apellido, telefono, profesion, id_estado_civil, 
                     id_genero, direccion, id_zona, id_departamento, id_municipio, id_gerencia, id_canal, id_proyecto, id_cargo, 
                     foto, cv, antecedentes, contrato) 
-                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $datos = array(
                 $this->codigo,
                 $this->dni,

@@ -324,39 +324,43 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label style="color: black;"><i class="fas fa-file-alt"></i> Curriculum Vitae</label>
-                                    <div class="card border-primary">
-                                        <div class="card-body">
-                                            <input style="color: black;" id="cv" type="file" name="cv" accept=".pdf,.doc,.docx">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label style="color: black;"><i class="fas fa-file-alt"></i> Curriculum Vitae</label>
+            <div class="card border-primary">
+                <div class="card-body">
+                    <input style="color: black;" id="cv" type="file" name="cv" accept=".pdf,.doc,.docx">
+                    <iframe id="cv-preview" width="100%" height="400px" style="display:none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label style="color: black;"><i class="fas fa-file"></i> Antecedentes Penales y Oficiales</label>
-                                    <div class="card border-primary">
-                                        <div class="card-body">
-                                            <input style="color: black;" id="antecedentes" type="file" name="antecedentes">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label style="color: black;"><i class="fas fa-file"></i> Antecedentes Penales y Oficiales</label>
+            <div class="card border-primary">
+                <div class="card-body">
+                    <input style="color: black;" id="antecedentes" type="file" name="antecedentes">
+                    <iframe id="antecedentes-preview" width="100%" height="400px" style="display:none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label style="color: black;"><i class="fas fa-file-contract"></i> Contrato</label>
-                                    <div class="card border-primary">
-                                        <div class="card-body">
-                                            <input style="color: black;" id="contrato" type="file" name="contrato">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label style="color: black;"><i class="fas fa-file-contract"></i> Contrato</label>
+            <div class="card border-primary">
+                <div class="card-body">
+                    <input style="color: black;" id="contrato" type="file" name="contrato">
+                    <iframe id="contrato-preview" width="100%" height="400px" style="display:none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
                         <div style="margin-top: 20px;  display: flex; gap: 15px;">
                             <button class="shadow__btn" type="button" onclick="registrarPromotor(event)" id="btnAccion">Registrar</button>
                             <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>

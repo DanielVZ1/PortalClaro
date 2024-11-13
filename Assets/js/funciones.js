@@ -329,42 +329,46 @@ function registrarPromotor(e){
         http.open("POST", url, true);
         http.send(new FormData(frm));
         http.onreadystatechange = function(){
-            if(this.readyState ==4 && this.status==200){
-                const res = JSON.parse(this.responseText);
-                if (res == "si"){
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Promotor registrado con éxito',
-                        showConfirmButton: false,
-                        timer: 3000
-                    })
-                    frm.reset();
-                    $("#nuevo_promotor").modal("hide");
-                    tblPromotores.ajax.reload();
-
-                }else if(res=="modificado"){
-                    Swal.fire({
-                        position:'top-end',
-                        icon: 'success',
-                        title: 'Promotor modificado correctamente',
-                        showConfirmButton: false,
-                        timer: 3000
-                    }) 
-                    $("#nuevo_promotor").modal("hide");
-                    tblPromotores.ajax.reload();
-
-                }else{
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: res,
-                        showConfirmButton: false,
-                        timer: 3000
-                    })
+            if(this.readyState == 4 && this.status == 200){
+                console.log(this.responseText);  // Ver lo que realmente devuelve el servidor
+                try {
+                    const res = JSON.parse(this.responseText);  // Intentamos analizar la respuesta como JSON
+                    if (res == "si"){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Promotor registrado con éxito',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                        frm.reset();
+                        $("#nuevo_promotor").modal("hide");
+                        tblPromotores.ajax.reload();
+                    } else if (res == "modificado") {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Promotor modificado correctamente',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                        $("#nuevo_promotor").modal("hide");
+                        tblPromotores.ajax.reload();
+                    } else {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: res,
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    }
+                } catch (e) {
+                    console.error("Error al analizar JSON:", e);  // Capturamos el error si la respuesta no es un JSON válido
                 }
             }
-        }
+        };
+        
     }
 }
 
@@ -396,6 +400,16 @@ function btnEditarPromotor(id) {
             document.getElementById("proyecto").value = res.id_proyecto;
             document.getElementById("cargo").value = res.id_cargo;
             document.getElementById("img-preview").src = base_url + 'Assets/imgBD/' + res.foto;
+           // Mostrar los archivos existentes en el iframe si hay una URL de archivo para cada uno
+document.getElementById("cv-preview").style.display = "block";
+document.getElementById("cv-preview").src = base_url + 'Assets/Documents/CV/' + res.cv;
+
+document.getElementById("antecedentes-preview").style.display = "block";
+document.getElementById("antecedentes-preview").src = base_url + 'Assets/Documents/Antecedentes/' + res.antecedentes;
+
+document.getElementById("contrato-preview").style.display = "block";
+document.getElementById("contrato-preview").src = base_url + 'Assets/Documents/Contrato/' + res.contrato;
+
             // Habilitar los campos
             disableFormFields(false);
 
@@ -507,6 +521,15 @@ function btnVerPromotor(id) {
             document.getElementById("proyecto").value = res.id_proyecto;
             document.getElementById("cargo").value = res.id_cargo;
             document.getElementById("img-preview").src = base_url + 'Assets/imgBD/' + res.foto;
+            document.getElementById("cv-preview").style.display = "block";
+document.getElementById("cv-preview").src = base_url + 'Assets/Documents/CV/' + res.cv;
+
+document.getElementById("antecedentes-preview").style.display = "block";
+document.getElementById("antecedentes-preview").src = base_url + 'Assets/Documents/Antecedentes/' + res.antecedentes;
+
+document.getElementById("contrato-preview").style.display = "block";
+document.getElementById("contrato-preview").src = base_url + 'Assets/Documents/Contrato/' + res.contrato;
+
 
             // Deshabilitar todos los campos del formulario
             disableFormFields(true);
@@ -521,7 +544,8 @@ function disableFormFields(disable) {
     const fields = [
         "codigo", "dni", "nombre", "apellido", "telefono", "profesion", 
         "estado_civil", "genero", "direccion", "zona", "departamento", 
-        "municipio", "gerencia", "canal", "proyecto", "cargo"
+        "municipio", "gerencia", "canal", "proyecto", "cargo", "cv", "antecedentes"
+        , "contrato", "img-preview", "imagen", "icon-cerrar"
     ];
     
     fields.forEach(field => {
@@ -529,18 +553,7 @@ function disableFormFields(disable) {
     });
 }
 
-// Función para habilitar o deshabilitar los campos del formulario
-function disableFormFields(disable) {
-    const fields = [
-        "codigo", "dni", "nombre", "apellido", "telefono", "profesion", 
-        "estado_civil", "genero", "direccion", "zona", "departamento", 
-        "municipio", "gerencia", "canal", "proyecto", "cargo"
-    ];
-    
-    fields.forEach(field => {
-        document.getElementById(field).disabled = disable;
-    });
-}
+
 
 //Funciones para las fotos
 function preview(e){
