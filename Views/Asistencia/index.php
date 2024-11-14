@@ -245,22 +245,26 @@ include "Views/Templates/header.php";
     <script>
     $('#exportExcelBtn').on('click', function() {
         var table = $('#tblAsistencia').DataTable();
-        var data = table.rows().data();  // Obtiene todas las filas de datos
+
+        // Aplicar los filtros adicionales antes de obtener los datos
+        applyFilters(table);
+
+        // Obtener solo las filas filtradas
+        var data = table.rows({ filter: 'applied' }).data();  // Solo las filas visibles tras aplicar filtros
 
         var ws_data = [];
 
-        // Agregar los encabezados de la tabla (sin la columna de "Acciones")
+        // Agregar los encabezados de la tabla
         var headers = table.columns().header().toArray().map(function (header, index) {
-            // Excluir la columna de "Acciones" (que es la última columna)
+            // Excluir la columna de "Acciones" (suponiendo que sea la última columna)
             if (index !== table.columns().count() - 1) {
                 return $(header).text(); // Toma el texto del encabezado de cada columna
             }
         }).filter(function (header) { return header !== undefined; }); // Eliminar los elementos undefined
         ws_data.push(headers); // Agregar los encabezados al array de datos
 
-        // Agregar los datos de las filas, sin las acciones HTML
+        // Agregar los datos de las filas filtradas
         data.each(function (row) {
-            // Asegúrate de que las propiedades del objeto "row" existan y no incluir la columna de "Acciones"
             var rowData = [
                 row.id || '',           // Si la propiedad no existe, deja vacío
                 row.codigo || '',
@@ -276,8 +280,7 @@ include "Views/Templates/header.php";
                 row.hora_salida || '',
                 row.foto || '',
                 row.ubicacion || '',
-                // Aquí extraemos solo el texto del estado, sin el HTML
-                $(row.estado).text() || ''  // Esto obtiene solo el texto de la etiqueta <span>
+                $(row.estado).text() || ''  // Extraer solo el texto del estado, sin HTML
             ];
             ws_data.push(rowData);  // Agregar cada fila de datos al array
         });
@@ -290,7 +293,73 @@ include "Views/Templates/header.php";
         // Generar el archivo Excel y descargarlo
         XLSX.writeFile(wb, "Reporte_Asistencia.xlsx");
     });
+
+    // Función para aplicar los filtros adicionales de fecha y rango
+    function applyFilters(table) {
+        var filtroAsistencia = $('#filtroAsistencia').val();  // Obtener el valor seleccionado en el filtro de asistencia
+        var fechaExacta = $('#fechaExactaAsistencia').val();   // Obtener el valor de la fecha exacta
+
+        // Filtro adicional: Filtrar por fecha exacta
+        if (fechaExacta) {
+            table.column(11).search(fechaExacta).draw();  // Suponiendo que la columna de fecha está en la columna 11, ajusta si es necesario
+        } else {
+            table.column(11).search('').draw();  // Limpiar el filtro de fecha si no se seleccionó nada
+        }
+
+        // Filtro adicional: Filtrar por el rango de fechas predefinidos (Hoy, Ayer, etc.)
+        if (filtroAsistencia !== 'todos') {
+            var today = new Date();
+            var filterDate = '';
+            switch (filtroAsistencia) {
+                case 'hoy':
+                    filterDate = formatDate(today);
+                    break;
+                case 'ayer':
+                    today.setDate(today.getDate() - 1);
+                    filterDate = formatDate(today);
+                    break;
+                case 'semana':
+                    today.setDate(today.getDate() - today.getDay());  // Inicio de la semana
+                    filterDate = formatDate(today);
+                    break;
+                case 'mes':
+                    today.setMonth(today.getMonth() - 1);  // Hace un mes
+                    filterDate = formatDate(today);
+                    break;
+                case 'hace_semanas':
+                    today.setDate(today.getDate() - 7);
+                    filterDate = formatDate(today);
+                    break;
+                case 'hace_meses':
+                    today.setMonth(today.getMonth() - 1);  // Hace un mes
+                    filterDate = formatDate(today);
+                    break;
+            }
+
+            // Aplicar el filtro en la columna de fecha
+            if (filterDate) {
+                table.column(11).search(filterDate).draw();  // Filtrar por la columna de fecha
+            }
+        } else {
+            // Limpiar el filtro de rango si es "todos"
+            table.column(11).search('').draw();
+        }
+    }
+
+    // Función para formatear la fecha en formato 'YYYY-MM-DD'
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
 </script>
+
 
     <?php
     include "Views/Asistencia/estiloasistencia.php";

@@ -467,24 +467,30 @@ function showUploadAlert() {
 <script>
     $('#exportExcelBtn').on('click', function() {
         var table = $('#tblVentas').DataTable();
-        var data = table.rows().data();  // Esto obtiene todas las filas de datos
+
+        // Aplicar los filtros adicionales antes de obtener los datos
+        applyFilters(table);
+
+        // Obtener solo las filas filtradas
+        var data = table.rows({ filter: 'applied' }).data();  // Solo las filas visibles tras aplicar filtros
 
         var ws_data = [];
 
-        // Agregar los encabezados de la tabla (puedes personalizar esto si es necesario)
+        // Agregar los encabezados de la tabla
         var headers = table.columns().header().toArray().map(function (header) {
             return $(header).text(); // Toma el texto del encabezado de cada columna
         });
         ws_data.push(headers); // Agregar los encabezados al array de datos
 
-        // Agregar los datos de las filas, sin las acciones HTML
+        // Agregar los datos de las filas filtradas
         data.each(function (row) {
             // Solo agregar los valores, no las acciones HTML
             var rowData = [
-                row.id,row.telefono, row.medio, row.subgerente, row.coordinador, row.supervisor, row.fecha,
-                row.codigo, row.ubicacion, row.promotor, row.punto_venta, row.departamento,
-                row.zona, row.distribuidor, row.proveedor, row.producto, row.perfil_plan,
-                row.tecnologia, row.centro_venta, row.canal_rediac, row.aliado
+                row.id || '', row.telefono || '', row.medio || '', row.subgerente || '', row.coordinador || '', 
+                row.supervisor || '', row.fecha || '', row.codigo || '', row.ubicacion || '', row.promotor || '', 
+                row.punto_venta || '', row.departamento || '', row.zona || '', row.distribuidor || '', row.proveedor || '',
+                row.producto || '', row.perfil_plan || '', row.tecnologia || '', row.centro_venta || '', 
+                row.canal_rediac || '', row.aliado || ''
             ];
             ws_data.push(rowData);  // Agregar cada fila de datos al array
         });
@@ -497,7 +503,73 @@ function showUploadAlert() {
         // Generar el archivo Excel y descargarlo
         XLSX.writeFile(wb, "Reporte_Ventas.xlsx");
     });
+
+    // Función para aplicar los filtros adicionales de fecha y rango
+    function applyFilters(table) {
+        var filtroVentas = $('#filtroVentas').val();  // Obtener el valor seleccionado en el filtro de ventas
+        var fechaExacta = $('#fechaExacta').val();   // Obtener el valor de la fecha exacta
+
+        // Filtro adicional: Filtrar por fecha exacta
+        if (fechaExacta) {
+            table.column(6).search(fechaExacta).draw();  // Suponiendo que la fecha está en la columna 6, ajusta si es necesario
+        } else {
+            table.column(6).search('').draw();  // Limpiar el filtro de fecha si no se seleccionó nada
+        }
+
+        // Filtro adicional: Filtrar por el rango de fechas predefinidos (Hoy, Ayer, etc.)
+        if (filtroVentas !== 'todos') {
+            var today = new Date();
+            var filterDate = '';
+            switch (filtroVentas) {
+                case 'hoy':
+                    filterDate = formatDate(today);
+                    break;
+                case 'ayer':
+                    today.setDate(today.getDate() - 1);
+                    filterDate = formatDate(today);
+                    break;
+                case 'semana':
+                    today.setDate(today.getDate() - today.getDay());  // Inicio de la semana
+                    filterDate = formatDate(today);
+                    break;
+                case 'mes':
+                    today.setMonth(today.getMonth() - 1);  // Hace un mes
+                    filterDate = formatDate(today);
+                    break;
+                case 'hace_semanas':
+                    today.setDate(today.getDate() - 7);
+                    filterDate = formatDate(today);
+                    break;
+                case 'hace_meses':
+                    today.setMonth(today.getMonth() - 1);  // Hace un mes
+                    filterDate = formatDate(today);
+                    break;
+            }
+
+            // Aplicar el filtro en la columna de fecha
+            if (filterDate) {
+                table.column(6).search(filterDate).draw();  // Filtrar por la columna de fecha
+            }
+        } else {
+            // Limpiar el filtro de rango si es "todos"
+            table.column(6).search('').draw();
+        }
+    }
+
+    // Función para formatear la fecha en formato 'YYYY-MM-DD'
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
 </script>
+
 
 <?php include "Views/Ventas/estiloventas.php"; ?>
     <?php include "Views/Templates/footer.php"; ?>

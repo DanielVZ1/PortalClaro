@@ -40,77 +40,78 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
     <script>
-    $('#exportExcelBtn').on('click', function() {
-        var table = $('#tblPromotores').DataTable();
-        var data = table.rows().data();  // Obtiene todas las filas de datos
+  $('#exportExcelBtn').on('click', function() {
+    var table = $('#tblPromotores').DataTable();
+    var data = table.rows({ filter: 'applied' }).data();  // Obtiene solo las filas filtradas
 
-        var ws_data = [];
+    var ws_data = [];
 
-        // Agregar los encabezados de la tabla (sin la columna de "Acciones")
-        var headers = table.columns().header().toArray().map(function (header, index) {
-            // Excluir la columna de "Acciones" (que es la última columna)
-            if (index !== table.columns().count() - 1) {
-                return $(header).text(); // Toma el texto del encabezado de cada columna
-            }
-        }).filter(function (header) { return header !== undefined; }); // Eliminar los elementos undefined
-        ws_data.push(headers); // Agregar los encabezados al array de datos
-
-        // Agregar los datos de las filas, sin las acciones HTML
-        data.each(function (row) {
-            // Imprimir en consola para depuración
-            console.log('cv:', row.cv); // Ver lo que contiene 'cv'
-            console.log('antecedentes:', row.antecedentes); // Ver lo que contiene 'antecedentes'
-            console.log('contrato:', row.contrato); // Ver lo que contiene 'contrato'
-
-            var rowData = [
-                row.id || '', 
-                row.foto || '',          // Si la propiedad no existe, deja vacío
-                row.codigo || '',
-                row.dni || '',
-                row.nombre || '',
-                row.apellido || '',
-                row.telefono || '',
-                row.profesion || '',
-                row.estado_civil || '',
-                row.genero || '',
-                row.direccion || '',
-                row.zona || '',
-                row.departamento || '',
-                row.municipio || '',
-                row.gerencia || '',
-                row.canal || '',
-                row.proyecto || '',
-                row.cargo || '',
-
-                // Verificamos si cv contiene un enlace o solo el texto
-                row.cv ? extractUrlFromText(row.cv) : '',
-
-                row.antecedentes ? extractUrlFromText(row.antecedentes) : '',
-
-                row.contrato ? extractUrlFromText(row.contrato) : '',
-
-                $(row.estado).text() || '' 
-            ];
-            ws_data.push(rowData);  // Agregar cada fila de datos al array
-        });
-
-        // Crear el libro de trabajo de Excel
-        var ws = XLSX.utils.aoa_to_sheet(ws_data);
-        var wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Promotores");
-
-        // Generar el archivo Excel y descargarlo
-        XLSX.writeFile(wb, "Reporte_Promotores.xlsx");
-    });
-    
-    // Función para extraer URL de un texto si es un enlace
-    function extractUrlFromText(text) {
-        var match = text.match(/href="([^"]+)"/);
-        if (match) {
-            return match[1]; // Extrae la URL del href
+    // Agregar los encabezados de la tabla (sin la columna de "Acciones")
+    var headers = table.columns().header().toArray().map(function (header, index) {
+        // Excluir la columna de "Acciones" (que es la última columna)
+        if (index !== table.columns().count() - 1) {
+            return $(header).text(); // Toma el texto del encabezado de cada columna
         }
-        return ''; // Si no hay enlace, devuelve una cadena vacía
+    }).filter(function (header) { return header !== undefined; }); // Eliminar los elementos undefined
+    ws_data.push(headers); // Agregar los encabezados al array de datos
+
+    // Agregar los datos de las filas filtradas, sin las acciones HTML
+    data.each(function (row) {
+        // Imprimir en consola para depuración
+        console.log('cv:', row.cv); // Ver lo que contiene 'cv'
+        console.log('antecedentes:', row.antecedentes); // Ver lo que contiene 'antecedentes'
+        console.log('contrato:', row.contrato); // Ver lo que contiene 'contrato'
+
+        var rowData = [
+            row.id || '', 
+            row.foto || '',          // Si la propiedad no existe, deja vacío
+            row.codigo || '',
+            row.dni || '',
+            row.nombre || '',
+            row.apellido || '',
+            row.telefono || '',
+            row.profesion || '',
+            row.estado_civil || '',
+            row.genero || '',
+            row.direccion || '',
+            row.zona || '',
+            row.departamento || '',
+            row.municipio || '',
+            row.gerencia || '',
+            row.canal || '',
+            row.proyecto || '',
+            row.cargo || '',
+
+            // Verificamos si cv contiene un enlace o solo el texto
+            row.cv ? extractUrlFromText(row.cv) : '',
+
+            row.antecedentes ? extractUrlFromText(row.antecedentes) : '',
+
+            row.contrato ? extractUrlFromText(row.contrato) : '',
+
+            $(row.estado).text() || '' 
+        ];
+        ws_data.push(rowData);  // Agregar cada fila de datos al array
+    });
+
+    // Crear el libro de trabajo de Excel
+    var ws = XLSX.utils.aoa_to_sheet(ws_data);
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Promotores");
+
+    // Generar el archivo Excel y descargarlo
+    XLSX.writeFile(wb, "Reporte_Promotores.xlsx");
+});
+
+// Función para extraer URL de un texto si es un enlace
+function extractUrlFromText(text) {
+    var match = text.match(/href="([^"]+)"/);
+    if (match) {
+        return match[1]; // Extrae la URL del href
     }
+    return ''; // Si no hay enlace, devuelve una cadena vacía
+}
+
 </script>
 
 
