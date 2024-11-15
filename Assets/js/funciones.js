@@ -127,9 +127,6 @@ function btnEditarUser(id) {
     titleElement.innerHTML = "Actualizar usuario";
     btnAccionElement.innerHTML = "Modificar";
 
-    // Limpiar los roles previamente cargados en el select
-    rolElement.innerHTML = "";
-
     const url = base_url + "Usuarios/editar/" + id;
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
@@ -138,22 +135,12 @@ function btnEditarUser(id) {
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             const res = JSON.parse(this.responseText);
-
-            // Asignamos los valores al formulario
             idElement.value = res.id;
             usuarioElement.value = res.usuario;
             nombreElement.value = res.nombre;
             emailElement.value = res.email;
             rolElement.value = res.id_rol;  // Asignamos el rol del usuario
-
-            // Agregar los roles al select dinámicamente
-            // Aseguramos que los roles se carguen correctamente
-            fntRolesUsuarios(true);
-
-            // Ocultar los campos de clave si es edición
             document.getElementById("claves").classList.add("d-none");
-
-            // Mostrar el modal
             $("#nuevo_usuario").modal("show");
         }
     };

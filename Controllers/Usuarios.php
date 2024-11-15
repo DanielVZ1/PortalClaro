@@ -151,8 +151,7 @@ class Usuarios extends Controller
             }
         }
     
-        // Pasar los roles a la vista
-        $data['roles'] = $roles;
+  
         echo json_encode($msg, JSON_UNESCAPED_UNICODE);
         die();
     }

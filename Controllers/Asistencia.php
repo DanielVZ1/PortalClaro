@@ -4,19 +4,35 @@ class Asistencia extends Controller
   public function __construct()
   {
     session_start();
-    if (empty($_SESSION['activo'])) {
-      header("location:" . base_url);
-    }
+
     parent::__construct();
   }
 
   public function index()
   {
+    if (!isset($_SESSION['id_usuario'])) {
+      header('Location: ' . base_url . 'login');
+      exit();
+  }
+
+  // Obtener el id del usuario desde la sesión
+  $id_user = $_SESSION['id_usuario'];
+
+  // Verificar si el usuario tiene permisos para acceder a "Roles"
+  $verificar = $this->model->verificarPermiso($id_user, 'Asistencia');
+
+  // Si el usuario tiene permisos, cargar la vista
+  if ($verificar && count($verificar) > 0) {
     $data['page_id'] = 6;
     $data['page_tag'] = "Asistencias";
     $data['page_name'] = "asistencias_prom";
     $data['page_title'] = "Asistencias <small> </small>";
     $this->views->getView($this, "index", $data);
+    } else {
+      // Si el usuario no tiene permisos, redirigir a la página de error
+      header('Location: ' . base_url . 'Errors/permisos');
+      exit(); // Asegúrate de que el script se detenga después de la redirección
+  }
   }
 
   public function listar()
