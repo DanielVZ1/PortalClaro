@@ -52,4 +52,6 @@ class RecuperarModel extends Query
         $sql = "SELECT id, usuario, nombre, clave, email, id_caja, estado FROM usuarios WHERE RESETEO_CLANZ = '$token'";
         return $this->select($sql);
     }
+
+    
 }

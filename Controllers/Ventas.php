@@ -10,14 +10,23 @@ class Ventas extends Controller
 
   public function index()
   {
-    if (empty($_SESSION['activo'])) {
-      header("location:" . base_url);
+    if (!isset($_SESSION['id_usuario'])) {
+      header('Location: ' . base_url . 'login');
+      exit();
+  }
+      $id_user = $_SESSION['id_usuario'];
+      $verificar = $this->model->verificarPermiso($id_user, 'Ventas');
+
+      if ($verificar && count($verificar) > 0) {
+      $data['page_id'] = 1;
+      $data['page_tag'] = "Ventas";
+      $data['page_name'] = "Lista_Ventas";
+      $data['page_title'] = "Ventas <small> </small>";
+      $this->views->getView($this, "index", $data);
+    } else {
+      header('Location: ' . base_url . 'Errors/permisos');
+      exit();
     }
-    $data['page_id'] = 7;
-    $data['page_tag'] = "Ventas";
-    $data['page_name'] = "Lista_Ventas";
-    $data['page_title'] = "Ventas <small> </small>";
-    $this->views->getView($this, "index", $data);
   }
 
   public function listar()

@@ -90,4 +90,6 @@ class AsistenciaPromotoresModel extends Query
         ];
         return $this->update($sql, $params); // Asegúrate de que tienes un método update en tu modelo
     }
+
 }
+

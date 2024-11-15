@@ -8,9 +8,14 @@ class Promotores extends Controller
   }
   public function index()
   {
-    if (empty($_SESSION['activo'])) {
-      header("location:" . base_url);
-    }
+    if (!isset($_SESSION['id_usuario'])) {
+      header('Location: ' . base_url . 'login');
+      exit();
+  }
+    $id_user = $_SESSION['id_usuario'];
+    $verificar = $this->model->verificarPermiso($id_user, 'Promotores');
+
+    if ($verificar && count($verificar) > 0) {
     $data['page_id'] = 4;
     $data['page_tag'] = "Promotores";
     $data['page_name'] = "promotores";
@@ -25,6 +30,11 @@ class Promotores extends Controller
     $data['proyectos'] = $this->model->getProyectos();
     $data['cargos'] = $this->model->getCargos();
     $this->views->getView($this, "index", $data);
+      } else {
+        // Si el usuario no tiene permisos, redirigir a la página de error
+        header('Location: ' . base_url . 'Errors/permisos');
+        exit(); // Asegúrate de que el script se detenga después de la redirección
+    }
   }
 
   public function listar()

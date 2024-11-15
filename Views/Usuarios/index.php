@@ -91,14 +91,17 @@ include "Views/Templates/header.php";
                     </div>
 
                     <div class="form-group">
-                        <label for="rol" style="color: black;"><i class="fas fa-user-tag"></i> Rol</label>
-                        <select id="rol" class="form-control" name="rol">
-                            <?php foreach ($data['roles'] as $row) { ?>
-                                <option value="<?php echo $row['id']; ?>"><?php echo $row['nombrerol']; ?></option>
-                            <?php } ?>
+                    <label for="rol">Rol:</label>
+                        <select name="rol" id="rol" class="form-control">
+                            <?php foreach ($data['rol'] as $rol): ?>
+                                <option value="<?= $rol['id'] ?>" <?= isset($data['usuario']['rol']) && $data['usuario']['rol'] == $rol['id'] ? 'selected' : '' ?>>
+                                    <?= $rol['nombrerol'] ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
-                    <div style="margin-top: 20px;  display: flex; gap: 15px;">
+
+                    <div style="margin-top: 20px; display: flex; gap: 15px;">
                         <button class="shadow__btn" type="button" onclick="registrarUser(event)" id="btnAccion">Registrar</button>
                         <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
                     </div>
@@ -107,6 +110,7 @@ include "Views/Templates/header.php";
         </div>
     </div>
 </div>
+
 <script>
     function formatInput(input) {
         // Obtener el valor actual del campo
