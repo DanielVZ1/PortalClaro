@@ -79,7 +79,7 @@ include "Views/Templates/header.php";
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="clave" style="color: black;"><i class="fas fa-lock"></i> Contraseña</label>
-                                <input id="clave" class="form-control" type="password" name="clave" placeholder="Contraseña" minlength="6" maxlength="50" onblur="validatePassword(this)">
+                                <input id="clave" class="form-control" type="password" name="clave" placeholder="Contraseña" minlength="6" maxlength="50">
                             </div>
                         </div>
                         <div class="col-6">
@@ -94,9 +94,6 @@ include "Views/Templates/header.php";
                     <div class="form-group">
                         <label for="rol" style="color: black;"><i class="fas fa-user-tag"></i> Rol</label>
                         <select id="rol" class="form-control" name="rol">
-                            <?php foreach ($data['rol'] as $row) { ?>
-                                <option value="<?php echo $row['id']; ?>"><?php echo $row['nombrerol']; ?></option>
-                            <?php } ?>
                         </select>
                     </div>
                     <div style="margin-top: 20px; display: flex; gap: 15px;">

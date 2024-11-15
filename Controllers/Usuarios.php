@@ -120,7 +120,7 @@ class Usuarios extends Controller
     public function registrar()
     {
         // Obtener los roles desde el modelo
-        $roles = $this->model->getRoles(); 
+        //$roles = $this->model->getRoles(); 
     
         // Obtener los datos del formulario
         $usuario = strClean($_POST['usuario']);
@@ -142,16 +142,15 @@ class Usuarios extends Controller
                     $msg = "Las contraseñas no coinciden";
                 } else {
                     $data = $this->model->registrarUsuario($usuario, $nombre, $clave, $email, $id_rol);
-                    $msg = $data == "ok" ? "Usuario registrado exitosamente" : "Error al registrar el usuario";
+                    $msg = $data == "ok" ? "si" : ($data == "existe" ? "El usuario ya existe" : "Error al registrar el usuario");
                 }
             } else {
                 // Si es una edición de usuario
                 $data = $this->model->modificarUsuario($usuario, $nombre, $email, $id_rol, $id);
-                $msg = $data == "modificado" ? "Usuario modificado exitosamente" : "Error al modificar el usuario";
+                $msg = $data == "modificado" ? "modificado" : "Error al modificar el usuario";
             }
         }
     
-  
         echo json_encode($msg, JSON_UNESCAPED_UNICODE);
         die();
     }
@@ -160,11 +159,11 @@ class Usuarios extends Controller
     public function editar(int $id)
     {
         // Obtener los roles y los datos del usuario a editar
-        $roles = $this->model->getRoles(); 
+        //$roles = $this->model->getRoles(); 
         $data = $this->model->editarUser($id);  // Método para obtener los datos del usuario
 
         // Pasar los roles y los datos del usuario a la vista
-        $data['roles'] = $roles;
+        //$data['roles'] = $roles;
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
     }
