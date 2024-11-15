@@ -6,6 +6,13 @@ class RolesModel extends Query {
         parent::__construct();
     }
 
+    public function selectRoles()
+    {
+        $sql = "SELECT * FROM rol WHERE estado != 0";
+        $data = $this->selectAll($sql);
+        return $data;
+    }
+
     // Obtener todos los roles
     public function getRoles() {
         $sql = "SELECT * FROM rol";

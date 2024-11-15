@@ -159,22 +159,14 @@ function btnEditarUser(id) {
     };
 }
 
-// Cargar los roles cuando sea necesario (para registrar y para editar)
-function fntRolesUsuarios(isEdit = false) {
-    var ajaxUrl = base_url + '/Roles/getSelectRoles'; // Asegúrate de que este URL devuelva los roles en formato HTML para un select
-    var request = new XMLHttpRequest();
+function fntRolesUsuarios() {
+    var ajaxUrl = base_url + '/Roles/getSelectRoles';
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     request.open('GET', ajaxUrl, true);
-
+    
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-            const rolesHTML = request.responseText;
-            const rolElement = document.getElementById("rol");
-            rolElement.innerHTML = rolesHTML; // Actualizamos el contenido de los roles
-
-            if (isEdit) {
-                const selectedRoleId = document.getElementById("rol").value;
-                rolElement.value = selectedRoleId; // Seleccionamos el rol correcto al editar
-            }
+            document.querySelector("#rol").innerHTML = request.responseText; // Cambiado a 'rol'
         }
     };
     request.send();

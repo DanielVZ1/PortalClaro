@@ -18,8 +18,9 @@ class UsuariosModel extends Query
 
     public function getRoles()
     {
-        $sql = "SELECT id, nombrerol FROM rol WHERE estado = 1"; // Asegúrate de filtrar por estado activo si es necesario
-        return $this->select($sql); // Devuelve los roles activos
+        $sql = "SELECT * FROM rol WHERE estado = 1";
+        $data = $this->selectAll($sql);
+        return $data; // Devuelve los roles activos
     }
 
     public function getUsuarios()

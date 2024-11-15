@@ -130,6 +130,7 @@ class Usuarios extends Controller
         $confirmar = strClean($_POST['confirmar']);
         $id_rol = strClean($_POST['rol']);  // Capturamos el id del rol seleccionado
         $id = isset($_POST['id']) ? strClean($_POST['id']) : ""; // Si existe un ID (editar)
+        $hash = password_hash($clave, PASSWORD_DEFAULT);
     
         // Validar los campos
         if (empty($usuario) || empty($nombre) || empty($email) || empty($id_rol)) {
