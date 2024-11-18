@@ -24,20 +24,6 @@ class RecuperarModel extends Query
         return $this->select($sql);
     }
 
-    /*public function modificarClave($clave, $token)
-    {
-        $sql = "UPDATE usuarios SET clave = ?, RESETEO_CLANZ = ? WHERE RESETEO_CLANZ = ?";
-        $datos = array($clave, null, $token); // Accede a los parámetros directamente
-        $data = $this->save($sql, $datos);
-        
-        if ($data == 1) {
-            $res = "modificado";
-        } else {
-            $res = "error";
-        }   
-        
-        return $res;
-    }*/
 
     public function modificarClave($clave, $token)
     {
