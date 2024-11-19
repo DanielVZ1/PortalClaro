@@ -89,7 +89,6 @@
 <body>
 
     <div class="content">
-        <img src="Assets/img/sinPermiso.png" alt="Sin apermiso">
         <a href="<?php echo base_url; ?>Principal" class="pagina">SISTEMA DE GESTIÓN DE PROMOTORES</a>
         <hr>
         <span class="tags">No tienes permiso</span>
