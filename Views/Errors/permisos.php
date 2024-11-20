@@ -84,6 +84,12 @@
             object-fit: contain; /* Asegura que la imagen se ajuste sin perder proporción */
         }
     </style>
+    <script>
+        // Redirigir automáticamente después de 5 segundos
+        setTimeout(function() {
+            window.location.href = "<?php echo base_url; ?>Principal";
+        }, 1000);
+    </script>
 </head>
 
 <body>
