@@ -414,61 +414,53 @@
         /* The design is inspired from Galahhad*/
 
         .popup {
-    --burger-line-width: 1.5em; /* Aumento moderado del grosor de las líneas */
-    --burger-line-height: 0.2em; /* Aumento moderado de la altura de las líneas */
-    --burger-offset: 0.875em; /* Aumento moderado del espacio entre las líneas */
-    --burger-bg: #ff0000;
-    --burger-color: #333;
-    --burger-line-border-radius: 0.2em; /* Aumento moderado del radio del borde */
-    --burger-diameter: 4em; /* Aumento moderado del diámetro del botón */
-    --burger-btn-border-radius: calc(var(--burger-diameter) / 2); /* Aumento moderado del radio del borde del botón */
-    --burger-line-transition: 0.3s;
-    --burger-transition: all 0.1s ease-in-out;
-    --burger-hover-scale: 1.15; /* Aumento moderado del tamaño en hover */
-    --burger-active-scale: 0.97; /* Aumento moderado del tamaño en estado activo */
-    --burger-enable-outline-color: var(--burger-bg);
-    --burger-enable-outline-width: 0.15em; /* Aumento moderado del grosor del borde de enfoque */
-    --burger-enable-outline-offset: var(--burger-enable-outline-width);
+            --burger-line-width: 1.5em;
+            --burger-line-height: 0.2em;
+            --burger-offset: 0.875em;
+            --burger-bg: #ff0000;
+            --burger-color: #333;
+            --burger-line-border-radius: 0.2em;
+            --burger-diameter: 4em;
+            --burger-btn-border-radius: calc(var(--burger-diameter) / 2);
+            --burger-line-transition: 0.3s;
+            --burger-transition: all 0.1s ease-in-out;
+            --burger-hover-scale: 1.15;
+            --burger-active-scale: 0.97;
+            --burger-enable-outline-color: var(--burger-bg);
+            --burger-enable-outline-width: 0.15em;
+            --burger-enable-outline-offset: var(--burger-enable-outline-width);
 
-    /* nav */
-    --nav-padding-x: 0.375em; /* Aumento moderado del padding horizontal */
-    --nav-padding-y: 0.75em; /* Aumento moderado del padding vertical */
-    --nav-border-radius: 0.5em; /* Aumento moderado del radio del borde */
-    --nav-border-color: #ccc;
-    --nav-border-width: 0.1em; /* Aumento moderado del grosor del borde */
-    --nav-shadow-color: rgba(0, 0, 0, 0.25); /* Aumento moderado de la opacidad de la sombra */
-    --nav-shadow-width: 0 1.5px 8px; /* Aumento moderado de la extensión de la sombra */
-    --nav-bg: #eee;
-    --nav-font-family: "Poppins", sans-serif;
-    --nav-default-scale: 0.9; /* Aumento moderado del tamaño por defecto */
-    --nav-active-scale: 1.1; /* Aumento moderado del tamaño cuando está activo */
-    --nav-position-left: 0;
-    --nav-position-right: unset;
+            --nav-padding-x: 0.375em;
+            --nav-padding-y: 0.75em;
+            --nav-border-radius: 0.5em;
+            --nav-border-color: #ccc;
+            --nav-border-width: 0.1em;
+            --nav-shadow-color: rgba(0, 0, 0, 0.25);
+            --nav-shadow-width: 0 1.5px 8px;
+            --nav-bg: #eee;
+            --nav-font-family: "Poppins", sans-serif;
+            --nav-default-scale: 0.9;
+            --nav-active-scale: 1.1;
+            --nav-position-left: 0;
+            --nav-position-right: unset;
 
-    /* title */
-    --nav-title-size: 0.75em; /* Aumento moderado del tamaño del texto del título */
-    --nav-title-color: #777;
-    --nav-title-padding-x: 1.25rem; /* Aumento moderado del padding horizontal del título */
-    --nav-title-padding-y: 0.375em; /* Aumento moderado del padding vertical del título */
+            --nav-title-size: 0.75em;
+            --nav-title-color: #777;
+            --nav-title-padding-x: 1.25rem;
+            --nav-title-padding-y: 0.375em;
 
-    /* nav button */
-    --nav-button-padding-x: 1.25rem; /* Aumento moderado del padding horizontal del botón */
-    --nav-button-padding-y: 0.45em; /* Aumento moderado del padding vertical del botón */
-    --nav-button-border-radius: 0.45em; /* Aumento moderado del radio del borde del botón */
-    --nav-button-font-size: 18px; /* Aumento moderado del tamaño de la fuente del botón */
-    --nav-button-hover-bg: #00bf63;
-    --nav-button-hover-text-color: #fff;
-    --nav-button-distance: 1em; /* Aumento moderado de la distancia entre los botones */
+            --nav-button-padding-x: 1.25rem;
+            --nav-button-padding-y: 0.45em;
+            --nav-button-border-radius: 0.45em;
+            --nav-button-font-size: 18px;
+            --nav-button-hover-bg: #00bf63;
+            --nav-button-hover-text-color: #fff;
+            --nav-button-distance: 1em;
 
-    /* underline */
-    --underline-border-width: 0.1em; /* Aumento moderado del grosor de la línea subrayada */
-    --underline-border-color: #ccc;
-    --underline-margin-y: 0.375em; /* Aumento moderado del margen vertical */
-}
-
-
-
-        /* popup settings 👆 */
+            --underline-border-width: 0.1em;
+            --underline-border-color: #ccc;
+            --underline-margin-y: 0.375em;
+        }
 
         .popup {
             display: inline-block;
@@ -608,6 +600,20 @@
             visibility: visible;
             opacity: 1;
         }
+
+        @keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 675px;
+  }
+}
+
+h1 {
+  animation-fill-mode: forwards; /* Mantiene el último estado de la animación */
+}
+
     </style>
 </head>
 
@@ -622,24 +628,24 @@
             <span class="text">Menu</span>
         </button>
 
-        <h1 style="color: red; width: 750px; height: 50px; margin: auto; padding: 2px; text-align: center; display: flex; justify-content: center; align-items: center;">
-            SISTEMA GESTOR DE PROMOTORES
-        </h1>
+        <h1 style="color: red; width: 750px; height: 50px; margin: auto; padding: 2px; text-align: center; display: flex; justify-content: center; align-items: center; position: relative; font-size: 40px; font-weight: 600; font-family: 'Poppins', sans-serif; background: linear-gradient(to right, #9f9f9f 0%, #fff 10%, #FF0000 20%); -webkit-background-clip: text; color: transparent; text-decoration: none; animation: shine 3s infinite linear;">
+    SISTEMA GESTOR DE PROMOTORES
+</h1>
 
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" height="200">
             <div class="menu-container" style="margin: auto; padding: 30px;">
                 <a href="<?php echo base_url; ?>Principal" style="display: inline-block; cursor: pointer; margin-left: 60px;">
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-  width="120px" height="150px" viewBox="0 -50 500 200"
-  preserveAspectRatio="xMidYMid meet" style="border-radius: 50%;">
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                        width="120px" height="150px" viewBox="0 -50 500 200"
+                        preserveAspectRatio="xMidYMid meet" style="border-radius: 50%;">
 
-  <metadata>
-    Created by potrace 1.16, written by Peter Selinger 2001-2019
-  </metadata>
+                        <metadata>
+                            Created by potrace 1.16, written by Peter Selinger 2001-2019
+                        </metadata>
 
-  <g transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)"
-  fill="#ff0000" stroke="none">
-    <path d="M2255 4568 c-215 -32 -472 -106 -615 -176 -132 -64 -315 -173 -340
+                        <g transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)"
+                            fill="#ff0000" stroke="none">
+                            <path d="M2255 4568 c-215 -32 -472 -106 -615 -176 -132 -64 -315 -173 -340
 -203 -3 -3 -14 -11 -25 -16 -10 -6 -62 -49 -115 -94 -202 -177 -370 -389 -480
 -609 -29 -58 -58 -116 -66 -130 -17 -34 -46 -116 -84 -235 -91 -291 -114 -665
 -59 -965 30 -164 91 -367 149 -495 15 -33 29 -64 31 -70 5 -14 96 -174 117
@@ -671,14 +677,14 @@ l0 -191 -75 3 -75 3 -6 210 c-3 115 -3 260 1 322 l7 113 69 0 69 0 0 -40 c0
 57 c61 -20 148 -93 185 -157 84 -145 33 -358 -108 -451 -87 -57 -171 -72 -284
 -49 -37 7 -110 54 -149 96 -67 72 -88 125 -91 233 -2 82 1 95 28 150 17 33 47
 77 67 98 35 36 112 80 157 90 47 11 147 6 195 -10z m770 -242 l0 -70 -215 2
--215 2 0 67 0 68 215 0 215 0 0 -69z"/>
-    <path d="M2325 2401 c-6 -5 -48 -18 -94 -29 -46 -12 -91 -28 -100 -37 -25 -24
--22 -120 4 -139 24 -19 107 -21 138 -3 63 35 77 61 82 155 3 61 -6 76 -30 53z"/>
-    <path d="M3315 2593 c-33 -9 -92 -61 -109 -97 -22 -47 -20 -121 4 -172 27 -54
+-215 2 0 67 0 68 215 0 215 0 0 -69z" />
+                            <path d="M2325 2401 c-6 -5 -48 -18 -94 -29 -46 -12 -91 -28 -100 -37 -25 -24
+-22 -120 4 -139 24 -19 107 -21 138 -3 63 35 77 61 82 155 3 61 -6 76 -30 53z" />
+                            <path d="M3315 2593 c-33 -9 -92 -61 -109 -97 -22 -47 -20 -121 4 -172 27 -54
 49 -73 110 -94 72 -24 131 -10 188 47 23 23 42 51 42 62 0 11 5 23 10 26 13 8
-13 54 -1 96 -35 105 -136 159 -244 132z"/>
-  </g>
-</svg>
+13 54 -1 96 -35 105 -136 159 -244 132z" />
+                        </g>
+                    </svg>
 
 
 
@@ -723,9 +729,9 @@ l0 -191 -75 3 -75 3 -6 210 c-3 115 -3 260 1 322 l7 113 69 0 69 0 0 -40 c0
                                             <div tabindex="0" class="burger">
                                                 <!-- SVG ajustado a tamaño mayor -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="height: 30px; width: 30px;">
-    <!-- Font Awesome Free 6.7.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
-    <path fill="#ffffff" d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4l54.1 0 109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109 0-54.1c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7L352 176c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
-</svg>
+                                                    <!-- Font Awesome Free 6.7.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+                                                    <path fill="#ffffff" d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4l54.1 0 109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109 0-54.1c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7L352 176c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
+                                                </svg>
 
                                             </div>
                                         </label>
@@ -756,10 +762,10 @@ l0 -191 -75 3 -75 3 -6 210 c-3 115 -3 260 1 322 l7 113 69 0 69 0 0 -40 c0
                                     <div class="circle1">
                                         <label class="popup">
                                             <div tabindex="0" class="burger">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" style="height: 30px; width: 30px;">
-    <!-- Font Awesome Free 6.7.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
-    <path fill="#ffffff" d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192l42.7 0c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0L21.3 320C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7l42.7 0C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3l-213.3 0zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352l117.3 0C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7l-330.7 0c-14.7 0-26.7-11.9-26.7-26.7z" />
-</svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" style="height: 30px; width: 30px;">
+                                                    <!-- Font Awesome Free 6.7.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+                                                    <path fill="#ffffff" d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192l42.7 0c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0L21.3 320C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7l42.7 0C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3l-213.3 0zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352l117.3 0C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7l-330.7 0c-14.7 0-26.7-11.9-26.7-26.7z" />
+                                                </svg>
 
                                             </div>
                                         </label>
