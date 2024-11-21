@@ -119,9 +119,6 @@
   background-color: #fff;
 }
 
-    .button1:hover .button1_sl {
-        width: calc(100% + 15px);
-    }
 
     .shadow__btn {
         padding: 5px 10px;
