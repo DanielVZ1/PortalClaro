@@ -62,7 +62,7 @@ include "Views/Templates/header.php";
 
                     <div class="form-group">
                         <label for="usuario" style="color: black;"><i class="fas fa-user-circle"></i> Usuario</label>
-                        <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Usuario" maxlength="20" oninput="formatInput(this)">
+                        <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Usuario" maxlength="20"  oninput="validarUsuario(event)">
                     </div>
 
                     <div class="form-group">
@@ -107,6 +107,15 @@ include "Views/Templates/header.php";
 </div>
 
 <script>
+
+function validarUsuario(event) {
+        // Obtén el valor del campo de texto
+        let input = event.target;
+
+        // Reemplaza todo lo que no sea una letra (a-zA-Z), un número (0-9) o un espacio con una cadena vacía
+        input.value = input.value.replace(/[^a-zA-Z0-9 ]/g, '');
+    }
+
     function formatInput(input) {
         // Obtener el valor actual del campo
         let value = input.value;

@@ -123,6 +123,8 @@ function btnEditarUser(id) {
     const nombreElement = document.getElementById("nombre");
     const emailElement = document.getElementById("email");
     const rolElement = document.getElementById("rol");
+    const claveElement = document.getElementById("clave");
+    const confirmarElement = document.getElementById("confirmar");
 
     titleElement.innerHTML = "Actualizar usuario";
     btnAccionElement.innerHTML = "Modificar";
@@ -140,11 +142,22 @@ function btnEditarUser(id) {
             nombreElement.value = res.nombre;
             emailElement.value = res.email;
             rolElement.value = res.id_rol;  // Asignamos el rol del usuario
-            document.getElementById("claves").classList.add("d-none");
+            document.getElementById("claves").classList.add("d-none"); // Ocultamos las claves en el formulario de edición
             $("#nuevo_usuario").modal("show");
+
+            // Limpiar los campos de contraseña al editar
+            claveElement.value = '';
+            confirmarElement.value = '';
+
+            // Llamamos a la función de registro con isEdit = true para evitar la validación de contraseñas
+            btnAccionElement.onclick = function(e) {
+                registrarUser(e, true); // Le pasamos true porque estamos editando
+            };
         }
     };
 }
+
+
 
 function fntRolesUsuarios() {
     var ajaxUrl = base_url + '/Roles/getSelectRoles';
@@ -159,8 +172,9 @@ function fntRolesUsuarios() {
     request.send();
 }
 
+
 // Función para registrar o editar usuario
-function registrarUser(e) {
+function registrarUser(e, isEdit = false) {
     e.preventDefault();
 
     const usuario = document.getElementById("usuario");
@@ -170,6 +184,10 @@ function registrarUser(e) {
     const rol = document.getElementById("rol");
     const email = document.getElementById("email");
 
+    // Expresión regular para validar la contraseña
+    const regexContraseña = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,50}$/;
+
+    // Validación de campos vacíos
     if (usuario.value == "" || nombre.value == "" || rol.value == "" || email.value == "") {
         Swal.fire({
             position: 'top-end',
@@ -178,7 +196,30 @@ function registrarUser(e) {
             showConfirmButton: false,
             timer: 3000
         });
-    } else {
+    } 
+    // Validación de contraseñas solo si no es un modo de edición
+    else if (!isEdit) {
+        if (clave.value !== confirmar.value) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Las contraseñas no coinciden!',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        } else if (!regexContraseña.test(clave.value)) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'La contraseña debe tener al menos 6 caracteres, incluir una mayúscula, una minúscula, un número y un carácter especial.',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+    }
+
+    // Proceder con la solicitud si todo es correcto
+    if (usuario.value != "" && nombre.value != "" && rol.value != "" && email.value != "" && (isEdit || (clave.value === confirmar.value && regexContraseña.test(clave.value)))) {
         const url = base_url + "Usuarios/registrar";
         const frm = document.getElementById("frmUsuario");
         const http = new XMLHttpRequest();
@@ -221,6 +262,8 @@ function registrarUser(e) {
         };
     }
 }
+
+
 function btnEliminarUser(id) {
     Swal.fire({
         title: '¿Está seguro de desactivar?',
