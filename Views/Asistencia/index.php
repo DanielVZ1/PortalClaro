@@ -78,7 +78,7 @@ include "Views/Templates/header.php";
     <!-- Formulario de Búsqueda -->
 
 
-    <table class="table table-light" id="tblAsistencia">
+    <table class="table-light" id="tblAsistencia">
         <thead class="thead-dark">
             <tr>
                 <th><i class="fas fa-id-badge"></i> Id</th>

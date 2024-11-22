@@ -280,7 +280,7 @@
 </button>
 
 <!-- Tabla de Roles -->
-<table class="table table-light" id="tblRoles">
+<table class="table-light" id="tblRoles">
     <thead class="thead-dark">
         <tr>
             <th>Id</th>

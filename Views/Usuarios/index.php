@@ -29,7 +29,7 @@ include "Views/Templates/header.php";
        
 </head>
 
-<table class="table table-light" id="tblUsuarios">
+<table class="table-light" id="tblUsuarios">
     <thead class="thead-dark">
         <tr>
             <th><i class="fas fa-id-badge"></i> Id</th>

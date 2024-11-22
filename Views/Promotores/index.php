@@ -118,7 +118,7 @@ function extractUrlFromText(text) {
 
 </main>
     <!-- Tabla para listar los promotores -->
-    <table class="table table-light" id="tblPromotores">
+    <table class="table-light" id="tblPromotores">
         <thead class="thead-dark">
             <tr>
                 <th><i class="fas fa-id-badge"></i> ID</th>

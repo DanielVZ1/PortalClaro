@@ -210,7 +210,7 @@ function showUploadAlert() {
 
 
     <!-- Tabla para listar los promotores -->
-    <table class="table table-light" id="tblVentas">
+    <table class="table-light" id="tblVentas">
         <thead class="thead-dark">
             <tr>
                 <th><i class="fas fa-id-badge"></i> id</th>

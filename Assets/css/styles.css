@@ -1891,19 +1891,86 @@ progress {
   border-color: var(--bs-table-border-color);
 }
 
+/* Aplicar a la clase .table-light */
 .table-light {
-  --bs-table-color: #000;
-  --bs-table-bg: #f8f9fa;
-  --bs-table-border-color: #dfe0e1;
-  --bs-table-striped-bg: #ecedee;
-  --bs-table-striped-color: #000;
-  --bs-table-active-bg: #dfe0e1;
-  --bs-table-active-color: #000;
-  --bs-table-hover-bg: #e5e6e7;
-  --bs-table-hover-color: #000;
-  color: var(--bs-table-color);
-  border-color: var(--bs-table-border-color);
+  --bs-table-color: #000; /* Color de texto negro */
+  --bs-table-bg: #f8f9fa; /* Fondo de la tabla claro */
+  --bs-table-border-color: #dfe0e1; /* Color del borde de la tabla */
+  --bs-table-striped-bg: #d0d0d0; /* Fondo gris claro para las filas intercaladas */
+  --bs-table-striped-color: #000; /* Color del texto de las filas intercaladas */
+  --bs-table-active-bg: #e4e7e9; /* Fondo activo de las filas */
+  --bs-table-active-color: #000; /* Color de texto en fila activa */
+  --bs-table-hover-bg: #a6a6a6; /* Fondo cuando se pasa el mouse */
+  --bs-table-hover-color: #000; /* Color de texto cuando se pasa el mouse */
+  
+  color: var(--bs-table-color); /* Color de texto */
+  border-color: var(--bs-table-border-color); /* Color de los bordes */
+  width: 100%;
+  max-width: 100%; /* Asegura que la tabla pueda expandirse y ocupar el 100% del contenedor */
+  table-layout: auto; /* Permite que la tabla sea flexible y se ajuste automáticamente al contenido */
+  border-collapse: separate; /* Cambiado a 'separate' para permitir bordes redondeados */
+  border-spacing: 0; /* Elimina el espacio entre celdas */
+  border-radius: 8px; /* Bordes redondeados en la tabla */
+  overflow: hidden; /* Asegura que las celdas no sobresalgan de los bordes redondeados */
 }
+
+/* Estilo para el encabezado */
+.table-light thead {
+  background-color: red; /* Fondo rojo en el encabezado */
+  color: rgb(255, 255, 255); /* Texto blanco en el encabezado */
+}
+
+/* Alineación de los iconos y el texto dentro de las celdas del encabezado */
+.table-light th {
+  padding: 12px;
+  font-weight: bold;
+  text-align: left; /* Alinea el texto a la izquierda */
+  white-space: nowrap; /* Impide que el texto se divida */
+}
+
+/* Alineación de los iconos junto al texto */
+.table-light th i {
+  margin-right: 8px; /* Añade espacio entre el icono y el texto */
+  vertical-align: middle; /* Alinea el icono con el texto */
+}
+
+/* Estilo para las filas del cuerpo de la tabla */
+.table-light tbody tr:nth-child(odd) {
+  background-color: var(--bs-table-bg); /* Fondo blanco para filas impares */
+}
+
+.table-light tbody tr:nth-child(even) {
+  background-color: var(--bs-table-striped-bg); /* Fondo gris claro para filas pares */
+}
+
+/* Estilo para las celdas de las filas */
+.table-light td {
+  padding: 10px;
+  border: 1px solid var(--bs-table-border-color); /* Bordes ligeros para las celdas */
+  text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+  vertical-align: middle; /* Alinea el contenido verticalmente */
+  white-space: nowrap; /* Evita que el texto se divida en múltiples líneas */
+}
+
+/* Efecto al pasar el ratón por encima de las filas */
+.table-light tbody tr:hover {
+  background-color: var(--bs-table-hover-bg);
+  color: var(--bs-table-hover-color);
+}
+
+/* Estilo para las filas activas */
+.table-light tbody tr.active {
+  background-color: var(--bs-table-active-bg);
+  color: var(--bs-table-active-color);
+}
+
+.table-light-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 20px; /* Espacio debajo de la tabla */
+}
+
+
 
 .table-dark {
   --bs-table-color: #fff;
@@ -4529,10 +4596,14 @@ textarea.form-control-lg {
   --bs-pagination-disabled-color: #6c757d;
   --bs-pagination-disabled-bg: #fff;
   --bs-pagination-disabled-border-color: #dee2e6;
+  
   display: flex;
   padding-left: 0;
   list-style: none;
+  
+  margin-top: 10px; /* Espacio arriba de la paginación */
 }
+
 
 .page-link, .datatable-pagination a {
   position: relative;
