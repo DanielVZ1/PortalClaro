@@ -1900,7 +1900,7 @@ progress {
   --bs-table-striped-color: #000; /* Color del texto de las filas intercaladas */
   --bs-table-active-bg: #e4e7e9; /* Fondo activo de las filas */
   --bs-table-active-color: #000; /* Color de texto en fila activa */
-  --bs-table-hover-bg: #a6a6a6; /* Fondo cuando se pasa el mouse */
+  --bs-table-hover-bg: #bdbdbd; /* Fondo cuando se pasa el mouse */
   --bs-table-hover-color: #000; /* Color de texto cuando se pasa el mouse */
   
   color: var(--bs-table-color); /* Color de texto */

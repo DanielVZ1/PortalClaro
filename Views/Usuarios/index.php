@@ -26,7 +26,7 @@ include "Views/Templates/header.php";
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-       
+
 </head>
 
 <table class="table-light" id="tblUsuarios">
@@ -62,7 +62,7 @@ include "Views/Templates/header.php";
 
                     <div class="form-group">
                         <label for="usuario" style="color: black;"><i class="fas fa-user-circle"></i> Usuario</label>
-                        <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Usuario" maxlength="20"  oninput="validarUsuario(event)">
+                        <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Usuario" maxlength="20" oninput="validarUsuario(event)">
                     </div>
 
                     <div class="form-group">
@@ -74,23 +74,27 @@ include "Views/Templates/header.php";
                         <label for="email" style="color: black;"><i class="fas fa-envelope"></i> Email</label>
                         <input id="email" class="form-control" type="email" name="email" placeholder="Email" maxlength="50" onblur="validateEmail(this)">
                     </div>
-
                     <div class="row" id="claves">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="clave" style="color: black;"><i class="fas fa-lock"></i> Contraseña</label>
-                                <input id="clave" class="form-control" type="password" name="clave" placeholder="Contraseña" minlength="6" maxlength="50">
+                                <label for="clave" style="color: black;">
+                                    <i class="fas fa-lock"></i> Contraseña
+                                </label>
+                                <input id="clave" class="form-control" type="password" name="clave" placeholder="Contraseña" minlength="6" maxlength="50" required>
+                                <button type="button" onclick="togglePasswordVisibility('clave')">Mostrar/Ocultar</button>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="confirmar" style="color: black;"><i class="fas fa-lock"></i> Confirmar Contraseña</label>
+                                <label for="confirmar" style="color: black;">
+                                    <i class="fas fa-lock"></i> Confirmar Contraseña
+                                </label>
                                 <input id="confirmar" class="form-control" type="password" name="confirmar" placeholder="Confirmar Contraseña" minlength="6" maxlength="50" required>
+                                <button type="button" onclick="togglePasswordVisibility('confirmar')">Mostrar/Ocultar</button>
                             </div>
                         </div>
                     </div>
 
-                    
                     <div class="form-group">
                         <label for="rol" style="color: black;"><i class="fas fa-user-tag"></i> Rol</label>
                         <select id="rol" class="form-control" name="rol">
@@ -107,8 +111,18 @@ include "Views/Templates/header.php";
 </div>
 
 <script>
+    // Función para alternar la visibilidad de la contraseña
+    function togglePasswordVisibility(id) {
+        var passwordField = document.getElementById(id);
+        var fieldType = passwordField.type;
+        if (fieldType === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
 
-function validarUsuario(event) {
+    function validarUsuario(event) {
         // Obtén el valor del campo de texto
         let input = event.target;
 
