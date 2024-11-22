@@ -606,7 +606,7 @@
     background-position: 0;
   }
   100% {
-    background-position: 675px;
+    background-position: 665px;
   }
 }
 
