@@ -124,7 +124,6 @@ function btnEditarUser(id) {
     const emailElement = document.getElementById("email");
     const rolElement = document.getElementById("rol");
     const claveElement = document.getElementById("clave");
-    const confirmarElement = document.getElementById("confirmar");
 
     titleElement.innerHTML = "Actualizar usuario";
     btnAccionElement.innerHTML = "Modificar";
@@ -188,7 +187,7 @@ function registrarUser(e, isEdit = false) {
     const regexContraseña = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,50}$/;
 
     // Validación de campos vacíos
-    if (usuario.value == "" || nombre.value == "" || rol.value == "" || email.value == "") {
+    if (usuario.value == "" || nombre.value == "" || rol.value == "" || email.value == "" || clave.value=="") {
         Swal.fire({
             position: 'top-end',
             icon: 'error',

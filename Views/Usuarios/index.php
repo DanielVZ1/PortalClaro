@@ -103,10 +103,6 @@ include "Views/Templates/header.php";
   </label>
 </div>
 </div>
-
-
-
-
                     <div class="form-group">
                         <label for="rol" style="color: black;"><i class="fas fa-user-tag"></i> Rol</label>
                         <select id="rol" class="form-control" name="rol">
