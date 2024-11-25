@@ -75,25 +75,37 @@ include "Views/Templates/header.php";
                         <input id="email" class="form-control" type="email" name="email" placeholder="Email" maxlength="50" onblur="validateEmail(this)">
                     </div>
                     <div class="row" id="claves">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="clave" style="color: black;">
-                                    <i class="fas fa-lock"></i> Contraseña
-                                </label>
-                                <input id="clave" class="form-control" type="password" name="clave" placeholder="Contraseña" minlength="6" maxlength="50" required>
-                                <button type="button" onclick="togglePasswordVisibility('clave')">Mostrar/Ocultar</button>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="confirmar" style="color: black;">
-                                    <i class="fas fa-lock"></i> Confirmar Contraseña
-                                </label>
-                                <input id="confirmar" class="form-control" type="password" name="confirmar" placeholder="Confirmar Contraseña" minlength="6" maxlength="50" required>
-                                <button type="button" onclick="togglePasswordVisibility('confirmar')">Mostrar/Ocultar</button>
-                            </div>
-                        </div>
-                    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label for="clave" style="color: black;">
+                <i class="fas fa-lock"></i> Contraseña
+            </label>
+            <input id="clave" class="form-control" type="password" name="clave" placeholder="Contraseña" minlength="6" maxlength="50" required>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label for="confirmar" style="color: black;">
+                <i class="fas fa-lock"></i> Confirmar Contraseña
+            </label>
+            <input id="confirmar" class="form-control" type="password" name="confirmar" placeholder="Confirmar Contraseña" minlength="6" maxlength="50" required>
+        </div>
+    </div>
+    <div class="checkbox-wrapper-46">
+  <input type="checkbox" id="cbx-46" class="inp-cbx" onclick="togglePasswordVisibility()" />
+  <label for="cbx-46" class="cbx">
+    <span>
+      <svg viewBox="0 0 12 10" height="10px" width="12px">
+        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+      </svg>
+    </span>
+    <span>Mostrar Contraseña</span>
+  </label>
+</div>
+</div>
+
+
+
 
                     <div class="form-group">
                         <label for="rol" style="color: black;"><i class="fas fa-user-tag"></i> Rol</label>
@@ -111,17 +123,20 @@ include "Views/Templates/header.php";
 </div>
 
 <script>
-    // Función para alternar la visibilidad de la contraseña
-    function togglePasswordVisibility(id) {
-        var passwordField = document.getElementById(id);
-        var fieldType = passwordField.type;
-        if (fieldType === "password") {
-            passwordField.type = "text";
+ function togglePasswordVisibility() {
+        // Obtener ambos campos de contraseña
+        const passwordField = document.getElementById('clave');
+        const confirmPasswordField = document.getElementById('confirmar');
+        
+        // Comprobar si ambos campos están mostrando las contraseñas
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            confirmPasswordField.type = 'text';
         } else {
-            passwordField.type = "password";
+            passwordField.type = 'password';
+            confirmPasswordField.type = 'password';
         }
     }
-
     function validarUsuario(event) {
         // Obtén el valor del campo de texto
         let input = event.target;
