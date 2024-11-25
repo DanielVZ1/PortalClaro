@@ -124,7 +124,7 @@ class Usuarios extends Controller
     } else {
         // Validar si el rol seleccionado es el ID 1
         if ($id_rol == "1") {
-            $msg = "No se puede asignar el rol con ID 1.";
+            $msg = "No se puede asignar el rol administrador";
         } else {
             if ($id == "") {
                 // Si no es una edición, validamos las contraseñas
