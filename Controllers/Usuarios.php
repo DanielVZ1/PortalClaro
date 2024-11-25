@@ -107,34 +107,45 @@ class Usuarios extends Controller
     }
 
     public function registrar()
-    {
-      $usuario = strClean($_POST['usuario']);
-      $nombre = strClean($_POST['nombre']);
-      $email = strClean($_POST['email']);
-      $clave = strClean($_POST['clave']);
-      $confirmar = strClean($_POST['confirmar']);
-      $id_rol = strClean($_POST['rol']); // Cambiado
-      $id = isset($_POST['id']) ? strClean($_POST['id']) : ""; // Capturamos el ID si existe
-      $hash = password_hash($clave, PASSWORD_DEFAULT);
-  
-      if (empty($usuario) || empty($nombre) || empty($email) || empty($id_rol) || empty($clave)) {
+{
+    // Obtener los datos del formulario
+    $usuario = strClean($_POST['usuario']);
+    $nombre = strClean($_POST['nombre']);
+    $email = strClean($_POST['email']);
+    $clave = strClean($_POST['clave']);
+    $confirmar = strClean($_POST['confirmar']);
+    $id_rol = strClean($_POST['rol']);  // Capturamos el id del rol seleccionado
+    $id = isset($_POST['id']) ? strClean($_POST['id']) : ""; // Si existe un ID (editar)
+    $hash = password_hash($clave, PASSWORD_DEFAULT);
+
+    // Validar los campos
+    if (empty($usuario) || empty($nombre) || empty($email) || empty($id_rol)) {
         $msg = "Todos los campos son obligatorios";
-      } else {
-        if ($id == "") {
-          if ($clave != $confirmar) {
-            $msg = "Las contraseñas no coinciden";
-          } else {
-            $data = $this->model->registrarUsuario($usuario, $nombre, $hash, $email, $id_rol);
-            $msg = $data == "ok" ? "si" : ($data == "existe" ? "El usuario ya existe" : "Error al registrar el usuario");
-          }
+    } else {
+        // Validar si el rol seleccionado es el ID 1
+        if ($id_rol == "1") {
+            $msg = "No se puede asignar el rol con ID 1.";
         } else {
-          $data = $this->model->modificarUsuario($usuario, $nombre, $email, $id_rol, $id); // Cambiado
-          $msg = $data == "modificado" ? "modificado" : "Error al modificar el usuario";
+            if ($id == "") {
+                // Si no es una edición, validamos las contraseñas
+                if ($clave != $confirmar) {
+                    $msg = "Las contraseñas no coinciden";
+                } else {
+                    $data = $this->model->registrarUsuario($usuario, $nombre, $clave, $email, $id_rol);
+                    $msg = $data == "ok" ? "si" : ($data == "existe" ? "El usuario ya existe" : "Error al registrar el usuario");
+                }
+            } else {
+                // Si es una edición de usuario
+                $data = $this->model->modificarUsuario($usuario, $nombre, $email, $id_rol, $id);
+                $msg = $data == "modificado" ? "modificado" : "Error al modificar el usuario";
+            }
         }
-      }
-      echo json_encode($msg, JSON_UNESCAPED_UNICODE);
-      die();
     }
+
+    echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+    die();
+}
+
   
 
     // Editar un usuario
