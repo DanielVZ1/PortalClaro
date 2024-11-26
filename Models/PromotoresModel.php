@@ -297,4 +297,8 @@ class PromotoresModel extends Query
         return $data;
    
     }
+
+    
+
+    
 }

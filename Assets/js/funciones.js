@@ -355,8 +355,9 @@ function frmPromotor() {
 }
 
 
-function registrarPromotor(e){
+function registrarPromotor(e) {
     e.preventDefault();
+    
     const codigo = document.getElementById("codigo");
     const dni = document.getElementById("dni");
     const nombre = document.getElementById("nombre");
@@ -374,64 +375,103 @@ function registrarPromotor(e){
     const id_proyecto = document.getElementById("proyecto");
     const id_cargo = document.getElementById("cargo");
     
-    if (codigo.value =="" || dni.value == "" || nombre.value =="" || apellido.value == "" ||  
-        telefono.value =="" || profesion.value == "" || direccion.value == ""){
+    // Verificar si todos los campos obligatorios están llenos
+    if (codigo.value == "" || dni.value == "" || nombre.value == "" || apellido.value == "" ||  
+        telefono.value == "" || profesion.value == "" || direccion.value == "") {
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Todos los campos son obligatorios!',
             showConfirmButton: false,
             timer: 3000
-        })
-    }else{
-        const url = base_url + "Promotores/registrar";
-        const frm = document .getElementById("frmPromotor");
-        const http = new XMLHttpRequest();
-        http.open("POST", url, true);
-        http.send(new FormData(frm));
-        http.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                console.log(this.responseText);  // Ver lo que realmente devuelve el servidor
-                try {
-                    const res = JSON.parse(this.responseText);  // Intentamos analizar la respuesta como JSON
-                    if (res == "si"){
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Promotor registrado con éxito',
-                            showConfirmButton: false,
-                            timer: 3000
-                        });
-                        frm.reset();
-                        $("#nuevo_promotor").modal("hide");
-                        tblPromotores.ajax.reload();
-                    } else if (res == "modificado") {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Promotor modificado correctamente',
-                            showConfirmButton: false,
-                            timer: 3000
-                        });
-                        $("#nuevo_promotor").modal("hide");
-                        tblPromotores.ajax.reload();
-                    } else {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'error',
-                            title: res,
-                            showConfirmButton: false,
-                            timer: 3000
-                        });
-                    }
-                } catch (e) {
-                    console.error("Error al analizar JSON:", e);  // Capturamos el error si la respuesta no es un JSON válido
-                }
-            }
-        };
-        
+        });
+        return;  // Evitar que se continúe con el registro si falta información
     }
+
+    // Validación de que el DNI no esté duplicado
+    const dniExistente = verificarDniExistente(dni.value);
+    
+    if (dniExistente) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'El DNI ingresado ya está registrado',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return;  // Evitar que se continúe con el registro si el DNI ya existe
+    }
+
+    // Si todo está correcto, enviar el formulario
+    const url = base_url + "Promotores/registrar";
+    const frm = document.getElementById("frmPromotor");
+    const http = new XMLHttpRequest();
+    
+    http.open("POST", url, true);
+    http.send(new FormData(frm));
+    
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);  // Ver lo que realmente devuelve el servidor
+            try {
+                const res = JSON.parse(this.responseText);  // Intentamos analizar la respuesta como JSON
+                if (res == "si") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Promotor registrado con éxito',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                    frm.reset();
+                    $("#nuevo_promotor").modal("hide");
+                    tblPromotores.ajax.reload();
+                } else if (res == "modificado") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Promotor modificado correctamente',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                    $("#nuevo_promotor").modal("hide");
+                    tblPromotores.ajax.reload();
+                } else {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: res,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
+            } catch (e) {
+                console.error("Error al analizar JSON:", e);  // Capturamos el error si la respuesta no es un JSON válido
+            }
+        }
+    };
 }
+
+// Función para verificar si el DNI ya está registrado
+function verificarDniExistente(dni) {
+    let isDniExistente = false;
+
+    // Realizar una llamada AJAX para verificar si el DNI ya existe
+    const http = new XMLHttpRequest();
+    http.open("GET", base_url + "Promotores/verificarDni/" + dni, false); // Llamada sincrónica
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const response = this.responseText;
+            if (response == "existe") {
+                isDniExistente = true;  // El DNI ya está registrado
+            }
+        }
+    };
+    http.send();
+
+    return isDniExistente;
+}
+
 
 function btnEditarPromotor(id) {
     document.getElementById("title").innerHTML = "Actualizar promotor";
@@ -451,7 +491,7 @@ function btnEditarPromotor(id) {
             document.getElementById("telefono").value = res.telefono;
             document.getElementById("profesion").value = res.profesion;
             document.getElementById("estado_civil").value = res.id_estado_civil;
-            document.getElementById("genero").value = res.id_genero;  
+            document.getElementById("genero").value = res.id_genero;
             document.getElementById("direccion").value = res.direccion;
             document.getElementById("zona").value = res.id_zona;
             document.getElementById("departamento").value = res.id_departamento;
@@ -460,24 +500,34 @@ function btnEditarPromotor(id) {
             document.getElementById("canal").value = res.id_canal;
             document.getElementById("proyecto").value = res.id_proyecto;
             document.getElementById("cargo").value = res.id_cargo;
-            document.getElementById("img-preview").src = base_url + 'Assets/imgBD/' + res.foto;
-           // Mostrar los archivos existentes en el iframe si hay una URL de archivo para cada uno
-document.getElementById("cv-preview").style.display = "block";
-document.getElementById("cv-preview").src = base_url + 'Assets/Documents/CV/' + res.cv;
 
-document.getElementById("antecedentes-preview").style.display = "block";
-document.getElementById("antecedentes-preview").src = base_url + 'Assets/Documents/Antecedentes/' + res.antecedentes;
+            // Asignar valores actuales a los campos ocultos
+            document.getElementById("cv_actual").value = res.cv || '';  // Establecer el valor actual del archivo de CV
+            document.getElementById("antecedentes_actual").value = res.antecedentes || '';  // Establecer el valor actual del archivo de antecedentes
+            document.getElementById("contrato_actual").value = res.contrato || '';  // Establecer el valor actual del archivo de contrato
+            document.getElementById("foto_actual").value = res.foto || '';
 
-document.getElementById("contrato-preview").style.display = "block";
-document.getElementById("contrato-preview").src = base_url + 'Assets/Documents/Contrato/' + res.contrato;
+            // Mostrar la imagen actual
+            document.getElementById("img-preview").style.display = res.foto ? "block" : "none";
+            document.getElementById("img-preview").src = res.foto ? base_url + 'Assets/imgBD/' + res.foto : '';
+
+            // Mostrar los archivos existentes si hay alguno, de lo contrario mantener vacío
+            document.getElementById("cv-preview").style.display = res.cv ? "block" : "none";
+            document.getElementById("cv-preview").src = res.cv ? base_url + 'Assets/Documents/CV/' + res.cv : '';
+
+            document.getElementById("antecedentes-preview").style.display = res.antecedentes ? "block" : "none";
+            document.getElementById("antecedentes-preview").src = res.antecedentes ? base_url + 'Assets/Documents/Antecedentes/' + res.antecedentes : '';
+
+            document.getElementById("contrato-preview").style.display = res.contrato ? "block" : "none";
+            document.getElementById("contrato-preview").src = res.contrato ? base_url + 'Assets/Documents/Contrato/' + res.contrato : '';
 
             // Habilitar los campos
             disableFormFields(false);
-
             $("#nuevo_promotor").modal("show");
         }
     }
 }
+
 
 function btnEliminarPromotor(id) {
     Swal.fire({
