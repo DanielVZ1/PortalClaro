@@ -298,7 +298,19 @@ class PromotoresModel extends Query
    
     }
 
+    public function verificarDNI($dni)
+    {
+        // Ajustamos la consulta para usar el valor de $dni directamente en la SQL
+        $sql = "SELECT COUNT(*) as total FROM promotores WHERE dni = '$dni'"; // Usamos directamente el DNI en la consulta
     
+        // Ejecutamos la consulta con el método select
+        $result = $this->select($sql);
+        
+        // Verificamos si el resultado tiene más de 0, lo que indica que el DNI ya está registrado
+        return $result['total'] > 0;
+    }
+    
+
 
     
 }

@@ -390,20 +390,6 @@ function registrarPromotor(e) {
         return;  // Evitar que se continúe con el registro si falta información
     }
 
-    // Validación de que el DNI no esté duplicado
-    const dniExistente = verificarDniExistente(dni.value);
-    
-    if (dniExistente) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'El DNI ingresado ya está registrado',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return;  // Evitar que se continúe con el registro si el DNI ya existe
-    }
-
     // Si todo está correcto, enviar el formulario
     const url = base_url + "Promotores/registrar";
     const frm = document.getElementById("frmPromotor");
