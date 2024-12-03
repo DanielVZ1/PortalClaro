@@ -108,6 +108,7 @@ class Promotores extends Controller
 
   public function registrar()
   {
+      // Obtener datos del formulario
       $codigo = $_POST['codigo'];
       $dni = $_POST['dni'];
       $nombre = $_POST['nombre'];
@@ -125,6 +126,20 @@ class Promotores extends Controller
       $proyecto = $_POST['proyecto'];
       $cargo = $_POST['cargo'];
       $id = $_POST['id'];
+  
+      // Si el ID está vacío, significa que estamos creando un nuevo registro
+      if ($id == "") {
+          // Verificar si el DNI ya existe
+          $existeDNI = $this->model->verificarDNI($dni); // Asegúrate de tener esta función en tu modelo
+          if ($existeDNI) {
+              // Si el DNI ya existe, retornar un mensaje de error
+              $msg = "El DNI ya está registrado en el sistema.";
+              echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+              die();  // Detener la ejecución
+          }
+      }
+  
+      // Archivos
       $img = $_FILES['imagen'];
       $cv = $_FILES['cv'];  // Archivo curriculum
       $antecedentes = $_FILES['antecedentes'];  // Archivo antecedentes
@@ -139,44 +154,33 @@ class Promotores extends Controller
       $cvName = $antecedentesName = $contratoName = "";
   
       // Validación de campos obligatorios
-      if (
-          empty($codigo) || empty($dni) || empty($nombre) || empty($apellido) || empty($telefono)
-          || empty($profesion) || empty($direccion)
-      ) {
+      if (empty($codigo) || empty($dni) || empty($nombre) || empty($apellido) || empty($telefono) || empty($profesion) || empty($direccion)) {
           $msg = "Todos los campos son obligatorios";
       } else {
           // Manejo de la imagen
           if (!empty($name)) {
-              // Si se sube una nueva imagen, generar un nuevo nombre
               $imgNombre = $fecha . ".png";
               $destino = "Assets/imgBD/" . $imgNombre;
           } else {
-              // Si no se sube una nueva imagen, mantener la imagen actual o asignar la imagen por defecto
               $imgNombre = !empty($_POST['foto_actual']) ? $_POST['foto_actual'] : "default.png";
           }
   
           // Verificar si los documentos ya existen (si no se sube nuevo, mantener los existentes)
           if (empty($cv['name'])) {
-              // Si no se sube nuevo archivo de CV, mantener el actual (si existe)
               $cvName = isset($_POST['cv_actual']) ? $_POST['cv_actual'] : "";
           } else {
-              // Si se sube un nuevo CV, generar un nombre único
               $cvName = uniqid() . '-' . $cv['name'];
           }
   
           if (empty($antecedentes['name'])) {
-              // Si no se sube nuevo archivo de antecedentes, mantener el actual (si existe)
               $antecedentesName = isset($_POST['antecedentes_actual']) ? $_POST['antecedentes_actual'] : "";
           } else {
-              // Si se sube un nuevo archivo de antecedentes, generar un nombre único
               $antecedentesName = uniqid() . '-' . $antecedentes['name'];
           }
   
           if (empty($contrato['name'])) {
-              // Si no se sube nuevo archivo de contrato, mantener el actual (si existe)
               $contratoName = isset($_POST['contrato_actual']) ? $_POST['contrato_actual'] : "";
           } else {
-              // Si se sube un nuevo contrato, generar un nombre único
               $contratoName = uniqid() . '-' . $contrato['name'];
           }
   
@@ -207,29 +211,53 @@ class Promotores extends Controller
               );
   
               if ($data == "ok") {
-                  // Mover la imagen, si se subió una nueva
-                  if (!empty($name)) {
-                      move_uploaded_file($tmpname, $destino); // Para la foto
+
+                $msg = "si";
+               // Mover la imagen, si se subió una nueva
+              if (!empty($name)) {
+                  if ($_POST['foto_actual'] != "default.png") {
+                      unlink("Assets/imgBD/" . $_POST['foto_actual']);
                   }
-                  // Mover los archivos, solo si se subió uno nuevo
-                  if (!empty($cv['name'])) {
-                      move_uploaded_file($cv['tmp_name'], "Assets/Documents/CV/" . $cvName); // Para el CV
-                  }
-                  if (!empty($antecedentes['name'])) {
-                      move_uploaded_file($antecedentes['tmp_name'], "Assets/Documents/Antecedentes/" . $antecedentesName); // Para los antecedentes
-                  }
-                  if (!empty($contrato['name'])) {
-                      move_uploaded_file($contrato['tmp_name'], "Assets/Documents/Contrato/" . $contratoName); // Para el contrato
-                  }
+                  move_uploaded_file($tmpname, $destino); // Para la foto
+              }
   
-                  $msg = "si";
-              } else if ($data == "existe") {
-                  $msg = "El Promotor ya existe";
+              // Mover los archivos, solo si se subió uno nuevo
+              if (!empty($cv['name'])) {
+                  if (!empty($_POST['cv_actual'])) {
+                      unlink("Assets/Documents/CV/" . $_POST['cv_actual']);
+                  }
+                  move_uploaded_file($cv['tmp_name'], "Assets/Documents/CV/" . $cvName); // Para el CV
+              }
+              if (!empty($antecedentes['name'])) {
+                  if (!empty($_POST['antecedentes_actual'])) {
+                      unlink("Assets/Documents/Antecedentes/" . $_POST['antecedentes_actual']);
+                  }
+                  move_uploaded_file($antecedentes['tmp_name'], "Assets/Documents/Antecedentes/" . $antecedentesName); // Para los antecedentes
+              }
+              if (!empty($contrato['name'])) {
+                  if (!empty($_POST['contrato_actual'])) {
+                      unlink("Assets/Documents/Contrato/" . $_POST['contrato_actual']);
+                  }
+                  move_uploaded_file($contrato['tmp_name'], "Assets/Documents/Contrato/" . $contratoName); // Para el contrato
+              }
+  
+              // Limpiar campos de archivos en el formulario después de registrar
+              $_POST['imagen'] = '';
+              $_POST['cv'] = '';
+              $_POST['antecedentes'] = '';
+              $_POST['contrato'] = '';
+              $_POST['foto_actual'] = '';
+              $_POST['cv_actual'] = '';
+              $_POST['antecedentes_actual'] = '';
+              $_POST['contrato_actual'] = '';
+  
+              
+          } else if ($data == "existe") {
+              $msg = "El Promotor ya existe";
               } else {
                   $msg = "Error al registrar el Promotor";
               }
           } else {
-
               // Actualizar los datos del promotor en la base de datos
               $data = $this->model->modificarPromotor(
                   $codigo,
@@ -256,20 +284,41 @@ class Promotores extends Controller
               );
   
               if ($data == "modificado") {
-                  // Mover la imagen, si se subió una nueva
                   if (!empty($name)) {
+                      if ($_POST['foto_actual'] != "default.png") {
+                          unlink("Assets/imgBD/" . $_POST['foto_actual']);
+                      }
                       move_uploaded_file($tmpname, $destino); // Para la foto
                   }
-                  // Mover los archivos, solo si se subió uno nuevo
+  
                   if (!empty($cv['name'])) {
+                      if (!empty($_POST['cv_actual'])) {
+                          unlink("Assets/Documents/CV/" . $_POST['cv_actual']);
+                      }
                       move_uploaded_file($cv['tmp_name'], "Assets/Documents/CV/" . $cvName); // Para el CV
                   }
                   if (!empty($antecedentes['name'])) {
+                      if (!empty($_POST['antecedentes_actual'])) {
+                          unlink("Assets/Documents/Antecedentes/" . $_POST['antecedentes_actual']);
+                      }
                       move_uploaded_file($antecedentes['tmp_name'], "Assets/Documents/Antecedentes/" . $antecedentesName); // Para los antecedentes
                   }
                   if (!empty($contrato['name'])) {
+                      if (!empty($_POST['contrato_actual'])) {
+                          unlink("Assets/Documents/Contrato/" . $_POST['contrato_actual']);
+                      }
                       move_uploaded_file($contrato['tmp_name'], "Assets/Documents/Contrato/" . $contratoName); // Para el contrato
                   }
+  
+                  // Limpiar campos de archivos en el formulario después de modificar
+                  $_POST['foto_actual'] = '';
+                  $_POST['cv_actual'] = '';
+                  $_POST['antecedentes_actual'] = '';
+                  $_POST['contrato_actual'] = '';
+                  $_POST['imagen'] = '';
+                  $_POST['cv'] = '';
+                  $_POST['antecedentes'] = '';
+                  $_POST['contrato'] = '';
   
                   $msg = "modificado";
               } else {

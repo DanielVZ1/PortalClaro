@@ -124,6 +124,8 @@ function btnEditarUser(id) {
     const emailElement = document.getElementById("email");
     const rolElement = document.getElementById("rol");
     const claveElement = document.getElementById("clave");
+    const confirmarElement = document.getElementById("clave");
+
 
     titleElement.innerHTML = "Actualizar usuario";
     btnAccionElement.innerHTML = "Modificar";
@@ -145,8 +147,8 @@ function btnEditarUser(id) {
             $("#nuevo_usuario").modal("show");
 
             // Limpiar los campos de contraseña al editar
-            claveElement.value = '';
-            confirmarElement.value = '';
+            claveElement.value = res.clave;
+            confirmarElement.value = res.clave;
 
             // Llamamos a la función de registro con isEdit = true para evitar la validación de contraseñas
             btnAccionElement.onclick = function(e) {
@@ -386,20 +388,6 @@ function registrarPromotor(e) {
             timer: 3000
         });
         return;  // Evitar que se continúe con el registro si falta información
-    }
-
-    // Validación de que el DNI no esté duplicado
-    const dniExistente = verificarDniExistente(dni.value);
-    
-    if (dniExistente) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'El DNI ingresado ya está registrado',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return;  // Evitar que se continúe con el registro si el DNI ya existe
     }
 
     // Si todo está correcto, enviar el formulario
