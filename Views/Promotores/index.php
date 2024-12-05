@@ -174,7 +174,7 @@
                                 <div class="card-body">
                                     <label for="imagen" id="icon-image" class="btn btn-primary"><i class="fas fa-image"></i></label>
                                     <span id="icon-cerrar"></span>
-                                    <input id="imagen" class="d-none" type="file" name="imagen" onchange="preview(event)">
+                                    <input id="imagen" class="d-none" type="file" accept=".jpg, .jpeg, .png" name="imagen" onchange="preview(event)">
                                     <input type="hidden" id="foto_actual" name="foto_actual">
                                     <img class="img-thumbnail" id="img-preview">
                                 </div>
@@ -348,61 +348,60 @@
                     </div>
 
                     <div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label style="color: black;"><i class="fas fa-file-alt"></i> Curriculum Vitae</label>
-            <div class="card border-primary">
-                <div class="card-body">
-                    <!-- Campo de archivo para subir un nuevo CV -->
-                    <input style="color: black;" id="cv" type="file" name="cv" accept=".pdf,.doc,.docx">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label style="color: black;"><i class="fas fa-file-alt"></i> Curriculum Vitae</label>
+                                <div class="card border-primary">
+                                    <div class="card-body">
+                                        <!-- Campo de archivo para subir un nuevo CV, solo archivos PDF -->
+                                        <input style="color: black;" id="cv" type="file" name="cv" accept=".pdf" onchange="validateFileType(event)">
 
-                    <!-- Vista previa del archivo (si se sube uno nuevo) -->
-                    <iframe id="cv-preview" width="100%" height="400px" style="display:none;"></iframe>
+                                        <!-- Vista previa del archivo (si se sube uno nuevo) -->
+                                        <iframe id="cv-preview" width="100%" height="400px" style="display:none;"></iframe>
 
-                    <!-- Campo oculto para almacenar el archivo actual del CV (si existe) -->
-                    <input type="hidden" id="cv_actual" name="cv_actual" />
-                </div>
-            </div>
-        </div>
-    </div>
+                                        <!-- Campo oculto para almacenar el archivo actual del CV (si existe) -->
+                                        <input type="hidden" id="cv_actual" name="cv_actual" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="col-md-12">
-        <div class="form-group">
-            <label style="color: black;"><i class="fas fa-file"></i> Antecedentes Penales y Oficiales</label>
-            <div class="card border-primary">
-                <div class="card-body">
-                    <!-- Campo de archivo para subir nuevos antecedentes -->
-                    <input style="color: black;" id="antecedentes" type="file" name="antecedentes">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label style="color: black;"><i class="fas fa-file"></i> Antecedentes Penales y Oficiales</label>
+                                <div class="card border-primary">
+                                    <div class="card-body">
+                                        <!-- Campo de archivo para subir nuevos antecedentes, solo archivos PDF -->
+                                        <input style="color: black;" id="antecedentes" type="file" name="antecedentes" accept=".pdf" onchange="validateFileType(event, 'antecedentes')">
 
-                    <!-- Vista previa del archivo (si se sube uno nuevo) -->
-                    <iframe id="antecedentes-preview" width="100%" height="400px" style="display:none;"></iframe>
+                                        <!-- Vista previa del archivo (si se sube uno nuevo) -->
+                                        <iframe id="antecedentes-preview" width="100%" height="400px" style="display:none;"></iframe>
 
-                    <!-- Campo oculto para almacenar el archivo actual de antecedentes (si existe) -->
-                    <input type="hidden" id="antecedentes_actual" name="antecedentes_actual" />
-                </div>
-            </div>
-        </div>
-    </div>
+                                        <!-- Campo oculto para almacenar el archivo actual de antecedentes (si existe) -->
+                                        <input type="hidden" id="antecedentes_actual" name="antecedentes_actual" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="col-md-12">
-        <div class="form-group">
-            <label style="color: black;"><i class="fas fa-file-contract"></i> Contrato</label>
-            <div class="card border-primary">
-                <div class="card-body">
-                    <!-- Campo de archivo para subir un nuevo contrato -->
-                    <input style="color: black;" id="contrato" type="file" name="contrato">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label style="color: black;"><i class="fas fa-file-contract"></i> Contrato</label>
+                                <div class="card border-primary">
+                                    <div class="card-body">
+                                        <!-- Campo de archivo para subir un nuevo contrato, solo archivos PDF -->
+                                        <input style="color: black;" id="contrato" type="file" name="contrato" accept=".pdf" onchange="validateFileType(event, 'contrato')">
 
-                    <!-- Vista previa del archivo (si se sube uno nuevo) -->
-                    <iframe id="contrato-preview" width="100%" height="400px" style="display:none;"></iframe>
+                                        <!-- Vista previa del archivo (si se sube uno nuevo) -->
+                                        <iframe id="contrato-preview" width="100%" height="400px" style="display:none;"></iframe>
 
-                    <!-- Campo oculto para almacenar el archivo actual del contrato (si existe) -->
-                    <input type="hidden" id="contrato_actual" name="contrato_actual" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+                                        <!-- Campo oculto para almacenar el archivo actual del contrato (si existe) -->
+                                        <input type="hidden" id="contrato_actual" name="contrato_actual" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div style="margin-top: 20px;  display: flex; gap: 15px;">
                         <button class="shadow__btn" type="button" onclick="registrarPromotor(event)" id="btnAccion">Registrar</button>
@@ -414,6 +413,26 @@
     </div>
 </div>
 
+<script>
+    function validateFileType(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var fileType = file.type; // El tipo MIME del archivo
+            if (fileType !== 'application/pdf') {
+                alert('Por favor, selecciona un archivo PDF.');
+                event.target.value = ''; // Limpia el campo de entrada
+            } else {
+                // Si es un archivo PDF, muestra una vista previa (si lo deseas)
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('cv-preview').src = e.target.result;
+                    document.getElementById('cv-preview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    }
+</script>
 
 <script>
     function formatInput(input) {

@@ -136,17 +136,17 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="proveedor" class="form-label"><i class="fas fa-store"></i> Proveedor:</label>
-                        <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)"required>
+                        <input class="form-control" id="proveedor" name="proveedor" type="text" value="<?php echo isset($proveedor) ? $proveedor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)" required>
                     </div>
                     <div class="col">
                         <label for="supervisor" class="form-label"><i class="fas fa-user-tie"></i> Supervisor:</label>
-                        <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)"required>
+                        <input class="form-control" id="supervisor" name="supervisor" type="text" value="<?php echo isset($supervisor) ? $supervisor : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="coordinador" class="form-label"><i class="fas fa-users"></i> Coordinador del Proyecto:</label>
-                        <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)"required>
+                        <input class="form-control" id="coordinador" name="coordinador" type="text" value="<?php echo isset($coordinador) ? $coordinador : ''; ?>" <?php echo $isSecondEntry ? 'readonly' : ''; ?> maxlength="50" oninput="validateInput(this)" required>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -158,7 +158,8 @@
                                     <label for="imagen" id="icon-image" class="btn btn-primary btn-lg" style="padding: 15px 25px; cursor: pointer; transition: background-color 0.3s; border-radius: 5px;" <?php echo $isSecondEntry ? 'style="pointer-events: none; opacity: 0.5;"' : ''; ?>>
                                         <i class="fas fa-image"></i>
                                     </label>
-                                    <input id="imagen" class="d-none" type="file" name="imagen" onchange="preview(event)" <?php echo $isSecondEntry ? 'disabled' : 'required'; ?>>
+                                    <!-- Agregar el atributo accept para permitir solo archivos .png y .jpg -->
+                                    <input id="imagen" class="d-none" type="file" name="imagen" accept=".jpg, .jpeg, .png" onchange="preview(event)" <?php echo $isSecondEntry ? 'disabled' : 'required'; ?>>
                                     <input type="hidden" id="foto_actual" name="foto_actual" value="<?= isset($foto) ? $foto : ''; ?>">
                                     <img class="img-thumbnail mt-3" id="img-preview" src="<?= isset($foto) ? $foto : base_url . 'Assets/img/default.png'; ?>" style="display: <?= isset($foto) ? 'block' : 'none'; ?>; max-width: 100%; height: auto;">
                                 </div>
@@ -171,6 +172,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row mb-3">
                     <div class="col">
                         <label for="fechaHoraEntrada" class="form-label"><i class="fas fa-calendar"></i> Fecha y Hora de Entrada:</label>
@@ -322,60 +324,59 @@
         });
     </script>
 
-<script>
-    const isSecondEntry = <?php echo json_encode($isSecondEntry); ?>; // Obtener el estado de la entrada desde PHP
+    <script>
+        const isSecondEntry = <?php echo json_encode($isSecondEntry); ?>; // Obtener el estado de la entrada desde PHP
 
-    if (isSecondEntry) {
-        document.getElementById('getLocation').disabled = true; // Deshabilitar el botón
-    }
-
-    // Cambiar el evento para escuchar la posición en tiempo real
-    document.getElementById('getLocation').addEventListener('click', function() {
-        if (navigator.geolocation) {
-            // Usamos watchPosition para obtener actualizaciones constantes
-            navigator.geolocation.watchPosition(
-                function(position) {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-
-                    // Actualizamos la ubicación en el input
-                    const locationInput = document.getElementById('ubicacion');
-                    locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
-
-                    // Actualizamos el enlace para ver la ubicación en el mapa
-                    const locationLink = document.getElementById('ubicacionLink');
-                    locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
-                    locationLink.classList.remove('d-none');
-                    locationLink.innerText = "Ver en el Mapa";
-                },
-                function(error) {
-                    console.error("Error obteniendo la ubicación:", error);
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            alert("Se denegó el acceso a la ubicación.");
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            alert("La ubicación no está disponible.");
-                            break;
-                        case error.TIMEOUT:
-                            alert("La solicitud de ubicación ha tardado demasiado.");
-                            break;
-                        case error.UNKNOWN_ERROR:
-                            alert("Se produjo un error desconocido.");
-                            break;
-                    }
-                },
-                {
-                    enableHighAccuracy: true, // Intentar obtener una ubicación más precisa
-                    timeout: 10000, // Tiempo máximo para obtener la ubicación (en ms)
-                    maximumAge: 0 // No usar una ubicación antigua en caché
-                }
-            );
-        } else {
-            alert("La geolocalización no es soportada por este navegador.");
+        if (isSecondEntry) {
+            document.getElementById('getLocation').disabled = true; // Deshabilitar el botón
         }
-    });
-</script>
+
+        // Cambiar el evento para escuchar la posición en tiempo real
+        document.getElementById('getLocation').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                // Usamos watchPosition para obtener actualizaciones constantes
+                navigator.geolocation.watchPosition(
+                    function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        // Actualizamos la ubicación en el input
+                        const locationInput = document.getElementById('ubicacion');
+                        locationInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
+
+                        // Actualizamos el enlace para ver la ubicación en el mapa
+                        const locationLink = document.getElementById('ubicacionLink');
+                        locationLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                        locationLink.classList.remove('d-none');
+                        locationLink.innerText = "Ver en el Mapa";
+                    },
+                    function(error) {
+                        console.error("Error obteniendo la ubicación:", error);
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                alert("Se denegó el acceso a la ubicación.");
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                alert("La ubicación no está disponible.");
+                                break;
+                            case error.TIMEOUT:
+                                alert("La solicitud de ubicación ha tardado demasiado.");
+                                break;
+                            case error.UNKNOWN_ERROR:
+                                alert("Se produjo un error desconocido.");
+                                break;
+                        }
+                    }, {
+                        enableHighAccuracy: true, // Intentar obtener una ubicación más precisa
+                        timeout: 10000, // Tiempo máximo para obtener la ubicación (en ms)
+                        maximumAge: 0 // No usar una ubicación antigua en caché
+                    }
+                );
+            } else {
+                alert("La geolocalización no es soportada por este navegador.");
+            }
+        });
+    </script>
 
 
 </body>
