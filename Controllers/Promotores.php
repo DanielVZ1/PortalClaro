@@ -159,9 +159,28 @@ class Promotores extends Controller
       } else {
           // Manejo de la imagen
           if (!empty($name)) {
+              // Para un nuevo registro, si hay una foto previa, se elimina
+              if ($id == "") {
+                  // Solo intentamos eliminar la foto si es un registro de edición y la foto actual no es la predeterminada
+                  if (isset($_POST['foto_actual']) && $_POST['foto_actual'] != "default.png") {
+                      $fotoActualPath = "Assets/imgBD/" . $_POST['foto_actual'];
+  
+                      // Verificar si es un archivo y existe antes de intentar eliminarlo
+                      if (is_file($fotoActualPath)) {
+                          unlink($fotoActualPath); // Eliminar foto anterior
+                      } else {
+                          // Si no existe o es un directorio, eliminar el enlace en la base de datos
+                          $_POST['foto_actual'] = ''; // Limpiar el nombre del archivo en la base de datos
+                      }
+                  }
+              }
+  
+              // Generar un nombre único para la imagen y moverla
               $imgNombre = $fecha . ".png";
               $destino = "Assets/imgBD/" . $imgNombre;
+              move_uploaded_file($tmpname, $destino); // Mover la nueva foto
           } else {
+              // Si no hay una nueva imagen, se usa la foto actual si existe
               $imgNombre = !empty($_POST['foto_actual']) ? $_POST['foto_actual'] : "default.png";
           }
   
@@ -211,49 +230,39 @@ class Promotores extends Controller
               );
   
               if ($data == "ok") {
-
-                $msg = "si";
-               // Mover la imagen, si se subió una nueva
-              if (!empty($name)) {
-                  if ($_POST['foto_actual'] != "default.png") {
-                      unlink("Assets/imgBD/" . $_POST['foto_actual']);
+                  $msg = "si";
+                  // Mover los archivos, solo si se subió uno nuevo
+                  if (!empty($cv['name'])) {
+                      if (!empty($_POST['cv_actual'])) {
+                          unlink("Assets/Documents/CV/" . $_POST['cv_actual']);
+                      }
+                      move_uploaded_file($cv['tmp_name'], "Assets/Documents/CV/" . $cvName); // Para el CV
                   }
-                  move_uploaded_file($tmpname, $destino); // Para la foto
-              }
+                  if (!empty($antecedentes['name'])) {
+                      if (!empty($_POST['antecedentes_actual'])) {
+                          unlink("Assets/Documents/Antecedentes/" . $_POST['antecedentes_actual']);
+                      }
+                      move_uploaded_file($antecedentes['tmp_name'], "Assets/Documents/Antecedentes/" . $antecedentesName); // Para los antecedentes
+                  }
+                  if (!empty($contrato['name'])) {
+                      if (!empty($_POST['contrato_actual'])) {
+                          unlink("Assets/Documents/Contrato/" . $_POST['contrato_actual']);
+                      }
+                      move_uploaded_file($contrato['tmp_name'], "Assets/Documents/Contrato/" . $contratoName); // Para el contrato
+                  }
   
-              // Mover los archivos, solo si se subió uno nuevo
-              if (!empty($cv['name'])) {
-                  if (!empty($_POST['cv_actual'])) {
-                      unlink("Assets/Documents/CV/" . $_POST['cv_actual']);
-                  }
-                  move_uploaded_file($cv['tmp_name'], "Assets/Documents/CV/" . $cvName); // Para el CV
-              }
-              if (!empty($antecedentes['name'])) {
-                  if (!empty($_POST['antecedentes_actual'])) {
-                      unlink("Assets/Documents/Antecedentes/" . $_POST['antecedentes_actual']);
-                  }
-                  move_uploaded_file($antecedentes['tmp_name'], "Assets/Documents/Antecedentes/" . $antecedentesName); // Para los antecedentes
-              }
-              if (!empty($contrato['name'])) {
-                  if (!empty($_POST['contrato_actual'])) {
-                      unlink("Assets/Documents/Contrato/" . $_POST['contrato_actual']);
-                  }
-                  move_uploaded_file($contrato['tmp_name'], "Assets/Documents/Contrato/" . $contratoName); // Para el contrato
-              }
+                  // Limpiar campos de archivos en el formulario después de registrar
+                  $_POST['imagen'] = '';
+                  $_POST['cv'] = '';
+                  $_POST['antecedentes'] = '';
+                  $_POST['contrato'] = '';
+                  $_POST['foto_actual'] = '';
+                  $_POST['cv_actual'] = '';
+                  $_POST['antecedentes_actual'] = '';
+                  $_POST['contrato_actual'] = '';
   
-              // Limpiar campos de archivos en el formulario después de registrar
-              $_POST['imagen'] = '';
-              $_POST['cv'] = '';
-              $_POST['antecedentes'] = '';
-              $_POST['contrato'] = '';
-              $_POST['foto_actual'] = '';
-              $_POST['cv_actual'] = '';
-              $_POST['antecedentes_actual'] = '';
-              $_POST['contrato_actual'] = '';
-  
-              
-          } else if ($data == "existe") {
-              $msg = "El Promotor ya existe";
+              } else if ($data == "existe") {
+                  $msg = "El Promotor ya existe";
               } else {
                   $msg = "Error al registrar el Promotor";
               }
@@ -291,21 +300,42 @@ class Promotores extends Controller
                       move_uploaded_file($tmpname, $destino); // Para la foto
                   }
   
+                  // Verificar y mover los documentos (CV, antecedentes, contrato)
                   if (!empty($cv['name'])) {
                       if (!empty($_POST['cv_actual'])) {
-                          unlink("Assets/Documents/CV/" . $_POST['cv_actual']);
+                          $cvActualPath = "Assets/Documents/CV/" . $_POST['cv_actual'];
+                          if (is_file($cvActualPath)) {
+                              unlink($cvActualPath); // Eliminar archivo anterior
+                          } else {
+                              // Si el archivo no existe, eliminar el nombre en la base de datos
+                              $_POST['cv_actual'] = '';
+                          }
                       }
                       move_uploaded_file($cv['tmp_name'], "Assets/Documents/CV/" . $cvName); // Para el CV
                   }
+  
                   if (!empty($antecedentes['name'])) {
                       if (!empty($_POST['antecedentes_actual'])) {
-                          unlink("Assets/Documents/Antecedentes/" . $_POST['antecedentes_actual']);
+                          $antecedentesActualPath = "Assets/Documents/Antecedentes/" . $_POST['antecedentes_actual'];
+                          if (is_file($antecedentesActualPath)) {
+                              unlink($antecedentesActualPath); // Eliminar archivo anterior
+                          } else {
+                              // Si el archivo no existe, eliminar el nombre en la base de datos
+                              $_POST['antecedentes_actual'] = '';
+                          }
                       }
                       move_uploaded_file($antecedentes['tmp_name'], "Assets/Documents/Antecedentes/" . $antecedentesName); // Para los antecedentes
                   }
+  
                   if (!empty($contrato['name'])) {
                       if (!empty($_POST['contrato_actual'])) {
-                          unlink("Assets/Documents/Contrato/" . $_POST['contrato_actual']);
+                          $contratoActualPath = "Assets/Documents/Contrato/" . $_POST['contrato_actual'];
+                          if (is_file($contratoActualPath)) {
+                              unlink($contratoActualPath); // Eliminar archivo anterior
+                          } else {
+                              // Si el archivo no existe, eliminar el nombre en la base de datos
+                              $_POST['contrato_actual'] = '';
+                          }
                       }
                       move_uploaded_file($contrato['tmp_name'], "Assets/Documents/Contrato/" . $contratoName); // Para el contrato
                   }
@@ -330,6 +360,9 @@ class Promotores extends Controller
       echo json_encode($msg, JSON_UNESCAPED_UNICODE);
       die();
   }
+  
+
+  
   
   
 

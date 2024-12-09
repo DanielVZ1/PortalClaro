@@ -372,7 +372,7 @@
                                 <div class="card border-primary">
                                     <div class="card-body">
                                         <!-- Campo de archivo para subir nuevos antecedentes, solo archivos PDF -->
-                                        <input style="color: black;" id="antecedentes" type="file" name="antecedentes" accept=".pdf" onchange="validateFileType(event, 'antecedentes')">
+                                        <input style="color: black;" id="antecedentes" type="file" name="antecedentes" accept=".pdf" onchange="validateFileType1(event, 'antecedentes')">
 
                                         <!-- Vista previa del archivo (si se sube uno nuevo) -->
                                         <iframe id="antecedentes-preview" width="100%" height="400px" style="display:none;"></iframe>
@@ -390,7 +390,7 @@
                                 <div class="card border-primary">
                                     <div class="card-body">
                                         <!-- Campo de archivo para subir un nuevo contrato, solo archivos PDF -->
-                                        <input style="color: black;" id="contrato" type="file" name="contrato" accept=".pdf" onchange="validateFileType(event, 'contrato')">
+                                        <input style="color: black;" id="contrato" type="file" name="contrato" accept=".pdf" onchange="validateFileType2(event, 'contrato')">
 
                                         <!-- Vista previa del archivo (si se sube uno nuevo) -->
                                         <iframe id="contrato-preview" width="100%" height="400px" style="display:none;"></iframe>
@@ -425,8 +425,51 @@
                 // Si es un archivo PDF, muestra una vista previa (si lo deseas)
                 var reader = new FileReader();
                 reader.onload = function(e) {
+
                     document.getElementById('cv-preview').src = e.target.result;
                     document.getElementById('cv-preview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    }
+
+
+    function validateFileType1(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var fileType = file.type; // El tipo MIME del archivo
+            if (fileType !== 'application/pdf') {
+                alert('Por favor, selecciona un archivo PDF.');
+                event.target.value = ''; // Limpia el campo de entrada
+            } else {
+                // Si es un archivo PDF, muestra una vista previa (si lo deseas)
+                var reader = new FileReader();
+                reader.onload = function(e) {
+
+                    document.getElementById('antecedentes-preview').src = e.target.result;
+                    document.getElementById('antecedentes-preview').style.display = 'block';
+
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    }
+
+    function validateFileType2(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var fileType = file.type; // El tipo MIME del archivo
+            if (fileType !== 'application/pdf') {
+                alert('Por favor, selecciona un archivo PDF.');
+                event.target.value = ''; // Limpia el campo de entrada
+            } else {
+                // Si es un archivo PDF, muestra una vista previa (si lo deseas)
+                var reader = new FileReader();
+                reader.onload = function(e) {
+
+                    document.getElementById('contrato-preview').src = e.target.result;
+                    document.getElementById('contrato-preview').style.display = 'block';
                 };
                 reader.readAsDataURL(file);
             }

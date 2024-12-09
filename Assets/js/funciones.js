@@ -461,6 +461,12 @@ function verificarDniExistente(dni) {
 }
 
 
+function checkFileExistence(url) {
+    return fetch(url, { method: 'HEAD' })  // Usamos HEAD para verificar solo la existencia sin descargar el archivo
+        .then(response => response.status !== 403)  // Si la respuesta no es 404, el archivo existe
+        .catch(() => false);  // Si hay un error en la solicitud, significa que no existe
+}
+
 function btnEditarPromotor(id) {
     document.getElementById("title").innerHTML = "Actualizar promotor";
     document.getElementById("btnAccion").innerHTML = "Modificar";
@@ -495,19 +501,48 @@ function btnEditarPromotor(id) {
             document.getElementById("contrato_actual").value = res.contrato || '';  // Establecer el valor actual del archivo de contrato
             document.getElementById("foto_actual").value = res.foto || '';
 
-            // Mostrar la imagen actual
-            document.getElementById("img-preview").style.display = res.foto ? "block" : "none";
-            document.getElementById("img-preview").src = res.foto ? base_url + 'Assets/imgBD/' + res.foto : '';
+            // Rutas de los archivos para verificar su existencia
+            const imgPath = res.foto ? base_url + 'Assets/imgBD/' + res.foto : '';
+            const cvPath = res.cv ? base_url + 'Assets/Documents/CV/' + res.cv : '';
+            const antecedentesPath = res.antecedentes ? base_url + 'Assets/Documents/Antecedentes/' + res.antecedentes : '';
+            const contratoPath = res.contrato ? base_url + 'Assets/Documents/Contrato/' + res.contrato : '';
 
-            // Mostrar los archivos existentes si hay alguno, de lo contrario mantener vacío
-            document.getElementById("cv-preview").style.display = res.cv ? "block" : "none";
-            document.getElementById("cv-preview").src = res.cv ? base_url + 'Assets/Documents/CV/' + res.cv : '';
+            // Verificar existencia de los archivos antes de mostrarlos
+            checkFileExistence(imgPath).then(exists => {
+                if (exists) {
+                    document.getElementById("img-preview").style.display = "block";
+                    document.getElementById("img-preview").src = imgPath;
+                } else {
+                    document.getElementById("img-preview").style.display = "none";  // Si no existe, ocultar la imagen
+                }
+            });
 
-            document.getElementById("antecedentes-preview").style.display = res.antecedentes ? "block" : "none";
-            document.getElementById("antecedentes-preview").src = res.antecedentes ? base_url + 'Assets/Documents/Antecedentes/' + res.antecedentes : '';
+            checkFileExistence(cvPath).then(exists => {
+                if (exists) {
+                    document.getElementById("cv-preview").style.display = "block";
+                    document.getElementById("cv-preview").src = cvPath;
+                } else {
+                    document.getElementById("cv-preview").style.display = "none";  // Si no existe, ocultar el archivo
+                }
+            });
 
-            document.getElementById("contrato-preview").style.display = res.contrato ? "block" : "none";
-            document.getElementById("contrato-preview").src = res.contrato ? base_url + 'Assets/Documents/Contrato/' + res.contrato : '';
+            checkFileExistence(antecedentesPath).then(exists => {
+                if (exists) {
+                    document.getElementById("antecedentes-preview").style.display = "block";
+                    document.getElementById("antecedentes-preview").src = antecedentesPath;
+                } else {
+                    document.getElementById("antecedentes-preview").style.display = "none";  // Si no existe, ocultar el archivo
+                }
+            });
+
+            checkFileExistence(contratoPath).then(exists => {
+                if (exists) {
+                    document.getElementById("contrato-preview").style.display = "block";
+                    document.getElementById("contrato-preview").src = contratoPath;
+                } else {
+                    document.getElementById("contrato-preview").style.display = "none";  // Si no existe, ocultar el archivo
+                }
+            });
 
             // Habilitar los campos
             disableFormFields(false);
@@ -515,6 +550,7 @@ function btnEditarPromotor(id) {
         }
     }
 }
+
 
 
 function btnEliminarPromotor(id) {
