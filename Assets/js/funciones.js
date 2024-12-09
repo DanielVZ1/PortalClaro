@@ -503,6 +503,20 @@ function checkFileExistence(url) {
 function btnEditarPromotor(id) {
     document.getElementById("title").innerHTML = "Actualizar promotor";
     document.getElementById("btnAccion").innerHTML = "Modificar";
+    document.getElementById("foto_actual").value = ''; 
+    document.getElementById("cv_actual").value = ''; 
+    document.getElementById("antecedentes_actual").value = ''; 
+    document.getElementById("contrato_actual").value = ''; 
+    document.getElementById("imagen").value = ''; 
+    document.getElementById("cv").value = ''; 
+    document.getElementById("antecedentes").value = ''; 
+    document.getElementById("contrato").value = '';
+
+    // Limpiar vistas previas de los archivos
+    document.getElementById("img-preview").style.display = "none";
+    document.getElementById("cv-preview").style.display = "none";
+    document.getElementById("antecedentes-preview").style.display = "none";
+    document.getElementById("contrato-preview").style.display = "none";
     const url = base_url + "Promotores/editar/" + id;
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
