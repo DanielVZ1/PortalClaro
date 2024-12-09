@@ -348,6 +348,20 @@ function frmPromotor() {
     document.getElementById("btnAccion").innerHTML = "Registrar";
     document.getElementById("frmPromotor").reset();
     document.getElementById("id").value = "";
+    document.getElementById("foto_actual").value = ''; 
+    document.getElementById("cv_actual").value = ''; 
+    document.getElementById("antecedentes_actual").value = ''; 
+    document.getElementById("contrato_actual").value = ''; 
+    document.getElementById("imagen").value = ''; 
+    document.getElementById("cv").value = ''; 
+    document.getElementById("antecedentes").value = ''; 
+    document.getElementById("contrato").value = '';
+
+    // Limpiar vistas previas de los archivos
+
+    document.getElementById("cv-preview").style.display = "none";
+    document.getElementById("antecedentes-preview").style.display = "none";
+    document.getElementById("contrato-preview").style.display = "none";
 
     // Habilitar los campos
     disableFormFields(false);
@@ -359,7 +373,7 @@ function frmPromotor() {
 
 function registrarPromotor(e) {
     e.preventDefault();
-    
+
     const codigo = document.getElementById("codigo");
     const dni = document.getElementById("dni");
     const nombre = document.getElementById("nombre");
@@ -377,6 +391,7 @@ function registrarPromotor(e) {
     const id_proyecto = document.getElementById("proyecto");
     const id_cargo = document.getElementById("cargo");
     
+
     // Verificar si todos los campos obligatorios están llenos
     if (codigo.value == "" || dni.value == "" || nombre.value == "" || apellido.value == "" ||  
         telefono.value == "" || profesion.value == "" || direccion.value == "") {
@@ -394,10 +409,10 @@ function registrarPromotor(e) {
     const url = base_url + "Promotores/registrar";
     const frm = document.getElementById("frmPromotor");
     const http = new XMLHttpRequest();
-    
+
     http.open("POST", url, true);
     http.send(new FormData(frm));
-    
+
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);  // Ver lo que realmente devuelve el servidor
@@ -411,9 +426,26 @@ function registrarPromotor(e) {
                         showConfirmButton: false,
                         timer: 3000
                     });
-                    frm.reset();
+                    frm.reset();  // Limpiar formulario
+
+                    // Limpiar campos de archivos
+                    document.getElementById("foto_actual").value = ''; 
+                    document.getElementById("cv_actual").value = ''; 
+                    document.getElementById("antecedentes_actual").value = ''; 
+                    document.getElementById("contrato_actual").value = ''; 
+                    document.getElementById("imagen").value = ''; 
+                    document.getElementById("cv").value = ''; 
+                    document.getElementById("antecedentes").value = ''; 
+                    document.getElementById("contrato").value = '';
+
+                    // Limpiar vistas previas de los archivos
+                    document.getElementById("img-preview").style.display = "none";
+                    document.getElementById("cv-preview").style.display = "none";
+                    document.getElementById("antecedentes-preview").style.display = "none";
+                    document.getElementById("contrato-preview").style.display = "none";
+
                     $("#nuevo_promotor").modal("hide");
-                    tblPromotores.ajax.reload();
+                    tblPromotores.ajax.reload();  // Recargar la tabla
                 } else if (res == "modificado") {
                     Swal.fire({
                         position: 'top-end',
@@ -439,6 +471,7 @@ function registrarPromotor(e) {
         }
     };
 }
+
 
 // Función para verificar si el DNI ya está registrado
 function verificarDniExistente(dni) {
@@ -495,25 +528,25 @@ function btnEditarPromotor(id) {
             document.getElementById("proyecto").value = res.id_proyecto;
             document.getElementById("cargo").value = res.id_cargo;
 
-            // Asignar valores actuales a los campos ocultos
-            document.getElementById("cv_actual").value = res.cv || '';  // Establecer el valor actual del archivo de CV
-            document.getElementById("antecedentes_actual").value = res.antecedentes || '';  // Establecer el valor actual del archivo de antecedentes
-            document.getElementById("contrato_actual").value = res.contrato || '';  // Establecer el valor actual del archivo de contrato
+            // Asignar valores actuales a los campos de archivo
+            document.getElementById("cv_actual").value = res.cv || ''; 
+            document.getElementById("antecedentes_actual").value = res.antecedentes || ''; 
+            document.getElementById("contrato_actual").value = res.contrato || ''; 
             document.getElementById("foto_actual").value = res.foto || '';
 
-            // Rutas de los archivos para verificar su existencia
+            // Asignar rutas de archivos para las vistas previas
             const imgPath = res.foto ? base_url + 'Assets/imgBD/' + res.foto : '';
             const cvPath = res.cv ? base_url + 'Assets/Documents/CV/' + res.cv : '';
             const antecedentesPath = res.antecedentes ? base_url + 'Assets/Documents/Antecedentes/' + res.antecedentes : '';
             const contratoPath = res.contrato ? base_url + 'Assets/Documents/Contrato/' + res.contrato : '';
 
-            // Verificar existencia de los archivos antes de mostrarlos
+            // Mostrar vistas previas de los archivos si existen
             checkFileExistence(imgPath).then(exists => {
                 if (exists) {
                     document.getElementById("img-preview").style.display = "block";
                     document.getElementById("img-preview").src = imgPath;
                 } else {
-                    document.getElementById("img-preview").style.display = "none";  // Si no existe, ocultar la imagen
+                    document.getElementById("img-preview").style.display = "none";
                 }
             });
 
@@ -522,7 +555,7 @@ function btnEditarPromotor(id) {
                     document.getElementById("cv-preview").style.display = "block";
                     document.getElementById("cv-preview").src = cvPath;
                 } else {
-                    document.getElementById("cv-preview").style.display = "none";  // Si no existe, ocultar el archivo
+                    document.getElementById("cv-preview").style.display = "none";
                 }
             });
 
@@ -531,7 +564,7 @@ function btnEditarPromotor(id) {
                     document.getElementById("antecedentes-preview").style.display = "block";
                     document.getElementById("antecedentes-preview").src = antecedentesPath;
                 } else {
-                    document.getElementById("antecedentes-preview").style.display = "none";  // Si no existe, ocultar el archivo
+                    document.getElementById("antecedentes-preview").style.display = "none";
                 }
             });
 
@@ -540,11 +573,11 @@ function btnEditarPromotor(id) {
                     document.getElementById("contrato-preview").style.display = "block";
                     document.getElementById("contrato-preview").src = contratoPath;
                 } else {
-                    document.getElementById("contrato-preview").style.display = "none";  // Si no existe, ocultar el archivo
+                    document.getElementById("contrato-preview").style.display = "none";
                 }
             });
 
-            // Habilitar los campos
+            // Habilitar los campos del formulario
             disableFormFields(false);
             $("#nuevo_promotor").modal("show");
         }

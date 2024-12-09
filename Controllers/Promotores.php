@@ -250,16 +250,18 @@ class Promotores extends Controller
                       }
                       move_uploaded_file($contrato['tmp_name'], "Assets/Documents/Contrato/" . $contratoName); // Para el contrato
                   }
-  
-                  // Limpiar campos de archivos en el formulario después de registrar
-                  $_POST['imagen'] = '';
-                  $_POST['cv'] = '';
-                  $_POST['antecedentes'] = '';
-                  $_POST['contrato'] = '';
+                  // Limpiar campos de archivos en el formulario después de modificar
                   $_POST['foto_actual'] = '';
                   $_POST['cv_actual'] = '';
                   $_POST['antecedentes_actual'] = '';
                   $_POST['contrato_actual'] = '';
+                  $_POST['imagen'] = '';
+                  $_POST['cv-preview'] = '';
+                  $_POST['antecedentes-preview'] = '';
+                  $_POST['contrato-preview'] = '';
+                  $_POST['cv'] = '';
+                  $_POST['antecedentes'] = '';
+                  $_POST['contrato'] = '';
   
               } else if ($data == "existe") {
                   $msg = "El Promotor ya existe";
@@ -346,6 +348,9 @@ class Promotores extends Controller
                   $_POST['antecedentes_actual'] = '';
                   $_POST['contrato_actual'] = '';
                   $_POST['imagen'] = '';
+                  $_POST['cv-preview'] = '';
+                  $_POST['antecedentes-preview'] = '';
+                  $_POST['contrato-preview'] = '';
                   $_POST['cv'] = '';
                   $_POST['antecedentes'] = '';
                   $_POST['contrato'] = '';
