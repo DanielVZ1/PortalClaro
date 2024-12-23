@@ -752,6 +752,9 @@ l0 -191 -75 3 -75 3 -6 210 c-3 115 -3 260 1 322 l7 113 69 0 69 0 0 -40 c0
                                     <div class="submenu-item">
                                         <a href="<?php echo base_url; ?>Respaldar" class="submenu-link">Respaldos</a>
                                     </div>
+                                    <div class="submenu-item">
+                                        <a href="<?php echo base_url; ?>Bitacora" class="submenu-link">Bitácora</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

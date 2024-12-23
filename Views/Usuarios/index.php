@@ -181,6 +181,8 @@ include "Views/Templates/header.php";
         }
     }
 </script>
+
+<script src="<?php echo base_url; ?>Assets/js/usuarios.js"></script>
 <?php
 //print_r($_SESSION)
 include "Views/Usuarios/estilousuarios.php";

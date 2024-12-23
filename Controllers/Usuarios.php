@@ -1,4 +1,7 @@
 <?php
+
+require 'Bitacora.php';
+
 class Usuarios extends Controller
 {
     public function __construct()

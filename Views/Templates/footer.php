@@ -50,6 +50,10 @@
 <script src="<?php echo base_url; ?>Assets/js/sweetalert2.all.min.js"></script>
 <script src="<?php echo base_url; ?>Assets/js/chart.min.js"></script>
 <script src="<?php echo base_url; ?>Assets/js/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    let idUsuario = <?php echo json_encode($_SESSION['id_usuario']); ?>;
+</script>
 
 
 

@@ -1,344 +1,93 @@
-let tblUsuarios, tblPromotores;
-document.addEventListener("DOMContentLoaded", function() {
-    tblUsuarios = $('#tblUsuarios').DataTable({
-        ajax: {
-            url: base_url + "Usuarios/listar",
-            dataSrc: ''
-        },
-        columns: [
-            { 'data': 'id' },
-            { 'data': 'usuario' },
-            { 'data': 'nombre' },
-            { 'data': 'email' },
-            { 'data': 'nombrerol' },  // Nombre del rol
-            { 'data': 'estado' },
-            { 'data': 'acciones' }
-        ]
-    });
+let tblPromotores;
 
 
 //----------------------------tblROLES--------------------------------
-        tblRoles = $('#tblRoles').DataTable({
-            "ajax": {
-                "url": base_url + "Roles/listar",  // Ruta para obtener los roles
-                "type": "GET",
-                "dataSrc": ""
-            },
-            "columns": [
-                { "data": "id" },
-                { "data": "nombrerol" },
-                { "data": "estado" },
-                { "data": "acciones" }
-            ]
-        });
-    });
+
+tblRoles = $('#tblRoles').DataTable({
+    "ajax": {
+        "url": base_url + "Roles/listar",  // Ruta para obtener los roles
+        "type": "GET",
+        "dataSrc": ""
+    },
+    "columns": [
+        { "data": "id" },
+        { "data": "nombrerol" },
+        { "data": "estado" },
+        { "data": "acciones" }
+    ]
+
+});
 
 
-    //----------------------------tblPromotores--------------------------------
+//----------------------------tblPromotores--------------------------------
 
-    tblPromotores = $('#tblPromotores').DataTable({
-        ajax: {
-            url: base_url + "Promotores/listar",
-            dataSrc: ''
-        },
-        columns: [
-            { 'data': 'id' },
-            { 'data': 'imagen' },
-            { 'data': 'codigo' },
-            { 'data': 'dni' },
-            { 'data': 'nombre' },
-            { 'data': 'apellido' },
-            { 'data': 'telefono' },
-            { 'data': 'profesion' },
-            { 'data': 'estado_civil' },
-            { 'data': 'genero' },
-            { 'data': 'direccion' },
-            { 'data': 'zona' },
-            { 'data': 'departamento' },
-            { 'data': 'municipio' },
-            { 'data': 'gerencia' },
-            { 'data': 'canal' },
-            { 'data': 'proyecto' },
-            { 'data': 'cargo' },
-            { 'data': 'cv' },
-            { 'data': 'antecedentes' },
-            { 'data': 'contrato' },
-            { 'data': 'estado' },
-            { 'data': 'acciones' }
-        ]
-    });
+tblPromotores = $('#tblPromotores').DataTable({
+    ajax: {
+        url: base_url + "Promotores/listar",
+        dataSrc: ''
+    },
+    columns: [
+        { 'data': 'id' },
+        { 'data': 'imagen' },
+        { 'data': 'codigo' },
+        { 'data': 'dni' },
+        { 'data': 'nombre' },
+        { 'data': 'apellido' },
+        { 'data': 'telefono' },
+        { 'data': 'profesion' },
+        { 'data': 'estado_civil' },
+        { 'data': 'genero' },
+        { 'data': 'direccion' },
+        { 'data': 'zona' },
+        { 'data': 'departamento' },
+        { 'data': 'municipio' },
+        { 'data': 'gerencia' },
+        { 'data': 'canal' },
+        { 'data': 'proyecto' },
+        { 'data': 'cargo' },
+        { 'data': 'cv' },
+        { 'data': 'antecedentes' },
+        { 'data': 'contrato' },
+        { 'data': 'estado' },
+        { 'data': 'acciones' }
+    ]
+});
 
-
-
-    //----------------------------tblVentas--------------------------------
-
-    tblVentas = $('#tblVentas').DataTable({
-        ajax: {
-            url: base_url + "Ventas/listar",
-            dataSrc: ''
-        },
-        columns: [
-            { 'data': 'id' },
-            { 'data': 'telefono' },
-            { 'data': 'medio' },
-            { 'data': 'subgerente' },
-            { 'data': 'coordinador' },
-            { 'data': 'supervisor' },
-            { 'data': 'fecha' },
-            { 'data': 'codigo' },
-            { 'data': 'ubicacion' },
-            { 'data': 'promotor' },
-            { 'data': 'punto_venta' },
-            { 'data': 'departamento' },
-            { 'data': 'zona' },
-            { 'data': 'distribuidor' },
-            { 'data': 'proveedor' },
-            { 'data': 'producto' },
-            { 'data': 'perfil_plan' },
-            { 'data': 'tecnologia' },
-            { 'data': 'centro_venta' },
-            { 'data': 'canal_rediac' },
-            { 'data': 'aliado' },
-            { 'data': 'acciones' }
-        ]
-    });
-function frmUsuario() {
-    document.getElementById("title").innerHTML = "Nuevo usuario";
-    document.getElementById("btnAccion").innerHTML = "Registrar";
-    document.getElementById("claves").classList.remove("d-none");
-    document.getElementById("frmUsuario").reset();
-    $("#nuevo_usuario").modal("show");
-    document.getElementById("id").value = "";
-}
-
-window.addEventListener('load', function() {
-    fntRolesUsuarios();
-}, false);
-
-function btnEditarUser(id) {
-    const titleElement = document.getElementById("title");
-    const btnAccionElement = document.getElementById("btnAccion");
-    const idElement = document.getElementById("id");
-    const usuarioElement = document.getElementById("usuario");
-    const nombreElement = document.getElementById("nombre");
-    const emailElement = document.getElementById("email");
-    const rolElement = document.getElementById("rol");
-    const claveElement = document.getElementById("clave");
-    const confirmarElement = document.getElementById("clave");
+//----------------------------tblBitacora--------------------------------
 
 
-    titleElement.innerHTML = "Actualizar usuario";
-    btnAccionElement.innerHTML = "Modificar";
+//----------------------------tblVentas--------------------------------
 
-    const url = base_url + "Usuarios/editar/" + id;
-    const http = new XMLHttpRequest();
-    http.open("GET", url, true);
-    http.send();
-
-    http.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            const res = JSON.parse(this.responseText);
-            idElement.value = res.id;
-            usuarioElement.value = res.usuario;
-            nombreElement.value = res.nombre;
-            emailElement.value = res.email;
-            rolElement.value = res.id_rol;  // Asignamos el rol del usuario
-            document.getElementById("claves").classList.add("d-none"); // Ocultamos las claves en el formulario de edición
-            $("#nuevo_usuario").modal("show");
-
-            // Limpiar los campos de contraseña al editar
-            claveElement.value = res.clave;
-            confirmarElement.value = res.clave;
-
-            // Llamamos a la función de registro con isEdit = true para evitar la validación de contraseñas
-            btnAccionElement.onclick = function(e) {
-                registrarUser(e, true); // Le pasamos true porque estamos editando
-            };
-        }
-    };
-}
-
-
-
-function fntRolesUsuarios() {
-    var ajaxUrl = base_url + '/Roles/getSelectRoles';
-    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    request.open('GET', ajaxUrl, true);
-    
-    request.onreadystatechange = function() {
-        if (request.readyState == 4 && request.status == 200) {
-            document.querySelector("#rol").innerHTML = request.responseText; // Cambiado a 'rol'
-        }
-    };
-    request.send();
-}
-
-
-// Función para registrar o editar usuario
-function registrarUser(e, isEdit = false) {
-    e.preventDefault();
-
-    const usuario = document.getElementById("usuario");
-    const nombre = document.getElementById("nombre");
-    const clave = document.getElementById("clave");
-    const confirmar = document.getElementById("confirmar");
-    const rol = document.getElementById("rol");
-    const email = document.getElementById("email");
-
-    // Expresión regular para validar la contraseña
-    const regexContraseña = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,50}$/;
-
-    // Validación de campos vacíos
-    if (usuario.value == "" || nombre.value == "" || rol.value == "" || email.value == "" || clave.value=="") {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Todos los campos son obligatorios!',
-            showConfirmButton: false,
-            timer: 3000
-        });
-    } 
-    // Validación de contraseñas solo si no es un modo de edición
-    else if (!isEdit) {
-        if (clave.value !== confirmar.value) {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: 'Las contraseñas no coinciden!',
-                showConfirmButton: false,
-                timer: 3000
-            });
-        } else if (!regexContraseña.test(clave.value)) {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: 'La contraseña debe tener al menos 6 caracteres, incluir una mayúscula, una minúscula, un número y un carácter especial.',
-                showConfirmButton: false,
-                timer: 3000
-            });
-        }
-    }
-
-    // Proceder con la solicitud si todo es correcto
-    if (usuario.value != "" && nombre.value != "" && rol.value != "" && email.value != "" && (isEdit || (clave.value === confirmar.value && regexContraseña.test(clave.value)))) {
-        const url = base_url + "Usuarios/registrar";
-        const frm = document.getElementById("frmUsuario");
-        const http = new XMLHttpRequest();
-        http.open("POST", url, true);
-        http.send(new FormData(frm));
-        http.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                const res = JSON.parse(this.responseText);
-                if (res == "si") {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Usuario registrado con éxito',
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-                    frm.reset();
-                    $("#nuevo_usuario").modal("hide");
-                    tblUsuarios.ajax.reload();
-                } else if (res == "modificado") {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Usuario modificado correctamente',
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-                    $("#nuevo_usuario").modal("hide");
-                    tblUsuarios.ajax.reload();
-                } else {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: res,
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-                }
-            }
-        };
-    }
-}
-
-
-function btnEliminarUser(id) {
-    Swal.fire({
-        title: '¿Está seguro de desactivar?',
-        text: "¡El usuario no se eliminara de forma permanente, solo cambiará el estado a inactivo!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        cancelButtonText: 'No',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const url = base_url + "Usuarios/eliminar/"+id;
-            const http = new XMLHttpRequest();
-            http.open("GET", url, true);
-            http.send();
-            http.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    const res = JSON.parse(this.responseText);
-                    if (res == "ok") {
-                        Swal.fire(
-                            'Mensaje',
-                            'Usuario desactivado con éxito',
-                            'success'
-                        )
-                      tblUsuarios.ajax.reload();
-                    }else{ Swal.fire(
-                            'Mensaje',
-                            res,
-                            'error'
-                    )}
-                }
-            }
-          
-        }
-    })
-}
-
-function btnReingresarUser(id) {
-    Swal.fire({
-        title: '¿Está seguro de activar?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        cancelButtonText: 'No',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const url = base_url + "Usuarios/reingresar/"+id;
-            const http = new XMLHttpRequest();
-            http.open("GET", url, true);
-            http.send();
-            http.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    const res = JSON.parse(this.responseText);
-                    if (res == "ok") {
-                        Swal.fire(
-                            'Mensaje',
-                            'Usuario activado con éxito',
-                            'success'
-                        )
-                      tblUsuarios.ajax.reload();
-                    }else{ Swal.fire(
-                            'Mensaje',
-                            res,
-                            'error'
-                    )}
-                }
-            }
-          
-        }
-    })
-}
+tblVentas = $('#tblVentas').DataTable({
+    ajax: {
+        url: base_url + "Ventas/listar",
+        dataSrc: ''
+    },
+    columns: [
+        { 'data': 'id' },
+        { 'data': 'telefono' },
+        { 'data': 'medio' },
+        { 'data': 'subgerente' },
+        { 'data': 'coordinador' },
+        { 'data': 'supervisor' },
+        { 'data': 'fecha' },
+        { 'data': 'codigo' },
+        { 'data': 'ubicacion' },
+        { 'data': 'promotor' },
+        { 'data': 'punto_venta' },
+        { 'data': 'departamento' },
+        { 'data': 'zona' },
+        { 'data': 'distribuidor' },
+        { 'data': 'proveedor' },
+        { 'data': 'producto' },
+        { 'data': 'perfil_plan' },
+        { 'data': 'tecnologia' },
+        { 'data': 'centro_venta' },
+        { 'data': 'canal_rediac' },
+        { 'data': 'aliado' },
+        { 'data': 'acciones' }
+    ]
+});
 
 //Fin Usuarios
 
@@ -348,13 +97,13 @@ function frmPromotor() {
     document.getElementById("btnAccion").innerHTML = "Registrar";
     document.getElementById("frmPromotor").reset();
     document.getElementById("id").value = "";
-    document.getElementById("foto_actual").value = ''; 
-    document.getElementById("cv_actual").value = ''; 
-    document.getElementById("antecedentes_actual").value = ''; 
-    document.getElementById("contrato_actual").value = ''; 
-    document.getElementById("imagen").value = ''; 
-    document.getElementById("cv").value = ''; 
-    document.getElementById("antecedentes").value = ''; 
+    document.getElementById("foto_actual").value = '';
+    document.getElementById("cv_actual").value = '';
+    document.getElementById("antecedentes_actual").value = '';
+    document.getElementById("contrato_actual").value = '';
+    document.getElementById("imagen").value = '';
+    document.getElementById("cv").value = '';
+    document.getElementById("antecedentes").value = '';
     document.getElementById("contrato").value = '';
 
     // Limpiar vistas previas de los archivos
@@ -390,10 +139,10 @@ function registrarPromotor(e) {
     const id_canal = document.getElementById("canal");
     const id_proyecto = document.getElementById("proyecto");
     const id_cargo = document.getElementById("cargo");
-    
+
 
     // Verificar si todos los campos obligatorios están llenos
-    if (codigo.value == "" || dni.value == "" || nombre.value == "" || apellido.value == "" ||  
+    if (codigo.value == "" || dni.value == "" || nombre.value == "" || apellido.value == "" ||
         telefono.value == "" || profesion.value == "" || direccion.value == "") {
         Swal.fire({
             position: 'top-end',
@@ -413,7 +162,7 @@ function registrarPromotor(e) {
     http.open("POST", url, true);
     http.send(new FormData(frm));
 
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);  // Ver lo que realmente devuelve el servidor
             try {
@@ -429,13 +178,13 @@ function registrarPromotor(e) {
                     frm.reset();  // Limpiar formulario
 
                     // Limpiar campos de archivos
-                    document.getElementById("foto_actual").value = ''; 
-                    document.getElementById("cv_actual").value = ''; 
-                    document.getElementById("antecedentes_actual").value = ''; 
-                    document.getElementById("contrato_actual").value = ''; 
-                    document.getElementById("imagen").value = ''; 
-                    document.getElementById("cv").value = ''; 
-                    document.getElementById("antecedentes").value = ''; 
+                    document.getElementById("foto_actual").value = '';
+                    document.getElementById("cv_actual").value = '';
+                    document.getElementById("antecedentes_actual").value = '';
+                    document.getElementById("contrato_actual").value = '';
+                    document.getElementById("imagen").value = '';
+                    document.getElementById("cv").value = '';
+                    document.getElementById("antecedentes").value = '';
                     document.getElementById("contrato").value = '';
 
                     // Limpiar vistas previas de los archivos
@@ -480,7 +229,7 @@ function verificarDniExistente(dni) {
     // Realizar una llamada AJAX para verificar si el DNI ya existe
     const http = new XMLHttpRequest();
     http.open("GET", base_url + "Promotores/verificarDni/" + dni, false); // Llamada sincrónica
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const response = this.responseText;
             if (response == "existe") {
@@ -503,13 +252,13 @@ function checkFileExistence(url) {
 function btnEditarPromotor(id) {
     document.getElementById("title").innerHTML = "Actualizar promotor";
     document.getElementById("btnAccion").innerHTML = "Modificar";
-    document.getElementById("foto_actual").value = ''; 
-    document.getElementById("cv_actual").value = ''; 
-    document.getElementById("antecedentes_actual").value = ''; 
-    document.getElementById("contrato_actual").value = ''; 
-    document.getElementById("imagen").value = ''; 
-    document.getElementById("cv").value = ''; 
-    document.getElementById("antecedentes").value = ''; 
+    document.getElementById("foto_actual").value = '';
+    document.getElementById("cv_actual").value = '';
+    document.getElementById("antecedentes_actual").value = '';
+    document.getElementById("contrato_actual").value = '';
+    document.getElementById("imagen").value = '';
+    document.getElementById("cv").value = '';
+    document.getElementById("antecedentes").value = '';
     document.getElementById("contrato").value = '';
 
     // Limpiar vistas previas de los archivos
@@ -521,7 +270,7 @@ function btnEditarPromotor(id) {
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const res = JSON.parse(this.responseText);
             document.getElementById("id").value = res.id;
@@ -543,9 +292,9 @@ function btnEditarPromotor(id) {
             document.getElementById("cargo").value = res.id_cargo;
 
             // Asignar valores actuales a los campos de archivo
-            document.getElementById("cv_actual").value = res.cv || ''; 
-            document.getElementById("antecedentes_actual").value = res.antecedentes || ''; 
-            document.getElementById("contrato_actual").value = res.contrato || ''; 
+            document.getElementById("cv_actual").value = res.cv || '';
+            document.getElementById("antecedentes_actual").value = res.antecedentes || '';
+            document.getElementById("contrato_actual").value = res.contrato || '';
             document.getElementById("foto_actual").value = res.foto || '';
 
             // Asignar rutas de archivos para las vistas previas
@@ -612,11 +361,11 @@ function btnEliminarPromotor(id) {
         cancelButtonText: 'No',
     }).then((result) => {
         if (result.isConfirmed) {
-            const url = base_url + "Promotores/eliminar/"+id;
+            const url = base_url + "Promotores/eliminar/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
-            http.onreadystatechange = function() {
+            http.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     const res = JSON.parse(this.responseText);
                     if (res == "ok") {
@@ -625,15 +374,17 @@ function btnEliminarPromotor(id) {
                             'Promotor rechazado con éxito',
                             'success'
                         )
-                      tblPromotores.ajax.reload();
-                    }else{ Swal.fire(
+                        tblPromotores.ajax.reload();
+                    } else {
+                        Swal.fire(
                             'Mensaje',
                             res,
                             'error'
-                    )}
+                        )
+                    }
                 }
             }
-          
+
         }
     })
 }
@@ -649,11 +400,11 @@ function btnReingresarPromotor(id) {
         cancelButtonText: 'No',
     }).then((result) => {
         if (result.isConfirmed) {
-            const url = base_url + "Promotores/reingresar/"+id;
+            const url = base_url + "Promotores/reingresar/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
-            http.onreadystatechange = function() {
+            http.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     const res = JSON.parse(this.responseText);
                     if (res == "ok") {
@@ -662,15 +413,17 @@ function btnReingresarPromotor(id) {
                             'Promotor contratado con éxito',
                             'success'
                         )
-                      tblPromotores.ajax.reload();
-                    }else{ Swal.fire(
+                        tblPromotores.ajax.reload();
+                    } else {
+                        Swal.fire(
                             'Mensaje',
                             res,
                             'error'
-                    )}
+                        )
+                    }
                 }
             }
-          
+
         }
     })
 }
@@ -682,7 +435,7 @@ function btnVerPromotor(id) {
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const res = JSON.parse(this.responseText);
             document.getElementById("id").value = res.id;
@@ -693,7 +446,7 @@ function btnVerPromotor(id) {
             document.getElementById("telefono").value = res.telefono;
             document.getElementById("profesion").value = res.profesion;
             document.getElementById("estado_civil").value = res.id_estado_civil;
-            document.getElementById("genero").value = res.id_genero;  
+            document.getElementById("genero").value = res.id_genero;
             document.getElementById("direccion").value = res.direccion;
             document.getElementById("zona").value = res.id_zona;
             document.getElementById("departamento").value = res.id_departamento;
@@ -704,13 +457,13 @@ function btnVerPromotor(id) {
             document.getElementById("cargo").value = res.id_cargo;
             document.getElementById("img-preview").src = base_url + 'Assets/imgBD/' + res.foto;
             document.getElementById("cv-preview").style.display = "block";
-document.getElementById("cv-preview").src = base_url + 'Assets/Documents/CV/' + res.cv;
+            document.getElementById("cv-preview").src = base_url + 'Assets/Documents/CV/' + res.cv;
 
-document.getElementById("antecedentes-preview").style.display = "block";
-document.getElementById("antecedentes-preview").src = base_url + 'Assets/Documents/Antecedentes/' + res.antecedentes;
+            document.getElementById("antecedentes-preview").style.display = "block";
+            document.getElementById("antecedentes-preview").src = base_url + 'Assets/Documents/Antecedentes/' + res.antecedentes;
 
-document.getElementById("contrato-preview").style.display = "block";
-document.getElementById("contrato-preview").src = base_url + 'Assets/Documents/Contrato/' + res.contrato;
+            document.getElementById("contrato-preview").style.display = "block";
+            document.getElementById("contrato-preview").src = base_url + 'Assets/Documents/Contrato/' + res.contrato;
 
 
             // Deshabilitar todos los campos del formulario
@@ -724,12 +477,12 @@ document.getElementById("contrato-preview").src = base_url + 'Assets/Documents/C
 // Función para habilitar o deshabilitar los campos del formulario
 function disableFormFields(disable) {
     const fields = [
-        "codigo", "dni", "nombre", "apellido", "telefono", "profesion", 
-        "estado_civil", "genero", "direccion", "zona", "departamento", 
+        "codigo", "dni", "nombre", "apellido", "telefono", "profesion",
+        "estado_civil", "genero", "direccion", "zona", "departamento",
         "municipio", "gerencia", "canal", "proyecto", "cargo", "cv", "antecedentes"
         , "contrato", "img-preview", "imagen", "icon-cerrar"
     ];
-    
+
     fields.forEach(field => {
         document.getElementById(field).disabled = disable;
     });
@@ -738,7 +491,7 @@ function disableFormFields(disable) {
 
 
 //Funciones para las fotos
-function preview(e){
+function preview(e) {
     const url = e.target.files[0];
     const urlTmp = URL.createObjectURL(url);
     document.getElementById("img-preview").src = urlTmp;
@@ -753,8 +506,8 @@ function deleteImg() {
     document.getElementById("icon-image").classList.remove("d-none");
     document.getElementById("img-preview").src = '';
     document.getElementById("imagen").value = '';
-    document.getElementById("foto_actual").value= '';
-   
+    document.getElementById("foto_actual").value = '';
+
 }
 
 
@@ -763,15 +516,15 @@ function deleteImg() {
 
 //-----------------------------------Ventas--------------------------------------------------
 function frmVentas() {
-    document.getElementById("title").innerHTML="Nueva Venta";
-    document.getElementById("btnAccion").innerHTML="Registrar";
+    document.getElementById("title").innerHTML = "Nueva Venta";
+    document.getElementById("btnAccion").innerHTML = "Registrar";
     document.getElementById("frmVentas").reset();
     document.getElementById("id").value = "";
     $("#nueva_venta").modal("show");
 
 }
 
-function registrarVentas(e){
+function registrarVentas(e) {
     e.preventDefault();
     const telefono = document.getElementById("telefono");
     const medio = document.getElementById("medio");
@@ -793,11 +546,11 @@ function registrarVentas(e){
     const centro_venta = document.getElementById("centro_venta");
     const canal_rediac = document.getElementById("canal_rediac");
     const aliado = document.getElementById("aliado");
-    
-    if (telefono.value =="" || medio.value == "" || subgerente.value =="" || coordinador.value == "" ||  
-        supervisor.value =="" || fecha.value == "" || codigo.value == "" || ubicacion.value == "" || promotor.value =="" || 
-        punto_venta.value == ""|| departamento.value == ""  || zona.value == "" || distribuidor.value =="" || proveedor.value == "" || producto.value == "" ||  
-        perfil_plan.value == "" || tecnologia.value =="" || centro_venta.value == "" || canal_rediac.value == "" || aliado.value ==""){
+
+    if (telefono.value == "" || medio.value == "" || subgerente.value == "" || coordinador.value == "" ||
+        supervisor.value == "" || fecha.value == "" || codigo.value == "" || ubicacion.value == "" || promotor.value == "" ||
+        punto_venta.value == "" || departamento.value == "" || zona.value == "" || distribuidor.value == "" || proveedor.value == "" || producto.value == "" ||
+        perfil_plan.value == "" || tecnologia.value == "" || centro_venta.value == "" || canal_rediac.value == "" || aliado.value == "") {
         Swal.fire({
             position: 'top-end',
             icon: 'error',
@@ -805,16 +558,16 @@ function registrarVentas(e){
             showConfirmButton: false,
             timer: 3000
         })
-    }else{
+    } else {
         const url = base_url + "Ventas/registrar";
-        const frm = document .getElementById("frmVentas");
+        const frm = document.getElementById("frmVentas");
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
         http.send(new FormData(frm));
-        http.onreadystatechange = function(){
-            if(this.readyState ==4 && this.status==200){
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
                 const res = JSON.parse(this.responseText);
-                if (res == "si"){
+                if (res == "si") {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -826,18 +579,18 @@ function registrarVentas(e){
                     $("#nueva_venta").modal("hide");
                     tblVentas.ajax.reload();
 
-                }else if(res=="modificado"){
+                } else if (res == "modificado") {
                     Swal.fire({
-                        position:'top-end',
+                        position: 'top-end',
                         icon: 'success',
                         title: 'Ventas modificadas correctamente',
                         showConfirmButton: false,
                         timer: 3000
-                    }) 
+                    })
                     $("#nueva_venta").modal("hide");
                     tblVentas.ajax.reload();
 
-                }else{
+                } else {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
@@ -852,39 +605,39 @@ function registrarVentas(e){
 }
 
 function btnEditarVentas(id) {
-    document.getElementById("title").innerHTML="Actualizar ventas";
-    document.getElementById("btnAccion").innerHTML="Modificar";
+    document.getElementById("title").innerHTML = "Actualizar ventas";
+    document.getElementById("btnAccion").innerHTML = "Modificar";
     const url = base_url + "Ventas/editar/" + id;
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
-    http.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                //console.log(this.responseText);
-                const res = JSON.parse(this.responseText);
-                document.getElementById("id").value = res.id;
-                document.getElementById("telefono").value = res.telefono;
-                document.getElementById("medio").value = res.medio;
-                document.getElementById("subgerente").value = res.subgerente;
-                document.getElementById("coordinador").value = res.coordinador;
-                document.getElementById("supervisor").value = res.supervisor;
-                document.getElementById("fecha").value = res.fecha;
-                document.getElementById("codigo").value = res.codigo;
-                document.getElementById("ubicacion").value = res.ubicacion;  
-                document.getElementById("promotor").value = res.promotor;
-                document.getElementById("punto_venta").value = res.punto_venta;
-                document.getElementById("departamento").value = res.departamento;
-                document.getElementById("zona").value = res.zona;
-                document.getElementById("distribuidor").value = res.distribuidor;
-                document.getElementById("proveedor").value = res.proveedor;
-                document.getElementById("producto").value = res.producto;
-                document.getElementById("perfil_plan").value = res.perfil_plan;
-                document.getElementById("tecnologia").value = res.tecnologia;
-                document.getElementById("centro_venta").value = res.centro_venta;
-                document.getElementById("canal_rediac").value = res.canal_rediac;
-                document.getElementById("aliado").value = res.aliado;
-                $("#nueva_venta").modal("show");
-            }
+    http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            //console.log(this.responseText);
+            const res = JSON.parse(this.responseText);
+            document.getElementById("id").value = res.id;
+            document.getElementById("telefono").value = res.telefono;
+            document.getElementById("medio").value = res.medio;
+            document.getElementById("subgerente").value = res.subgerente;
+            document.getElementById("coordinador").value = res.coordinador;
+            document.getElementById("supervisor").value = res.supervisor;
+            document.getElementById("fecha").value = res.fecha;
+            document.getElementById("codigo").value = res.codigo;
+            document.getElementById("ubicacion").value = res.ubicacion;
+            document.getElementById("promotor").value = res.promotor;
+            document.getElementById("punto_venta").value = res.punto_venta;
+            document.getElementById("departamento").value = res.departamento;
+            document.getElementById("zona").value = res.zona;
+            document.getElementById("distribuidor").value = res.distribuidor;
+            document.getElementById("proveedor").value = res.proveedor;
+            document.getElementById("producto").value = res.producto;
+            document.getElementById("perfil_plan").value = res.perfil_plan;
+            document.getElementById("tecnologia").value = res.tecnologia;
+            document.getElementById("centro_venta").value = res.centro_venta;
+            document.getElementById("canal_rediac").value = res.canal_rediac;
+            document.getElementById("aliado").value = res.aliado;
+            $("#nueva_venta").modal("show");
+        }
     }
 
 }
@@ -905,7 +658,7 @@ function btnEliminarVentas(id) {
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
-            http.onreadystatechange = function() {
+            http.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     const res = JSON.parse(this.responseText);
                     if (res == "ok") {
@@ -949,7 +702,7 @@ function btnEliminarAsistencia(id) {
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
-            http.onreadystatechange = function() {
+            http.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     const res = JSON.parse(this.responseText);
                     if (res == "ok") {
@@ -1004,8 +757,8 @@ function btnVerAsistencia(id) {
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
-    
-    http.onreadystatechange = function() {
+
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const res = JSON.parse(this.responseText);
             document.getElementById("id").value = res.id;
@@ -1016,7 +769,7 @@ function btnVerAsistencia(id) {
             document.getElementById("puesto").value = res.puesto;
             document.getElementById("zona").value = res.zona;
             document.getElementById("proveedor").value = res.proveedor;
-            document.getElementById("supervisor").value = res.supervisor;  
+            document.getElementById("supervisor").value = res.supervisor;
             document.getElementById("coordinador").value = res.coordinador;
             document.getElementById("hora_entrada").value = res.hora_entrada;
             document.getElementById("hora_salida").value = res.hora_salida;
@@ -1039,13 +792,13 @@ function btnVerAsistencia(id) {
 }
 
 
-$(document).ready(function() {
-    $('#filtroAsistencias').change(function() {
+$(document).ready(function () {
+    $('#filtroAsistencias').change(function () {
         const filtro = $(this).val();
         filtrarAsistencias(filtro, null);
     });
 
-    $('#fechaExacta').change(function() {
+    $('#fechaExacta').change(function () {
         const fecha = $(this).val();
         filtrarAsistencias(null, fecha);
     });
@@ -1069,7 +822,7 @@ function frmRol() {
     document.getElementById("title").innerHTML = "Nuevo Rol";
     document.getElementById("btnAccion").innerHTML = "Registrar";
     document.getElementById("frmRol").reset();
-    document.getElementById("id").value = ""; 
+    document.getElementById("id").value = "";
     $("#nuevo_Rol").modal("show");
 }
 
@@ -1096,7 +849,7 @@ function registrarRol(event) {
     let url = base_url + "Roles/registrar"; // Esta URL manejará tanto la creación como la modificación
     let http = new XMLHttpRequest();
     http.open("POST", url, true);
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const res = JSON.parse(this.responseText);
 
@@ -1127,7 +880,7 @@ function btnEditarRol(id) {
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const res = JSON.parse(this.responseText);
             document.getElementById("id").value = res.id; // Cargar el ID del rol
@@ -1154,7 +907,7 @@ function btnEliminarRol(id) {
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
-            http.onreadystatechange = function() {
+            http.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     const res = JSON.parse(this.responseText);
                     if (res == "ok") {
@@ -1189,7 +942,7 @@ function btnReingresarRol(id) {
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
-            http.onreadystatechange = function() {
+            http.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     const res = JSON.parse(this.responseText);
                     if (res == "ok") {

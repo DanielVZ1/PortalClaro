@@ -70,9 +70,9 @@
                     </form>
                 </div>
             </div>
+            <?php include "Views/Templates/footer.php"; ?>
 
-        </div>
         <script src="<?php echo base_url; ?>Assets/js/respaldar.js"></script>
-    </div>
+
+       
     <?php include "Views/Respaldar/estilorespaldar.php"; ?>
-    <?php include_once 'views/templates/footer.php'; ?>

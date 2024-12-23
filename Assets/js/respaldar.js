@@ -45,6 +45,16 @@ function mostrarAviso(icon, mensaje, recargar) {
     });
 }
 
+let data = {
+    idUser: idUsuario,
+    idObjeto: 5,
+    accion: "INGRESO",
+    descripcion: "SE INGRESÓ A LA PANTALLA RESPALDO/RESTAURACION BD",
+};
+ url = base_url + "Bitacora/CrearEvento";
+axios.post(url, data).then((res) => { console.log(res) });
+
+
 function confirmarEliminarRespaldo(archivo) {
 
      
