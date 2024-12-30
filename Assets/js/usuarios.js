@@ -224,7 +224,7 @@ function btnEliminarUser(id) {
                             idUser: idUsuario,
                             idObjeto: 1,
                             accion: "DESACTIVAR",
-                            descripcion: "SE DESACTIVÓ EL USUARIO DEL ID " + id,
+                            descripcion: "SE DESACTIVÓ EL USUARIO CON ID " + id,
                           };
                           let url = base_url + "Bitacora/CrearEvento";
                           axios.post(url, data).then((res) => {
@@ -273,7 +273,7 @@ function btnReingresarUser(id) {
                             idUser: idUsuario,
                             idObjeto: 1,
                             accion: "ACTIVAR",
-                            descripcion: "SE ACTIVÓ AL USUARIO DEL ID " + id,
+                            descripcion: "SE ACTIVÓ AL USUARIO CON ID " + id,
                           };
                           let url = base_url + "Bitacora/CrearEvento";
                           axios.post(url, data).then((res) => {

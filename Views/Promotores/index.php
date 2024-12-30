@@ -531,3 +531,5 @@
 </script>
 <?php include "Views/Promotores/estilopromotores.php"; ?>
 <?php include "Views/Templates/footer.php"; ?>
+
+<script src="<?php echo base_url; ?>Assets/js/promotores.js"></script>

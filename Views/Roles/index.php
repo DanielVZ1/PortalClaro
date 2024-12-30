@@ -450,3 +450,4 @@
     include "Views/Templates/footer.php";  // Incluye el pie de página
 ?>
 
+<script src="<?php echo base_url; ?>Assets/js/roles.js"></script>
