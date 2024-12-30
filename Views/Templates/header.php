@@ -409,6 +409,7 @@
         .submenu .submenu-link:hover {
             color: #ffffff;
         }
+        
 
         /* From Uiverse.io by devkatyall */
         /* The design is inspired from Galahhad*/
@@ -602,18 +603,91 @@
         }
 
         @keyframes shine {
-  0% {
-    background-position: 0;
-  }
-  100% {
-    background-position: 665px;
-  }
-}
+            0% {
+                background-position: 0;
+            }
 
-h1 {
-  animation-fill-mode: forwards; /* Mantiene el último estado de la animación */
-}
+            100% {
+                background-position: 665px;
+            }
+        }
 
+        h1 {
+            animation-fill-mode: forwards;
+            /* Mantiene el último estado de la animación */
+        }
+
+        /* Centrado del contenedor del ícono */
+        .logout-container {
+            display: flex;
+            justify-content: center;
+            /* Centra el contenido horizontalmente */
+            align-items: center;
+            /* Centra el contenido verticalmente */
+            position: relative;
+            top: 5px;
+        }
+
+        /* Estilo del enlace */
+        .logout-container a {
+            display: flex;
+            justify-content: center;
+            /* Asegura que el ícono esté centrado dentro del enlace */
+            align-items: center;
+            /* Centra el ícono dentro del enlace */
+            padding: 10px;
+            text-decoration: none;
+            /* Elimina subrayado */
+        }
+
+        /* Estilo de la "circulito" alrededor del ícono */
+        .circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            /* Ajusta el tamaño del círculo */
+            height: 50px;
+            /* Ajusta el tamaño del círculo */
+            border-radius: 50%;
+            background-color: #007BFF;
+            /* Color del círculo, ajustable */
+        }
+
+        /* Estilo de los íconos dentro del círculo */
+        .burger svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+            /* Color del icono */
+        }
+
+        /* Tooltip que aparece cuando se pasa el mouse */
+        .tooltip {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            top: 90%;
+            /* Coloca el tooltip justo debajo del ícono */
+            left: 50%;
+            /* Posiciona el tooltip en el centro del ícono */
+            transform: translateX(-50%);
+            /* Alinea el tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Mostrar el tooltip cuando se pasa el mouse por encima */
+        .logout-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -629,8 +703,8 @@ h1 {
         </button>
 
         <h1 style="color: red; width: 750px; height: 50px; margin: auto; padding: 2px; text-align: center; display: flex; justify-content: center; align-items: center; position: relative; font-size: 40px; font-weight: 600; font-family: 'Poppins', sans-serif; background: linear-gradient(to right, #9f9f9f 0%, #fff 10%, #FF0000 20%); -webkit-background-clip: text; color: transparent; text-decoration: none; animation: shine 3s infinite linear;">
-    SISTEMA GESTOR DE PROMOTORES
-</h1>
+            SISTEMA GESTOR DE PROMOTORES
+        </h1>
 
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" height="200">
             <div class="menu-container" style="margin: auto; padding: 30px;">
@@ -685,15 +759,15 @@ l0 -191 -75 3 -75 3 -6 210 c-3 115 -3 260 1 322 l7 113 69 0 69 0 0 -40 c0
 13 54 -1 96 -35 105 -136 159 -244 132z" />
                         </g>
                     </svg>
-
-
-
-
                 </a>
             </div>
         </ul>
     </nav>
 
+
+    <?php
+    $user_id = $_SESSION['id_usuario'];
+    ?>
 
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
@@ -702,62 +776,59 @@ l0 -191 -75 3 -75 3 -6 210 c-3 115 -3 260 1 322 l7 113 69 0 69 0 0 -40 c0
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading"></div>
                         <hr>
-                        <a href="<?php echo base_url; ?>Usuarios" class="nav-link active" aria-current="page" style="margin: auto; padding: 10px; position: relative; top: 5px;">
-                            <div class="circle">
-                                <label class="popup">
-
-                                    <div tabindex="0" class="burger">
-                                        <svg
-                                            viewBox="0 0 24 24"
-                                            fill="white"
-                                            height="30"
-                                            width="80"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M12 2c2.757 0 5 2.243 5 5.001 0 2.756-2.243 5-5 5s-5-2.244-5-5c0-2.758 2.243-5.001 5-5.001zm0-2c-3.866 0-7 3.134-7 7.001 0 3.865 3.134 7 7 7s7-3.135 7-7c0-3.867-3.134-7.001-7-7.001zm6.369 13.353c-.497.498-1.057.931-1.658 1.302 2.872 1.874 4.378 5.083 4.972 7.346h-19.387c.572-2.29 2.058-5.503 4.973-7.358-.603-.374-1.162-.811-1.658-1.312-4.258 3.072-5.611 8.506-5.611 10.669h24c0-2.142-1.44-7.557-5.631-10.647z"></path>
-                                        </svg>
-                                    </div>
-                                </label>
-                            </div>
-
-                        </a>
-                        <div class="menu">
-                            <div class="item">
-                                <a href="#" class="link">
-                                    <div class="circle1">
+                        <?php if ($user_id == 1): ?>
+                            <div class="logout-container">
+                                <a href="<?php echo base_url; ?>Usuarios" class="nav-link active" aria-current="page" style="margin: auto; padding: 30px; position: relative; top: 5px;">
+                                    <div class="circle">
                                         <label class="popup">
                                             <div tabindex="0" class="burger">
-                                                <!-- SVG ajustado a tamaño mayor -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="height: 30px; width: 30px;">
-                                                    <!-- Font Awesome Free 6.7.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
-                                                    <path fill="#ffffff" d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4l54.1 0 109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109 0-54.1c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7L352 176c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
+                                                <!-- Icono SVG del botón de usuarios -->
+                                                <svg viewBox="0 0 24 24" fill="white" height="30" width="80" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 2c2.757 0 5 2.243 5 5.001 0 2.756-2.243 5-5 5s-5-2.244-5-5c0-2.758 2.243-5.001 5-5.001zm0-2c-3.866 0-7 3.134-7 7.001 0 3.865 3.134 7 7 7s7-3.135 7-7c0-3.867-3.134-7.001-7-7.001zm6.369 13.353c-.497.498-1.057.931-1.658 1.302 2.872 1.874 4.378 5.083 4.972 7.346h-19.387c.572-2.29 2.058-5.503 4.973-7.358-.603-.374-1.162-.811-1.658-1.312-4.258 3.072-5.611 8.506-5.611 10.669h24c0-2.142-1.44-7.557-5.631-10.647z"></path>
                                                 </svg>
-
                                             </div>
                                         </label>
                                     </div>
-                                    <!-- Se eliminó el span con el texto "Our Services" -->
-                                    <svg viewBox="0 0 360 360" xml:space="preserve">
-                                        <g id="SVGRepo_iconCarrier">
-                                            <path
-                                                id="XMLID_225_"
-                                                d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path>
-                                        </g>
-                                    </svg>
                                 </a>
-                                <div class="submenu">
-                                    <div class="submenu-item">
-                                        <a href="<?php echo base_url; ?>Roles" class="submenu-link">Roles</a>
-                                    </div>
-                                    <div class="submenu-item">
-                                        <a href="<?php echo base_url; ?>Respaldar" class="submenu-link">Respaldos</a>
-                                    </div>
-                                    <div class="submenu-item">
-                                        <a href="<?php echo base_url; ?>Bitacora" class="submenu-link">Bitácora</a>
+                                <!-- Tooltip para el enlace de Usuarios -->
+                                <div class="tooltip">Usuarios</div>
+                                </div>
+                        <?php endif; ?>
+
+                        <!-- Menú visible solo para usuarios con id = 1 -->
+                        <?php if ($user_id == 1): ?>
+                            <div class="menu">
+                                <div class="item">
+                                    <a href="#" class="link">
+                                        <div class="circle1">
+                                            <label class="popup">
+                                                <div tabindex="0" class="burger">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="height: 30px; width: 30px;">
+                                                        <path fill="#ffffff" d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4l54.1 0 109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109 0-54.1c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7L352 176c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
+                                                    </svg>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <svg viewBox="0 0 360 360" xml:space="preserve">
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path>
+                                            </g>
+                                        </svg>
+                                    </a>
+                                    <div class="submenu">
+                                        <div class="submenu-item">
+                                            <a href="<?php echo base_url; ?>Roles" class="submenu-link">Roles</a>
+                                        </div>
+                                        <div class="submenu-item">
+                                            <a href="<?php echo base_url; ?>Respaldar" class="submenu-link">Respaldos</a>
+                                        </div>
+                                        <div class="submenu-item">
+                                            <a href="<?php echo base_url; ?>Bitacora" class="submenu-link">Bitácora</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
 
                         <div class="menu">
                             <div class="item">
@@ -766,19 +837,14 @@ l0 -191 -75 3 -75 3 -6 210 c-3 115 -3 260 1 322 l7 113 69 0 69 0 0 -40 c0
                                         <label class="popup">
                                             <div tabindex="0" class="burger">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" style="height: 30px; width: 30px;">
-                                                    <!-- Font Awesome Free 6.7.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                                                     <path fill="#ffffff" d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192l42.7 0c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0L21.3 320C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7l42.7 0C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3l-213.3 0zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352l117.3 0C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7l-330.7 0c-14.7 0-26.7-11.9-26.7-26.7z" />
                                                 </svg>
-
                                             </div>
                                         </label>
                                     </div>
-                                    <!-- Se eliminó el span con el texto "Our Services" -->
                                     <svg viewBox="0 0 360 360" xml:space="preserve">
                                         <g id="SVGRepo_iconCarrier">
-                                            <path
-                                                id="XMLID_225_"
-                                                d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path>
+                                            <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path>
                                         </g>
                                     </svg>
                                 </a>
@@ -795,18 +861,21 @@ l0 -191 -75 3 -75 3 -6 210 c-3 115 -3 260 1 322 l7 113 69 0 69 0 0 -40 c0
                                 </div>
                             </div>
                         </div>
-
                         <div class="menu-container" style="margin: auto; position: relative; top: 20px;">
-                            <input id="checkbox" type="checkbox" style="display: none;" onclick="window.location.href='<?php echo base_url; ?>Usuarios/salir';" />
-                            <label class="switch" for="checkbox" style="cursor: pointer; padding: 10px; position: relative; top: 5px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="slider">
-                                    <path
-                                        d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z"></path>
-                                </svg>
+                            <!-- Contenedor para la etiqueta (tooltip) -->
+                            <div class="logout-container" style="position: relative; display: inline-block;">
+                                <input id="checkbox" type="checkbox" style="display: none;" onclick="window.location.href='<?php echo base_url; ?>Usuarios/salir';" />
+                                <label class="switch" for="checkbox" style="cursor: pointer; padding: 10px; position: relative; top: -10px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="slider">
+                                        <path
+                                            d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z"></path>
+                                    </svg>
 
-                            </label>
+                                </label>
+                                <!-- Etiqueta de información al pasar el mouse (tooltip) -->
+                                <div class="tooltip">Cerrar Sesión</div>
+                            </div>
                         </div>
-
                         </ul>
                         <hr>
                     </div>
@@ -814,7 +883,7 @@ l0 -191 -75 3 -75 3 -6 210 c-3 115 -3 260 1 322 l7 113 69 0 69 0 0 -40 c0
             </nav>
         </div>
         <div id="layoutSidenav_content">
-            <main style="flex-grow: 1; margin-left: -130px; margin-top: -30px;">
+            <main style="flex-grow: 1; margin-left: -130px; margin-top: -90px;">
                 <div class="container-fluid">
                     <!-- Contenido -->
 
