@@ -8,7 +8,7 @@ class RolesModel extends Query {
 
     public function selectRoles()
     {
-        $sql = "SELECT * FROM rol WHERE estado != 0";
+        $sql = "SELECT * FROM rol WHERE estado != 0 AND id != 1";
         $data = $this->selectAll($sql);
         return $data;
     }
