@@ -105,6 +105,8 @@
 
             // Generar el archivo Excel y descargarlo
             XLSX.writeFile(wb, "Reporte_Promotores.xlsx");
+
+            
         });
 
         // Función para extraer URL de un texto si es un enlace
@@ -115,6 +117,7 @@
             }
             return ''; // Si no hay enlace, devuelve una cadena vacía
         }
+
     </script>
 
 

@@ -16,15 +16,14 @@ class Bitacora extends Controller
         $this->views->getView($this, 'index', $data);    
         
     }
-    public function listar()
-    {
+    public function listar() {
         $data = $this->model->getBitacora(0);
-        
+    
         header('Content-Type: application/json');
-      echo json_encode($data, JSON_UNESCAPED_UNICODE);
-      die();
-      var_dump($data); // Verifica si los datos están duplicados aquí
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        die();
     }
+    
 
     public function crearEvento() {
         $datosEnBruto = file_get_contents("php://input");

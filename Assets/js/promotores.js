@@ -150,6 +150,16 @@ function registrarPromotor(e) {
 
                     $("#nuevo_promotor").modal("hide");
                     tblPromotores.ajax.reload();  // Recargar la tabla
+                    let data = {
+                        idUser: idUsuario,
+                        idObjeto: 6,
+                        accion: "REGISTRO",
+                        descripcion: "SE REGISTRÓ EL PROMOTOR CON ID " + id.value,
+                      };
+                      let url = base_url + "Bitacora/CrearEvento";
+                      axios.post(url, data).then((res) => {
+                        console.log(res);
+                      });
                 } else if (res == "modificado") {
                     Swal.fire({
                         position: 'top-end',
@@ -164,7 +174,7 @@ function registrarPromotor(e) {
                         idUser: idUsuario,
                         idObjeto: 6,
                         accion: "MODIFICACIÓN",
-                        descripcion: "SE MODIFICÓ EL PROMOTOR CON ID " + nombre + apellido,
+                        descripcion: "SE MODIFICÓ EL PROMOTOR CON ID " + id.value,
                       };
                       let url = base_url + "Bitacora/CrearEvento";
                       axios.post(url, data).then((res) => {

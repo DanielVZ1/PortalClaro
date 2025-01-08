@@ -31,5 +31,6 @@
     </tbody>
 </table>
 
-<script src="<?php echo base_url; ?>Assets/js/bitacora.js"></script>
 <?php include_once 'views/templates/footer.php'; ?>
+
+<script src="<?php echo base_url; ?>Assets/js/bitacora.js"></script>

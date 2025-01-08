@@ -368,3 +368,6 @@ include "Views/Templates/header.php";
     <?php
     include "Views/Templates/footer.php";
     ?>
+
+
+<script src="<?php echo base_url; ?>Assets/js/asistencia.js"></script>

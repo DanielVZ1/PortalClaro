@@ -105,6 +105,7 @@ function fntRolesUsuarios() {
 
 // Función para registrar o editar usuario
 function registrarUser(e, isEdit = false) {
+
     e.preventDefault();
 
     const usuario = document.getElementById("usuario");
@@ -169,6 +170,17 @@ function registrarUser(e, isEdit = false) {
                     frm.reset();
                     $("#nuevo_usuario").modal("hide");
                     tblUsuarios.ajax.reload();
+                    let data = {
+                        idUser: idUsuario,
+                        idObjeto: 1,
+                        accion: "REGISTRO",
+                        descripcion: "SE REGISTRÓ EL USUARIO CON ID " + id.value, // Asegúrate de que usuario.value tenga valor
+                    };
+                    let url = base_url + "Bitacora/CrearEvento";
+                    axios.post(url, data).then((res) => {
+                        console.log(res);
+                    });
+                    
                 } else if (res == "modificado") {
                     Swal.fire({
                         position: 'top-end',
@@ -179,6 +191,18 @@ function registrarUser(e, isEdit = false) {
                     });
                     $("#nuevo_usuario").modal("hide");
                     tblUsuarios.ajax.reload();
+
+                    let data = {
+                        idUser: idUsuario,
+                        idObjeto: 1,
+                        accion: "MODIFICACIÓN",
+                        descripcion: "SE MODIFICÓ EL USUARIO CON ID " + id.value,
+                      };
+                      let url = base_url + "Bitacora/CrearEvento";
+                      axios.post(url, data).then((res) => {
+                        console.log(res);
+                      });
+
                 } else {
                     Swal.fire({
                         position: 'top-end',
