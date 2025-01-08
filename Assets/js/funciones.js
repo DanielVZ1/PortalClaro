@@ -1,18 +1,5 @@
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //-----------------------------------Permisos--------------------------------------------------
 function registrarPermisos(event) {
     event.preventDefault(); // Evitar el comportamiento por defecto del formulario (recarga de página)

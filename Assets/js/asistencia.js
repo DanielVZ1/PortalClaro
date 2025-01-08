@@ -61,6 +61,16 @@ function btnEliminarAsistencia(id) {
                             'success'
                         )
                         tblAsistencia.ajax.reload();
+                        let data = {
+                            idUser: idUsuario,
+                            idObjeto: 2,
+                            accion: "ELIMINACIÓN",
+                            descripcion: "SE ELIMINÓ LA ASISTENCIA CON ID " + id,
+                          };
+                          let url = base_url + "Bitacora/CrearEvento";
+                          axios.post(url, data).then((res) => {
+                            console.log(res);
+                          });
                     } else {
                         Swal.fire(
                             'Mensaje',

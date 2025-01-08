@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-   
+
 
     <div>
         <div class="row">
@@ -35,20 +35,21 @@
                     <ul class="list-group" id="respaldoList">
                         <?php
                         $archivos_sql = glob('Backups/*.sql');
+                        rsort($archivos_sql); // Ordena los archivos en orden descendente
                         foreach ($archivos_sql as $archivo_sql) {
                             echo '<li class="list-group-item d-flex justify-content-between align-items-center">' . basename($archivo_sql) . '
-        <button class="delete-button" onclick="confirmarEliminarRespaldo(\'' . $archivo_sql . '\')">
-            <svg class="delete-svgIcon" viewBox="0 0 448 512">
-                <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
-            </svg>
-        </button>
-        </li>';
+                    <button class="delete-button" onclick="confirmarEliminarRespaldo(\'' . $archivo_sql . '\')">
+                        <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                            <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                        </svg>
+                    </button>
+                </li>';
                         }
                         ?>
                     </ul>
-
                 </div>
             </div>
+
 
             <!-- Sección de Restauración de Base de Datos -->
             <div class="col-md-6">
@@ -72,7 +73,7 @@
             </div>
             <?php include "Views/Templates/footer.php"; ?>
 
-        <script src="<?php echo base_url; ?>Assets/js/respaldar.js"></script>
+            <script src="<?php echo base_url; ?>Assets/js/respaldar.js"></script>
 
-       
-    <?php include "Views/Respaldar/estilorespaldar.php"; ?>
+
+            <?php include "Views/Respaldar/estilorespaldar.php"; ?>

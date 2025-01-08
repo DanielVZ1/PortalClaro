@@ -1,6 +1,9 @@
-// respaldar.js
-// Función para realizar el respaldo de la base de datos
+
 function realizarRespaldo() {
+
+    // Extraer el nombre del archivo del camino (ruta)
+
+
     var xhr = new XMLHttpRequest();
     xhr.open('POST', base_url + '/Backups/index.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -12,6 +15,17 @@ function realizarRespaldo() {
                     var response = JSON.parse(xhr.responseText);
                     if (response && response.message === "¡Respaldo creado correctamente en la carpeta 'backup'!") {
                         mostrarAviso('success', 'Base de datos respaldada correctamente');
+                        let data = {
+                            idUser: idUsuario,
+                            idObjeto: 5,
+                            accion: "CREACIÓN",
+                            descripcion: `SE CREÓ EL RESPALDO:`,
+                        };
+
+                        let url = base_url + "Bitacora/CrearEvento";
+                        axios.post(url, data).then((res) => {
+                          console.log(res);
+                        });
                         setTimeout(function () {
                             location.reload();
                         }, 2000);
@@ -79,6 +93,18 @@ function confirmarEliminarRespaldo(archivo) {
                 success: function (response) {
                     if (response.success) {
                         mostrarAviso('success', 'Respaldo eliminado exitosamente');
+                        let data = {
+                            idUser: idUsuario,
+                            idObjeto: 5,
+                            accion: "ELIMINACION",
+                            descripcion: `SE ELIMINÓ EL RESPALDO: ${nombreArchivo}`,
+                        };
+
+                        let url = base_url + "Bitacora/CrearEvento";
+                        axios.post(url, data).then((res) => {
+                          console.log(res);
+                        });
+
                         setTimeout(function () {
                             location.reload();
                         }, 2000);
@@ -115,17 +141,19 @@ document.getElementById('btnCrearRespaldo').addEventListener('click', function (
 // restaurar.js
 
 document.addEventListener('DOMContentLoaded', function () {
-   
     var btnRestaurar = document.getElementById('btnRestaurarBaseDatos');
     var archivoRespaldo = document.getElementById('archivoRespaldo');
 
     btnRestaurar.addEventListener('click', function (event) {
         event.preventDefault();
-     
+
         if (archivoRespaldo.files.length > 0) {
             var selectedFile = archivoRespaldo.files[0];
 
-            if (esExtensionSQL(selectedFile.name)) {
+            // Obtener el nombre del archivo
+            var nombreArchivo = selectedFile.name;
+
+            if (esExtensionSQL(nombreArchivo)) {
                 if (selectedFile.size > 0) {
                     var loadingMessage = mostrarAviso1('info', 'Restaurando Base de Datos, Espere...', true);
                     var formData = new FormData();
@@ -139,7 +167,20 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (xhr.status === 200) {
                             var response = JSON.parse(xhr.responseText);
                             if (response && response.message) {
-                                mostrarAviso2('success', response.message,);
+                                mostrarAviso2('success', response.message);
+
+                                let data = {
+                                    idUser: idUsuario,
+                                    idObjeto: 5,
+                                    accion: "RESTAURACIÓN",
+                                    descripcion: `SE RESTAURÓ EL SISTEMA: ` + nombreArchivo,
+                                };
+
+                                let url = base_url + "Bitacora/CrearEvento";
+                                axios.post(url, data).then((res) => {
+                                    console.log(res);
+                                });
+
                             } else if (response && response.error) {
                                 mostrarAviso('error', response.error);
                             } else {
@@ -160,6 +201,8 @@ document.addEventListener('DOMContentLoaded', function () {
             mostrarAviso('error', 'Por favor, seleccione un archivo antes de intentar restaurar.');
         }
     });
+
+
 
     function esExtensionSQL(nombreArchivo) {
         return nombreArchivo.toLowerCase().endsWith('.sql');
