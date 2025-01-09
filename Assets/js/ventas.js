@@ -28,12 +28,19 @@ tblVentas = $('#tblVentas').DataTable({
         { 'data': 'canal_rediac' },
         { 'data': 'aliado' },
         { 'data': 'acciones' }
-    ]
+    ],
+
+    order: [[0, 'desc']]
 });
 
-//Fin Usuarios
-
-
+let data = {
+    idUser: idUsuario,
+    idObjeto: 7,
+    accion: "INGRESO",
+    descripcion: "SE INGRESÓ A LA PANTALLA DE VENTAS",
+};
+ url = base_url + "Bitacora/CrearEvento";
+axios.post(url, data).then((res) => { console.log(res) });
 
 
 //-----------------------------------Ventas--------------------------------------------------
@@ -101,6 +108,17 @@ function registrarVentas(e) {
                     $("#nueva_venta").modal("hide");
                     tblVentas.ajax.reload();
 
+                    let data = {
+                        idUser: idUsuario,
+                        idObjeto: 7,
+                        accion: "REGISTRO",
+                        descripcion: "SE REGISTRÓ LA VENTA CON ID " + id.value,
+                      };
+                      let url = base_url + "Bitacora/CrearEvento";
+                      axios.post(url, data).then((res) => {
+                        console.log(res);
+                      });
+
                 } else if (res == "modificado") {
                     Swal.fire({
                         position: 'top-end',
@@ -111,6 +129,17 @@ function registrarVentas(e) {
                     })
                     $("#nueva_venta").modal("hide");
                     tblVentas.ajax.reload();
+
+                    let data = {
+                        idUser: idUsuario,
+                        idObjeto: 7,
+                        accion: "MODIFICACIÓN",
+                        descripcion: "SE MODIFICÓ LA VENTA CON ID " + id.value,
+                      };
+                      let url = base_url + "Bitacora/CrearEvento";
+                      axios.post(url, data).then((res) => {
+                        console.log(res);
+                      });
 
                 } else {
                     Swal.fire({
@@ -189,7 +218,18 @@ function btnEliminarVentas(id) {
                             'Venta eliminada con éxito',
                             'success'
                         )
-                        tblAsistencia.ajax.reload();
+                        tblVentas.ajax.reload();
+                        
+                    let data = {
+                        idUser: idUsuario,
+                        idObjeto: 7,
+                        accion: "ELIMINACIÓN",
+                        descripcion: "SE ELIMINÓ LA VENTA CON ID " + id,
+                      };
+                      let url = base_url + "Bitacora/CrearEvento";
+                      axios.post(url, data).then((res) => {
+                        console.log(res);
+                      });
                     } else {
                         Swal.fire(
                             'Mensaje',

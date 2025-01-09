@@ -1,9 +1,5 @@
 
 function realizarRespaldo() {
-
-    // Extraer el nombre del archivo del camino (ruta)
-
-
     var xhr = new XMLHttpRequest();
     xhr.open('POST', base_url + '/Backups/index.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -15,17 +11,22 @@ function realizarRespaldo() {
                     var response = JSON.parse(xhr.responseText);
                     if (response && response.message === "¡Respaldo creado correctamente en la carpeta 'backup'!") {
                         mostrarAviso('success', 'Base de datos respaldada correctamente');
+                        
+                        // Obtener el nombre del archivo desde la respuesta del servidor
+                        var nombreArchivo = response.archivo; // Nombre del archivo de respaldo
+
                         let data = {
                             idUser: idUsuario,
                             idObjeto: 5,
                             accion: "CREACIÓN",
-                            descripcion: `SE CREÓ EL RESPALDO:`,
+                            descripcion: `SE CREÓ EL RESPALDO: ` + nombreArchivo,  // Incluir el nombre del archivo
                         };
 
                         let url = base_url + "Bitacora/CrearEvento";
                         axios.post(url, data).then((res) => {
                           console.log(res);
                         });
+
                         setTimeout(function () {
                             location.reload();
                         }, 2000);
@@ -44,6 +45,7 @@ function realizarRespaldo() {
     mostrarAviso('info', 'Realizando respaldo, por favor espere...', true);
     xhr.send();
 }
+
 
 
 function mostrarAviso(icon, mensaje, recargar) {

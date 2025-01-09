@@ -571,5 +571,8 @@ function showUploadAlert() {
 </script>
 
 
+
 <?php include "Views/Ventas/estiloventas.php"; ?>
     <?php include "Views/Templates/footer.php"; ?>
+    
+<script src="<?php echo base_url; ?>Assets/js/ventas.js"></script>
