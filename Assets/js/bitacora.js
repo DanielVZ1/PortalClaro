@@ -13,10 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
           { data: "ACCION" },
           { data: "DESCRIPCION" },
       ],
-      language: {
-          url: base_url + "assets/js/espanol.json",
-      },
-      responsive: true,
       order: [[0, "desc"]],
   });
 
