@@ -37,6 +37,7 @@ include "Views/Templates/header.php";
             <th><i class="fas fa-id-card"></i> Nombre</th>
             <th><i class="fas fa-envelope"></i> Email</th>
             <th><i class="fas fa-user-tag"></i> Rol</th>
+            <th><i class="fas fa-map"></i> Zona</th>
             <th><i class="fas fa-check-circle"></i> Estado</th>
             <!-- <th><i class="fas fa-cogs"></i> Acciones</th> -->
             <th><i class="fas fa-cogs"></i> Acciones</th>
@@ -75,39 +76,58 @@ include "Views/Templates/header.php";
                         <input id="email" class="form-control" type="email" name="email" placeholder="Email" maxlength="50" onblur="validateEmail(this)">
                     </div>
                     <div class="row" id="claves">
-    <div class="col-6">
-        <div class="form-group">
-            <label for="clave" style="color: black;">
-                <i class="fas fa-lock"></i> Contraseña
-            </label>
-            <input id="clave" class="form-control" type="password" name="clave" placeholder="Contraseña" minlength="6" maxlength="50" required>
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="form-group">
-            <label for="confirmar" style="color: black;">
-                <i class="fas fa-lock"></i> Confirmar Contraseña
-            </label>
-            <input id="confirmar" class="form-control" type="password" name="confirmar" placeholder="Confirmar Contraseña" minlength="6" maxlength="50" required>
-        </div>
-    </div>
-    <div class="checkbox-wrapper-46">
-  <input type="checkbox" id="cbx-46" class="inp-cbx" onclick="togglePasswordVisibility()" />
-  <label for="cbx-46" class="cbx">
-    <span>
-      <svg viewBox="0 0 12 10" height="10px" width="12px">
-        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-      </svg>
-    </span>
-    <span>Mostrar Contraseña</span>
-  </label>
-</div>
-</div>
-                    <div class="form-group">
-                        <label for="rol" style="color: black;"><i class="fas fa-user-tag"></i> Rol</label>
-                        <select id="rol" class="form-control" name="rol">
-                        </select>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="clave" style="color: black;">
+                                    <i class="fas fa-lock"></i> Contraseña
+                                </label>
+                                <input id="clave" class="form-control" type="password" name="clave" placeholder="Contraseña" minlength="6" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="confirmar" style="color: black;">
+                                    <i class="fas fa-lock"></i> Confirmar Contraseña
+                                </label>
+                                <input id="confirmar" class="form-control" type="password" name="confirmar" placeholder="Confirmar Contraseña" minlength="6" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="checkbox-wrapper-46">
+                            <input type="checkbox" id="cbx-46" class="inp-cbx" onclick="togglePasswordVisibility()" />
+                            <label for="cbx-46" class="cbx">
+                                <span>
+                                    <svg viewBox="0 0 12 10" height="10px" width="12px">
+                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </svg>
+                                </span>
+                                <span>Mostrar Contraseña</span>
+                            </label>
+                        </div>
                     </div>
+                    <div class="row">
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="rol" style="color: black;"><i class="fas fa-user-tag"></i> Rol</label>
+                            <select id="rol" class="form-control" name="rol">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                    <div class="form-group">
+                                <label for="zona" style="color: black;"><i class="fas fa-map"></i> Zonas</label>
+                                <select id="zona" class="form-control" name="zona">
+                                    <?php foreach ($data['zonas'] as $row) { ?>
+                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['zona']; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                    </div>
+
+                    </div>
+
+
+
                     <div style="margin-top: 20px; display: flex; gap: 15px;">
                         <button class="shadow__btn" type="button" onclick="registrarUser(event)" id="btnAccion">Registrar</button>
                         <button class="shadow__btn--red" type="button" data-dismiss="modal" style="color:white">Cancelar</button>
@@ -119,11 +139,11 @@ include "Views/Templates/header.php";
 </div>
 
 <script>
- function togglePasswordVisibility() {
+    function togglePasswordVisibility() {
         // Obtener ambos campos de contraseña
         const passwordField = document.getElementById('clave');
         const confirmPasswordField = document.getElementById('confirmar');
-        
+
         // Comprobar si ambos campos están mostrando las contraseñas
         if (passwordField.type === 'password') {
             passwordField.type = 'text';
@@ -133,6 +153,7 @@ include "Views/Templates/header.php";
             confirmPasswordField.type = 'password';
         }
     }
+
     function validarUsuario(event) {
         // Obtén el valor del campo de texto
         let input = event.target;

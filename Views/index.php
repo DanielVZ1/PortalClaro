@@ -235,7 +235,12 @@
             "retina_detect": true
         });
     </script>
-    <script src="<?php echo base_url; ?>Assets/js/login.js"></script>
+            <script>
+            const base_url = '<?php echo base_url; ?>';
+        </script>
+    <script src="<?php echo base_url; ?>assets/js/login.js?<?php echo time(); ?>"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 
 </html>

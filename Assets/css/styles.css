@@ -1905,13 +1905,15 @@ progress {
   
   color: var(--bs-table-color); /* Color de texto */
   border-color: var(--bs-table-border-color); /* Color de los bordes */
-  width: 100%;
-  max-width: 100%; /* Asegura que la tabla pueda expandirse y ocupar el 100% del contenedor */
-  table-layout: auto; /* Permite que la tabla sea flexible y se ajuste automáticamente al contenido */
+  width: 100%; /* La tabla ocupará el 100% del contenedor */
+  max-width: 100%; /* Asegura que la tabla se ajuste al 100% del contenedor */
+  table-layout: fixed; /* Ajusta las celdas para evitar espacios vacíos */
   border-collapse: separate; /* Cambiado a 'separate' para permitir bordes redondeados */
   border-spacing: 0; /* Elimina el espacio entre celdas */
   border-radius: 8px; /* Bordes redondeados en la tabla */
   overflow: hidden; /* Asegura que las celdas no sobresalgan de los bordes redondeados */
+  word-wrap: break-word; /* Permite que el texto largo se ajuste dentro de las celdas */
+  table-layout: auto; /* Ajusta la tabla para que se adapte al contenido */
 }
 
 /* Estilo para el encabezado */
@@ -1926,6 +1928,7 @@ progress {
   font-weight: bold;
   text-align: left; /* Alinea el texto a la izquierda */
   white-space: nowrap; /* Impide que el texto se divida */
+  word-wrap: break-word; /* Permite que el texto largo se ajuste dentro de las celdas */
 }
 
 /* Alineación de los iconos junto al texto */
@@ -1950,6 +1953,7 @@ progress {
   text-align: left; /* Asegura que el texto esté alineado a la izquierda */
   vertical-align: middle; /* Alinea el contenido verticalmente */
   white-space: nowrap; /* Evita que el texto se divida en múltiples líneas */
+  word-wrap: break-word; /* Permite que el texto largo se ajuste dentro de las celdas */
 }
 
 /* Efecto al pasar el ratón por encima de las filas */

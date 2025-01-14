@@ -3,22 +3,32 @@ let tblUsuarios, tblPromotores;
 
 document.addEventListener("DOMContentLoaded", function () {
     let url = base_url + "Bitacora/CrearEvento";
-    tblUsuarios = $('#tblUsuarios').DataTable({
-        ajax: {
-            url: base_url + "Usuarios/listar",
-            dataSrc: ''
-        },
-        columns: [
-            { 'data': 'id' },
-            { 'data': 'usuario' },
-            { 'data': 'nombre' },
-            { 'data': 'email' },
-            { 'data': 'nombrerol' },  // Nombre del rol
-            { 'data': 'estado' },
-            { 'data': 'acciones' }
-        ]
+tblUsuarios = $('#tblUsuarios').DataTable({
+    ajax: {
+        url: base_url + "Usuarios/listar",
+        dataSrc: ''
+    },
+    columns: [
+        { 'data': 'id' },
+        { 'data': 'usuario' },
+        { 'data': 'nombre' },
+        { 'data': 'email' },
+        { 'data': 'nombrerol' },  // Nombre del rol
+        { 'data': 'zona' },
+        { 'data': 'estado' },
+        { 'data': 'acciones' }
+    ],
 
-    });
+    order: [[0, 'desc']],
+
+    rowCallback: function(row, data) {
+        // Mover el usuario con id 1 a la primera fila
+        if (data.id.value === 1) {
+            $(row).prependTo('#tblUsuarios tbody');  // Mueve la fila a la primera posición
+        }
+    }
+});
+
     let data = {
         idUser: idUsuario,
         idObjeto: 1,
@@ -52,6 +62,7 @@ function btnEditarUser(id) {
     const nombreElement = document.getElementById("nombre");
     const emailElement = document.getElementById("email");
     const rolElement = document.getElementById("rol");
+    const zonaElement = document.getElementById("zona");
     const claveElement = document.getElementById("clave");
     const confirmarElement = document.getElementById("clave");
 
@@ -72,6 +83,7 @@ function btnEditarUser(id) {
             nombreElement.value = res.nombre;
             emailElement.value = res.email;
             rolElement.value = res.id_rol;  // Asignamos el rol del usuario
+            zonaElement.value = res.zona;
             document.getElementById("claves").classList.add("d-none"); // Ocultamos las claves en el formulario de edición
             $("#nuevo_usuario").modal("show");
 
@@ -113,6 +125,7 @@ function registrarUser(e, isEdit = false) {
     const clave = document.getElementById("clave");
     const confirmar = document.getElementById("confirmar");
     const rol = document.getElementById("rol");
+    const id_zona = document.getElementById("zona");
     const email = document.getElementById("email");
 
     // Expresión regular para validar la contraseña

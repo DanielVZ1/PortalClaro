@@ -11,7 +11,7 @@ function frmLogin(e){
         clave.classList.add("is-invalid");
         clave.focus();
     }else {
-        const url = base_url + "Usuarios/validar";
+        let url = base_url + "Usuarios/validar";
         const frm = document .getElementById("frmLogin");
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
@@ -19,8 +19,18 @@ function frmLogin(e){
         http.onreadystatechange = function()
         {
             if(this.readyState ==4 && this.status==200){
+                console.log(this.responseText)
                 const res = JSON.parse(this.responseText);
+                console.log(res)
                 if (res == "ok"){
+                    let data = {
+                        idUser: res.id_usuario,
+                        idObjeto: 8,
+                        accion: "INGRESO",
+                        descripcion: "HA INICIADO SESIÓN EN EL SISTEMA",
+                    };
+                     url = base_url + "Bitacora/CrearEvento";
+                    axios.post(url, data).then((res) => {console.log(res)});
                     window.location = base_url + "Principal";
                 }else{
                     document.getElementById("alerta").classList.remove("d-none");

@@ -25,6 +25,7 @@ class Usuarios extends Controller
         $data['page_tag'] = "Usuarios";
         $data['page_name'] = "Lista_Usuario";
         $data['page_title'] = "Usuarios <small> </small>";
+        $data['zonas'] = $this->model->getZonas();
         $this->views->getView($this, "index", $data);
       } else {
         header('Location: ' . base_url . 'Errors/permisos');
@@ -67,7 +68,6 @@ class Usuarios extends Controller
                     </div>';
         }
       }
-      header('Content-Type: application/json');
       echo json_encode($data, JSON_UNESCAPED_UNICODE);
       die();
     }
@@ -96,7 +96,8 @@ class Usuarios extends Controller
                         $_SESSION['usuario'] = $data['usuario'];
                         $_SESSION['nombre'] = $data['nombre'];
                         $_SESSION['activo'] = true;
-                        $msg = "ok"; // Respuesta de éxito
+                        $msg = "ok";
+
                     } else {
                         $msg = "¡Usuario o contraseña incorrecta!";
                     }
@@ -118,6 +119,7 @@ class Usuarios extends Controller
         $clave = strClean($_POST['clave']);
         $confirmar = strClean($_POST['confirmar']);
         $id_rol = strClean($_POST['rol']); // Capturamos el id del rol seleccionado
+        $zona = strClean($_POST['zona']);
         $id = isset($_POST['id']) ? strClean($_POST['id']) : ""; // Si existe un ID (editar)
     
         // Validar los campos
