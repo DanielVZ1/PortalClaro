@@ -11,7 +11,7 @@ function frmLogin(e){
         clave.classList.add("is-invalid");
         clave.focus();
     }else {
-        let url = base_url + "Usuarios/validar";
+        const url = base_url + "Usuarios/validar";
         const frm = document .getElementById("frmLogin");
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
@@ -29,7 +29,7 @@ function frmLogin(e){
                         accion: "INGRESO",
                         descripcion: "HA INICIADO SESIÓN EN EL SISTEMA",
                     };
-                     url = base_url + "Bitacora/CrearEvento";
+                    const url = base_url + "Bitacora/CrearEvento";
                     axios.post(url, data).then((res) => {console.log(res)});
                     window.location = base_url + "Principal";
                 }else{

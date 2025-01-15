@@ -1,4 +1,4 @@
-let tblUsuarios, tblPromotores;
+let tblUsuarios;
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -20,13 +20,6 @@ tblUsuarios = $('#tblUsuarios').DataTable({
     ],
 
     order: [[0, 'desc']],
-
-    rowCallback: function(row, data) {
-        // Mover el usuario con id 1 a la primera fila
-        if (data.id.value === 1) {
-            $(row).prependTo('#tblUsuarios tbody');  // Mueve la fila a la primera posición
-        }
-    }
 });
 
     let data = {
@@ -83,7 +76,7 @@ function btnEditarUser(id) {
             nombreElement.value = res.nombre;
             emailElement.value = res.email;
             rolElement.value = res.id_rol;  // Asignamos el rol del usuario
-            zonaElement.value = res.zona;
+            zonaElement.value = res.id_zona;
             document.getElementById("claves").classList.add("d-none"); // Ocultamos las claves en el formulario de edición
             $("#nuevo_usuario").modal("show");
 

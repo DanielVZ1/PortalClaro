@@ -15,20 +15,12 @@ class UsuariosModel extends Query
         return $data;
     }
 
-    public function getUsuario()
+    public function getUsuario(string $usuario)
     {
-        // Definimos la consulta SQL con un INNER JOIN
-        $sql = "SELECT u.*, z.id AS id_zona, z.zona
-                FROM usuarios u
-                INNER JOIN zona z ON u.id_zona = z.id";
-    
-        // Ejecutamos la consulta con un método que devuelve todos los resultados
-        $data = $this->selectAll($sql);
-    
+        $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
+        $data = $this->select($sql);
         return $data;
     }
-    
-    
 
 
     public function getRoles()
@@ -40,7 +32,12 @@ class UsuariosModel extends Query
 
     public function getUsuarios()
     {
-        $sql = "SELECT u.*, r.id AS id_rol, r.nombrerol FROM usuarios u INNER JOIN rol r ON u.id_rol = r.id";
+        $sql = "SELECT u.*, 
+        r.id AS id_rol, r.nombrerol,
+        z.id As id_zona, z.zona
+        FROM usuarios u 
+        INNER JOIN rol r ON u.id_rol = r.id
+        INNER JOIN zona z ON  u.id_zona = z.id";
         $data = $this->selectAll($sql);
         return $data;
     }
@@ -51,14 +48,14 @@ class UsuariosModel extends Query
         $this->nombre = $nombre;
         $this->clave = $clave;
         $this->email = $email;
-        $this->id_rol = $id_rol;
         $this->id_zona = $id_zona;
+        $this->id_rol = $id_rol;
 
         $verificar = "SELECT * FROM usuarios WHERE usuario = '$this->usuario'";
         $existe = $this->select($verificar);
 
         if (empty($existe)) {
-            $sql = "INSERT INTO usuarios(usuario, nombre, clave, email, id_rol, zona) VALUES (?,?,?,?,?,?)";
+            $sql = "INSERT INTO usuarios(usuario, nombre, clave, email, id_rol, id_zona) VALUES (?,?,?,?,?,?)";
             $datos = array($this->usuario, $this->nombre, $this->clave, $this->email, $this->id_rol, $this->id_zona);
             $data = $this->save($sql, $datos);
             return $data == 1 ? "ok" : "error";
@@ -67,17 +64,17 @@ class UsuariosModel extends Query
         }
     }
 
-    public function modificarUsuario(string $usuario, string $nombre, string $email, int $id_rol, int $id, int $id_zona)
+    public function modificarUsuario(string $usuario, string $nombre, string $email, int $id_rol, int $id_zona, int $id)
     {
         $this->usuario = $usuario;
         $this->nombre = $nombre;
         $this->email = $email;
         $this->id = $id;
-        $this->id_rol = $id_rol;
         $this->id_zona = $id_zona;
+        $this->id_rol = $id_rol;
 
-        $sql = "UPDATE usuarios SET usuario = ?, nombre = ?, email = ?, id_rol = ?, zona = ? WHERE id = ?";
-        $datos = array($this->usuario, $this->nombre, $this->email, $this->id_rol, $this->id, $this->id_zona);
+        $sql = "UPDATE usuarios SET usuario = ?, nombre = ?, email = ?, id_rol = ?, id_zona = ? WHERE id = ?";
+        $datos = array($this->usuario, $this->nombre, $this->email, $this->id_rol, $this->id_zona, $this->id);
         return $this->save($sql, $datos) == 1 ? "modificado" : "error";
     }
 

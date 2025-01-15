@@ -68,6 +68,7 @@ class Usuarios extends Controller
                     </div>';
         }
       }
+      header('Content-Type: application/json');
       echo json_encode($data, JSON_UNESCAPED_UNICODE);
       die();
     }
@@ -137,12 +138,12 @@ class Usuarios extends Controller
                     } else {
                         // Generar el hash de la contraseña
                         $hash = password_hash($clave, PASSWORD_DEFAULT);
-                        $data = $this->model->registrarUsuario($usuario, $nombre, $hash, $email, $id_rol);
+                        $data = $this->model->registrarUsuario($usuario, $nombre, $hash, $email, $id_rol, $zona);
                         $msg = $data == "ok" ? "si" : ($data == "existe" ? "El usuario ya existe" : "Error al registrar el usuario");
                     }
                 } else {
                     // Si es una edición de usuario
-                    $data = $this->model->modificarUsuario($usuario, $nombre, $email, $id_rol, $id);
+                    $data = $this->model->modificarUsuario($usuario, $nombre, $email, $id_rol, $zona, $id);
                     $msg = $data == "modificado" ? "modificado" : "Error al modificar el usuario";
                 }
             }
