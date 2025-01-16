@@ -31,16 +31,20 @@ class UsuariosModel extends Query
     }
 
     public function getUsuarios()
-    {
-        $sql = "SELECT u.*, 
-        r.id AS id_rol, r.nombrerol,
-        z.id As id_zona, z.zona
-        FROM usuarios u 
-        INNER JOIN rol r ON u.id_rol = r.id
-        INNER JOIN zona z ON  u.id_zona = z.id";
-        $data = $this->selectAll($sql);
-        return $data;
-    }
+{
+    $sql = "SELECT u.*, 
+            r.id AS id_rol, r.nombrerol,
+            CASE WHEN u.id = 1 THEN NULL ELSE z.id END AS id_zona,
+            CASE WHEN u.id = 1 THEN NULL ELSE z.zona END AS zona
+            FROM usuarios u 
+            INNER JOIN rol r ON u.id_rol = r.id
+            LEFT JOIN zona z ON u.id_zona = z.id";
+    
+    $data = $this->selectAll($sql);
+    return $data;
+}
+
+    
 
     public function registrarUsuario(string $usuario, string $nombre, string $clave, string $email, int $id_rol, int $id_zona)
     {
