@@ -96,6 +96,7 @@ class Usuarios extends Controller
                         $_SESSION['id_usuario'] = $data['id'];
                         $_SESSION['usuario'] = $data['usuario'];
                         $_SESSION['nombre'] = $data['nombre'];
+                        $_SESSION['id_zona'] = $data['id_zona'];
                         $_SESSION['activo'] = true;
                         $msg = "ok";
 
